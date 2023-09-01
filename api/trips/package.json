@@ -11,7 +11,7 @@
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
     "format": "eslint --ext .ts --fix .",
     "lint": "eslint --ext .ts",
-    "test": "pnpm run lint && pnpm run test:coverage",
+    "test": "pnpm run test:coverage",
     "test:unit": "cross-env NODE_ENV=test jest",
     "test:coverage": "pnpm run test:unit"
   },
