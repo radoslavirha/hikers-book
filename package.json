@@ -1,7 +1,7 @@
 {
-  "name": "vcera-dnes",
+  "name": "trips",
   "version": "1.0.0",
-  "description": "Vcera dnes",
+  "description": "Trips notes",
   "author": "radoslav.irha@gmail.com",
   "license": "MIT",
   "scripts": {

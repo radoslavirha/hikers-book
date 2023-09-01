@@ -1,4 +1,4 @@
-# Vcera dnes
+# Trips
 
 My GR20 (and others) memory book.
 

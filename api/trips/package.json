@@ -1,5 +1,5 @@
 {
-  "name": "@vcera-dnes/api-graphql",
+  "name": "@trips/api-graphql",
   "version": "1.0.0",
   "description": "GraphQL API",
   "author": "radoslav.irha@gmail.com",
@@ -76,7 +76,7 @@
     "@types/node": "^20.5.7",
     "@types/supertest": "^2.0.12",
     "@types/validator": "^13.11.1",
-    "@vcera-dnes/eslint-config": "workspace:*",
+    "@trips/eslint-config": "workspace:*",
     "apollo-server-testing": "^2.25.3",
     "graphql-tag": "^2.12.6",
     "jest": "^29.6.4",
