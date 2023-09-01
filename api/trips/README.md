@@ -2,16 +2,16 @@
 
 ## Getting started
 
-```batch
+```sh
 # install dependencies
-$  pnpm install
+pnpm install
 
 # serve
-$  pnpm start
+pnpm start
 
 # build for production
-$  pnpm build
-$  pnpm start:prod
+pnpm build
+pnpm start:prod
 ```
 
 ## Barrelsby
