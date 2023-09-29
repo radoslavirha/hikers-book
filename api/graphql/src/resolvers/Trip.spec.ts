@@ -1,12 +1,12 @@
+import { TestMongooseContext } from '@tsed/testing-mongoose';
+import { TypeGraphQLService } from '@tsed/typegraphql';
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing';
 import gql from 'graphql-tag';
 import { Server } from '../Server';
-import { TripService } from '../services/Trip';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
-import { TypeGraphQLService } from '@tsed/typegraphql';
-import { Trip } from '../models/Trip';
 import { TripNotFoundError } from '../errors/TripNotFoundError';
 import { Comment } from '../models/Comment';
+import { Trip } from '../models/Trip';
+import { TripService } from '../services/Trip';
 
 const GET_TRIP = gql`
   query Trip($id: String!) {

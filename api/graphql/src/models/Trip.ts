@@ -1,5 +1,5 @@
-import { CollectionOf, Property, Required } from '@tsed/schema';
 import { Model, ObjectID, Ref } from '@tsed/mongoose';
+import { CollectionOf, Property, Required } from '@tsed/schema';
 import { Field, ID, InputType, ObjectType } from 'type-graphql';
 import { Comment } from './Comment';
 

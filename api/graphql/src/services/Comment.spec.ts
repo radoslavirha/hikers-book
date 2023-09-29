@@ -1,8 +1,8 @@
 import { PlatformTest } from '@tsed/common';
-import { CommentService } from './Comment';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { MongooseModel } from '@tsed/mongoose';
+import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { Comment } from '../models/Comment';
+import { CommentService } from './Comment';
 
 describe('CommentService', () => {
   beforeEach(TestMongooseContext.create);

@@ -1,9 +1,9 @@
 import { PlatformTest } from '@tsed/common';
-import { TripService } from './Trip';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { MongooseModel } from '@tsed/mongoose';
+import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { Comment } from '../models/Comment';
 import { Trip } from '../models/Trip';
+import { TripService } from './Trip';
 
 describe('TripService', () => {
   beforeEach(TestMongooseContext.create);

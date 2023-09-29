@@ -1,7 +1,7 @@
 import { Inject, Service } from '@tsed/common';
+import { Injectable } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { Comment } from '../models/Comment';
-import { Injectable } from '@tsed/di';
 
 @Injectable()
 @Service()

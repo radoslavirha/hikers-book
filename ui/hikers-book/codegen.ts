@@ -1,18 +1,21 @@
-import { CodegenConfig } from '@graphql-codegen/cli';
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'http://localhost:4000/graphql',
-  documents: ['src/**/*.ts?(x)'],
+  overwrite: true,
+  schema: 'http://0.0.0.0:8083/graphql',
+  documents: 'src/**/*.graphql',
   generates: {
-    './src/__generated__/': {
-      preset: 'client',
-      plugins: [],
-      presetConfig: {
-        gqlTagName: 'gql',
-      }
+    'src/graphql/generated.ts': {
+      plugins: ['typescript', 'typescript-operations', 'typescript-apollo-angular'],
+      config: { withHooks: true, addExplicitOverride: true }
+    },
+    'src/': {
+      preset: 'near-operation-file',
+      presetConfig: { extension: '.generated.ts', baseTypesPath: 'graphql/generated.ts' },
+      plugins: ['typescript', 'typescript-operations', 'typescript-apollo-angular'],
+      config: { withHooks: true, addExplicitOverride: true }
     }
-  },
-  ignoreNoDocuments: true,
+  }
 };
 
 export default config;

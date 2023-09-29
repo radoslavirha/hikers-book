@@ -1,10 +1,10 @@
 import { Inject } from '@tsed/di';
 import { ResolverController } from '@tsed/typegraphql';
-import { AddTripInput, Trip } from '../models/Trip';
-import { Arg, Query, Mutation } from 'type-graphql';
-import { TripService } from '../services/Trip';
+import { Arg, Mutation, Query } from 'type-graphql';
 import { TripNotFoundError } from '../errors/TripNotFoundError';
-import { Comment, AddCommentInput } from '../models/Comment';
+import { AddCommentInput, Comment } from '../models/Comment';
+import { AddTripInput, Trip } from '../models/Trip';
+import { TripService } from '../services/Trip';
 
 @ResolverController()
 export class TripResolver {

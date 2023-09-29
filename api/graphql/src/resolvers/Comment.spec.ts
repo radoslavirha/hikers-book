@@ -1,9 +1,9 @@
+import { TestMongooseContext } from '@tsed/testing-mongoose';
+import { TypeGraphQLService } from '@tsed/typegraphql';
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing';
 import gql from 'graphql-tag';
 import { Server } from '../Server';
 import { CommentService } from '../services/Comment';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
-import { TypeGraphQLService } from '@tsed/typegraphql';
 
 const GET_TRIP_COMMENTS = gql`
   query TripComments($id: String!) {

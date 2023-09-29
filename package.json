@@ -8,6 +8,7 @@
     "build": "pnpm --stream -r run build",
     "clean": "rm -rf .parcel-cache && pnpm -r run clean",
     "lint": "pnpm --stream -r run lint",
+    "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test"
   }
 }

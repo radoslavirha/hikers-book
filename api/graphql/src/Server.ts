@@ -1,15 +1,15 @@
-import { join } from 'path';
-import { Configuration, Inject } from '@tsed/di';
-import { PlatformApplication } from '@tsed/common';
-import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/ajv';
-import '@tsed/swagger';
+import { PlatformApplication } from '@tsed/common';
+import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
+import '@tsed/platform-express'; // /!\ keep this import
+import '@tsed/swagger';
 import '@tsed/typegraphql';
-import './resolvers/index';
+import { join } from 'path';
 import { config } from './config/index';
-import * as rest from './controllers/rest/index';
 import * as pages from './controllers/pages/index';
+import * as rest from './controllers/rest/index';
+import './resolvers/index';
 
 @Configuration({
   ...config,

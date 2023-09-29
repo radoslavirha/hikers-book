@@ -8,10 +8,13 @@
   },
   "peerDependencies": {
     "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-prettier": "^5.0.0"
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.3"
+  },
+  "devDependencies": {
+    "prettier-plugin-organize-imports": "^3.2.3"
   }
 }

@@ -1,7 +1,7 @@
 import { Inject, Service } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
+import { AddCommentInput, Comment } from '../models/Comment';
 import { AddTripInput, Trip } from '../models/Trip';
-import { Comment, AddCommentInput } from '../models/Comment';
 
 @Service()
 export class TripService {

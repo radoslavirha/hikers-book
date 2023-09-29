@@ -1,7 +1,7 @@
 import { Inject } from '@tsed/di';
 import { ResolverController } from '@tsed/typegraphql';
-import { Comment } from '../models/Comment';
 import { Arg, Query } from 'type-graphql';
+import { Comment } from '../models/Comment';
 import { CommentService } from '../services/Comment';
 
 @ResolverController()

@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
+import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { Server } from './Server';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 
 describe('Server', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;

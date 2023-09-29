@@ -1,5 +1,5 @@
-import { Required } from '@tsed/schema';
 import { Model, ObjectID, Ref } from '@tsed/mongoose';
+import { Required } from '@tsed/schema';
 import { Field, ID, InputType, ObjectType } from 'type-graphql';
 import { Trip } from './Trip';
 

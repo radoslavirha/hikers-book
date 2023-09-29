@@ -1,7 +1,7 @@
-import SuperTest from 'supertest';
-import { HelloWorldController } from './HelloWorldController';
-import { Server } from '../../Server';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
+import SuperTest from 'supertest';
+import { Server } from '../../Server';
+import { HelloWorldController } from './HelloWorldController';
 
 describe('HelloWorldController', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
