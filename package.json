@@ -1,7 +1,7 @@
 {
-  "name": "trips",
+  "name": "hikers-book",
   "version": "1.0.0",
-  "description": "Trips notes",
+  "description": "Hiker's book",
   "author": "radoslav.irha@gmail.com",
   "license": "MIT",
   "scripts": {
