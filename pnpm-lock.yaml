@@ -246,7 +246,7 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
 
-  ui/hikers-book-ui:
+  ui/hikers-book:
     dependencies:
       '@apollo/client':
         specifier: ^3.7.16
