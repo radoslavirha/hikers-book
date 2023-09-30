@@ -11,7 +11,7 @@
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test",
     "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "ci:version": "pnpm changelog && pnpx changeset version && pnpm install --no-frozen-lockfile && git add ."
+    "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add ."
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
