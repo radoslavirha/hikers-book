@@ -18,5 +18,8 @@
   "os": [
     "darwin",
     "linux"
-  ]
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2"
+  }
 }
