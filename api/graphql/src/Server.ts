@@ -14,8 +14,6 @@ import './resolvers/index';
 @Configuration({
   ...config,
   acceptMimes: ['application/json'],
-  httpPort: process.env.PORT || 8083,
-  httpsPort: false, // CHANGE
   disableComponentsScan: true,
   mount: {
     '/rest': [...Object.values(rest)],

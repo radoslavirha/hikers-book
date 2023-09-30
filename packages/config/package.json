@@ -1,0 +1,22 @@
+{
+  "name": "@hikers-book/config",
+  "version": "0.1.0",
+  "description": "Hiker's Book configs",
+  "scripts": {
+    "config": "pnpm run config:ui:hikers-book && pnpm run config:api:graphql",
+    "config:api:graphql": "hikers-book-config-cli -s config/api.graphql.template.json -t config/api.graphql.json -f json",
+    "config:ui:hikers-book": "hikers-book-config-cli -s config/ui.hikers-book.template.json -t config/ui.hikers-book.json -f json",
+    "postinstall": "pnpm run config"
+  },
+  "dependencies": {
+    "@hikers-book/cli-tools": "workspace:*"
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}

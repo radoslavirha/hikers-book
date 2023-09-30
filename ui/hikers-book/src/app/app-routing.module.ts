@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'trips',
-    loadChildren: () => import('./trips/trips.module').then((m) => m.TripsModule)
+    loadChildren: () => import('./component/trips/trips.module').then((m) => m.TripsModule)
   },
   {
     path: '**',

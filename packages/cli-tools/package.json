@@ -1,0 +1,34 @@
+{
+  "name": "@hikers-book/cli-tools",
+  "version": "0.1.0",
+  "description": "Hiker's Book CLI Tools",
+  "main": "bin/index.js",
+  "bin": {
+    "hikers-book-config-cli": "./bin/config.js"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "format": "eslint --ext .ts --fix src",
+    "lint": "eslint --ext .ts src",
+    "postinstall": "yarn build || true"
+  },
+  "dependencies": {
+    "chalk": "4.1.2",
+    "commander": "^11.0.0",
+    "json-merger": "^1.1.10",
+    "log-symbols": "4.1.0"
+  },
+  "devDependencies": {
+    "@hikers-book/eslint-config": "workspace:*",
+    "@types/node": "^20.5.7",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}

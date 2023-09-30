@@ -1,15 +1,18 @@
 {
   "name": "@hikers-book/hikers-book-ui",
   "version": "0.1.0",
+  "description": "Hiker's Book UI",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --localize",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage --watch=false",
     "format": "eslint --fix src",
     "lint": "eslint src",
-    "generate": "graphql-codegen"
+    "generate": "graphql-codegen",
+    "config": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/ui.hikers-book.json -t src/assets/config.json -f json || true",
+    "postinstall": "pnpm run config"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +42,7 @@
     "@angular-eslint/template-parser": "16.1.1",
     "@angular/cli": "~16.2.1",
     "@angular/compiler-cli": "^16.2.0",
+    "@angular/localize": "16.2.7",
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "^4.0.1",
     "@graphql-codegen/introspection": "4.0.0",
@@ -47,6 +51,8 @@
     "@graphql-codegen/typescript-apollo-angular": "3.5.6",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-urql": "^3.7.3",
+    "@hikers-book/cli-tools": "workspace:*",
+    "@hikers-book/config": "workspace:*",
     "@hikers-book/eslint-config": "workspace:*",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
@@ -59,9 +65,17 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-extract-i18n-merge": "2.7.1",
     "ng-mocks": "^14.11.0",
     "postcss": "^8.4.29",
-    "tailwindcss": "^3.3.2",
     "typescript": "~5.1.6"
-  }
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
 }

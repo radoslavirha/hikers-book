@@ -10,5 +10,13 @@
     "lint": "pnpm --stream -r run lint",
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test"
-  }
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
 }

@@ -45,7 +45,6 @@ describe('TripsComponent', () => {
     op.flush({ data: { Trips: mockTrips } });
 
     component.trips.subscribe((trips) => {
-      console.log(fixture.nativeElement);
       expect(trips).toEqual(mockTrips);
     });
   });

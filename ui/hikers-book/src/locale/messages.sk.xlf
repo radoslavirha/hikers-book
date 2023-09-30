@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="ng2.template" source-language="en-US" target-language="sk">
+    <body>
+      <trans-unit id="trip_created_at" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="&lt;/p&gt; &lt;/mat-card-content&gt;"/>
+        </source>
+        <target>
+          <x id="INTERPOLATION" equiv-text="&lt;/p&gt; &lt;/mat-card-content&gt;"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/trips/trips/trips.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+        <note priority="1" from="description">Creation date of trip</note>
+        <note priority="1" from="meaning">Trip card on grid</note>
+      </trans-unit>
+      <trans-unit id="2543023872886351972" datatype="html">
+        <source>Hiker&apos;s Book</source>
+        <target>Hiker&apos;s Book</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">App name</note>
+        <note priority="1" from="meaning">App name</note>
+      </trans-unit>
+      <trans-unit id="5080871131297647038" datatype="html">
+        <source>Hiker&apos;s Book</source>
+        <target>Hiker&apos;s Book</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Tab name</note>
+        <note priority="1" from="meaning">Tab name</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

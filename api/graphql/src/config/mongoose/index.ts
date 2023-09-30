@@ -1,4 +1,10 @@
-// @tsed/cli do not edit
-import defaultConfig from './default.config';
+import cfg from 'config';
+import { ConnectOptions } from 'mongoose';
 
-export default [defaultConfig];
+export default [
+  {
+    id: 'hikers-book',
+    url: cfg.get<string>('mongodb.url'),
+    connectionOptions: cfg.get<ConnectOptions>('mongodb.connectionOptions')
+  }
+];

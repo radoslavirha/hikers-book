@@ -1,0 +1,5 @@
+{
+  "api": {
+    "graphql": "http://localhost:8083/graphql"
+  }
+}

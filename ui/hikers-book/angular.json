@@ -9,7 +9,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "trips-angular": {
+    "hikers-book": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -19,11 +19,21 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "cs": "src/locale/messages.cs.xlf",
+          "sk": "src/locale/messages.sk.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/trips-angular",
+            "localize": [
+              "en-US"
+            ],
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -39,7 +49,8 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "i18nMissingTranslation": "error"
           },
           "configurations": {
             "production": {
@@ -72,18 +83,25 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "trips-angular:build:production"
+              "browserTarget": "hikers-book:build:production"
             },
             "development": {
-              "browserTarget": "trips-angular:build:development"
+              "browserTarget": "hikers-book:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
-            "browserTarget": "trips-angular:build"
+            "browserTarget": "hikers-book:build",
+            "format": "xliff",
+            "outputPath": "src/locale",
+            "targetFiles": [
+              "messages.cs.xlf",
+              "messages.sk.xlf"
+            ],
+            "includeContext": true
           }
         },
         "test": {
