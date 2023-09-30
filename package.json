@@ -9,7 +9,8 @@
     "clean": "rm -rf .parcel-cache && pnpm -r run clean",
     "lint": "pnpm --stream -r run lint",
     "format": "pnpm --stream -r run format",
-    "test": "pnpm --stream -r run test"
+    "test": "pnpm --stream -r run test",
+    "ci:version": "pnpm changelog && pnpx changeset version && pnpm install --no-frozen-lockfile && git add ."
   },
   "engines": {
     "node": ">= 18.0.0",
