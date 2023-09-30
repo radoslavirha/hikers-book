@@ -10,8 +10,13 @@
     "lint": "pnpm --stream -r run lint",
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test",
-    "changelog": "echo 'generate master changelog' && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
     "ci:version": "pnpm changelog && pnpx changeset version && pnpm install --no-frozen-lockfile && git add ."
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "conventional-changelog-cli": "^4.1.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2"
   },
   "engines": {
     "node": ">= 18.0.0",
@@ -20,9 +25,5 @@
   "os": [
     "darwin",
     "linux"
-  ],
-  "devDependencies": {
-    "@changesets/cli": "^2.26.2",
-    "conventional-changelog": "^5.1.0"
-  }
+  ]
 }
