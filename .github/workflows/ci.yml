@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,11 +25,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - name: Install modules
+      - name: Install dependencies
         run: pnpm install
       - name: Lint workspaces
         run: pnpm lint
   test:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -45,7 +47,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - name: Install modules
+      - name: Install dependencies
         run: pnpm install
       - name: Test workspaces
         run: pnpm test
