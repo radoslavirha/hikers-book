@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --localize",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage --watch=false",
+    "test": "ng test --code-coverage --watch=false --browsers=ChromeHeadless",
     "format": "eslint --fix src",
     "lint": "eslint src",
     "generate": "graphql-codegen",
