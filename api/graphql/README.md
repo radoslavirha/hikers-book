@@ -1,4 +1,4 @@
-# Ts.ED API
+# Hiker's Book GraphQL API
 
 ## Getting started
 
