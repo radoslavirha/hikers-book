@@ -1,0 +1,11 @@
+{
+  "name": "@hikers-book/docker",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pnpm run build:ui:hikers-book && pnpm run build:api:graphql",
+    "build:api:graphql": "docker build -f Dockerfile.api.graphql.dockerfile -t radoslavirha/hikers-book-api-graphql:$VERSION ../",
+    "build:ui:hikers-book": "docker build -f Dockerfile.ui.hikers-book.dockerfile -t radoslavirha/hikers-book-ui-hikers-book:$VERSION ../",
+    "run": "docker compose -f docker-compose.hikers-book.yml up"
+  }
+}
