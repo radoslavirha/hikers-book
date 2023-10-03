@@ -1,5 +1,11 @@
 # @hikers-book/cli-tools
 
+## 0.1.3
+
+### Patch Changes
+
+- 358243e: new changes test
+
 ## 0.1.2
 
 ### Patch Changes
