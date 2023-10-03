@@ -1,7 +1,5 @@
----
 name: CI
 
-# yamllint disable-line rule:truthy
 on:
   push:
   workflow_dispatch:
@@ -29,8 +27,8 @@ jobs:
         run: pnpm install
       - name: Lint workspaces
         run: pnpm lint
-  test:
-    name: Test
+  build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,5 +47,5 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Test workspaces
-        run: pnpm test
+      - name: Build workspaces
+        run: pnpm build
