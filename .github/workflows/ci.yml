@@ -1,7 +1,5 @@
----
 name: CI
 
-# yamllint disable-line rule:truthy
 on:
   push:
   workflow_dispatch:
@@ -51,25 +49,3 @@ jobs:
         run: pnpm install
       - name: Build workspaces
         run: pnpm build
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-  #     - name: Use pnpm 8
-  #       uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 8
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: 'pnpm'
-  #     - name: Install dependencies
-  #       run: pnpm install
-  #     - name: Test workspaces
-  #       run: pnpm test
