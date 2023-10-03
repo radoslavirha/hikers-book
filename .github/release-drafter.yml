@@ -1,0 +1,134 @@
+name-template: 'Release $RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+categories:
+  - title: '⚠️ Breaking changes'
+    labels:
+      - 'breaking change'
+  - title: '🚀 Features'
+    labels:
+      - 'feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+  - title: '📃 Documents'
+    labels:
+      - 'docs'
+  - title: '✅ Tests'
+    labels:
+      - 'test'
+  - title: '🧩 Dependency Updates'
+    labels:
+      - 'deps'
+      - 'dependencies'
+      - 'bump'
+    collapse-after: 5
+  - title: '🔬 Others'
+    labels:
+      - 'style'
+      - 'refactor'
+      - 'test'
+      - 'ci'
+      - 'chore'
+    collapse-after: 5
+autolabeler:
+  - label: 'major'
+    title:
+      - '/!:/i'
+  - label: 'minor'
+    title:
+      - '/feat:/i'
+      - '/feature:/i'
+      - '/refactor:/i'
+    branch:
+      - '/feat\/.+/'
+      - '/feature\/.+/'
+      - '/refactor\/.+/'
+  - label: 'breaking change'
+    title:
+      - '/!:/i'
+  - label: 'feature'
+    title:
+      - '/feat:/i'
+      - '/feature:/i'
+    branch:
+      - '/feat\/.+/'
+      - '/feature\/.+/'
+  - label: 'bug'
+    title:
+      - '/fix:/i'
+    branch:
+      - '/fix\/.+/'
+  - label: 'style'
+    title:
+      - '/style:/i'
+    branch:
+      - '/style\/.+/'
+  - label: 'refactor'
+    title:
+      - '/refactor:/i'
+    branch:
+      - '/refactor\/.+/'
+  - label: 'chore'
+    title:
+      - '/chore:/i'
+    branch:
+      - '/chore\/.+/'
+  - label: 'docs'
+    title:
+      - '/docs:/i'
+    branch:
+      - '/docs\/.+/'
+  - label: 'ci'
+    title:
+      - '/ci:/i'
+    branch:
+      - '/ci\/.+/'
+  - label: 'test'
+    title:
+      - '/test:/i'
+    branch:
+      - '/test\/.+/'
+  - label: 'dependencies'
+    title:
+      - '/deps:/i'
+      - '/dependencies:/i'
+      - '/bump:/i'
+      - '/build:/i'
+    branch:
+      - '/deps\/.+/'
+      - '/dependencies\/.+/'
+      - '/bump\/.+/'
+      - '/build\/.+/'
+  - label: '@hikers-book/graphql-api'
+    files:
+      - '/api/graphql/*'
+  - label: '@hikers-book/hikers-book-ui'
+    files:
+      - '/ui/hikers-book/*'
+  - label: '@hikers-book/cli-tools'
+    files:
+      - '/packages/cli-tools/*'
+  - label: '@hikers-book/config'
+    files:
+      - '/packages/config/*'
+  - label: '@hikers-book/eslint-config'
+    files:
+      - '/packages/eslint-config/*'
+commitish: main
+template: |
+  ## What’s Changed
+
+  $CHANGES
