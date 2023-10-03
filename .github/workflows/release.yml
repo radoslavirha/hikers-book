@@ -40,20 +40,20 @@ jobs:
       #     file: laskakit-data-feeder/config.json
       #     field: version
       #     value: ${{ steps.version.outputs.version }}
-      # - name: Extract release date from git tag
-      #   id: release_date
-      #   run: |
-      #     echo "date=$(git log -1 --date=short --format=%ad '${{ github.event.release.tag_name }}')" >> $GITHUB_OUTPUT;
-      # - name: Update Changelog
-      #   uses: stefanzweifel/changelog-updater-action@v1
-      #   with:
-      #     latest-version: ${{ steps.version.outputs.version }}
-      #     release-date: ${{ steps.release_date.outputs.date }}
-      #     release-notes: ${{ github.event.release.body }}
-      # - name: Commit and push
-      #   uses: stefanzweifel/git-auto-commit-action@v4
-      #   with:
-      #     commit_message: "chore: Release ${{ steps.version.outputs.version }} [skip ci]"
+      - name: Extract release date from git tag
+        id: release_date
+        run: |
+          echo "date=$(git log -1 --date=short --format=%ad '${{ github.event.release.tag_name }}')" >> $GITHUB_OUTPUT;
+      - name: Update Changelog
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ steps.version.outputs.version }}
+          release-date: ${{ steps.release_date.outputs.date }}
+          release-notes: ${{ github.event.release.body }}
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: Release ${{ steps.version.outputs.version }} [skip ci]"
 
   # publish-docker:
   #   name: Publish to Docker Hub
