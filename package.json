@@ -14,9 +14,6 @@
     "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add ."
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.2",
-    "conventional-changelog-cli": "^4.1.0",
-    "conventional-changelog-conventionalcommits": "^7.0.2"
   },
   "engines": {
     "node": ">= 18.0.0",
