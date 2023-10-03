@@ -91,6 +91,8 @@ autolabeler:
       - '/docs:/i'
     branch:
       - '/docs\/.+/'
+    files:
+      - '*.md'
   - label: 'ci'
     title:
       - '/ci:/i'
@@ -112,6 +114,15 @@ autolabeler:
       - '/dependencies\/.+/'
       - '/bump\/.+/'
       - '/build\/.+/'
+  - label: 'API'
+    files:
+      - 'api/*'
+  - label: 'UI'
+    files:
+      - 'ui/*'
+  - label: 'PACKAGES'
+    files:
+      - 'packages/*'
   - label: '@hikers-book/graphql-api'
     files:
       - '/api/graphql/*'
@@ -127,6 +138,12 @@ autolabeler:
   - label: '@hikers-book/eslint-config'
     files:
       - '/packages/eslint-config/*'
+  - label: 'GitHub'
+    files:
+      - '.github/*'
+  - label: 'Docker'
+    files:
+      - 'docker/*'
 commitish: main
 template: |
   ## What’s Changed
