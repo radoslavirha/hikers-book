@@ -1,6 +1,6 @@
 {
   "name": "@hikers-book/cli-tools",
-  "version": "0.1.3",
+  "version": "0.0.1",
   "description": "Hiker's Book CLI Tools",
   "main": "bin/index.js",
   "bin": {
