@@ -1,5 +1,5 @@
 {
-  ".": "0.0.1",
+  ".": "0.1.0",
   "api/graphql": "0.0.1",
   "ui/hikers-book": "0.0.1",
   "packages/cli-tools": "0.0.1",
