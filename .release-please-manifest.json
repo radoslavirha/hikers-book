@@ -1,1 +1,8 @@
-{}
+{
+  ".": "0.1.0",
+  "api/graphql": "0.1.0",
+  "ui/hikers-book": "0.1.0",
+  "packages/cli-tools": "0.1.0",
+  "packages/config": "0.1.0",
+  "packages/eslint-config": "0.1.0"
+}

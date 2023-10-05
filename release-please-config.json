@@ -1,1 +1,12 @@
-{}
+{
+  "packages": {
+    ".": {
+      "exclude-paths": [".act",".github",".vscode","docs"]
+    },
+    "api/graphql": {},
+    "ui/hikers-book": {},
+    "packages/cli-tools": {},
+    "packages/config": {},
+    "packages/eslint-config": {}
+  }
+}
