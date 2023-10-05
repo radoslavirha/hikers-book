@@ -1,6 +1,6 @@
 {
   "name": "hikers-book",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Hiker's book",
   "author": "radoslav.irha@gmail.com",
   "license": "MIT",
@@ -13,8 +13,7 @@
     "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
     "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add ."
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">= 18.0.0",
     "pnpm": ">= 8.7.0"
