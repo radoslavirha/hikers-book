@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/radoslavirha/hikers-book/compare/0.2.1...0.2.2) (2023-10-05)
+
+
+### Bug Fixes
+
+* trigger release ([ebc1c9f](https://github.com/radoslavirha/hikers-book/commit/ebc1c9ff3e790b8fa2ac0f173bb2fe59ea61f503))
+
 ## [0.2.1](https://github.com/radoslavirha/hikers-book/compare/0.2.0...0.2.1) (2023-10-05)
 
 
