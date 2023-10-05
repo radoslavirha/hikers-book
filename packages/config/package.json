@@ -1,6 +1,6 @@
 {
   "name": "@hikers-book/config",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Hiker's Book configs",
   "scripts": {
     "config": "pnpm run config:ui:hikers-book && pnpm run config:api:graphql",

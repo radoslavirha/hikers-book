@@ -1,6 +1,6 @@
 {
   "name": "@hikers-book/eslint-config",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "ESLint/Prettier config for Hiker's Book",
   "main": "index.js",
   "dependencies": {

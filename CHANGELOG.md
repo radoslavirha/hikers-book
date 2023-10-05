@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/radoslavirha/hikers-book/compare/0.2.2...0.3.0) (2023-10-05)
+
+
+### Features
+
+* ci trigger release build ([b70f9b4](https://github.com/radoslavirha/hikers-book/commit/b70f9b4ad50f68d30816b6bc011316dc6651d5f6))
+
 ## [0.2.2](https://github.com/radoslavirha/hikers-book/compare/0.2.1...0.2.2) (2023-10-05)
 
 
