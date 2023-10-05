@@ -5,31 +5,33 @@
       "include-component-in-tag": false,
       "include-v-in-tag": false,
       "package-name": "hikers-book"
-    },
-    "api/graphql": {
-      "include-component-in-tag": false,
-      "include-v-in-tag": false,
-      "package-name": "@hikers-book/graphql-api"
-    },
-    "ui/hikers-book": {
-      "include-component-in-tag": false,
-      "include-v-in-tag": false,
-      "package-name": "@hikers-book/hikers-book-ui"
-    },
-    "packages/cli-tools": {
-      "include-component-in-tag": false,
-      "include-v-in-tag": false,
-      "package-name": "@hikers-book/cli-tools"
-    },
-    "packages/config": {
-      "include-component-in-tag": false,
-      "include-v-in-tag": false,
-      "package-name": "@hikers-book/config"
-    },
-    "packages/eslint-config": {
-      "include-component-in-tag": false,
-      "include-v-in-tag": false,
-      "package-name": "@hikers-book/eslint-config"
     }
-  }
+  },
+  "extra-files": [
+    {
+      "type": "json",
+      "path": "api/graphql/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "ui/hikers-book/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "packages/cli-tools/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "packages/config/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "packages/eslint-config/package.json",
+      "jsonpath": "$.version"
+    }
+  ]
 }
