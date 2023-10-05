@@ -1,7 +1,7 @@
 {
   "packages": {
     ".": {
-      "exclude-paths": [".act",".github",".vscode","docs"],
+      "exclude-paths": [".act",".vscode","docs"],
       "include-component-in-tag": false,
       "include-v-in-tag": false,
       "package-name": "hikers-book"
