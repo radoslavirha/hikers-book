@@ -1,13 +1,35 @@
 {
-  "include-v-in-tag": false,
   "packages": {
     ".": {
-      "exclude-paths": [".act",".github",".vscode","docs"]
+      "exclude-paths": [".act",".github",".vscode","docs"],
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "hikers-book"
     },
-    "api/graphql": {},
-    "ui/hikers-book": {},
-    "packages/cli-tools": {},
-    "packages/config": {},
-    "packages/eslint-config": {}
+    "api/graphql": {
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "@hikers-book/graphql-api"
+    },
+    "ui/hikers-book": {
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "@hikers-book/hikers-book-ui"
+    },
+    "packages/cli-tools": {
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "@hikers-book/cli-tools"
+    },
+    "packages/config": {
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "@hikers-book/config"
+    },
+    "packages/eslint-config": {
+      "include-component-in-tag": false,
+      "include-v-in-tag": false,
+      "package-name": "@hikers-book/eslint-config"
+    }
   }
 }
