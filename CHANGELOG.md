@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/radoslavirha/hikers-book/compare/0.1.0...0.2.0) (2023-10-05)
+
+
+### Features
+
+* update docs ([7129faa](https://github.com/radoslavirha/hikers-book/commit/7129faaa778470bf0a312169f0b73201ddbcdc1e))
+
 ## [0.1.0](https://github.com/radoslavirha/hikers-book/compare/v0.0.1...0.1.0) (2023-10-05)
 
 
