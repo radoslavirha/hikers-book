@@ -17,14 +17,4 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         id: release
         with:
-          include-v-in-tag: false
           command: manifest
-      # - name: Checkout repository
-      #   if: ${{ steps.release.outputs.release_created }}
-      #   uses: actions/checkout@v2
-      # - run: echo ${{ steps.release.outputs.version }}
-      #   if: ${{ steps.release.outputs.release_created }}
-      # # - run: echo "Release ${{ steps.release.outputs['api/graphql--tag_name'] }} created for api/graphql."
-      # #   if: ${{ steps.release.outputs['api/graphql--release_created'] }}
-      # # - run: echo "Release ${{ steps.release.outputs['ui/hikers-book--tag_name'] }} created for ui/hikers-book."
-      # #   if: ${{ steps.release.outputs['ui/hikers-book--release_created'] }}
