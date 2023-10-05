@@ -3,7 +3,7 @@ name: Build and Publish to Docker Hub
 on:
   release:
     types:
-      - published
+      - released
 
 jobs:
   api-graphql:
