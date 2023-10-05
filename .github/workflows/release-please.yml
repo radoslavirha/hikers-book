@@ -18,8 +18,10 @@ jobs:
         with:
           command: manifest
       - uses: actions/checkout@v2
-        # these if statements ensure that a publication only occurs when
-        # a new release is created:
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created }}
       - run: echo ${{ steps.release.outputs }}
         if: ${{ steps.release.outputs.release_created }}
+      - run: echo "Release ${{ steps.release.outputs['api/graphql--tag_name'] }} created for api/graphql."
+        if: ${{ steps.release.outputs['api/graphql--release_created'] }}
+      - run: echo "Release ${{ steps.release.outputs['ui/hikers-book--tag_name'] }} created for ui/hikers-book."
+        if: ${{ steps.release.outputs['ui/hikers-book--release_created'] }}
