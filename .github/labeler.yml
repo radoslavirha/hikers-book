@@ -1,0 +1,15 @@
+API: api/**
+UI: ui/**
+PACKAGE: packages/**
+
+'GraphQL API': api/graphql/**
+"Hiker's Book": ui/hikers-book/**
+'@hikers-book/cli-tools': packages/cli-tools/**
+'@hikers-book/config': packages/config/**
+'@hikers-book/eslint-config': packages/eslint-config/**
+
+ci: .github/**
+deps: '**/package.json'
+docker: docker/**
+docs: '**/*.md'
+test: '**/*.spec.ts'
