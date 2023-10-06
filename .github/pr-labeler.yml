@@ -1,0 +1,22 @@
+feature:
+  - 'feature/*'
+  - 'feat/*'
+fix:
+  - 'fix/*'
+  - 'bug/*'
+
+chore:
+  - 'chore/*'
+ci:
+  - 'ci/*'
+deps:
+  - 'deps/*'
+  - 'dependencies/*'
+docker:
+  - 'docker/*'
+docs:
+  - 'docs/*'
+refactor:
+  - 'refactor/*'
+test:
+  - 'test/*'
