@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   release-please:
+    name: Release please
     runs-on: ubuntu-latest
     outputs:
       release: ${{ steps.release.outputs.release_created }}
@@ -23,64 +24,49 @@ jobs:
         id: release
         with:
           command: manifest
-      # - name: Export Release please artifacts
-      #   id: artifacts
-      #   # if: ${{ steps.release.outputs.release_created }}
-      #   run: |
-      #     VERSION=${{ steps.release.outputs.version }}
-      #     echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-      #     echo "released=${VERSION}" >> "$GITHUB_OUTPUT"
 
-  build:
+  api-graphql:
+    name: Build & Publish GraphQL API to Docker Hub
     runs-on: ubuntu-latest
     needs: release-please
     if: needs.release-please.outputs.release
     steps:
-      - name: echo values
-        run: |
-          echo ${{ needs.release-please.outputs.releases }} ${{ needs.release-please.outputs.release }} ${{ needs.release-please.outputs.version }} ${{ needs.release-please.outputs.tag }}
-  # api-graphql:
-  #   runs-on: ubuntu-latest
-  #   needs: release-please
-  #   name: Publish GraphQL API to Docker Hub
-  #   if: needs.release-please.outputs.release
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
-  #     - name: Login to Docker Hub
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     - name: Build and push Docker image
-  #       uses: docker/build-push-action@v5
-  #       with:
-  #         context: .
-  #         file: ./docker/Dockerfile.api.graphql.dockerfile
-  #         push: true
-  #         tags: radoslavirha/hikers-book-api-graphql:${{ needs.release-please.outputs.version }},radoslavirha/hikers-book-api-graphql:latest
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile.api.graphql.dockerfile
+          push: true
+          tags: radoslavirha/hikers-book-api-graphql:${{ needs.release-please.outputs.version }},radoslavirha/hikers-book-api-graphql:latest
 
-  # ui-hikers-book:
-  #   runs-on: ubuntu-latest
-  #   needs: release-please
-  #   if: needs.release-please.outputs.release
-  #   name: Publish Hiker's Book UI to Docker Hub
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
-  #     - name: Login to Docker Hub
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     - name: Build and push Docker image
-  #       uses: docker/build-push-action@v5
-  #       with:
-  #         context: .
-  #         file: ./docker/Dockerfile.ui.hikers-book.dockerfile
-  #         push: true
-  #         tags: radoslavirha/hikers-book-ui-hikers-book:${{ needs.release-please.outputs.version }},radoslavirha/hikers-book-ui-hikers-book:latest
+  ui-hikers-book:
+    name: Build & Publish Hiker's Book UI to Docker Hub
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: needs.release-please.outputs.release
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile.ui.hikers-book.dockerfile
+          push: true
+          tags: radoslavirha/hikers-book-ui-hikers-book:${{ needs.release-please.outputs.version }},radoslavirha/hikers-book-ui-hikers-book:latest
