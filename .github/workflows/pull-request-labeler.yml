@@ -1,8 +1,10 @@
 name: Pull Request Labeler
 
 on:
-  pull_request_target:
-    types: [ opened, edited ]
+  pull_request:
+    types: 
+      - opened
+      - edited
 
 jobs:
   labeler:
