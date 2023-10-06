@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/radoslavirha/hikers-book/compare/0.3.0...0.3.1) (2023-10-06)
+
+
+### Bug Fixes
+
+* test releasing conditions ([fca505f](https://github.com/radoslavirha/hikers-book/commit/fca505f40b78023f16eb9df79e8f07583ff12521))
+
 ## [0.3.0](https://github.com/radoslavirha/hikers-book/compare/0.2.2...0.3.0) (2023-10-05)
 
 
