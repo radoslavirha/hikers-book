@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/radoslavirha/hikers-book/compare/0.3.1...0.4.0) (2023-10-06)
+
+
+### Features
+
+* :sparkles: finished releasing to docker registry ([76b200c](https://github.com/radoslavirha/hikers-book/commit/76b200cd5fa3aeabadca494123b7d1fdd1999e7f))
+
 ## [0.3.1](https://github.com/radoslavirha/hikers-book/compare/0.3.0...0.3.1) (2023-10-06)
 
 
