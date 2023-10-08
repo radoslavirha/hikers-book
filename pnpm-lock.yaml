@@ -70,6 +70,9 @@ importers:
       '@tsed/schema':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/openspec@7.36.8)
+      '@tsed/swagger':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/common@7.36.8)
       ajv:
         specifier: ^8.12.0
         version: 8.12.0
@@ -263,6 +266,9 @@ importers:
       '@tsed/schema':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/openspec@7.36.8)
+      '@tsed/swagger':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/common@7.36.8)
       ajv:
         specifier: ^8.12.0
         version: 8.12.0
@@ -396,9 +402,6 @@ importers:
 
   api/graphql:
     dependencies:
-      '@hikers-book/tsed-swagger':
-        specifier: workspace:*
-        version: link:../../packages/tsed-swagger
       '@tsed/ajv':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
