@@ -13,9 +13,12 @@
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test",
     "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add ."
+    "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "prepare": "husky install"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "husky": "^8.0.3"
+  },
   "engines": {
     "node": ">= 18.0.0",
     "pnpm": ">= 8.7.0"
