@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
-import { Comment } from '../models/Comment';
+// import { Comment } from '../models/Comment';
 import { Trip } from '../models/Trip';
 import { TripService } from './Trip';
 

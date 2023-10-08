@@ -4,7 +4,7 @@ import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing'
 import gql from 'graphql-tag';
 import { Server } from '../../Server';
 import { TripNotFoundError } from '../errors/TripNotFoundError';
-import { Comment } from '../models/Comment';
+// import { Comment } from '../models/Comment';
 import { Trip } from '../models/Trip';
 import { TripService } from '../services/Trip';
 
