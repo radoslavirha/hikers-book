@@ -3,7 +3,7 @@ import { ConnectOptions } from 'mongoose';
 
 export default [
   {
-    id: 'comments',
+    id: 'stages',
     url: cfg.get<string>('mongodb.url'),
     connectionOptions: cfg.get<ConnectOptions>('mongodb.connectionOptions')
   }

@@ -56,25 +56,25 @@ describe('TripService', () => {
     });
   });
 
-  describe('addComment(id, data)', () => {
-    it('Should pass', async () => {
-      const tripId = '64f1e2813c860fa45e7a54d7';
-      const service = PlatformTest.get<TripService>(TripService);
-      const model = PlatformTest.get<MongooseModel<Trip>>(Trip);
-      const modelComment = PlatformTest.get<MongooseModel<Comment>>(Comment);
-      const trip = { id: tripId, label: 'test', comments: [], save: jest.fn() };
-      const comment = { content: 'comment' };
-      const spyTripFindById = jest.spyOn(model, 'findById').mockResolvedValue(trip);
-      const spyTripSave = jest.spyOn(trip, 'save');
-      // @ts-expect-error return dummy model
-      const spyCreateComment = jest.spyOn(modelComment, 'create').mockResolvedValue(comment);
+  // describe('addComment(id, data)', () => {
+  //   it('Should pass', async () => {
+  //     const tripId = '64f1e2813c860fa45e7a54d7';
+  //     const service = PlatformTest.get<TripService>(TripService);
+  //     const model = PlatformTest.get<MongooseModel<Trip>>(Trip);
+  //     const modelComment = PlatformTest.get<MongooseModel<Comment>>(Comment);
+  //     const trip = { id: tripId, label: 'test', comments: [], save: jest.fn() };
+  //     const comment = { content: 'comment' };
+  //     const spyTripFindById = jest.spyOn(model, 'findById').mockResolvedValue(trip);
+  //     const spyTripSave = jest.spyOn(trip, 'save');
+  //     // @ts-expect-error return dummy model
+  //     const spyCreateComment = jest.spyOn(modelComment, 'create').mockResolvedValue(comment);
 
-      const result = await service.addComment(tripId, comment);
+  //     const result = await service.addComment(tripId, comment);
 
-      expect(spyTripFindById).toBeCalledWith(tripId);
-      expect(spyCreateComment).toBeCalledWith({ trip: tripId, ...comment });
-      expect(spyTripSave).toBeCalled();
-      expect(result).toEqual(comment);
-    });
-  });
+  //     expect(spyTripFindById).toBeCalledWith(tripId);
+  //     expect(spyCreateComment).toBeCalledWith({ trip: tripId, ...comment });
+  //     expect(spyTripSave).toBeCalled();
+  //     expect(result).toEqual(comment);
+  //   });
+  // });
 });

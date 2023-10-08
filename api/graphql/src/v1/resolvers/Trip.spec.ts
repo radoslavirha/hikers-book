@@ -32,13 +32,13 @@ const CREATE_TRIP = gql`
   }
 `;
 
-const ADD_COMMENT_TO_TRIP = gql`
-  mutation AddCommentToTrip($id: String!, $data: AddCommentInput!) {
-    AddCommentToTrip(id: $id, data: $data) {
-      content
-    }
-  }
-`;
+// const ADD_COMMENT_TO_TRIP = gql`
+//   mutation AddCommentToTrip($id: String!, $data: AddCommentInput!) {
+//     AddCommentToTrip(id: $id, data: $data) {
+//       content
+//     }
+//   }
+// `;
 
 describe('Trip', () => {
   let request: ApolloServerTestClient;
@@ -112,22 +112,22 @@ describe('Trip', () => {
     expect(spy).toBeCalledWith(trip);
   });
 
-  it('Should add comment', async () => {
-    const spy = jest.spyOn(service, 'addComment').mockResolvedValue({ content: 'comment' } as Comment);
-    const comment = {
-        content: 'comment'
-      },
-      id = '64f1e2813c860fa45e7a54d7';
+  // it('Should add comment', async () => {
+  //   const spy = jest.spyOn(service, 'addComment').mockResolvedValue({ content: 'comment' } as Comment);
+  //   const comment = {
+  //       content: 'comment'
+  //     },
+  //     id = '64f1e2813c860fa45e7a54d7';
 
-    const response = await request.query({
-      query: ADD_COMMENT_TO_TRIP,
-      variables: {
-        id,
-        data: comment
-      }
-    });
+  //   const response = await request.query({
+  //     query: ADD_COMMENT_TO_TRIP,
+  //     variables: {
+  //       id,
+  //       data: comment
+  //     }
+  //   });
 
-    expect(response.data).toEqual({ AddCommentToTrip: { content: 'comment' } });
-    expect(spy).toBeCalledWith(id, comment);
-  });
+  //   expect(response.data).toEqual({ AddCommentToTrip: { content: 'comment' } });
+  //   expect(spy).toBeCalledWith(id, comment);
+  // });
 });

@@ -2,7 +2,7 @@ import { Inject } from '@tsed/di';
 import { ResolverController } from '@tsed/typegraphql';
 import { Arg, Mutation, Query } from 'type-graphql';
 import { TripNotFoundError } from '../errors/TripNotFoundError';
-import { AddCommentInput, Comment } from '../models/Comment';
+// import { AddCommentInput, Comment } from '../models/Comment';
 import { AddTripInput, Trip } from '../models/Trip';
 import { TripService } from '../services/Trip';
 
@@ -32,8 +32,8 @@ export class TripResolver {
     return this.tripService.create(event);
   }
 
-  @Mutation(() => Comment, { description: 'Add new comment to trip' })
-  async AddCommentToTrip(@Arg('id', { description: 'MongoDB _id' }) id: string, @Arg('data') event: AddCommentInput) {
-    return this.tripService.addComment(id, event);
-  }
+  // @Mutation(() => Comment, { description: 'Add new comment to trip' })
+  // async AddCommentToTrip(@Arg('id', { description: 'MongoDB _id' }) id: string, @Arg('data') event: AddCommentInput) {
+  //   return this.tripService.addComment(id, event);
+  // }
 }

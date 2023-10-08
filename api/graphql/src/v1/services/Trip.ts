@@ -1,6 +1,6 @@
 import { Inject, Service } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { AddCommentInput, Comment } from '../models/Comment';
+// import { AddCommentInput, Comment } from '../models/Comment';
 import { AddTripInput, Trip } from '../models/Trip';
 
 @Service()
@@ -8,8 +8,8 @@ export class TripService {
   @Inject(Trip)
   private Trip!: MongooseModel<Trip>;
 
-  @Inject(Comment)
-  private Comment!: MongooseModel<Comment>;
+  // @Inject(Comment)
+  // private Comment!: MongooseModel<Comment>;
 
   async findById(id: string): Promise<Trip | null> {
     return this.Trip.findById(id).exec();
@@ -23,15 +23,15 @@ export class TripService {
     return this.Trip.create(trip);
   }
 
-  async addComment(id: string, data: AddCommentInput): Promise<Comment> {
-    return this.Trip.findById(id).then(async (trip) => {
-      const comment = await this.Comment.create({ trip: id, ...data });
+  // async addComment(id: string, data: AddCommentInput): Promise<Comment> {
+  //   return this.Trip.findById(id).then(async (trip) => {
+  //     const comment = await this.Comment.create({ trip: id, ...data });
 
-      trip?.comments?.push(comment._id);
+  //     trip?.comments?.push(comment._id);
 
-      await trip?.save();
+  //     await trip?.save();
 
-      return comment;
-    });
-  }
+  //     return comment;
+  //   });
+  // }
 }
