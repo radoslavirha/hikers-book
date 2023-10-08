@@ -2,7 +2,7 @@ import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { TypeGraphQLService } from '@tsed/typegraphql';
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing';
 import gql from 'graphql-tag';
-import { Server } from '../Server';
+import { Server } from '../../Server';
 import { TripNotFoundError } from '../errors/TripNotFoundError';
 import { Comment } from '../models/Comment';
 import { Trip } from '../models/Trip';
@@ -47,7 +47,7 @@ describe('Trip', () => {
 
   beforeAll(TestMongooseContext.bootstrap(Server));
   beforeAll(() => {
-    const server = TestMongooseContext.get<TypeGraphQLService>(TypeGraphQLService).get('default')!;
+    const server = TestMongooseContext.get<TypeGraphQLService>(TypeGraphQLService).get('v1')!;
     service = TestMongooseContext.get(TripService);
 
     // @ts-expect-error apollo-server-testing types are wrong
@@ -112,7 +112,7 @@ describe('Trip', () => {
     expect(spy).toBeCalledWith(trip);
   });
 
-  it('Should create trip', async () => {
+  it('Should add comment', async () => {
     const spy = jest.spyOn(service, 'addComment').mockResolvedValue({ content: 'comment' } as Comment);
     const comment = {
         content: 'comment'

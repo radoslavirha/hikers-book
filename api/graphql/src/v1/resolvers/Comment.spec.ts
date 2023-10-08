@@ -2,7 +2,7 @@ import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { TypeGraphQLService } from '@tsed/typegraphql';
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing';
 import gql from 'graphql-tag';
-import { Server } from '../Server';
+import { Server } from '../../Server';
 import { CommentService } from '../services/Comment';
 
 const GET_TRIP_COMMENTS = gql`
@@ -19,7 +19,7 @@ describe('Comment', () => {
 
   beforeAll(TestMongooseContext.bootstrap(Server));
   beforeAll(() => {
-    const server = TestMongooseContext.get<TypeGraphQLService>(TypeGraphQLService).get('default')!;
+    const server = TestMongooseContext.get<TypeGraphQLService>(TypeGraphQLService).get('v1')!;
     const service = TestMongooseContext.get(CommentService);
 
     // @ts-expect-error apollo-server-testing types are wrong

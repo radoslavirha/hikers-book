@@ -4,7 +4,7 @@
     "connectionOptions": {}
   },
   "server": {
-    "httpPort": 8083,
+    "httpPort": 5503,
     "httpsPort": false
   }
 }

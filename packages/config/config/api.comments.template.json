@@ -1,0 +1,10 @@
+{
+  "mongodb": {
+    "url": "mongodb://hiker:hikers_password@localhost:27017/hikers-book",
+    "connectionOptions": {}
+  },
+  "server": {
+    "httpPort": 5502,
+    "httpsPort": false
+  }
+}

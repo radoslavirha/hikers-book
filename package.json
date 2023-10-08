@@ -7,6 +7,8 @@
   "scripts": {
     "build": "pnpm --stream -r run build",
     "clean": "rm -rf .parcel-cache && pnpm -r run clean",
+    "config": "pnpm --filter '@hikers-book/config' run config && pnpm --filter=!'@hikers-book/config' run config:all",
+    "config:clear": "pnpm --stream -r run config:clear",
     "lint": "pnpm --stream -r run lint",
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test",

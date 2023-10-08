@@ -1,0 +1,13 @@
+{
+  "mongodb": {
+    "url": "MONGODB_URL",
+    "connectionOptions": {
+      "__name": "MONGODB_CONNECTION_OPTIONS",
+      "__format": "json"
+    }
+  },
+  "server": {
+    "httpPort": "SERVER_HTTP_PORT",
+    "httpsPort": "SERVER_HTTPS_PORT"
+  }
+}

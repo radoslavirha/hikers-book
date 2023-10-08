@@ -1,5 +1,8 @@
 {
   "api": {
-    "graphql": "http://localhost:8083/graphql"
+    "authentication": "http://localhost:5501/v1",
+    "comments": "http://localhost:5502/v1",
+    "graphql": "http://localhost:5503/v1/graphql",
+    "trips": "http://localhost:5504/v1"
   }
 }
