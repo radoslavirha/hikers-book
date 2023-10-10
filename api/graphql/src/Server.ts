@@ -1,5 +1,5 @@
 import '@tsed/ajv';
-import { PlatformApplication } from '@tsed/common';
+import { $log, PlatformApplication } from '@tsed/common';
 import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
@@ -38,5 +38,9 @@ export class Server {
           extended: true
         })
       );
+  }
+
+  $onReady(): void {
+    $log.info(this.settings.api, this.settings.version, 'is ready!');
   }
 }

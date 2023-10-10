@@ -7,6 +7,7 @@ import mongooseConfig from './mongoose/index';
 const pkg = JSON.parse(readFileSync('./package.json', { encoding: 'utf8' }));
 
 export const config: Partial<TsED.Configuration> = {
+  api: "Hiker's Book Stages API",
   version: pkg.version,
   httpPort: cfg.get<string>('server.httpPort'),
   httpsPort: cfg.get<string>('server.httpsPort'),
