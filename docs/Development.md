@@ -41,7 +41,7 @@ pnpm format
 
 ## New api/ui/package
 
-Update:
+Update files:
 
 - `docker/Dockerfile` - create new `target` (only API/UI) - new Docker image
 - `docker/docker-compose.hikers-book.build.yml` - create new service, `target` must match `target` from previous step (only API/UI) - local docker build
