@@ -10,7 +10,22 @@
   "extra-files": [
     {
       "type": "json",
+      "path": "api/authentication/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
       "path": "api/graphql/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "api/stages/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "api/trips/package.json",
       "jsonpath": "$.version"
     },
     {
@@ -31,6 +46,11 @@
     {
       "type": "json",
       "path": "packages/eslint-config/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "packages/tsed-swagger/package.json",
       "jsonpath": "$.version"
     }
   ]

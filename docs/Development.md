@@ -38,3 +38,15 @@ Lint/format all the workspaces
 pnpm lint
 pnpm format
 ```
+
+## New api/ui/package
+
+Update:
+
+- `docker/Dockerfile` - create new `target` (only API/UI) - new Docker image
+- `docker/docker-compose.hikers-book.build.yml` - create new service, `target` must match `target` from previous step (only API/UI) - local docker build
+- `docker/docker-compose.hikers-book.yml` - create new service (only API/UI) - locally start containers, requires previous step
+- `.github/workflows/release-please.yml` - update `jobs.docker.strategy.matrix.docker` (only API/UI) - set CI to build/push new images
+- `release-please-config.json` - update `extra-files` - paths to package.json files for version bump
+- `.github/labeler.yml` - PR labels (optional)
+- `.github/pr-labeler.yml` - PR labels (optional)
