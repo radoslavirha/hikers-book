@@ -1,7 +1,7 @@
-import { Model, ObjectID, Ref } from '@tsed/mongoose';
+import { Model, ObjectID } from '@tsed/mongoose';
 import { Required } from '@tsed/schema';
 import { Field, ID, InputType, ObjectType } from 'type-graphql';
-import { Trip } from './Trip';
+// import { Trip } from './Trip';
 
 @Model({ schemaOptions: { timestamps: true } })
 @ObjectType({ description: 'Comment model' })
@@ -14,9 +14,9 @@ export class Comment {
   @Field()
   content!: string;
 
-  @Ref(() => Trip)
-  @Field(() => String)
-  trip!: Ref<Trip>;
+  // @Ref(() => Trip)
+  // @Field(() => String)
+  // trip!: Ref<Trip>;
 
   @Field()
   createdAt?: Date;

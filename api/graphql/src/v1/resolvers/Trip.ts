@@ -28,8 +28,8 @@ export class TripResolver {
   }
 
   @Mutation(() => Trip, { description: 'Create a new trip' })
-  async CreateTrip(@Arg('data') event: AddTripInput) {
-    return this.tripService.create(event);
+  async CreateTrip(@Arg('data') data: AddTripInput) {
+    return this.tripService.create(data);
   }
 
   // @Mutation(() => Comment, { description: 'Add new comment to trip' })

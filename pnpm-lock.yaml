@@ -87,8 +87,8 @@ importers:
         specifier: ^1.20.2
         version: 1.20.2
       class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.13.2
+        version: 0.13.2
       compression:
         specifier: ^1.7.4
         version: 1.7.4
@@ -269,7 +269,7 @@ importers:
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/openspec@7.36.8)
       '@tsed/typegraphql':
         specifier: ^7.36.8
-        version: 7.36.8(@tsed/common@7.36.8)(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/logger@6.6.3)(apollo-datasource-rest@3.7.0)(apollo-datasource@3.3.2)(apollo-server-core@3.12.1)(class-validator@0.14.0)(graphql@15.8.0)(type-graphql@1.1.1)
+        version: 7.36.8(@tsed/common@7.36.8)(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/logger@6.6.3)(apollo-datasource-rest@3.7.0)(apollo-datasource@3.3.2)(apollo-server-core@3.12.1)(class-validator@0.13.2)(graphql@15.8.0)(type-graphql@1.1.1)
       ajv:
         specifier: ^8.12.0
         version: 8.12.0
@@ -292,8 +292,8 @@ importers:
         specifier: ^1.20.2
         version: 1.20.2
       class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.13.2
+        version: 0.13.2
       compression:
         specifier: ^1.7.4
         version: 1.7.4
@@ -335,7 +335,7 @@ importers:
         version: 7.5.0
       type-graphql:
         specifier: ^1.1.1
-        version: 1.1.1(class-validator@0.14.0)(graphql@15.8.0)
+        version: 1.1.1(class-validator@0.13.2)(graphql@15.8.0)
     devDependencies:
       '@hikers-book/cli-tools':
         specifier: workspace:*
@@ -506,8 +506,8 @@ importers:
         specifier: ^1.20.2
         version: 1.20.2
       class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.13.2
+        version: 0.13.2
       compression:
         specifier: ^1.7.4
         version: 1.7.4
@@ -702,8 +702,8 @@ importers:
         specifier: ^1.20.2
         version: 1.20.2
       class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
+        specifier: ^0.13.2
+        version: 0.13.2
       compression:
         specifier: ^1.7.4
         version: 1.7.4
@@ -7368,7 +7368,7 @@ packages:
       - supports-color
     dev: true
 
-  /@tsed/typegraphql@7.36.8(@tsed/common@7.36.8)(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/logger@6.6.3)(apollo-datasource-rest@3.7.0)(apollo-datasource@3.3.2)(apollo-server-core@3.12.1)(class-validator@0.14.0)(graphql@15.8.0)(type-graphql@1.1.1):
+  /@tsed/typegraphql@7.36.8(@tsed/common@7.36.8)(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/logger@6.6.3)(apollo-datasource-rest@3.7.0)(apollo-datasource@3.3.2)(apollo-server-core@3.12.1)(class-validator@0.13.2)(graphql@15.8.0)(type-graphql@1.1.1):
     resolution: {integrity: sha512-4k55nqiJ99kisjkJ8QDbIiPnDn7WNcFqjT0FSH0lzaqtLxgnNpXvTmbHBMj/plNdkOJWJWs4qhnY1OUxxfWqVw==}
     peerDependencies:
       apollo-datasource: '>=3.0.0'
@@ -7380,10 +7380,10 @@ packages:
       '@tsed/apollo': 7.36.8(@tsed/common@7.36.8)(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/logger@6.6.3)(apollo-datasource-rest@3.7.0)(apollo-datasource@3.3.2)(apollo-server-core@3.12.1)(graphql@15.8.0)
       apollo-datasource: 3.3.2
       apollo-datasource-rest: 3.7.0(graphql@15.8.0)
-      class-validator: 0.14.0
+      class-validator: 0.13.2
       graphql: 15.8.0
       tslib: 2.5.0
-      type-graphql: 1.1.1(class-validator@0.14.0)(graphql@15.8.0)
+      type-graphql: 1.1.1(class-validator@0.13.2)(graphql@15.8.0)
     transitivePeerDependencies:
       - '@tsed/common'
       - '@tsed/core'
@@ -7798,6 +7798,7 @@ packages:
 
   /@types/validator@13.11.2:
     resolution: {integrity: sha512-nIKVVQKT6kGKysnNt+xLobr+pFJNssJRi2s034wgWeFBUx01fI8BeHTW2TcRp7VcFu9QCYG8IlChTuovcm0oKQ==}
+    dev: true
 
   /@types/webidl-conversions@7.0.0:
     resolution: {integrity: sha512-xTE1E+YF4aWPJJeUzaZI5DRntlkY3+BCVJi0axFptnjGmAoWxkyREIh/XMrfxVLejwQxMCfDXdICo0VLxThrog==}
@@ -9701,10 +9702,9 @@ packages:
     resolution: {integrity: sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==}
     dev: true
 
-  /class-validator@0.14.0:
-    resolution: {integrity: sha512-ct3ltplN8I9fOwUd8GrP8UQixwff129BkEtuWDKL5W45cQuLd19xqmTLu5ge78YDm/fdje6FMt0hGOhl0lii3A==}
+  /class-validator@0.13.2:
+    resolution: {integrity: sha512-yBUcQy07FPlGzUjoLuUfIOXzgynnQPPruyK1Ge2B74k9ROwnle1E+NxLWnUv5OLU8hA/qL5leAE9XnXq3byaBw==}
     dependencies:
-      '@types/validator': 13.11.2
       libphonenumber-js: 1.10.43
       validator: 13.11.0
     dev: false
@@ -17335,7 +17335,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /type-graphql@1.1.1(class-validator@0.14.0)(graphql@15.8.0):
+  /type-graphql@1.1.1(class-validator@0.13.2)(graphql@15.8.0):
     resolution: {integrity: sha512-iOOWVn0ehCYMukmnXStbkRwFE9dcjt7/oDcBS1JyQZo9CbhlIll4lHHps54HMEk4A4c8bUPd+DjK8w1/ZrxB4A==}
     engines: {node: '>= 10.3'}
     requiresBuild: true
@@ -17346,7 +17346,7 @@ packages:
       '@types/glob': 7.2.0
       '@types/node': 20.5.7
       '@types/semver': 7.5.0
-      class-validator: 0.14.0
+      class-validator: 0.13.2
       glob: 7.2.3
       graphql: 15.8.0
       graphql-query-complexity: 0.7.2(graphql@15.8.0)
