@@ -1,5 +1,5 @@
 {
-  "directory": ["./src/controllers/rest","./src/resolvers"],
+  "directory": ["./src/v1/resolvers"],
   "exclude": [
     "__mock__",
     "__mocks__",

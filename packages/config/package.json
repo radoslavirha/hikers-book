@@ -3,9 +3,13 @@
   "version": "0.4.0",
   "description": "Hiker's Book configs",
   "scripts": {
-    "config": "pnpm run config:ui:hikers-book && pnpm run config:api:graphql",
+    "config": "pnpm run config:ui:hikers-book && pnpm run config:api:authentication && pnpm run config:api:graphql && pnpm run config:api:stages && pnpm run config:api:trips",
+    "config:api:authentication": "hikers-book-config-cli -s config/api.authentication.template.json -t config/api.authentication.json -f json",
     "config:api:graphql": "hikers-book-config-cli -s config/api.graphql.template.json -t config/api.graphql.json -f json",
+    "config:api:stages": "hikers-book-config-cli -s config/api.stages.template.json -t config/api.stages.json -f json",
+    "config:api:trips": "hikers-book-config-cli -s config/api.trips.template.json -t config/api.trips.json -f json",
     "config:ui:hikers-book": "hikers-book-config-cli -s config/ui.hikers-book.template.json -t config/ui.hikers-book.json -f json",
+    "config:clear": "find ./config -name '*.json' -and -not -name '*.template.json' -type f -delete",
     "postinstall": "pnpm run config"
   },
   "dependencies": {

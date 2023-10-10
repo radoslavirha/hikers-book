@@ -1,0 +1,40 @@
+version: '3.5'
+services:
+  ui-hikers-book:
+    image: radoslavirha/hikers-book-ui-hikers-book:latest
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: ui-hikers-book
+  api-authentication:
+    image: radoslavirha/hikers-book-api-authentication:latest
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: api-authentication
+    depends_on:
+      - ui-hikers-book
+  api-graphql:
+    image: radoslavirha/hikers-book-api-graphql:latest
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: api-graphql
+    depends_on:
+      - api-authentication
+  api-stages:
+    image: radoslavirha/hikers-book-api-stages:latest
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: api-stages
+    depends_on:
+      - api-graphql
+  api-trips:
+    image: radoslavirha/hikers-book-api-trips:latest
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: api-trips
+    depends_on:
+      - api-stages

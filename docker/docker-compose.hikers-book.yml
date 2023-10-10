@@ -1,12 +1,10 @@
 version: '3.5'
 services:
-  hikers-book-ui-hikers-book:
-    image: radoslavirha/hikers-book-ui-hikers-book:$VERSION
+  ui-hikers-book:
+    image: radoslavirha/hikers-book-ui-hikers-book:latest
     container_name: hikers-book-ui-hikers-book
     hostname: hikers-book-ui-hikers-book
     restart: always
-    depends_on:
-      - hikers-book-api-graphql
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -15,12 +13,39 @@ services:
       - 80:80
     volumes:
       - ./config/ui.hikers-book.json:/usr/share/nginx/html/config.json:ro
-  hikers-book-api-graphql:
-    image: radoslavirha/hikers-book-api-graphql:$VERSION
+  api-authentication:
+    image: radoslavirha/hikers-book-api-authentication:latest
+    container_name: hikers-book-api-authentication
+    hostname: hikers-book-api-authentication
+    restart: always
+    ports:
+      - 5501:5501
+    volumes:
+      - ./config/api.authentication.json:/app/api/authentication/config/production.json:ro
+  api-graphql:
+    image: radoslavirha/hikers-book-api-graphql:latest
     container_name: hikers-book-api-graphql
     hostname: hikers-book-api-graphql
     restart: always
     ports:
-      - 8083:8083
+      - 5502:5502
     volumes:
       - ./config/api.graphql.json:/app/api/graphql/config/production.json:ro
+  api-stages:
+    image: radoslavirha/hikers-book-api-stages:latest
+    container_name: hikers-book-api-stages
+    hostname: hikers-book-api-stages
+    restart: always
+    ports:
+      - 5503:5503
+    volumes:
+      - ./config/api.stages.json:/app/api/stages/config/production.json:ro
+  api-trips:
+    image: radoslavirha/hikers-book-api-trips:latest
+    container_name: hikers-book-api-trips
+    hostname: hikers-book-api-trips
+    restart: always
+    ports:
+      - 5504:5504
+    volumes:
+      - ./config/api.trips.json:/app/api/trips/config/production.json:ro

@@ -1,0 +1,13 @@
+{
+  "directory": [
+    "./src/docs/controllers/pages",
+    "./src/v1/controllers"
+  ],
+  "exclude": [
+    "__mock__",
+    "__mocks__",
+    ".spec.ts"
+  ],
+  "delete": true,
+  "singleQuotes": true
+}

@@ -3,66 +3,20 @@ import { PlatformApplication } from '@tsed/common';
 import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
-import '@tsed/swagger';
-import '@tsed/typegraphql';
-import { join } from 'path';
+import bodyParser from 'body-parser';
+import compress from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import methodOverride from 'method-override';
 import { config } from './config/index';
-import * as pages from './controllers/pages/index';
-import * as rest from './controllers/rest/index';
-import './resolvers/index';
+import './v1/GraphQLModule';
 
 @Configuration({
   ...config,
   acceptMimes: ['application/json'],
   disableComponentsScan: true,
-  mount: {
-    '/rest': [...Object.values(rest)],
-    '/': [...Object.values(pages)]
-  },
-  swagger: [
-    {
-      path: '/doc',
-      specVersion: '3.0.1'
-    }
-  ],
-  middlewares: [
-    'cors',
-    'cookie-parser',
-    'compression',
-    'method-override',
-    'json-parser',
-    { use: 'urlencoded-parser', options: { extended: true } }
-  ],
-  views: {
-    root: join(process.cwd(), '../views'),
-    extensions: {
-      ejs: 'ejs'
-    }
-  },
-  exclude: ['**/*.spec.ts'],
-  typegraphql: {
-    default: {
-      // GraphQL server configuration
-      path: '/',
-      playground: true, // enable playground GraphQL IDE. Set false to use Apollo Studio
-
-      // resolvers?: (Function | string)[];
-      // dataSources?: Function;
-      // server?: (config: Config) => ApolloServer;
-
-      // Apollo Server options
-      // See options descriptions on https://www.apollographql.com/docs/apollo-server/api/apollo-server.html
-      serverConfig: {
-        plugins: []
-      }
-
-      // middlewareOptions?: ServerRegistration;
-
-      // type-graphql
-      // See options descriptions on https://19majkel94.github.io/type-graphql/
-      // buildSchemaOptions?: Partial<BuildSchemaOptions>;
-    }
-  }
+  exclude: ['**/*.spec.ts']
 })
 export class Server {
   @Inject()
@@ -70,4 +24,19 @@ export class Server {
 
   @Configuration()
   protected settings!: Configuration;
+
+  $beforeRoutesInit(): void {
+    this.app
+      .use(helmet())
+      .use(cors())
+      .use(cookieParser())
+      .use(compress({}))
+      .use(methodOverride())
+      .use(bodyParser.json())
+      .use(
+        bodyParser.urlencoded({
+          extended: true
+        })
+      );
+  }
 }
