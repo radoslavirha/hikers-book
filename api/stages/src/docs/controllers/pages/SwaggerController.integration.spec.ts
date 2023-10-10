@@ -1,4 +1,5 @@
 import { PlatformTest } from '@tsed/common';
+import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { Server } from '../../../Server';
 import { SwaggerController } from './SwaggerController';
@@ -7,7 +8,7 @@ describe('IndexController (swagger)', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
 
   beforeEach(
-    PlatformTest.bootstrap(Server, {
+    TestMongooseContext.bootstrap(Server, {
       mount: {
         '/': [SwaggerController]
       }
@@ -17,7 +18,7 @@ describe('IndexController (swagger)', () => {
     request = SuperTest(PlatformTest.callback());
   });
 
-  afterEach(PlatformTest.reset);
+  afterEach(TestMongooseContext.reset);
 
   it('should call GET /', async () => {
     const response = await request.get('/').expect(200);
