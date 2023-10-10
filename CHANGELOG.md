@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/radoslavirha/hikers-book/compare/0.4.0...0.4.1) (2023-10-10)
+
+
+### Bug Fixes
+
+* fix tests by reverting class-validator ([6904a40](https://github.com/radoslavirha/hikers-book/commit/6904a403d26aa3f66c7d3c22e352242fe4e9224e))
+
 ## [0.4.0](https://github.com/radoslavirha/hikers-book/compare/0.3.1...0.4.0) (2023-10-06)
 
 
