@@ -21,6 +21,7 @@ RUN pnpm run -r build
 
 # COPY PACKAGES
 FROM base AS packages
+LABEL maintainer="radoslav.irha@gmail.com"
 ENV NODE_ENV production
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=prod-deps /app/packages /app/packages
@@ -55,5 +56,6 @@ CMD [ "pnpm", "start:prod" ]
 
 # COMPLETE HIKER'S BOOK UI
 FROM nginx:1.25 AS ui-hikers-book
+LABEL maintainer="radoslav.irha@gmail.com"
 COPY --from=build /app/ui/hikers-book/dist/ /usr/share/nginx/html
 COPY ./docker/nginx/hikers-book.conf /etc/nginx/conf.d/default.conf
