@@ -16,7 +16,7 @@
     "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add .",
     "prepare": "husky install"
   },
-  "devDependencies": {
+  "dependencies": {
     "husky": "^8.0.3"
   },
   "engines": {
