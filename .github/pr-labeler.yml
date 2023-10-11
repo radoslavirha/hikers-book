@@ -12,8 +12,8 @@ ci:
 deps:
   - 'deps/*'
   - 'dependencies/*'
-docker:
-  - 'docker/*'
+infra:
+  - 'infra/*'
 docs:
   - 'docs/*'
 refactor:

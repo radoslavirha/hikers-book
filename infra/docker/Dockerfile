@@ -60,4 +60,4 @@ CMD [ "pnpm", "start:prod" ]
 FROM nginx:1.25 AS ui-hikers-book
 LABEL maintainer="radoslav.irha@gmail.com"
 COPY --from=build /app/ui/hikers-book/dist/ /usr/share/nginx/html
-COPY ./docker/nginx/hikers-book.conf /etc/nginx/conf.d/default.conf
+COPY ./infra/docker/nginx/hikers-book.conf /etc/nginx/conf.d/default.conf

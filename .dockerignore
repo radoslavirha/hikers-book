@@ -3,8 +3,9 @@
 .github
 .husky
 .vscode
-docker
-!docker/nginx
+infra
+!infra/docker/nginx
+k8s
 docs
 node_modules
 .gitignore
