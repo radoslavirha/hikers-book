@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/radoslavirha/hikers-book/compare/0.4.1...0.5.0) (2023-10-10)
+
+
+### Features
+
+* :sparkles: Show API version on server start ([98b0177](https://github.com/radoslavirha/hikers-book/commit/98b01772f95980615124bcb1ac76d5567bc7f717))
+
 ## [0.4.1](https://github.com/radoslavirha/hikers-book/compare/0.4.0...0.4.1) (2023-10-10)
 
 
