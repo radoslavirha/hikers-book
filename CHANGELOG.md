@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/radoslavirha/hikers-book/compare/0.6.0...0.7.0) (2023-10-11)
+
+
+### Features
+
+* default server port ([6d56d7e](https://github.com/radoslavirha/hikers-book/commit/6d56d7ebe8cd396f6e4d3aea4eec19227fae49a7))
+
 ## [0.6.0](https://github.com/radoslavirha/hikers-book/compare/0.5.0...0.6.0) (2023-10-11)
 
 
