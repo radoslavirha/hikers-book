@@ -5,10 +5,6 @@ services:
     container_name: hikers-book-ui-hikers-book
     hostname: hikers-book-ui-hikers-book
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: hikers-book
     ports:
       - 80:80
     volumes:
@@ -19,7 +15,7 @@ services:
     hostname: hikers-book-api-authentication
     restart: always
     ports:
-      - 5501:5501
+      - 5501:4000
     volumes:
       - ./config/api.authentication.json:/app/api/authentication/config/production.json:ro
   api-graphql:
@@ -28,7 +24,7 @@ services:
     hostname: hikers-book-api-graphql
     restart: always
     ports:
-      - 5502:5502
+      - 5502:4000
     volumes:
       - ./config/api.graphql.json:/app/api/graphql/config/production.json:ro
   api-stages:
@@ -37,7 +33,7 @@ services:
     hostname: hikers-book-api-stages
     restart: always
     ports:
-      - 5503:5503
+      - 5503:4000
     volumes:
       - ./config/api.stages.json:/app/api/stages/config/production.json:ro
   api-trips:
@@ -46,6 +42,6 @@ services:
     hostname: hikers-book-api-trips
     restart: always
     ports:
-      - 5504:5504
+      - 5504:4000
     volumes:
       - ./config/api.trips.json:/app/api/trips/config/production.json:ro

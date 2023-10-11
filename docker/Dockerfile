@@ -23,6 +23,8 @@ RUN pnpm run -r build
 FROM base AS packages
 LABEL maintainer="radoslav.irha@gmail.com"
 ENV NODE_ENV production
+ENV PORT 4000
+EXPOSE 4000
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=prod-deps /app/packages /app/packages
 

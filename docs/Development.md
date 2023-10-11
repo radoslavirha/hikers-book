@@ -50,4 +50,3 @@ Update files:
 - `release-please-config.json` - update `extra-files` - paths to package.json files for version bump
 - `.github/labeler.yml` - PR labels (optional)
 - `.github/pr-labeler.yml` - PR labels (optional)
-

@@ -61,6 +61,6 @@ export class Server {
   }
 
   $onReady(): void {
-    $log.info(this.settings.api, this.settings.version, 'is ready!');
+    $log.info(`${this.settings.api} ${this.settings.version} is ready!`);
   }
 }

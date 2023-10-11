@@ -2,9 +2,5 @@
   "mongodb": {
     "url": "mongodb://hiker:hikers_password@mongo:27017/hikers-book",
     "connectionOptions": {}
-  },
-  "server": {
-    "httpPort": 5503,
-    "httpsPort": false
   }
 }
