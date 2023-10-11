@@ -1,6 +1,6 @@
 {
   "name": "@hikers-book/tsed-swagger",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Hiker's Book Ts.ED Swagger",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
