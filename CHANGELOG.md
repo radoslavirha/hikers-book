@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/radoslavirha/hikers-book/compare/0.5.0...0.6.0) (2023-10-11)
+
+
+### Features
+
+* build linux/amd64,linux/arm64 images ([e8301b9](https://github.com/radoslavirha/hikers-book/commit/e8301b94c868c869682d4e252384cf7855bbdba9))
+
 ## [0.5.0](https://github.com/radoslavirha/hikers-book/compare/0.4.1...0.5.0) (2023-10-10)
 
 
