@@ -11,8 +11,8 @@
     "format": "eslint --fix src",
     "lint": "eslint src",
     "generate": "graphql-codegen",
-    "config": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/ui.hikers-book.json -t src/assets/config.json -f json || true",
-    "config:clear": "find ./src/assets -name '*.json' -type f -delete",
+    "config": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/ui.hikers-book.json -t src/assets/config/config.json -f json || true",
+    "config:clear": "find ./src/assets/config -name '*.json' -type f -delete",
     "postinstall": "pnpm run config"
   },
   "private": true,

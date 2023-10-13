@@ -17,7 +17,7 @@ export class ConfigService {
   constructor(private http: HttpClient) {}
 
   loadConfig() {
-    return this.http.get<Config>('./assets/config.json').subscribe({
+    return this.http.get<Config>('./assets/config/config.json').subscribe({
       next: (config) => {
         this.config = config;
         this.configLoaded = true;

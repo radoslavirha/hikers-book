@@ -8,9 +8,12 @@ RUN apt-get update && apt-get install -y build-essential python3
 
 WORKDIR /app
 
-COPY . .
+COPY api api
+COPY ui ui
+COPY packages packages
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json .
 
-# INSATLL PRODUCTION DEPENDENCIES
+# INSTALL PRODUCTION DEPENDENCIES
 FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 

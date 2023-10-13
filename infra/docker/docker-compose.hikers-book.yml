@@ -6,9 +6,11 @@ services:
     hostname: hikers-book-ui-hikers-book
     restart: always
     ports:
-      - 80:80
+      - 5500:80
     volumes:
-      - ./config/ui.hikers-book.json:/usr/share/nginx/html/config.json:ro
+      - ./config/ui.hikers-book.json:/usr/share/nginx/html/cs/assets/config/config.json:ro
+      - ./config/ui.hikers-book.json:/usr/share/nginx/html/en-US/assets/config/config.json:ro
+      - ./config/ui.hikers-book.json:/usr/share/nginx/html/sk/assets/config/config.json:ro
   api-authentication:
     image: radoslavirha/hikers-book-api-authentication:latest
     container_name: hikers-book-api-authentication
