@@ -1,6 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "conventionalCommits.scopes": [
-    "k8s"
+    "k8s",
+    "ui"
   ]
 }

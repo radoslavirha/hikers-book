@@ -29,7 +29,7 @@ describe('ConfigService', () => {
   it('should load config', async () => {
     await service.loadConfig();
 
-    const req = httpTestingController.expectOne('./assets/config.json');
+    const req = httpTestingController.expectOne('./assets/config/config.json');
     req.flush(testConfig);
 
     expect(service.config).toEqual(testConfig);
@@ -40,7 +40,7 @@ describe('ConfigService', () => {
   it('failed load config', async () => {
     await service.loadConfig();
 
-    const req = httpTestingController.expectOne('./assets/config.json');
+    const req = httpTestingController.expectOne('./assets/config/config.json');
     req.flush('error', { status: 404, statusText: 'Not Found' });
 
     expect(service.config).toEqual(undefined);
