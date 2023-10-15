@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-graphql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-graphql
+  template:
+    metadata:
+      labels:
+        app: api-graphql
+    spec:
+      volumes:
+        - name: api-graphql-configmap-volume
+          configMap:
+            name: api-graphql-configmap
+      containers:
+        - name: api-graphql
+          image: radoslavirha/hikers-book-api-graphql:latest
+          # imagePullPolicy: Never
+          volumeMounts:
+            - mountPath: /app/api/graphql/config
+              name: api-graphql-configmap-volume
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-graphql-configmap
+data:
+  production.json: |
+    {
+      "mongodb": {
+        "url": "mongodb://mongodb-0.database:27017/graphql",
+        "connectionOptions": {}
+      }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-srv
+spec:
+  selector:
+    app: api-graphql
+  ports:
+    - name: api-graphql
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

@@ -1,4 +1,4 @@
-name: Pull Request Labeler
+name: Pull Request - labeler
 
 on:
   pull_request:
@@ -14,6 +14,8 @@ jobs:
       contents: read
       pull-requests: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Glob Labeler
         uses: actions/labeler@v4
       - name: Branch Labeler

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-stages-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-stages
+  template:
+    metadata:
+      labels:
+        app: api-stages
+    spec:
+      volumes:
+        - name: api-stages-configmap-volume
+          configMap:
+            name: api-stages-configmap
+      containers:
+        - name: api-stages
+          image: radoslavirha/hikers-book-api-stages:latest
+          # imagePullPolicy: Never
+          volumeMounts:
+            - mountPath: /app/api/stages/config
+              name: api-stages-configmap-volume
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-stages-configmap
+data:
+  production.json: |
+    {
+      "mongodb": {
+        "url": "mongodb://mongodb-0.database:27017/stages",
+        "connectionOptions": {}
+      }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stages-srv
+spec:
+  selector:
+    app: api-stages
+  ports:
+    - name: api-stages
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

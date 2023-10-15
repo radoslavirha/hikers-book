@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv-api
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: api.hikers-book.dev.info
+      http:
+        paths:
+          - path: /auth(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: authentication-srv
+                port:
+                  number: 4000
+          - path: /graphql(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: graphql-srv
+                port:
+                  number: 4000
+          - path: /stages(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: stages-srv
+                port:
+                  number: 4000
+          - path: /trips(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: trips-srv
+                port:
+                  number: 4000
