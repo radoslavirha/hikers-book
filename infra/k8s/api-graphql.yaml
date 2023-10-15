@@ -18,8 +18,8 @@ spec:
             name: api-graphql-configmap
       containers:
         - name: api-graphql
-          image: radoslavirha/hikers-book-api-graphql:latest
-          # imagePullPolicy: Never
+          image: radoslavirha/hikers-book-api-graphql
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /app/api/graphql/config
               name: api-graphql-configmap-volume
@@ -32,7 +32,7 @@ data:
   production.json: |
     {
       "mongodb": {
-        "url": "mongodb://mongodb-0.database:27017/graphql",
+        "url": "mongodb://mongodb-graphql-srv:27017/graphql",
         "connectionOptions": {}
       }
     }

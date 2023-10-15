@@ -18,8 +18,8 @@ spec:
             name: api-authentication-configmap
       containers:
         - name: api-authentication
-          image: radoslavirha/hikers-book-api-authentication:latest
-          # imagePullPolicy: Never
+          image: radoslavirha/hikers-book-api-authentication
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /app/api/authentication/config
               name: api-authentication-configmap-volume
@@ -32,7 +32,7 @@ data:
   production.json: |
     {
       "mongodb": {
-        "url": "mongodb://mongodb-0.database:27017/users",
+        "url": "mongodb://mongodb-authentication-srv:27017/auth",
         "connectionOptions": {}
       }
     }

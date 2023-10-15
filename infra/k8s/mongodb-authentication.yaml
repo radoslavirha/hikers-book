@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-authentication-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-authentication
+  template:
+    metadata:
+      labels:
+        app: mongodb-authentication
+    spec:
+      containers:
+        - name: mongodb-authentication
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-authentication-srv
+spec:
+  selector:
+    app: mongodb-authentication
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

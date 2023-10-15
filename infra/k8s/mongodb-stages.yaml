@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-stages-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-stages
+  template:
+    metadata:
+      labels:
+        app: mongodb-stages
+    spec:
+      containers:
+        - name: mongodb-stages
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-stages-srv
+spec:
+  selector:
+    app: mongodb-stages
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

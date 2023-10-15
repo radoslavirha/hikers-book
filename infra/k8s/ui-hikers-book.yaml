@@ -25,7 +25,7 @@ spec:
       containers:
         - name: ui-hikers-book
           image: radoslavirha/hikers-book-ui-hikers-book:latest
-          # imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /usr/share/nginx/html/cs/assets/config
               name: ui-hikers-book-configmap-cs-volume

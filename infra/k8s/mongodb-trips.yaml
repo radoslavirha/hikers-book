@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-trips-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-trips
+  template:
+    metadata:
+      labels:
+        app: mongodb-trips
+    spec:
+      containers:
+        - name: mongodb-trips
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-trips-srv
+spec:
+  selector:
+    app: mongodb-trips
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

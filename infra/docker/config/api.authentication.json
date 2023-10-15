@@ -1,6 +1,6 @@
 {
   "mongodb": {
-    "url": "mongodb://hiker:hikers_password@mongo:27017/hikers-book",
+    "url": "mongodb://mongo-authentication:27017/auth",
     "connectionOptions": {}
   }
 }
