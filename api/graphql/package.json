@@ -67,6 +67,7 @@
   "devDependencies": {
     "@hikers-book/cli-tools": "workspace:*",
     "@hikers-book/config": "workspace:*",
+    "@hikers-book/config-jest": "workspace:*",
     "@hikers-book/eslint-config": "workspace:*",
     "@tsed/apollo": "^7.36.8",
     "@tsed/cli-plugin-eslint": "4.6.4",
