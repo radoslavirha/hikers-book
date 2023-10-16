@@ -10,7 +10,8 @@
     "format": "eslint --ext .ts --fix src",
     "lint": "eslint --ext .ts src",
     "test": "cross-env NODE_ENV=test jest",
-    "postinstall": "pnpm build || true"
+    "postinstall": "pnpm build || true",
+    "cleanup": "rm -rf coverage dist"
   },
   "dependencies": {
     "argon2": "^0.31.1",

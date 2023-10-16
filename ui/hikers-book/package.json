@@ -13,7 +13,8 @@
     "generate": "graphql-codegen",
     "config": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/ui.hikers-book.json -t src/assets/config/config.json -f json || true",
     "config:clear": "find ./src/assets/config -name '*.json' -type f -delete",
-    "postinstall": "pnpm run config"
+    "postinstall": "pnpm run config",
+    "cleanup": "rm -rf coverage dist"
   },
   "private": true,
   "dependencies": {

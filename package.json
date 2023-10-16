@@ -12,6 +12,7 @@
     "lint": "pnpm --stream -r run lint",
     "format": "pnpm --stream -r run format",
     "test": "pnpm --stream -r run test",
+    "cleanup": "pnpm --stream -r run cleanup",
     "changelog": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
     "ci:version": "pnpm changelog && pnpm changeset version && pnpm install --no-frozen-lockfile && git add .",
     "prepare": "husky install"
