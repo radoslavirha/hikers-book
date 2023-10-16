@@ -1,8 +1,10 @@
-module.exports = {
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['index.ts', '/node_modules/'],
+  coveragePathIgnorePatterns: ['/node_modules/'],
   coverageThreshold: {
     global: {
       branches: 70,
@@ -11,7 +13,6 @@ module.exports = {
       statements: 70
     }
   },
-  globalTeardown: './scripts/jest/teardown.js',
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   testEnvironment: 'node',
   testMatch: ['**/src/**/__tests__/**/*.[jt]s?(x)', '**/src/**/?(*.)+(spec|test).[tj]s?(x)'],
@@ -19,3 +20,5 @@ module.exports = {
     '\\.(ts)$': 'ts-jest'
   }
 };
+
+export default config;

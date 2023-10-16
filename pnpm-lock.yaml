@@ -135,6 +135,9 @@ importers:
       '@hikers-book/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hikers-book/config-jest':
+        specifier: workspace:*
+        version: link:../../packages/config-jest
       '@hikers-book/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -346,6 +349,9 @@ importers:
       '@hikers-book/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hikers-book/config-jest':
+        specifier: workspace:*
+        version: link:../../packages/config-jest
       '@hikers-book/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -554,6 +560,9 @@ importers:
       '@hikers-book/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hikers-book/config-jest':
+        specifier: workspace:*
+        version: link:../../packages/config-jest
       '@hikers-book/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -750,6 +759,9 @@ importers:
       '@hikers-book/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hikers-book/config-jest':
+        specifier: workspace:*
+        version: link:../../packages/config-jest
       '@hikers-book/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -857,6 +869,12 @@ importers:
         specifier: workspace:*
         version: link:../cli-tools
 
+  packages/config-jest:
+    devDependencies:
+      '@jest/types':
+        specifier: ^29.6.3
+        version: 29.6.3
+
   packages/cryptography:
     dependencies:
       argon2:
@@ -869,6 +887,9 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
     devDependencies:
+      '@hikers-book/config-jest':
+        specifier: workspace:*
+        version: link:../config-jest
       '@hikers-book/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config

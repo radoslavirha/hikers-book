@@ -45,6 +45,11 @@
     },
     {
       "type": "json",
+      "path": "packages/config-jest/package.json",
+      "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
       "path": "packages/cryptography/package.json",
       "jsonpath": "$.version"
     },

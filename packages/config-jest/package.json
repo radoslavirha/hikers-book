@@ -1,0 +1,19 @@
+{
+  "name": "@hikers-book/config-jest",
+  "version": "0.7.0",
+  "description": "Jest config for Hiker's Book",
+  "exports": {
+    "./api": "./api.ts"
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "devDependencies": {
+    "@jest/types": "^29.6.3"
+  }
+}
