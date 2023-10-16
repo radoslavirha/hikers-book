@@ -1,5 +1,5 @@
 {
-  "name": "@hikers-book/config-jest",
+  "name": "@hikers-book/jest",
   "version": "0.7.0",
   "description": "Jest config for Hiker's Book",
   "exports": {

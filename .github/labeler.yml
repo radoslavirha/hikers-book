@@ -9,9 +9,9 @@ PACKAGE: packages/**
 "Hiker's Book UI": ui/hikers-book/**
 '@hikers-book/cli-tools': packages/cli-tools/**
 '@hikers-book/config': packages/config/**
-'@hikers-book/config-jest': packages/config-jest/**
 '@hikers-book/cryptography': packages/cryptography/**
-'@hikers-book/eslint-config': packages/eslint-config/**
+'@hikers-book/eslint-config': packages/eslint/**
+'@hikers-book/jest': packages/jest/**
 '@hikers-book/tsed-swagger': packages/tsed-swagger/**
 
 ci: .github/**

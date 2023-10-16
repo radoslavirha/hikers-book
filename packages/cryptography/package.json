@@ -19,8 +19,8 @@
     "cross-env": "^7.0.3"
   },
   "devDependencies": {
-    "@hikers-book/config-jest": "workspace:*",
     "@hikers-book/eslint-config": "workspace:*",
+    "@hikers-book/jest": "workspace:*",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.5.7",
     "jest": "^29.7.0",
