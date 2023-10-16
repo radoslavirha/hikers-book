@@ -4,7 +4,7 @@ import { Description, Post, Returns } from '@tsed/schema';
 import { UserSignUp } from '../../model/user/SignUp';
 
 @Controller('/auth/sign-up')
-export class SwaggerController {
+export class SignUpController {
   @Post('/')
   @Description('Sign up a new user.')
   @Returns(200)
