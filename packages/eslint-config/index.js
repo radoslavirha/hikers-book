@@ -14,6 +14,7 @@ module.exports = {
   },
   rules: {
     ...prettier,
+    'max-params': ['error', 3],
     'import/no-named-as-default': 'off'
   },
   settings: {

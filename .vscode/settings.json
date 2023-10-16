@@ -1,7 +1,17 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "conventionalCommits.scopes": [
+    "api",
     "k8s",
+    "package",
     "ui"
-  ]
+  ],
+  "search.exclude": {
+    "**/coverage": true,
+    "**/dist": true,
+    "pnpm-lock.yaml": true
+  }
 }

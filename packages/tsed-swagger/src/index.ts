@@ -1,4 +1,4 @@
-import { OpenSpec2, OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
+import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
 // eslint-disable-next-line import/no-duplicates
 import '@tsed/swagger';
 // eslint-disable-next-line import/no-duplicates
@@ -12,15 +12,6 @@ export const getSwaggerConfig = (path: string): SwaggerSettings[] => {
     title: pkg.name,
     version: pkg.version,
     description: pkg.description
-  };
-
-  const specOS2: Partial<OpenSpec2> = {
-    info,
-    securityDefinitions: {
-      basic: {
-        type: 'basic'
-      }
-    }
   };
 
   const specOS3: Partial<OpenSpec3> = {
@@ -37,11 +28,6 @@ export const getSwaggerConfig = (path: string): SwaggerSettings[] => {
   };
 
   return [
-    {
-      path: '/v2/docs',
-      specVersion: '2.0',
-      spec: specOS2
-    },
     {
       path: '/v3/docs',
       specVersion: '3.0.1',
