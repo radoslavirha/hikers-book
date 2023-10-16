@@ -17,7 +17,8 @@
     "config:env": "hikers-book-config-cli -s node_modules/@hikers-book/config/environment-variables/api.stages.json -t config/custom-environment-variables.json -f json || true",
     "config:clear": "find ./config -name '*.json' -type f -delete",
     "config:all": "pnpm run config:env && pnpm run config && pnpm run config:test",
-    "postinstall": "pnpm run config:all"
+    "postinstall": "pnpm run config:all",
+    "cleanup": "rm -rf coverage dist"
   },
   "dependencies": {
     "@hikers-book/tsed-swagger": "workspace:*",

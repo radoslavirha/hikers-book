@@ -10,7 +10,8 @@
     "build": "npx tsc",
     "format": "eslint --ext .ts --fix src",
     "lint": "eslint --ext .ts src",
-    "postinstall": "pnpm build || true"
+    "postinstall": "pnpm build || true",
+    "cleanup": "rm -rf coverage dist"
   },
   "dependencies": {
     "chalk": "4.1.2",
