@@ -2,6 +2,8 @@
   "directory": [
     "./src/docs/controllers/pages",
     "./src/v1/controllers",
+    "./src/v1/handlers/auth",
+    "./src/v1/models",
     "./src/v1/types",
     "./src/v1/types/enum"
   ],
