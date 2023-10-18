@@ -14,9 +14,6 @@ importers:
 
   api/authentication:
     dependencies:
-      '@hikers-book/cryptography':
-        specifier: workspace:*
-        version: link:../../packages/cryptography
       '@hikers-book/tsed-common':
         specifier: workspace:*
         version: link:../../packages/tsed-common
@@ -875,40 +872,6 @@ importers:
         specifier: workspace:*
         version: link:../cli-tools
 
-  packages/cryptography:
-    dependencies:
-      argon2:
-        specifier: ^0.31.1
-        version: 0.31.1
-      barrelsby:
-        specifier: ^2.8.1
-        version: 2.8.1
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-    devDependencies:
-      '@hikers-book/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint
-      '@hikers-book/jest':
-        specifier: workspace:*
-        version: link:../jest
-      '@types/jest':
-        specifier: ^29.5.5
-        version: 29.5.5
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@20.5.7)(ts-node@10.9.1)
-      ts-jest:
-        specifier: ^29.1.1
-        version: 29.1.1(@babel/core@7.22.9)(jest@29.7.0)(typescript@5.2.2)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-
   packages/eslint:
     dependencies:
       '@typescript-eslint/eslint-plugin':
@@ -957,6 +920,9 @@ importers:
       '@tsed/swagger':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/common@7.36.8)
+      argon2:
+        specifier: ^0.31.1
+        version: 0.31.1
       barrelsby:
         specifier: ^2.8.1
         version: 2.8.1

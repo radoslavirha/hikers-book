@@ -50,11 +50,6 @@
     },
     {
       "type": "json",
-      "path": "packages/cryptography/package.json",
-      "jsonpath": "$.version"
-    },
-    {
-      "type": "json",
       "path": "packages/eslint-config/package.json",
       "jsonpath": "$.version"
     },

@@ -1,4 +1,4 @@
-import { argon2CreateHash } from '@hikers-book/cryptography';
+import { CryptographyUtils } from '@hikers-book/tsed-common/utils';
 import { Model, MongooseDocument, MongooseNextCB, ObjectID, PreHook, Unique } from '@tsed/mongoose';
 import { Default, Enum, Property, Required } from '@tsed/schema';
 import { AuthProviderEnum } from '../types/enum';
@@ -25,7 +25,7 @@ export class User {
   @PreHook('save')
   static async preSave(user: MongooseDocument<User>, next: MongooseNextCB) {
     if (user.isModified('password')) {
-      user.password = await argon2CreateHash(user.password);
+      user.password = await CryptographyUtils.argon2CreateHash(user.password);
     }
     next();
   }

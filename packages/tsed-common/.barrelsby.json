@@ -1,6 +1,7 @@
 {
   "directory": [
-    "./src/exceptions"
+    "./src/exceptions",
+    "./src/utils"
   ],
   "exclude": [
     "__mock__",

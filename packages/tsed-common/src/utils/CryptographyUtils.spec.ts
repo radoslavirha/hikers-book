@@ -1,8 +1,8 @@
 import Argon2, { argon2id } from 'argon2';
 
-import { argon2CreateHash, argon2VerifyPassword } from './argon2';
+import { CryptographyUtils } from './CryptographyUtils';
 
-describe('lib/argon2.ts', () => {
+describe('CryptographyUtils', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
@@ -14,9 +14,9 @@ describe('lib/argon2.ts', () => {
       const hashSpy = jest.spyOn(Argon2, 'hash');
       const verifySpy = jest.spyOn(Argon2, 'verify');
 
-      const hash = await argon2CreateHash(password);
+      const hash = await CryptographyUtils.argon2CreateHash(password);
 
-      const valid = await argon2VerifyPassword(hash, password);
+      const valid = await CryptographyUtils.argon2VerifyPassword(hash, password);
 
       expect(valid).toEqual(true);
       expect(hashSpy).toHaveBeenCalledWith(password, {
@@ -38,8 +38,8 @@ describe('lib/argon2.ts', () => {
     it('Should fail', async () => {
       const password = '8d8a3f1e7581-d71534f1-c806-45a2-87a5';
 
-      const hash = await argon2CreateHash(password);
-      const valid = await argon2VerifyPassword(hash, `${password}a`);
+      const hash = await CryptographyUtils.argon2CreateHash(password);
+      const valid = await CryptographyUtils.argon2VerifyPassword(hash, `${password}a`);
 
       expect(valid).toEqual(false);
     });
