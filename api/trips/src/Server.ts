@@ -1,4 +1,4 @@
-import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-swagger';
+import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-common/swagger';
 import '@tsed/ajv';
 import { $log, PlatformApplication } from '@tsed/common';
 import { Configuration, Inject } from '@tsed/di';

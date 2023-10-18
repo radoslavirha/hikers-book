@@ -3,7 +3,8 @@
   "version": "0.7.0",
   "description": "Hiker's Book Ts.ED Common utils",
   "exports": {
-    "./exceptions": "./dist/exceptions/index.js"
+    "./exceptions": "./dist/exceptions/index.js",
+    "./swagger": "./dist/swagger/index.js"
   },
   "scripts": {
     "build": "pnpm run barrels && npx tsc",
@@ -16,6 +17,8 @@
   },
   "dependencies": {
     "@tsed/exceptions": "^7.36.8",
+    "@tsed/openspec": "^7.36.8",
+    "@tsed/swagger": "^7.36.8",
     "barrelsby": "^2.8.1",
     "cross-env": "^7.0.3"
   },

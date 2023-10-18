@@ -13,7 +13,6 @@ PACKAGE: packages/**
 '@hikers-book/eslint-config': packages/eslint/**
 '@hikers-book/jest': packages/jest/**
 '@hikers-book/tsed-common': packages/tsed-common/**
-'@hikers-book/tsed-swagger': packages/tsed-swagger/**
 
 ci: .github/**
 deps: '**/package.json'
