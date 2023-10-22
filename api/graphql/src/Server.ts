@@ -1,3 +1,4 @@
+import { ConfigServiceBase } from '@hikers-book/tsed-common/services';
 import '@tsed/ajv';
 import { $log, PlatformApplication } from '@tsed/common';
 import { Configuration, Inject } from '@tsed/di';
@@ -9,14 +10,11 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import methodOverride from 'method-override';
-import { config } from './config/index';
+import './providers/ConfigProvider';
 import './v1/GraphQLModule';
 
 @Configuration({
-  ...config,
-  acceptMimes: ['application/json'],
-  disableComponentsScan: true,
-  exclude: ['**/*.spec.ts']
+  ...ConfigServiceBase.getServerDefaults()
 })
 export class Server {
   @Inject()

@@ -1,6 +1,8 @@
 {
   "directory": [
     "./src/exceptions",
+    "./src/models",
+    "./src/services",
     "./src/utils"
   ],
   "exclude": [

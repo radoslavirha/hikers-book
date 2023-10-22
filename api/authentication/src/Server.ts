@@ -1,3 +1,4 @@
+import { ConfigServiceBase } from '@hikers-book/tsed-common/services';
 import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-common/swagger';
 import '@tsed/ajv';
 import { $log, PlatformApplication } from '@tsed/common';
@@ -11,14 +12,12 @@ import cors from 'cors';
 import helmet from 'helmet';
 import methodOverride from 'method-override';
 import { join } from 'path';
-import { config } from './config/index';
 import * as docs from './docs/controllers/pages/index';
+import './providers/ConfigProvider';
 import * as v1 from './v1/controllers/index';
 
 @Configuration({
-  ...config,
-  acceptMimes: ['application/json'],
-  disableComponentsScan: true,
+  ...ConfigServiceBase.getServerDefaults(),
   mount: {
     '/v1': [...Object.values(v1)],
     '/': [...Object.values(docs)]
@@ -29,8 +28,7 @@ import * as v1 from './v1/controllers/index';
     extensions: {
       ejs: 'ejs'
     }
-  },
-  exclude: ['**/*.spec.ts']
+  }
 })
 export class Server {
   @Inject()

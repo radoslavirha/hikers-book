@@ -5,6 +5,7 @@
   "author": "radoslav.irha@gmail.com",
   "license": "MIT",
   "scripts": {
+    "bootstrap": "pnpm run config:all && pnpm run keys",
     "build": "pnpm run barrels && tsc --project tsconfig.compile.json",
     "barrels": "barrelsby --config .barrelsby.json",
     "start": "pnpm run barrels && tsnd --inspect --exit-child --cls --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
@@ -18,7 +19,8 @@
     "config:clear": "find ./config -name '*.json' -type f -delete",
     "config:all": "pnpm run config:env && pnpm run config && pnpm run config:test",
     "postinstall": "pnpm run config:all",
-    "cleanup": "rm -rf coverage dist"
+    "cleanup": "rm -rf coverage dist",
+    "keys": "openssl genrsa -out keys/jwt.pem 2048 && openssl rsa -in keys/jwt.pem -outform PEM -pubout -out keys/jwt.pem.pub"
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",
@@ -42,7 +44,7 @@
     "@tsed/platform-views": "^7.36.8",
     "@tsed/schema": "^7.36.8",
     "@tsed/swagger": "^7.36.8",
-    "ajv": "^8.12.0",
+    "argon2": "^0.31.1",
     "barrelsby": "^2.8.1",
     "body-parser": "^1.20.2",
     "class-validator": "^0.13.2",

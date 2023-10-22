@@ -1,6 +1,6 @@
-import { CryptographyUtils } from '@hikers-book/tsed-common/utils';
 import { Model, MongooseDocument, MongooseNextCB, ObjectID, PreHook, Unique } from '@tsed/mongoose';
 import { Default, Enum, Property, Required } from '@tsed/schema';
+import { CryptographyUtils } from '../../utils';
 import { AuthProviderEnum } from '../types/enum';
 
 @Model({
