@@ -50,17 +50,12 @@
     },
     {
       "type": "json",
-      "path": "packages/cryptography/package.json",
-      "jsonpath": "$.version"
-    },
-    {
-      "type": "json",
       "path": "packages/eslint-config/package.json",
       "jsonpath": "$.version"
     },
     {
       "type": "json",
-      "path": "packages/tsed-swagger/package.json",
+      "path": "packages/tsed-common/package.json",
       "jsonpath": "$.version"
     }
   ]

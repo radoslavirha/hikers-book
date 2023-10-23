@@ -1,0 +1,67 @@
+{
+  "name": "@hikers-book/tsed-common",
+  "version": "0.7.0",
+  "description": "Hiker's Book Ts.ED Common utils",
+  "exports": {
+    "./exceptions": "./dist/exceptions/index.js",
+    "./models": "./dist/models/index.js",
+    "./server": "./dist/server/index.js",
+    "./services": "./dist/services/index.js",
+    "./swagger": "./dist/swagger/index.js",
+    "./utils": "./dist/utils/index.js"
+  },
+  "scripts": {
+    "build": "pnpm run barrels && npx tsc",
+    "barrels": "barrelsby --config .barrelsby.json",
+    "format": "eslint --ext .ts --fix src",
+    "lint": "eslint --ext .ts src",
+    "test": "cross-env NODE_ENV=test jest",
+    "postinstall": "pnpm build || true",
+    "cleanup": "rm -rf coverage dist"
+  },
+  "dependencies": {
+    "@tsed/ajv": "^7.36.8",
+    "@tsed/common": "^7.36.8",
+    "@tsed/core": "^7.36.8",
+    "@tsed/exceptions": "^7.36.8",
+    "@tsed/json-mapper": "^7.36.8",
+    "@tsed/openspec": "^7.36.8",
+    "@tsed/schema": "^7.36.8",
+    "@tsed/swagger": "^7.36.8",
+    "ajv": "^8.12.0",
+    "argon2": "^0.31.1",
+    "barrelsby": "^2.8.1",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "config": "^3.3.9",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "method-override": "^3.0.0",
+    "read-pkg": "5.2.0"
+  },
+  "devDependencies": {
+    "@hikers-book/eslint-config": "workspace:^",
+    "@hikers-book/jest": "workspace:*",
+    "@types/body-parser": "^1.19.3",
+    "@types/compression": "^1.7.3",
+    "@types/config": "^3.3.1",
+    "@types/cookie-parser": "^1.4.4",
+    "@types/cors": "^2.8.14",
+    "@types/jest": "^29.5.5",
+    "@types/method-override": "^0.0.33",
+    "@types/node": "^20.5.7",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">= 18.0.0",
+    "pnpm": ">= 8.7.0"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}

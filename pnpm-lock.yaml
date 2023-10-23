@@ -14,12 +14,9 @@ importers:
 
   api/authentication:
     dependencies:
-      '@hikers-book/cryptography':
+      '@hikers-book/tsed-common':
         specifier: workspace:*
-        version: link:../../packages/cryptography
-      '@hikers-book/tsed-swagger':
-        specifier: workspace:*
-        version: link:../../packages/tsed-swagger
+        version: link:../../packages/tsed-common
       '@tsed/ajv':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
@@ -80,9 +77,9 @@ importers:
       '@tsed/swagger':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/common@7.36.8)
-      ajv:
-        specifier: ^8.12.0
-        version: 8.12.0
+      argon2:
+        specifier: ^0.31.1
+        version: 0.31.1
       barrelsby:
         specifier: ^2.8.1
         version: 2.8.1
@@ -122,6 +119,9 @@ importers:
       helmet:
         specifier: ^7.0.0
         version: 7.0.0
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       method-override:
         specifier: ^3.0.0
         version: 3.0.0
@@ -174,6 +174,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.5
         version: 29.5.5
+      '@types/jsonwebtoken':
+        specifier: ^9.0.3
+        version: 9.0.3
       '@types/method-override':
         specifier: ^0.0.33
         version: 0.0.33
@@ -216,6 +219,9 @@ importers:
 
   api/graphql:
     dependencies:
+      '@hikers-book/tsed-common':
+        specifier: workspace:*
+        version: link:../../packages/tsed-common
       '@tsed/ajv':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
@@ -442,9 +448,9 @@ importers:
 
   api/stages:
     dependencies:
-      '@hikers-book/tsed-swagger':
+      '@hikers-book/tsed-common':
         specifier: workspace:*
-        version: link:../../packages/tsed-swagger
+        version: link:../../packages/tsed-common
       '@tsed/ajv':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
@@ -641,9 +647,9 @@ importers:
 
   api/trips:
     dependencies:
-      '@hikers-book/tsed-swagger':
+      '@hikers-book/tsed-common':
         specifier: workspace:*
-        version: link:../../packages/tsed-swagger
+        version: link:../../packages/tsed-common
       '@tsed/ajv':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
@@ -869,40 +875,6 @@ importers:
         specifier: workspace:*
         version: link:../cli-tools
 
-  packages/cryptography:
-    dependencies:
-      argon2:
-        specifier: ^0.31.1
-        version: 0.31.1
-      barrelsby:
-        specifier: ^2.8.1
-        version: 2.8.1
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-    devDependencies:
-      '@hikers-book/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint
-      '@hikers-book/jest':
-        specifier: workspace:*
-        version: link:../jest
-      '@types/jest':
-        specifier: ^29.5.5
-        version: 29.5.5
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@20.5.7)(ts-node@10.9.1)
-      ts-jest:
-        specifier: ^29.1.1
-        version: 29.1.1(@babel/core@7.22.9)(jest@29.7.0)(typescript@5.2.2)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-
   packages/eslint:
     dependencies:
       '@typescript-eslint/eslint-plugin':
@@ -940,21 +912,105 @@ importers:
         specifier: ^29.6.3
         version: 29.6.3
 
-  packages/tsed-swagger:
+  packages/tsed-common:
     dependencies:
+      '@tsed/ajv':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/core@7.36.8)(@tsed/di@7.36.8)(@tsed/exceptions@7.36.8)(@tsed/schema@7.36.8)(ajv-errors@3.0.0)(ajv@8.12.0)
+      '@tsed/common':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/engines@7.36.8)(@tsed/logger-file@6.6.3)(@tsed/logger@6.6.3)(@tsed/openspec@7.36.8)
+      '@tsed/core':
+        specifier: ^7.36.8
+        version: 7.36.8
+      '@tsed/exceptions':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/core@7.36.8)
+      '@tsed/json-mapper':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/core@7.36.8)(@tsed/schema@7.36.8)
       '@tsed/openspec':
         specifier: ^7.36.8
         version: 7.36.8
+      '@tsed/schema':
+        specifier: ^7.36.8
+        version: 7.36.8(@tsed/core@7.36.8)(@tsed/openspec@7.36.8)
       '@tsed/swagger':
         specifier: ^7.36.8
         version: 7.36.8(@tsed/common@7.36.8)
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
+      argon2:
+        specifier: ^0.31.1
+        version: 0.31.1
+      barrelsby:
+        specifier: ^2.8.1
+        version: 2.8.1
+      body-parser:
+        specifier: ^1.20.2
+        version: 1.20.2
+      compression:
+        specifier: ^1.7.4
+        version: 1.7.4
+      config:
+        specifier: ^3.3.9
+        version: 3.3.9
+      cookie-parser:
+        specifier: ^1.4.6
+        version: 1.4.6
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
+      method-override:
+        specifier: ^3.0.0
+        version: 3.0.0
+      read-pkg:
+        specifier: 5.2.0
+        version: 5.2.0
     devDependencies:
       '@hikers-book/eslint-config':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../eslint
+      '@hikers-book/jest':
+        specifier: workspace:*
+        version: link:../jest
+      '@types/body-parser':
+        specifier: ^1.19.3
+        version: 1.19.3
+      '@types/compression':
+        specifier: ^1.7.3
+        version: 1.7.3
+      '@types/config':
+        specifier: ^3.3.1
+        version: 3.3.1
+      '@types/cookie-parser':
+        specifier: ^1.4.4
+        version: 1.4.4
+      '@types/cors':
+        specifier: ^2.8.14
+        version: 2.8.14
+      '@types/jest':
+        specifier: ^29.5.5
+        version: 29.5.5
+      '@types/method-override':
+        specifier: ^0.0.33
+        version: 0.0.33
       '@types/node':
         specifier: ^20.5.7
         version: 20.5.7
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.5.7)(ts-node@10.9.1)
+      ts-jest:
+        specifier: ^29.1.1
+        version: 29.1.1(@babel/core@7.22.9)(jest@29.7.0)(typescript@5.2.2)
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -2453,13 +2509,12 @@ packages:
     dependencies:
       '@babel/highlight': 7.22.20
       chalk: 2.4.2
-    dev: true
 
   /@babel/code-frame@7.22.5:
     resolution: {integrity: sha512-Xmwn266vad+6DAqEB2A6V/CcZVp62BbwVmcOJc2RPuwih1kw02TjQvWVWlcKGbBPd+8/0V5DEkOcizRGYsspYQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/highlight': 7.22.5
+      '@babel/highlight': 7.22.20
     dev: true
 
   /@babel/compat-data@7.22.20:
@@ -2798,7 +2853,6 @@ packages:
   /@babel/helper-validator-identifier@7.22.20:
     resolution: {integrity: sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A==}
     engines: {node: '>=6.9.0'}
-    dev: true
 
   /@babel/helper-validator-identifier@7.22.5:
     resolution: {integrity: sha512-aJXu+6lErq8ltp+JhkJUfk1MTGyuA4v7f3pA+BJ5HLfNC6nAQ0Cpi9uOquUj8Hehg0aUiHzWQbOVJGao6ztBAQ==}
@@ -2854,16 +2908,6 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: true
-
-  /@babel/highlight@7.22.5:
-    resolution: {integrity: sha512-BSKlD1hgnedS5XRnGOljZawtag7H1yPfQp0tdNJCHoH6AZ+Pcm9VvkrK59/Yy593Ypg0zMxH2BxD1VPYUQ7UIw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-validator-identifier': 7.22.20
-      chalk: 2.4.2
-      js-tokens: 4.0.0
-    dev: true
 
   /@babel/parser@7.22.5:
     resolution: {integrity: sha512-DFZMC9LJUG9PLOclRC32G63UXwzqS2koQC8dkx+PLdmt1xSePYpbT/NbsrJy8Q/muXz7o/h/d4A7Fuyixm559Q==}
@@ -7731,6 +7775,12 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
 
+  /@types/jsonwebtoken@9.0.3:
+    resolution: {integrity: sha512-b0jGiOgHtZ2jqdPgPnP6WLCXZk1T8p06A/vPGzUvxpFGgKMbjXJDjC5m52ErqBnIuWZFgGoIJyRdeG5AyreJjA==}
+    dependencies:
+      '@types/node': 20.5.7
+    dev: true
+
   /@types/keygrip@1.0.2:
     resolution: {integrity: sha512-GJhpTepz2udxGexqos8wgaBx4I/zWIDPh/KOGEwAqtuGDkOUJu5eFvwmdBX4AmB8Odsr+9pHCQqiAqDL/yKMKw==}
     dev: true
@@ -7792,7 +7842,6 @@ packages:
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
-    dev: true
 
   /@types/qs@6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -9562,6 +9611,10 @@ packages:
     resolution: {integrity: sha512-VO9Ht/+p3SN7SKWqcrgEzjGbRSJYTx+Q1pTQC0wrWqHx0vpJraQ6GtHx8tvcg1rlK1byhU5gccxgOgj7B0TDkQ==}
     dev: true
 
+  /buffer-equal-constant-time@1.0.1:
+    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
+    dev: false
+
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
@@ -10832,6 +10885,12 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
+
+  /ecdsa-sig-formatter@1.0.11:
+    resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
+    dependencies:
+      safe-buffer: 5.2.1
+    dev: false
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -12370,7 +12429,6 @@ packages:
 
   /hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
-    dev: true
 
   /hosted-git-info@6.1.1:
     resolution: {integrity: sha512-r0EI+HBMcXadMrugk0GCQ+6BQV39PiWAZVfq7oIckeGiN7sjRGyQxPdft3nQekFTCQbYxLBH+/axZMeH8UX6+w==}
@@ -13732,7 +13790,6 @@ packages:
 
   /json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
-    dev: true
 
   /json-parse-even-better-errors@3.0.0:
     resolution: {integrity: sha512-iZbGHafX/59r39gPwVPRBGw0QQKnA7tte5pSMrhWOW7swGsVvVTjmfyAV9pNqk8YGT7tRCdxRu8uzcgZwoDooA==}
@@ -13812,6 +13869,37 @@ packages:
       esprima: 1.2.2
       static-eval: 2.0.2
       underscore: 1.12.1
+    dev: false
+
+  /jsonwebtoken@9.0.2:
+    resolution: {integrity: sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==}
+    engines: {node: '>=12', npm: '>=6'}
+    dependencies:
+      jws: 3.2.2
+      lodash.includes: 4.3.0
+      lodash.isboolean: 3.0.3
+      lodash.isinteger: 4.0.4
+      lodash.isnumber: 3.0.3
+      lodash.isplainobject: 4.0.6
+      lodash.isstring: 4.0.1
+      lodash.once: 4.1.1
+      ms: 2.1.3
+      semver: 7.5.4
+    dev: false
+
+  /jwa@1.4.1:
+    resolution: {integrity: sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==}
+    dependencies:
+      buffer-equal-constant-time: 1.0.1
+      ecdsa-sig-formatter: 1.0.11
+      safe-buffer: 5.2.1
+    dev: false
+
+  /jws@3.2.2:
+    resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+    dependencies:
+      jwa: 1.4.1
+      safe-buffer: 5.2.1
     dev: false
 
   /kareem@2.5.1:
@@ -14028,7 +14116,6 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
-    dev: true
 
   /lines-and-columns@2.0.3:
     resolution: {integrity: sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==}
@@ -14143,12 +14230,40 @@ packages:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     dev: false
 
+  /lodash.includes@4.3.0:
+    resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
+    dev: false
+
+  /lodash.isboolean@3.0.3:
+    resolution: {integrity: sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==}
+    dev: false
+
+  /lodash.isinteger@4.0.4:
+    resolution: {integrity: sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==}
+    dev: false
+
+  /lodash.isnumber@3.0.3:
+    resolution: {integrity: sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw==}
+    dev: false
+
+  /lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+    dev: false
+
+  /lodash.isstring@4.0.1:
+    resolution: {integrity: sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw==}
+    dev: false
+
   /lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
     dev: true
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+
+  /lodash.once@4.1.1:
+    resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
+    dev: false
 
   /lodash.range@3.2.0:
     resolution: {integrity: sha512-Fgkb7SinmuzqgIhNhAElo0BL/R1rHCnhwSZf78omqSwvWqD0kD2ssOAutQonDKH/ldS8BxA72ORYI09qAY9CYg==}
@@ -14883,7 +14998,6 @@ packages:
       resolve: 1.22.2
       semver: 5.7.1
       validate-npm-package-license: 3.0.4
-    dev: true
 
   /normalize-package-data@5.0.0:
     resolution: {integrity: sha512-h9iPVIfrVZ9wVYQnxFgtw1ugSvGEMOlyPWWtm8BMJhnwyEL/FLbYbTY3V3PpjI/BUK67n9PEWDu6eHzu1fB15Q==}
@@ -15432,7 +15546,6 @@ packages:
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
-    dev: true
 
   /parse-node-version@1.0.1:
     resolution: {integrity: sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==}
@@ -15954,7 +16067,6 @@ packages:
       normalize-package-data: 2.5.0
       parse-json: 5.2.0
       type-fest: 0.6.0
-    dev: true
 
   /readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
@@ -16331,7 +16443,6 @@ packages:
   /semver@5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
-    dev: true
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -16668,22 +16779,18 @@ packages:
     dependencies:
       spdx-expression-parse: 3.0.1
       spdx-license-ids: 3.0.13
-    dev: true
 
   /spdx-exceptions@2.3.0:
     resolution: {integrity: sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A==}
-    dev: true
 
   /spdx-expression-parse@3.0.1:
     resolution: {integrity: sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==}
     dependencies:
       spdx-exceptions: 2.3.0
       spdx-license-ids: 3.0.13
-    dev: true
 
   /spdx-license-ids@3.0.13:
     resolution: {integrity: sha512-XkD+zwiqXHikFZm4AX/7JSCXA98U5Db4AFd5XUg/+9UNtnH75+Z9KxtpYiJZx36mUDVOwH83pl7yvCer6ewM3w==}
-    dev: true
 
   /spdy-transport@3.0.0:
     resolution: {integrity: sha512-hsLVFE5SjA6TCisWeJXFKniGGOpBgMLmerfO2aCyCU5s7nJ/rpAepqmFifv/GCbSbueEeAJJnmSQ2rKC/g8Fcw==}
@@ -17394,7 +17501,6 @@ packages:
   /type-fest@0.6.0:
     resolution: {integrity: sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==}
     engines: {node: '>=8'}
-    dev: true
 
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
@@ -17731,7 +17837,6 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
-    dev: true
 
   /validate-npm-package-name@5.0.0:
     resolution: {integrity: sha512-YuKoXDAhBYxY7SfOKxHBDoSyENFeW5VvIIQp2TGQuit8gpK6MnWaQelBKxso72DoxTZfZdcP3W90LqpSkgPzLQ==}

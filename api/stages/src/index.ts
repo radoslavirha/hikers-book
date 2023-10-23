@@ -1,10 +1,12 @@
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { Server } from './Server';
+import { ConfigService } from './services/ConfigService';
 
 async function bootstrap() {
   try {
-    const platform = await PlatformExpress.bootstrap(Server);
+    const config = ConfigService.getServerConfig();
+    const platform = await PlatformExpress.bootstrap(Server, config);
     await platform.listen();
 
     process.on('SIGINT', () => {

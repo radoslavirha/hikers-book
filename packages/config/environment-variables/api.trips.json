@@ -1,8 +1,8 @@
 {
   "mongodb": {
-    "url": "MONGODB_URL",
+    "url": "HB_MONGODB_URL",
     "connectionOptions": {
-      "__name": "MONGODB_CONNECTION_OPTIONS",
+      "__name": "HB_MONGODB_CONNECTION_OPTIONS",
       "__format": "json"
     }
   }

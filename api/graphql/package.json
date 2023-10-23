@@ -21,6 +21,7 @@
     "cleanup": "rm -rf coverage dist"
   },
   "dependencies": {
+    "@hikers-book/tsed-common": "workspace:*",
     "@tsed/ajv": "^7.36.8",
     "@tsed/common": "^7.36.8",
     "@tsed/core": "^7.36.8",
