@@ -75,7 +75,7 @@ export abstract class ConfigServiceBase<T> {
 
     if (!valid) {
       for (const error of validate.errors ?? []) {
-        $log.error(`Config file: ${error.message}`);
+        $log.error(`Config file: ${error.keyword} ${error.message}`);
       }
       throw new Error('Invalid configuration!');
     }

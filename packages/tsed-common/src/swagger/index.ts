@@ -3,15 +3,13 @@ import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
 import '@tsed/swagger';
 // eslint-disable-next-line import/no-duplicates
 import { SwaggerSettings } from '@tsed/swagger';
-import { readFileSync } from 'fs';
+import { sync as readPackageJsonSync } from 'read-pkg';
 
-export const getSwaggerConfig = (path: string): SwaggerSettings[] => {
-  const pkg = JSON.parse(readFileSync(path, { encoding: 'utf8' }));
-
+export const getSwaggerConfig = (): SwaggerSettings[] => {
   const info: OpenSpecInfo = {
-    title: pkg.name,
-    version: pkg.version,
-    description: pkg.description
+    title: readPackageJsonSync().name,
+    version: readPackageJsonSync().version,
+    description: readPackageJsonSync().description
   };
 
   const specOS3: Partial<OpenSpec3> = {
