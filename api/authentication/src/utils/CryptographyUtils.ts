@@ -27,4 +27,11 @@ export class CryptographyUtils {
       parallelism: 1
     });
   }
+
+  public static generateJWTjti(): string {
+    return randomBytes(Math.ceil((32 * 3) / 4))
+      .toString('base64')
+      .slice(0, 32)
+      .replace(/[+/]/g, '0');
+  }
 }

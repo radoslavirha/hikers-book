@@ -6,4 +6,10 @@ export class SignUpLocalResponse {
   @Property()
   @Required()
   jwt!: string;
+
+  @Title('refresh')
+  @Description('JWT refresh token.')
+  @Property()
+  @Required()
+  refresh!: string;
 }

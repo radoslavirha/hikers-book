@@ -3,6 +3,7 @@ import { MongooseModel } from '@tsed/mongoose';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { Server } from '../../../Server';
+import { JWTService } from '../../../services';
 import { User } from '../../mongo/User';
 import { UserService } from '../../services/User';
 import { SignUpController } from './SignUp';
@@ -24,8 +25,13 @@ describe('SignUpHandler', () => {
   afterEach(TestMongooseContext.reset);
 
   it('Should return 200 on POST /v1/auth/sign-up', async () => {
-    const service = PlatformTest.get<UserService>(UserService);
-    const spy = jest.spyOn(service, 'findByEmail').mockResolvedValue(null);
+    const serviceUser = PlatformTest.get<UserService>(UserService);
+    const serviceJWT = PlatformTest.get<JWTService>(JWTService);
+    const spyUser = jest.spyOn(serviceUser, 'findByEmail').mockResolvedValue(null);
+    const spyUserCreate = jest
+      .spyOn(serviceUser, 'create')
+      .mockResolvedValue({ _id: '1', email: 'tester@email.com', password: '' });
+    const spyJWT = jest.spyOn(serviceJWT, 'createJWT').mockResolvedValueOnce('token').mockResolvedValueOnce('refresh');
 
     const response = await request.post('/v1/auth/sign-up').send({
       email: 'tester@email.com',
@@ -33,9 +39,16 @@ describe('SignUpHandler', () => {
     });
 
     expect(response.status).toEqual(200);
-    expect(spy).toBeCalledWith('tester@email.com');
+    expect(spyUser).toBeCalledWith('tester@email.com');
+    expect(spyUserCreate).toBeCalledWith({
+      email: 'tester@email.com',
+      password: '8^^3286UhpB$9m'
+    });
+    expect(spyJWT).toHaveBeenNthCalledWith(1, { id: '1', email: 'tester@email.com' });
+    expect(spyJWT).toHaveBeenNthCalledWith(2, { id: '1', email: 'tester@email.com' }, true);
     expect(response.body).toEqual({
-      jwt: expect.any(String)
+      jwt: 'token',
+      refresh: 'refresh'
     });
   });
 

@@ -63,7 +63,10 @@ export abstract class ConfigServiceBase<T> {
       acceptMimes: ['application/json'],
       httpsPort: false,
       exclude: ['**/*.spec.ts'],
-      disableComponentsScan: true
+      disableComponentsScan: true,
+      jsonMapper: {
+        additionalProperties: false
+      }
     };
   }
 

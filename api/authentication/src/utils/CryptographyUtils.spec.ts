@@ -44,4 +44,13 @@ describe('CryptographyUtils', () => {
       expect(valid).toEqual(false);
     });
   });
+
+  describe('generateJWTjti', () => {
+    it('Should return random string', async () => {
+      const jti = await CryptographyUtils.generateJWTjti();
+
+      expect(jti).toStrictEqual(expect.any(String));
+      expect(jti.length).toBe(32);
+    });
+  });
 });

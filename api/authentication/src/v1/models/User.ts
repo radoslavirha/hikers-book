@@ -1,6 +1,7 @@
-import { Description, Email, Example, MinLength, Property, Required, RequiredGroups, Title } from '@tsed/schema';
+import { Description, Email, Example, MinLength, Property, RequiredGroups, Schema, Title } from '@tsed/schema';
 import { GROUP_CREATE } from './_GroupsLabels';
 
+@Schema({ additionalProperties: false })
 export class User {
   @Title('email')
   @Description('Email used for registration.')
@@ -8,7 +9,6 @@ export class User {
   @RequiredGroups(GROUP_CREATE)
   @Email()
   @Property()
-  @Required()
   email!: string;
 
   @Title('password')
@@ -16,6 +16,5 @@ export class User {
   @Example('8^^3286UhpB$9m')
   @RequiredGroups(GROUP_CREATE)
   @MinLength(10)
-  @Required()
   password!: string;
 }

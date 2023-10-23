@@ -6,6 +6,7 @@
     "./src/v1/models",
     "./src/v1/types",
     "./src/v1/types/enum",
+    "./src/services",
     "./src/utils"
   ],
   "exclude": [

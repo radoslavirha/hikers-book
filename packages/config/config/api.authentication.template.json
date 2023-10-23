@@ -1,4 +1,9 @@
 {
+  "jwt": {
+    "algorithm": "RS256",
+    "expiresIn": "1h",
+    "expiresInRefresh": "1w"
+  },
   "mongodb": {
     "url": "mongodb://localhost:27017/auth",
     "connectionOptions": {}
