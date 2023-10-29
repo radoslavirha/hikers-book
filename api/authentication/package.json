@@ -21,6 +21,7 @@
     "config:all": "pnpm run config:env && pnpm run config && pnpm run config:test",
     "postinstall": "pnpm run config:all",
     "cleanup": "rm -rf coverage dist",
+    "cleanup:modules": "rm -rf node_modules",
     "keys": "openssl genrsa -out keys/jwt.pem 2048 && openssl rsa -in keys/jwt.pem -outform PEM -pubout -out keys/jwt.pem.pub"
   },
   "dependencies": {

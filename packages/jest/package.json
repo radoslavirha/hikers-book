@@ -5,6 +5,9 @@
   "exports": {
     "./api": "./api.ts"
   },
+  "scripts": {
+    "cleanup:modules": "rm -rf node_modules"
+  },
   "engines": {
     "node": ">= 18.0.0",
     "pnpm": ">= 8.7.0"

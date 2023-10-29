@@ -17,7 +17,8 @@
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "pnpm run test --watchAll",
     "postinstall": "pnpm build || true",
-    "cleanup": "rm -rf coverage dist"
+    "cleanup": "rm -rf coverage dist",
+    "cleanup:modules": "rm -rf node_modules"
   },
   "dependencies": {
     "@tsed/ajv": "^7.36.8",

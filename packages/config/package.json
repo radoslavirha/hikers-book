@@ -10,7 +10,8 @@
     "config:api:trips": "hikers-book-config-cli -s config/api.trips.template.json -t config/api.trips.json -f json",
     "config:ui:hikers-book": "hikers-book-config-cli -s config/ui.hikers-book.template.json -t config/ui.hikers-book.json -f json",
     "config:clear": "find ./config -name '*.json' -and -not -name '*.template.json' -type f -delete",
-    "postinstall": "pnpm run config"
+    "postinstall": "pnpm run config",
+    "cleanup:modules": "rm -rf node_modules"
   },
   "dependencies": {
     "@hikers-book/cli-tools": "workspace:*"
