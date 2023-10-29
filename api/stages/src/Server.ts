@@ -1,12 +1,13 @@
 import { BaseServer, getServerDefaults } from '@hikers-book/tsed-common/server';
 import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-common/swagger';
 import '@tsed/ajv';
-import { Configuration } from '@tsed/di';
+import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
 import helmet from 'helmet';
 import { join } from 'path';
 import * as docs from './docs/controllers/pages/index';
+import { ConfigService } from './services';
 import * as rest from './v1/controllers/index';
 
 @Configuration({
@@ -24,14 +25,19 @@ import * as rest from './v1/controllers/index';
   }
 })
 export class Server extends BaseServer {
+  @Inject()
+  configService!: ConfigService;
+
   $beforeRoutesInit(): void {
     this.registerMiddlewares();
 
     this.app.use(
       helmet({
-        contentSecurityPolicy: {
-          directives: getHelmetDirectives()
-        }
+        contentSecurityPolicy: this.configService.isProduction
+          ? {
+              directives: getHelmetDirectives()
+            }
+          : false
       })
     );
   }

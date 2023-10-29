@@ -20,6 +20,7 @@ describe('ConfigLoder', () => {
     expect(loader.service).toEqual('test');
     expect(loader.port).toEqual(4000);
     expect(loader.api).toEqual({ service: 'test', version: expect.any(String) });
+    expect(loader.isProduction).toEqual(false);
     expect(loader.config).toEqual({ test: 'value' });
     expect(loader.server).toEqual({
       httpPort: 4000,
@@ -32,6 +33,13 @@ describe('ConfigLoder', () => {
       },
       envs: expect.any(Object)
     });
+  });
+
+  it('should pass - isProduction', async () => {
+    const loader = new ConfigLoder('test', 4000, ConfigModel);
+    loader._envs.NODE_ENV = 'production';
+
+    expect(loader.isProduction).toEqual(true);
   });
 
   it('should fail', async () => {

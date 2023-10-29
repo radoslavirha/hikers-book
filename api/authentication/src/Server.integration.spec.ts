@@ -23,4 +23,30 @@ describe('Server', () => {
       status: 404
     });
   });
+
+  it('should not have CSP header', async () => {
+    const response = await request.get('/rest');
+
+    expect(response.headers['content-security-policy']).not.toBeDefined();
+  });
+});
+
+describe('Server - production', () => {
+  let request: SuperTest.SuperTest<SuperTest.Test>;
+
+  beforeEach(() => {
+    process.env.NODE_ENV = 'production';
+  });
+  beforeEach(TestMongooseContext.bootstrap(Server));
+  beforeEach(() => {
+    request = SuperTest(PlatformTest.callback());
+  });
+
+  afterEach(TestMongooseContext.reset);
+
+  it('should have CSP header', async () => {
+    const response = await request.get('/rest');
+
+    expect(response.headers['content-security-policy']).toBeDefined();
+  });
 });
