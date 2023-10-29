@@ -6,7 +6,6 @@
     "./exceptions": "./dist/exceptions/index.js",
     "./models": "./dist/models/index.js",
     "./server": "./dist/server/index.js",
-    "./services": "./dist/services/index.js",
     "./swagger": "./dist/swagger/index.js",
     "./utils": "./dist/utils/index.js"
   },
@@ -16,7 +15,7 @@
     "format": "eslint --ext .ts --fix src",
     "lint": "eslint --ext .ts src",
     "test": "cross-env NODE_ENV=test jest",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "test:watch": "pnpm run test --watchAll",
     "postinstall": "pnpm build || true",
     "cleanup": "rm -rf coverage dist"
   },

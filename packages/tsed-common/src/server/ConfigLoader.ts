@@ -1,17 +1,7 @@
-import { $log } from '@tsed/common';
 import { Type } from '@tsed/core';
-import { deserialize } from '@tsed/json-mapper';
-import { getJsonSchema } from '@tsed/schema';
-import Ajv from 'ajv';
-import cfg from 'config';
-import { config } from 'dotenv';
 import { sync as readPackageJsonSync } from 'read-pkg';
-
-interface ENVS<TValue = string | undefined> {
-  [key: string]: TValue;
-}
-
-const ajv = new Ajv({ allErrors: true });
+import { ConfigFileLoader } from './ConfigFileLoader';
+import { ENVS, EnvLoader } from './EnvLoader';
 
 /**
  * Returns default server configuration.
@@ -63,34 +53,13 @@ export class ConfigLoder<T> {
       version: readPackageJsonSync().version
     };
 
-    this._config = this.validateConfigFile();
-
-    this._envs = {
-      ...process.env,
-      ...config().parsed
-    };
+    this._config = new ConfigFileLoader(this.configModel).config;
+    this._envs = new EnvLoader().envs;
 
     this._server = {
       ...getServerDefaults(),
       httpPort: parseInt(this.envs.PORT || String(this.port)),
       envs: this.envs
     };
-  }
-
-  private validateConfigFile<T>(): T {
-    const schema = getJsonSchema(this.configModel);
-    const config = cfg;
-
-    const validate = ajv.compile(schema);
-    const valid = validate(deserialize<T>(config, { type: this.configModel }));
-
-    if (!valid) {
-      for (const error of validate.errors ?? []) {
-        $log.error(`Config file: ${error.keyword} ${error.message}`);
-      }
-      throw new Error('Invalid configuration!');
-    }
-
-    return deserialize<T>(config, { type: this.configModel });
   }
 }

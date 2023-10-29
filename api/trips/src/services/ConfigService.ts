@@ -4,7 +4,7 @@ import { ConfigModel } from '../models/ConfigModel';
 
 @Injectable()
 export class ConfigService extends ConfigLoder<ConfigModel> {
-  public static readonly service = "Hiker's Book Trips API";
+  public static readonly service = `Hiker's Book Trips API`;
   public static readonly port = 5504;
   public static readonly configModel = ConfigModel;
 

@@ -6,6 +6,14 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import methodOverride from 'method-override';
 
+// For tests
+@Configuration({
+  disableComponentsScan: true,
+  api: {
+    service: 'test',
+    version: '0.0.1'
+  }
+})
 export class BaseServer {
   @Inject()
   protected app!: PlatformApplication;

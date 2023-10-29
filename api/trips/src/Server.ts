@@ -7,7 +7,6 @@ import '@tsed/platform-express'; // /!\ keep this import
 import helmet from 'helmet';
 import { join } from 'path';
 import * as docs from './docs/controllers/pages/index';
-import './providers/ConfigProvider';
 import * as rest from './v1/controllers/index';
 
 @Configuration({
@@ -25,7 +24,7 @@ import * as rest from './v1/controllers/index';
   }
 })
 export class Server extends BaseServer {
-  beforeRoutesInit(): void {
+  $beforeRoutesInit(): void {
     this.registerMiddlewares();
 
     this.app.use(

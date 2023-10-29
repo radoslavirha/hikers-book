@@ -3,7 +3,6 @@
     "./src/exceptions",
     "./src/models",
     "./src/server",
-    "./src/services",
     "./src/utils"
   ],
   "exclude": [
