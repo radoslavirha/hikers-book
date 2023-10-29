@@ -39,6 +39,10 @@ export class ConfigLoder<T> {
     return Object.assign({}, this._envs);
   }
 
+  public get isProduction() {
+    return this.envs.NODE_ENV === 'production';
+  }
+
   public get server() {
     return Object.assign({}, this._server);
   }
