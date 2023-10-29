@@ -7,7 +7,7 @@
   "scripts": {
     "build": "pnpm --stream --recursive run build",
     "clean": "rm -rf .parcel-cache && pnpm --recursive run clean",
-    "config": "pnpm --filter '@hikers-book/config' run config && pnpm --filter=!'@hikers-book/config' run config:all",
+    "config": "pnpm --filter '@hikers-book/config' run config && pnpm --filter '@hikers-book/hikers-book-ui' run config && pnpm --filter=!'@hikers-book/config' run config:api",
     "config:clear": "pnpm --stream --recursive run config:clear",
     "lint": "pnpm --stream --recursive run lint",
     "format": "pnpm --stream --recursive run format",

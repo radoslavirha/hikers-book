@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm run cleanup:all
-pnpm install
-pnpm run test
 pnpm run build
+pnpm run test
