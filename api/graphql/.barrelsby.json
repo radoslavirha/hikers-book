@@ -1,5 +1,8 @@
 {
-  "directory": ["./src/v1/resolvers"],
+  "directory": [
+    "./src/v1/resolvers",
+    "./src/services"
+  ],
   "exclude": [
     "__mock__",
     "__mocks__",

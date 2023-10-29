@@ -24,8 +24,8 @@ describe('JWTService', () => {
 
       expect(response).toBe('token');
       expect(spyJWT).toBeCalledWith({ id: 'test', email: '' }, 'privateKey', {
-        algorithm: configService.config.file.jwt.algorithm,
-        expiresIn: configService.config.file.jwt.expiresIn,
+        algorithm: configService.config.jwt.algorithm,
+        expiresIn: configService.config.jwt.expiresIn,
         jwtid: 'jti'
       });
       expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem'));
@@ -44,8 +44,8 @@ describe('JWTService', () => {
 
       expect(response).toBe('token');
       expect(spyJWT).toBeCalledWith({ id: 'test', email: '' }, 'privateKey', {
-        algorithm: configService.config.file.jwt.algorithm,
-        expiresIn: configService.config.file.jwt.expiresInRefresh,
+        algorithm: configService.config.jwt.algorithm,
+        expiresIn: configService.config.jwt.expiresInRefresh,
         jwtid: 'jti'
       });
       expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem'));
@@ -65,7 +65,7 @@ describe('JWTService', () => {
 
       expect(response).toEqual({ id: 'test', email: '' });
       expect(spyJWT).toBeCalledWith('token', 'publicKey', {
-        algorithms: [configService.config.file.jwt.algorithm],
+        algorithms: [configService.config.jwt.algorithm],
         ignoreExpiration: false
       });
       expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem.pub'));
@@ -82,7 +82,7 @@ describe('JWTService', () => {
 
       expect(response).toEqual({ id: 'test', email: '' });
       expect(spyJWT).toBeCalledWith('token', 'publicKey', {
-        algorithms: [configService.config.file.jwt.algorithm],
+        algorithms: [configService.config.jwt.algorithm],
         ignoreExpiration: true
       });
       expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem.pub'));

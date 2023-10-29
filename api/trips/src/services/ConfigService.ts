@@ -1,28 +1,14 @@
-import { ConfigServiceBase } from '@hikers-book/tsed-common/services';
+import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { Injectable } from '@tsed/di';
 import { ConfigModel } from '../models/ConfigModel';
 
 @Injectable()
-export class ConfigService extends ConfigServiceBase<ConfigModel> {
-  static api = "Hiker's Book Trips API";
-  static port = 5504;
+export class ConfigService extends ConfigLoder<ConfigModel> {
+  public static readonly service = "Hiker's Book Trips API";
+  public static readonly port = 5504;
+  public static readonly configModel = ConfigModel;
 
   constructor() {
-    super(ConfigService.api, ConfigService.port, ConfigModel);
-  }
-
-  static getServerConfig(): Partial<TsED.Configuration> {
-    const config = ConfigServiceBase.load(ConfigService.api, ConfigService.port, ConfigModel);
-
-    return {
-      ...config.base,
-      mongoose: [
-        {
-          id: 'trips',
-          url: config.file.mongodb.url,
-          connectionOptions: config.file.mongodb.connectionOptions
-        }
-      ]
-    };
+    super(ConfigService.service, ConfigService.port, ConfigService.configModel);
   }
 }

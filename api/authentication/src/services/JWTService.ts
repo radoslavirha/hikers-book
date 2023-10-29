@@ -17,10 +17,8 @@ export class JWTService {
 
   public async createJWT(payload: JWTPayload, refresh: boolean = false): Promise<string> {
     const opt: JWT.SignOptions = {
-      algorithm: this.configService.config.file.jwt.algorithm,
-      expiresIn: refresh
-        ? this.configService.config.file.jwt.expiresInRefresh
-        : this.configService.config.file.jwt.expiresIn,
+      algorithm: this.configService.config.jwt.algorithm,
+      expiresIn: refresh ? this.configService.config.jwt.expiresInRefresh : this.configService.config.jwt.expiresIn,
       jwtid: CryptographyUtils.generateJWTjti()
     };
 
@@ -35,7 +33,7 @@ export class JWTService {
 
     // eslint-disable-next-line import/no-named-as-default-member
     return JWT.verify(jwt, publicKey, {
-      algorithms: [this.configService.config.file.jwt.algorithm],
+      algorithms: [this.configService.config.jwt.algorithm],
       ignoreExpiration: ignoreExpiration
     }) as JWTPayload;
   }

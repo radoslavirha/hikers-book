@@ -1,14 +1,11 @@
 import { $log, Configuration, Inject, PlatformApplication } from '@tsed/common';
+import '@tsed/platform-express';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import methodOverride from 'method-override';
-import { ConfigServiceBase } from '../services';
 
-@Configuration({
-  ...ConfigServiceBase.getServerDefaults()
-})
 export class BaseServer {
   @Inject()
   protected app!: PlatformApplication;
@@ -17,7 +14,7 @@ export class BaseServer {
   protected settings!: Configuration;
 
   $onReady(): void {
-    $log.info(`${this.settings.api} ${this.settings.version} is ready!`);
+    $log.info(`${this.settings.api.service} ${this.settings.api.version} is ready!`);
   }
 
   protected registerMiddlewares(): void {

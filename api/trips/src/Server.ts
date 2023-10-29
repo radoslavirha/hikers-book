@@ -1,5 +1,4 @@
-import { BaseServer } from '@hikers-book/tsed-common/server';
-import { ConfigServiceBase } from '@hikers-book/tsed-common/services';
+import { BaseServer, getServerDefaults } from '@hikers-book/tsed-common/server';
 import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-common/swagger';
 import '@tsed/ajv';
 import { Configuration } from '@tsed/di';
@@ -12,8 +11,7 @@ import './providers/ConfigProvider';
 import * as rest from './v1/controllers/index';
 
 @Configuration({
-  // @Configuration decorator from base class is not working
-  ...ConfigServiceBase.getServerDefaults(),
+  ...getServerDefaults(), // must be here because of tests
   mount: {
     '/v1': [...Object.values(rest)],
     '/': [...Object.values(docs)]
