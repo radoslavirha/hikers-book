@@ -11,6 +11,7 @@ async function bootstrap() {
     const configuration = {
       ...config.server,
       api: config.api,
+      swagger: config.swagger,
       mongoose: [
         {
           id: 'authentication',

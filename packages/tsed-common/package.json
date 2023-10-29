@@ -6,7 +6,6 @@
     "./exceptions": "./dist/exceptions/index.js",
     "./models": "./dist/models/index.js",
     "./server": "./dist/server/index.js",
-    "./swagger": "./dist/swagger/index.js",
     "./utils": "./dist/utils/index.js"
   },
   "scripts": {

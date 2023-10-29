@@ -4,5 +4,8 @@
 
 export * from './ConfigFileLoader';
 export * from './ConfigLoader';
+export * from './ConfigSwagger';
 export * from './EnvLoader';
+export * from './PackageJsonLoader';
 export * from './ServerBase';
+export * from './defaults';

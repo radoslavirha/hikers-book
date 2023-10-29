@@ -1,21 +1,10 @@
 import { Type } from '@tsed/core';
-import { sync as readPackageJsonSync } from 'read-pkg';
+import { SwaggerSettings } from '@tsed/swagger';
 import { ConfigFileLoader } from './ConfigFileLoader';
+import { ConfigSwagger } from './ConfigSwagger';
 import { ENVS, EnvLoader } from './EnvLoader';
-
-/**
- * Returns default server configuration.
- */
-export const getServerDefaults = (): Partial<TsED.Configuration> => ({
-  httpPort: 4000,
-  acceptMimes: ['application/json'],
-  httpsPort: false,
-  exclude: ['**/*.spec.ts'],
-  disableComponentsScan: true,
-  jsonMapper: {
-    additionalProperties: false
-  }
-});
+import { PackageJson, PackageJsonLoader } from './PackageJsonLoader';
+import { getServerDefaultConfig } from './defaults';
 
 export class ConfigLoder<T> {
   readonly service: string;
@@ -25,7 +14,9 @@ export class ConfigLoder<T> {
   readonly _api: { service: string; version: string };
   readonly _config: T;
   readonly _envs: ENVS;
+  readonly _packageJson: PackageJson;
   readonly _server: Partial<TsED.Configuration>;
+  readonly _swagger: SwaggerSettings[];
 
   public get api() {
     return Object.assign({}, this._api);
@@ -39,12 +30,20 @@ export class ConfigLoder<T> {
     return Object.assign({}, this._envs);
   }
 
-  public get isProduction() {
-    return this.envs.NODE_ENV === 'production';
+  public get packageJson() {
+    return Object.assign({}, this._packageJson);
   }
 
   public get server() {
     return Object.assign({}, this._server);
+  }
+
+  public get swagger() {
+    return this._swagger;
+  }
+
+  public get isProduction() {
+    return this.envs.NODE_ENV === 'production';
   }
 
   constructor(service: string, port: number, configModel: Type<T>) {
@@ -52,18 +51,22 @@ export class ConfigLoder<T> {
     this.port = port;
     this.configModel = configModel;
 
+    this._packageJson = new PackageJsonLoader().packageJson;
+
     this._api = {
       service: service,
-      version: readPackageJsonSync().version
+      version: this.packageJson.version
     };
 
     this._config = new ConfigFileLoader(this.configModel).config;
     this._envs = new EnvLoader().envs;
 
     this._server = {
-      ...getServerDefaults(),
+      ...getServerDefaultConfig(),
       httpPort: parseInt(this.envs.PORT || String(this.port)),
       envs: this.envs
     };
+
+    this._swagger = new ConfigSwagger(service, this.packageJson.version, this.packageJson.description).settings;
   }
 }

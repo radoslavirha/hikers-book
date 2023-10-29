@@ -33,6 +33,18 @@ describe('ConfigLoder', () => {
       },
       envs: expect.any(Object)
     });
+    expect(loader.swagger).toEqual([
+      expect.objectContaining({
+        path: '/docs',
+        specVersion: '3.0.1',
+        spec: expect.objectContaining({
+          info: expect.objectContaining({
+            title: 'test',
+            version: expect.any(String)
+          })
+        })
+      })
+    ]);
   });
 
   it('should pass - isProduction', async () => {

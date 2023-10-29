@@ -1,4 +1,4 @@
-import { BaseServer, getServerDefaults } from '@hikers-book/tsed-common/server';
+import { BaseServer, getServerDefaultConfig } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
@@ -8,7 +8,7 @@ import { ConfigService } from './services';
 import './v1/GraphQLModule';
 
 @Configuration({
-  ...getServerDefaults() // must be here because of tests
+  ...getServerDefaultConfig() // must be here because of tests
 })
 export class Server extends BaseServer {
   @Inject()

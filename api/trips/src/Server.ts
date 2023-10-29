@@ -1,9 +1,9 @@
-import { BaseServer, getServerDefaults } from '@hikers-book/tsed-common/server';
-import { getHelmetDirectives, getSwaggerConfig } from '@hikers-book/tsed-common/swagger';
+import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
+import '@tsed/swagger';
 import helmet from 'helmet';
 import { join } from 'path';
 import * as docs from './docs/controllers/pages/index';
@@ -11,12 +11,11 @@ import { ConfigService } from './services';
 import * as rest from './v1/controllers/index';
 
 @Configuration({
-  ...getServerDefaults(), // must be here because of tests
+  ...getServerDefaultConfig(), // must be here because of tests
   mount: {
     '/v1': [...Object.values(rest)],
     '/': [...Object.values(docs)]
   },
-  swagger: getSwaggerConfig(),
   views: {
     root: join(process.cwd(), '../views'),
     extensions: {
@@ -35,7 +34,7 @@ export class Server extends BaseServer {
       helmet({
         contentSecurityPolicy: this.configService.isProduction
           ? {
-              directives: getHelmetDirectives()
+              directives: getSwaggerHelmetDirectives()
             }
           : false
       })

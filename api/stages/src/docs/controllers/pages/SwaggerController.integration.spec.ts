@@ -1,17 +1,21 @@
+import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { Server } from '../../../Server';
+import { ConfigService } from '../../../services';
 import { SwaggerController } from './SwaggerController';
 
 describe('IndexController (swagger)', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
+  const config = new ConfigLoder(ConfigService.service, ConfigService.port, ConfigService.configModel);
 
   beforeEach(
     TestMongooseContext.bootstrap(Server, {
       mount: {
         '/': [SwaggerController]
-      }
+      },
+      swagger: config.swagger
     })
   );
   beforeEach(() => {
