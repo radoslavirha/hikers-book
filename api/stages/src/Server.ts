@@ -1,11 +1,14 @@
 import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
+import '@tsed/ioredis';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/swagger';
+import session from 'express-session';
 import helmet from 'helmet';
 import { join } from 'path';
+import './connections/Redis';
 import * as docs from './docs/controllers/pages/index';
 import { ConfigService } from './services';
 import * as rest from './v1/controllers/index';
@@ -30,6 +33,13 @@ export class Server extends BaseServer {
   $beforeRoutesInit(): void {
     this.registerMiddlewares();
 
+    this.app.use(
+      session({
+        resave: false,
+        saveUninitialized: true,
+        ...this.configService.config.session
+      })
+    );
     this.app.use(
       helmet({
         contentSecurityPolicy: this.configService.isProduction

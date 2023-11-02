@@ -1,5 +1,12 @@
 version: '3.5'
 services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    restart: always
+    ports:
+      - 6379:6379
   mongo-authentication:
     image: mongo:latest
     container_name: mongo-authentication
@@ -28,19 +35,51 @@ services:
     restart: always
     ports:
       - 27020:27017
-  # mongo-express:
-  #   image: mongo-express:latest
-  #   container_name: mongo-express
-  #   hostname: mongo-express
-  #   restart: always
-  #   depends_on:
-  #     - mongo-authentication
-  #     - mongo-graphql
-  #     - mongo-stages
-  #     - mongo-trips
-  #   environment:
-  #     ME_CONFIG_BASICAUTH_USERNAME: root
-  #     ME_CONFIG_BASICAUTH_PASSWORD: password
-  #     ME_CONFIG_MONGODB_SERVER: 'mongo-authentication,mongo-graphql,mongo-stages,mongo-trips'
-  #   ports:
-  #     - 8081:8081
+  mongo-express-authentication:
+    image: mongo-express:latest
+    container_name: mongo-express-authentication
+    hostname: mongo-express-authentication
+    restart: always
+    depends_on:
+      - mongo-authentication
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ''
+      ME_CONFIG_MONGODB_URL: 'mongodb://mongo-authentication:27017'
+    ports:
+      - 8017:8081
+  mongo-express-graphql:
+    image: mongo-express:latest
+    container_name: mongo-express-graphql
+    hostname: mongo-express-graphql
+    restart: always
+    depends_on:
+      - mongo-graphql
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ''
+      ME_CONFIG_MONGODB_URL: 'mongodb://mongo-graphql:27017'
+    ports:
+      - 8018:8081
+  mongo-express-stages:
+    image: mongo-express:latest
+    container_name: mongo-express-stages
+    hostname: mongo-express-stages
+    restart: always
+    depends_on:
+      - mongo-stages
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ''
+      ME_CONFIG_MONGODB_URL: 'mongodb://mongo-stages:27017'
+    ports:
+      - 8019:8081
+  mongo-express-trips:
+    image: mongo-express:latest
+    container_name: mongo-express-trips
+    hostname: mongo-express-trips
+    restart: always
+    depends_on:
+      - mongo-trips
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ''
+      ME_CONFIG_MONGODB_URL: 'mongodb://mongo-trips:27017'
+    ports:
+      - 8020:8081

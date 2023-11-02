@@ -2,5 +2,16 @@
   "mongodb": {
     "url": "mongodb://localhost:27018/graphql",
     "connectionOptions": {}
+  },
+  "redis": {
+    "default": {
+      "host": "localhost",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
+  },
+  "session": {
+    "secret": "9c1d2096-70ce-4bc1-9275-05c715051bc0"
   }
 }

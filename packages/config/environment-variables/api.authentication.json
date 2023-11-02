@@ -10,5 +10,16 @@
       "__name": "HB_MONGODB_CONNECTION_OPTIONS",
       "__format": "json"
     }
+  },
+  "redis": {
+    "default": {
+      "host": "HB_REDIS_DEFAULT_HOST",
+      "port": "HB_REDIS_DEFAULT_PORT",
+      "username": "HB_REDIS_DEFAULT_USERNAME",
+      "password": "HB_REDIS_DEFAULT_PASSWORD"
+    }
+  },
+  "session": {
+    "secret": "HB_SESSION_SECRET"
   }
 }

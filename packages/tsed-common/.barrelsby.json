@@ -3,7 +3,8 @@
     "./src/exceptions",
     "./src/models",
     "./src/server",
-    "./src/utils"
+    "./src/utils",
+    "./src/validators"
   ],
   "exclude": [
     "__mock__",

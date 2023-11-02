@@ -9,7 +9,7 @@ async function bootstrap() {
   try {
     const config = new ConfigLoder(ConfigService.service, ConfigService.port, ConfigService.configModel);
 
-    const configuration = {
+    const configuration: Partial<TsED.Configuration> = {
       ...config.server,
       api: config.api,
       mongoose: [
@@ -18,7 +18,17 @@ async function bootstrap() {
           url: config.config.mongodb.url,
           connectionOptions: config.config.mongodb.connectionOptions
         }
-      ]
+      ],
+      ioredis: [
+        {
+          name: 'default',
+          cache: true,
+          ...config.config.redis.default
+        }
+      ],
+      cache: {
+        ttl: 300
+      }
     };
 
     const platform = await PlatformExpress.bootstrap(Server, configuration);

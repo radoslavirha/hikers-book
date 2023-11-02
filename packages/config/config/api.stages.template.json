@@ -2,5 +2,16 @@
   "mongodb": {
     "url": "mongodb://localhost:27019/stages",
     "connectionOptions": {}
+  },
+  "redis": {
+    "default": {
+      "host": "localhost",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
+  },
+  "session": {
+    "secret": "56eb9494-7523-426f-b3a1-05482d341a0d"
   }
 }

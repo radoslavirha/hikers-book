@@ -2,5 +2,16 @@
   "mongodb": {
     "url": "mongodb://localhost:27020/trips",
     "connectionOptions": {}
+  },
+  "redis": {
+    "default": {
+      "host": "localhost",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
+  },
+  "session": {
+    "secret": "5ab436c1-f89a-4e87-bc3f-37a2a4527d84"
   }
 }
