@@ -1,6 +1,6 @@
 {
   "directory": [
-    "./src/docs/controllers/pages",
+    "./src/global/controllers",
     "./src/v1/controllers",
     "./src/v1/handlers/auth",
     "./src/v1/models",

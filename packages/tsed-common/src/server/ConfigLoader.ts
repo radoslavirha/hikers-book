@@ -46,6 +46,10 @@ export class ConfigLoder<T> {
     return this.envs.NODE_ENV === 'production';
   }
 
+  public get isTest() {
+    return this.envs.NODE_ENV === 'test';
+  }
+
   constructor(service: string, port: number, configModel: Type<T>) {
     this.service = service;
     this.port = port;

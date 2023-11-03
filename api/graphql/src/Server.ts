@@ -4,7 +4,7 @@ import { Configuration, Inject } from '@tsed/di';
 import '@tsed/ioredis';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import './connections/Redis';
 import { ConfigService } from './services';
@@ -20,10 +20,11 @@ export class Server extends BaseServer {
   $beforeRoutesInit(): void {
     this.registerMiddlewares();
 
+    this.app.getApp().set('trust proxy', true);
     this.app.use(
-      session({
-        resave: false,
-        saveUninitialized: true,
+      cookieSession({
+        signed: false,
+        secure: !this.configService.isTest,
         ...this.configService.config.session
       })
     );

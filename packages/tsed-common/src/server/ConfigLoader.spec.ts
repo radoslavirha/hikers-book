@@ -54,6 +54,13 @@ describe('ConfigLoder', () => {
     expect(loader.isProduction).toEqual(true);
   });
 
+  it('should pass - isTest', async () => {
+    const loader = new ConfigLoder('test', 4000, ConfigModel);
+    loader._envs.NODE_ENV = 'test';
+
+    expect(loader.isTest).toEqual(true);
+  });
+
   it('should fail', async () => {
     const spy = jest.spyOn($log, 'error').mockImplementation();
 

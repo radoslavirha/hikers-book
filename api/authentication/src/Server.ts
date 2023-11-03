@@ -5,11 +5,11 @@ import '@tsed/ioredis';
 import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/swagger';
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import { join } from 'path';
 import './connections/Redis';
-import * as docs from './docs/controllers/pages/index';
+import * as global from './global/controllers/index';
 import { ConfigService } from './services';
 import * as v1 from './v1/controllers/index';
 
@@ -17,7 +17,7 @@ import * as v1 from './v1/controllers/index';
   ...getServerDefaultConfig(), // must be here because of tests
   mount: {
     '/v1': [...Object.values(v1)],
-    '/': [...Object.values(docs)]
+    '/': [...Object.values(global)]
   },
   views: {
     root: join(process.cwd(), '../views'),
@@ -33,10 +33,11 @@ export class Server extends BaseServer {
   $beforeRoutesInit(): void {
     this.registerMiddlewares();
 
+    this.app.getApp().set('trust proxy', true);
     this.app.use(
-      session({
-        resave: false,
-        saveUninitialized: true,
+      cookieSession({
+        signed: false,
+        secure: !this.configService.isTest,
         ...this.configService.config.session
       })
     );

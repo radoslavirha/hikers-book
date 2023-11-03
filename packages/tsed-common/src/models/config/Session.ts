@@ -1,9 +1,7 @@
 import { AdditionalProperties, Required } from '@tsed/schema';
-// eslint-disable-next-line import/no-unresolved
-import { SessionOptions } from 'express-session'; // installed only types
 
 @AdditionalProperties(true)
-export class SessionConfigModel implements SessionOptions {
+export class SessionConfigModel implements CookieSessionInterfaces.CookieSessionOptions {
   @Required()
   secret!: string;
 
