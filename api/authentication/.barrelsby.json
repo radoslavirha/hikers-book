@@ -1,13 +1,13 @@
 {
   "directory": [
     "./src/global/controllers",
+    "./src/global/services",
+    "./src/global/utils",
     "./src/v1/controllers",
     "./src/v1/handlers/auth",
     "./src/v1/models",
     "./src/v1/types",
-    "./src/v1/types/enum",
-    "./src/services",
-    "./src/utils"
+    "./src/v1/types/enum"
   ],
   "exclude": [
     "__mock__",

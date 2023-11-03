@@ -1,8 +1,8 @@
 {
   "directory": [
     "./src/global/controllers",
-    "./src/v1/controllers",
-    "./src/services"
+    "./src/global/services",
+    "./src/v1/controllers"
   ],
   "exclude": [
     "__mock__",
