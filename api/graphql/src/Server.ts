@@ -6,8 +6,8 @@ import '@tsed/mongoose';
 import '@tsed/platform-express'; // /!\ keep this import
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
-import './connections/Redis';
-import { ConfigService } from './services';
+import './global/connections/Redis';
+import { ConfigService } from './global/services';
 import './v1/GraphQLModule';
 
 @Configuration({

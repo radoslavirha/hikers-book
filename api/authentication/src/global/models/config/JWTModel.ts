@@ -1,7 +1,7 @@
 import { Enum, Required } from '@tsed/schema';
 import { Algorithm } from 'jsonwebtoken';
 
-export class ConfigJWTModel {
+export class JWTConfigModel {
   @Required()
   @Enum(
     'HS256',
