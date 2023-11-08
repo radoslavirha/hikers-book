@@ -13,6 +13,12 @@ export class CredentialsMongooseService extends MongooseService<CredentialsMongo
   @Inject(CredentialsMapper)
   protected mapper!: CredentialsMapper;
 
+  async findById(id: string): Promise<Credentials | null> {
+    const mongo = await this.model.findById(id).populate('user_id');
+
+    return this.mapSingle(mongo);
+  }
+
   async findByEmail(email: string): Promise<Credentials | null> {
     const mongo = await this.model.findOne(<CredentialsMongo>{ email });
 

@@ -180,7 +180,8 @@ export class ProtocolAuthService {
         throw new UnprocessableEntity('Invalid provider.');
     }
 
-    return this.credentials.create(credentials);
+    const created = await this.credentials.create(credentials);
+    return (await this.credentials.findById(created.id)) as Credentials;
   }
 
   private getOAuth2ProviderEmail(data: OAuth2ProviderPair): string {
