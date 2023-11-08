@@ -1,28 +1,27 @@
 {
-  "name": "@hikers-book/cli-tools",
+  "name": "@hikers-book/types",
   "version": "0.7.0",
-  "description": "Hiker's Book CLI Tools",
-  "main": "bin/index.js",
-  "bin": {
-    "hikers-book-config-cli": "./bin/config.js"
+  "description": "Hiker's Book Ts.ED Types",
+  "exports": {
+    ".": "./dist/types/index.js",
+    "./enums": "./dist/enums/index.js"
   },
   "scripts": {
-    "build": "npx tsc",
+    "build": "pnpm run barrels && npx tsc",
+    "barrels": "barrelsby --config .barrelsby.json",
     "format": "eslint --ext .ts --fix src",
     "lint": "eslint --ext .ts src",
     "postinstall": "pnpm build || true",
-    "cleanup": "rm -rf coverage dist",
+    "cleanup": "rm -rf dist",
     "cleanup:modules": "rm -rf node_modules"
   },
   "dependencies": {
-    "chalk": "4.1.2",
-    "commander": "^11.1.0",
-    "json-merger": "^1.1.10",
-    "log-symbols": "4.1.0"
+    "barrelsby": "^2.8.1"
   },
   "devDependencies": {
-    "@hikers-book/eslint-config": "workspace:*",
+    "@hikers-book/eslint-config": "workspace:^",
     "@types/node": "^20.8.10",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
   "engines": {

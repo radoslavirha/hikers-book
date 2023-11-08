@@ -1,7 +1,10 @@
 {
   "directory": [
     "./src/exceptions",
+    "./src/handlers",
+    "./src/mappers",
     "./src/models",
+    "./src/mongo",
     "./src/server",
     "./src/utils",
     "./src/validators"

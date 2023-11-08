@@ -1,0 +1,11 @@
+{
+  "directory": [
+    "./src/enums",
+    "./src/types"
+  ],
+  "exclude": [
+    ".spec.ts"
+  ],
+  "delete": true,
+  "singleQuotes": true
+}

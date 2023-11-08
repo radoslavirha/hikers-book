@@ -7,8 +7,8 @@
     "cleanup:modules": "rm -rf node_modules"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0"
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0"
   },
   "peerDependencies": {
     "eslint": "^8.48.0",
