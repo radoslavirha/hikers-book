@@ -1,4 +1,24 @@
 {
+  "frontend": {
+    "url": "http://localhost:4200"
+  },
+  "auth": {
+    "facebook": {
+      "clientID": "your-app-id",
+      "clientSecret": "your-app-secret",
+      "callbackURL": "http://localhost:5501/auth/provider/facebook/callback"
+    },
+    "github": {
+      "clientID": "your-client-id",
+      "clientSecret": "your-client-secret",
+      "callbackURL": "http://localhost:5501/auth/provider/github/callback"
+    },
+    "google": {
+      "clientID": "your-client-id",
+      "clientSecret": "your-client-secret",
+      "callbackURL": "http://localhost:5501/auth/provider/google/callback"
+    }
+  },
   "jwt": {
     "algorithm": "RS256",
     "expiresIn": "1h",
@@ -7,6 +27,14 @@
   "mongodb": {
     "url": "mongodb://localhost:27017/auth",
     "connectionOptions": {}
+  },
+  "nodemailer": {
+    "service": "iCloud",
+    "from": "email@icloud.com",
+    "auth": {
+      "user": "email@icloud.com",
+      "pass": "pass"
+    }
   },
   "redis": {
     "default": {

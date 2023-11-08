@@ -20,15 +20,15 @@ describe('JWTService', () => {
       const spyFS = jest.spyOn(FSUtils, 'readFile').mockResolvedValue('privateKey');
       const spyCrypto = jest.spyOn(CryptographyUtils, 'generateJWTjti').mockReturnValue('jti');
 
-      const response = await service.createJWT({ id: 'test', email: '' });
+      const response = await service.createJWT({ id: 'test', name: '' });
 
       expect(response).toBe('token');
-      expect(spyJWT).toBeCalledWith({ id: 'test', email: '' }, 'privateKey', {
+      expect(spyJWT).toBeCalledWith({ id: 'test', name: '' }, 'privateKey', {
         algorithm: configService.config.jwt.algorithm,
         expiresIn: configService.config.jwt.expiresIn,
         jwtid: 'jti'
       });
-      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem'));
+      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../../keys/jwt.pem'));
       expect(spyCrypto).toBeCalled();
     });
 
@@ -40,15 +40,15 @@ describe('JWTService', () => {
       const spyFS = jest.spyOn(FSUtils, 'readFile').mockResolvedValue('privateKey');
       const spyCrypto = jest.spyOn(CryptographyUtils, 'generateJWTjti').mockReturnValue('jti');
 
-      const response = await service.createJWT({ id: 'test', email: '' }, true);
+      const response = await service.createJWT({ id: 'test', name: '' }, true);
 
       expect(response).toBe('token');
-      expect(spyJWT).toBeCalledWith({ id: 'test', email: '' }, 'privateKey', {
+      expect(spyJWT).toBeCalledWith({ id: 'test', name: '' }, 'privateKey', {
         algorithm: configService.config.jwt.algorithm,
         expiresIn: configService.config.jwt.expiresInRefresh,
         jwtid: 'jti'
       });
-      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem'));
+      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../../keys/jwt.pem'));
       expect(spyCrypto).toBeCalled();
     });
   });
@@ -58,34 +58,34 @@ describe('JWTService', () => {
       const service = PlatformTest.get<JWTService>(JWTService);
       const configService = PlatformTest.get<ConfigService>(ConfigService);
 
-      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', email: '' });
+      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
       const spyFS = jest.spyOn(FSUtils, 'readFile').mockResolvedValue('publicKey');
 
       const response = await service.decodeJWT('token');
 
-      expect(response).toEqual({ id: 'test', email: '' });
+      expect(response).toEqual({ id: 'test', name: '' });
       expect(spyJWT).toBeCalledWith('token', 'publicKey', {
         algorithms: [configService.config.jwt.algorithm],
         ignoreExpiration: false
       });
-      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem.pub'));
+      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
     });
 
     it('Should be called for refresh', async () => {
       const service = PlatformTest.get<JWTService>(JWTService);
       const configService = PlatformTest.get<ConfigService>(ConfigService);
 
-      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', email: '' });
+      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
       const spyFS = jest.spyOn(FSUtils, 'readFile').mockResolvedValue('publicKey');
 
       const response = await service.decodeJWT('token', true);
 
-      expect(response).toEqual({ id: 'test', email: '' });
+      expect(response).toEqual({ id: 'test', name: '' });
       expect(spyJWT).toBeCalledWith('token', 'publicKey', {
         algorithms: [configService.config.jwt.algorithm],
         ignoreExpiration: true
       });
-      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../keys/jwt.pem.pub'));
+      expect(spyFS).toBeCalledWith(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
     });
   });
 });

@@ -1,4 +1,24 @@
 {
+  "frontend": {
+    "url": "HB_FRONTEND_URL"
+  },
+  "auth": {
+    "facebook": {
+      "clientID": "HB_AUTH_FACEBOOK_CLIENT_ID",
+      "clientSecret": "HB_AUTH_FACEBOOK_CLIENT_SECRET",
+      "callbackURL": "HB_AUTH_FACEBOOK_CALLBACK_URL"
+    },
+    "github": {
+      "clientID": "HB_AUTH_GITHUB_CLIENT_ID",
+      "clientSecret": "HB_AUTH_GITHUB_CLIENT_SECRET",
+      "callbackURL": "HB_AUTH_GITHUB_CALLBACK_URL"
+    },
+    "google": {
+      "clientID": "HB_AUTH_GOOGLE_CLIENT_ID",
+      "clientSecret": "HB_AUTH_GOOGLE_CLIENT_SECRET",
+      "callbackURL": "HB_AUTH_GOOGLE_CALLBACK_URL"
+    }
+  },
   "jwt": {
     "algorithm": "HB_JWT_ALGORITHM",
     "expiresIn": "HB_JWT_EXPIRES_IN",
@@ -9,6 +29,14 @@
     "connectionOptions": {
       "__name": "HB_MONGODB_CONNECTION_OPTIONS",
       "__format": "json"
+    }
+  },
+  "nodemailer": {
+    "service": "HB_NODEMAILER_SERVICE",
+    "from": "HB_NODEMAILER_FROM",
+    "auth": {
+      "user": "HB_NODEMAILER_USER",
+      "pass": "HB_NODEMAILER_PASS"
     }
   },
   "redis": {

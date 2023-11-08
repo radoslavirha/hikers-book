@@ -3,20 +3,32 @@ import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
 import '@tsed/ioredis';
 import '@tsed/mongoose';
+import '@tsed/passport';
 import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/swagger';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import { join } from 'path';
+import './global/connections/Nodemailer';
 import './global/connections/Redis';
 import * as global from './global/controllers/index';
-import { ConfigService } from './global/services';
-import * as v1 from './v1/controllers/index';
+import './global/protocols/EmailSignInProtocol';
+import './global/protocols/EmailSignUpProtocol';
+import './global/protocols/FacebookProtocol';
+import './global/protocols/GithubProtocol';
+import './global/protocols/GoogleProtocol';
+import { ConfigService } from './global/services/ConfigService';
+// import * as v1 from './v1/controllers/index';
+import { User } from './v1/models';
 
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
+  passport: {
+    userInfoModel: User,
+    disableSession: true
+  },
   mount: {
-    '/v1': [...Object.values(v1)],
+    // '/v1': [...Object.values(v1)],
     '/': [...Object.values(global)]
   },
   views: {

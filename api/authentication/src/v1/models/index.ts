@@ -4,4 +4,3 @@
 
 export * from './User';
 export * from './_GroupsLabels';
-export * from './auth/SignUpResponse';

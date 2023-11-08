@@ -1,12 +1,12 @@
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
-import { Server } from './Server';
+import { TestServer } from '../test/TestServer';
 
 describe('Server', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
 
-  beforeEach(TestMongooseContext.bootstrap(Server));
+  beforeEach(TestServer());
   beforeEach(() => {
     request = SuperTest(PlatformTest.callback());
   });
@@ -37,7 +37,7 @@ describe('Server - production', () => {
   beforeEach(() => {
     process.env.NODE_ENV = 'production';
   });
-  beforeEach(TestMongooseContext.bootstrap(Server));
+  beforeEach(TestServer());
   beforeEach(() => {
     request = SuperTest(PlatformTest.callback());
   });

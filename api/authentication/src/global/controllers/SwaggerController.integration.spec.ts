@@ -2,7 +2,7 @@ import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
-import { Server } from '../../Server';
+import { TestServer } from '../../../test/TestServer';
 import { ConfigService } from '../services/ConfigService';
 import { SwaggerController } from './SwaggerController';
 
@@ -11,7 +11,7 @@ describe('SwaggerController', () => {
   const config = new ConfigLoder(ConfigService.service, ConfigService.port, ConfigService.configModel);
 
   beforeEach(
-    TestMongooseContext.bootstrap(Server, {
+    TestServer({
       mount: {
         '/': [SwaggerController]
       },

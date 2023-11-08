@@ -7,7 +7,7 @@ import { ConfigService } from './ConfigService';
 
 export type JWTPayload = {
   id: string;
-  email: string;
+  name: string;
 };
 
 @Service()
@@ -22,14 +22,14 @@ export class JWTService {
       jwtid: CryptographyUtils.generateJWTjti()
     };
 
-    const privateKey = await FSUtils.readFile(path.resolve(__dirname, '../../keys/jwt.pem'));
+    const privateKey = await FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem'));
 
     // eslint-disable-next-line import/no-named-as-default-member
     return JWT.sign(payload, privateKey, opt);
   }
 
   public async decodeJWT(jwt: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
-    const publicKey = await FSUtils.readFile(path.resolve(__dirname, '../../keys/jwt.pem.pub'));
+    const publicKey = await FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
 
     // eslint-disable-next-line import/no-named-as-default-member
     return JWT.verify(jwt, publicKey, {
