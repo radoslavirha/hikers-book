@@ -10,7 +10,7 @@ import helmet from 'helmet';
 import { join } from 'path';
 import './global/connections/Redis';
 import * as global from './global/controllers/index';
-import { ConfigService } from './global/services';
+import { ConfigService } from './global/services/ConfigService';
 import * as rest from './v1/controllers/index';
 
 @Configuration({

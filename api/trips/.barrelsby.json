@@ -1,7 +1,6 @@
 {
   "directory": [
     "./src/global/controllers",
-    "./src/global/services",
     "./src/v1/controllers"
   ],
   "exclude": [

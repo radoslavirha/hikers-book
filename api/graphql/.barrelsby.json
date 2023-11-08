@@ -1,6 +1,5 @@
 {
   "directory": [
-    "./src/global/services",
     "./src/v1/resolvers"
   ],
   "exclude": [

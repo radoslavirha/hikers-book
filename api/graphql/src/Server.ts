@@ -7,7 +7,7 @@ import '@tsed/platform-express'; // /!\ keep this import
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import './global/connections/Redis';
-import { ConfigService } from './global/services';
+import { ConfigService } from './global/services/ConfigService';
 import './v1/GraphQLModule';
 
 @Configuration({

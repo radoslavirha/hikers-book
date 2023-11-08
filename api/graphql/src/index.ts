@@ -2,8 +2,7 @@ import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { Server } from './Server';
-
-import { ConfigService } from './global/services';
+import { ConfigService } from './global/services/ConfigService';
 
 async function bootstrap() {
   try {
