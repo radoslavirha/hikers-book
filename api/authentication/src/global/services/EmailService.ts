@@ -12,11 +12,10 @@ export class EmailService {
   @Inject(NODEMAILER_TOKEN)
   private nodemailer!: NODEMAILER;
 
-  @Inject()
-  private platformViews!: PlatformViews;
-
-  @Inject()
-  private configService!: ConfigService;
+  constructor(
+    private platformViews: PlatformViews,
+    private configService: ConfigService
+  ) {}
 
   async sendVerificationEamil(email: string, token: string): Promise<SentMessageInfo> {
     const html = (await this.platformViews.render('email/verify', {

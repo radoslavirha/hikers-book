@@ -6,7 +6,7 @@ export abstract class MongoMapper<MONGO extends BaseMongo, MODEL extends Base> {
   public abstract mongoToModel(mongo: MONGO): Promise<MODEL>;
 
   protected mongoToModelBase(model: MODEL, mongo: MONGO): MODEL {
-    model.id = mongo._id;
+    model.id = String(mongo._id);
     model.createdAt = mongo.createdAt;
     model.updatedAt = mongo.createdAt;
 

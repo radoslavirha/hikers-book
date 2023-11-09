@@ -1,5 +1,6 @@
 {
   "directory": [
+    "./test/stubs",
     "./src/global/controllers",
     "./src/global/enums",
     "./src/global/exceptions",
