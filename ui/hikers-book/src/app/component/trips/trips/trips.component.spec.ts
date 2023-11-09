@@ -24,12 +24,12 @@ describe('TripsComponent', () => {
     controller.verify();
   });
 
-  it('should create', () => {
+  it('Should create', () => {
     controller.expectOne('Trips');
     expect(component).toBeTruthy();
   });
 
-  it('should load data', () => {
+  it('Should load data', () => {
     const mockTrips = [
       {
         label: 'Trip 1',

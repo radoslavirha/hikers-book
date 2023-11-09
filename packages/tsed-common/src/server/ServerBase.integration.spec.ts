@@ -41,7 +41,7 @@ describe('ServerBase', () => {
     expect(appSpy).toBeCalledTimes(6);
   });
 
-  it('should call GET /rest', async () => {
+  it('Should call GET /rest', async () => {
     const response = await request.get('/rest').expect(404);
 
     expect(response.body).toEqual({

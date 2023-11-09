@@ -22,11 +22,11 @@ describe('ConfigService', () => {
     httpTestingController.verify();
   });
 
-  it('should be created', () => {
+  it('Should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should load config', async () => {
+  it('Should load config', async () => {
     await service.loadConfig();
 
     const req = httpTestingController.expectOne('./assets/config/config.json');

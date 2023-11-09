@@ -19,7 +19,7 @@ describe('HelloWorldController', () => {
 
   afterEach(TestMongooseContext.reset);
 
-  it('should call GET /hello-world', async () => {
+  it('Should call GET /hello-world', async () => {
     const response = await request.get('/hello-world').expect(200);
 
     expect(response.text).toEqual('hello');

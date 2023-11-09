@@ -14,7 +14,7 @@ class ConfigModelInvalid extends ConfigModel {
 }
 
 describe('ConfigLoder', () => {
-  it('should pass', async () => {
+  it('Should pass', async () => {
     const loader = new ConfigLoder('test', 4000, ConfigModel);
 
     expect(loader.service).toEqual('test');
@@ -47,21 +47,21 @@ describe('ConfigLoder', () => {
     ]);
   });
 
-  it('should pass - isProduction', async () => {
+  it('Should pass - isProduction', async () => {
     const loader = new ConfigLoder('test', 4000, ConfigModel);
     loader._envs.NODE_ENV = 'production';
 
     expect(loader.isProduction).toEqual(true);
   });
 
-  it('should pass - isTest', async () => {
+  it('Should pass - isTest', async () => {
     const loader = new ConfigLoder('test', 4000, ConfigModel);
     loader._envs.NODE_ENV = 'test';
 
     expect(loader.isTest).toEqual(true);
   });
 
-  it('should fail', async () => {
+  it('Should fail', async () => {
     const spy = jest.spyOn($log, 'error').mockImplementation();
 
     try {

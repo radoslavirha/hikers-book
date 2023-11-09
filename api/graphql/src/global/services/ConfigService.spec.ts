@@ -1,7 +1,7 @@
 import { ConfigService } from './ConfigService';
 
 describe('ConfigService', () => {
-  it('should pass', async () => {
+  it('Should pass', async () => {
     try {
       const config = new ConfigService();
 

@@ -5,7 +5,7 @@ describe('FacebookProviderController', () => {
   beforeEach(PlatformTest.create);
   afterEach(PlatformTest.reset);
 
-  it('should be instantiated', async () => {
+  it('Should be instantiated', async () => {
     const instance: FacebookProviderController = await PlatformTest.invoke(FacebookProviderController);
     expect(instance).toBeInstanceOf(FacebookProviderController);
   });

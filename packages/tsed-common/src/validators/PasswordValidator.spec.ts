@@ -2,7 +2,7 @@ import { ValidationError } from '@tsed/common';
 import { PasswordValidator } from './PasswordValidator';
 
 describe('PasswordValidator', () => {
-  it('should pass', async () => {
+  it('Should pass', async () => {
     expect.assertions(0);
 
     try {
@@ -12,7 +12,7 @@ describe('PasswordValidator', () => {
     }
   });
 
-  it('should fail - too short', async () => {
+  it('Should fail - too short', async () => {
     expect.assertions(2);
 
     try {

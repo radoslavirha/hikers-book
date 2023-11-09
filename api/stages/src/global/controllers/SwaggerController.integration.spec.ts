@@ -24,7 +24,7 @@ describe('SwaggerController', () => {
 
   afterEach(TestMongooseContext.reset);
 
-  it('should call GET /', async () => {
+  it('Should call GET /', async () => {
     const response = await request.get('/').expect(200);
 
     expect(response.text).toContain(`<img src="https://tsed.io/tsed-og.png" alt="Ts.ED">`);

@@ -6,7 +6,7 @@ describe('EmailProviderController', () => {
   beforeEach(TestAuthenticationApiContext.bootstrap());
   afterEach(PlatformTest.reset);
 
-  it('should be instantiated', async () => {
+  it('Should be instantiated', async () => {
     const instance: EmailProviderController = await PlatformTest.invoke(EmailProviderController);
     expect(instance).toBeInstanceOf(EmailProviderController);
   });

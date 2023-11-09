@@ -5,7 +5,7 @@ describe('HelloWorldController', () => {
   beforeEach(PlatformTest.create);
   afterEach(PlatformTest.reset);
 
-  it('should do something', () => {
+  it('Should do something', () => {
     const instance = PlatformTest.get<HelloWorldController>(HelloWorldController);
     // const instance = PlatformTest.invoke<HelloWorldController>(HelloWorldController); // get fresh instance
 
