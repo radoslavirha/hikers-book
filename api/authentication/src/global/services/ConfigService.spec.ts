@@ -1,12 +1,16 @@
+import { PlatformTest } from '@tsed/common';
 import { ConfigService } from './ConfigService';
 
 describe('ConfigService', () => {
+  beforeEach(PlatformTest.create);
+  afterEach(PlatformTest.reset);
+
   it('Should pass', async () => {
     try {
-      const config = new ConfigService();
+      const service = PlatformTest.get<ConfigService>(ConfigService);
 
-      expect(config.service).toEqual(`Hiker's Book Authentication API`);
-      expect(config.port).toEqual(5501);
+      expect(service.service).toEqual(`Hiker's Book Authentication API`);
+      expect(service.port).toEqual(5501);
     } catch (error) {
       expect(error).not.toBeDefined();
     }

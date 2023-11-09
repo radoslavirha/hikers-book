@@ -9,9 +9,7 @@ export class TestAuthenticationApiContext {
       imports: [
         {
           token: NODEMAILER_TOKEN,
-          use: {
-            useAsyncFactory: jest.fn().mockResolvedValue(createTransport({}))
-          }
+          use: createTransport({})
         }
       ],
       ...options
