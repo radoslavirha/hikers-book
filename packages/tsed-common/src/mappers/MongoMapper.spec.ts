@@ -7,11 +7,15 @@ import { TestMongoMapper } from '../test/TestMongoMapper';
 import { TestModelChildMongo, TestModelMongo } from '../test/TestMongoModel';
 
 describe('MongoMapper', () => {
+  let mapper: TestMongoMapper;
+
   beforeEach(TestMongooseContext.create);
+  beforeEach(() => {
+    mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
+  });
   afterEach(TestMongooseContext.reset);
 
   it('mongoToModelBase', async () => {
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const mongo = new TestModelMongo();
     mongo._id = 'test';
     mongo.createdAt = new Date();
@@ -30,7 +34,6 @@ describe('MongoMapper', () => {
   });
 
   it('canBePopulated - false', async () => {
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
 
     const mongo = new Model({
@@ -48,7 +51,6 @@ describe('MongoMapper', () => {
   });
 
   it('canBePopulated - true', async () => {
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
     const ModelChild = PlatformTest.get<MongooseModel<TestModelChildMongo>>(TestModelChildMongo);
 
@@ -67,7 +69,6 @@ describe('MongoMapper', () => {
   });
 
   it('getPopulated', async () => {
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
     const ModelChild = PlatformTest.get<MongooseModel<TestModelChildMongo>>(TestModelChildMongo);
 
@@ -87,7 +88,6 @@ describe('MongoMapper', () => {
 
   it('getIdFromPotentiallyPopulated', async () => {
     const childId = '654bcd82bba81536a4ed4df3';
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
 
     const mongo = new Model({
@@ -107,7 +107,6 @@ describe('MongoMapper', () => {
 
   it('getIdFromPotentiallyPopulated - from populated', async () => {
     const childId = '654bcd82bba81536a4ed4df3';
-    const mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
     const ModelChild = PlatformTest.get<MongooseModel<TestModelChildMongo>>(TestModelChildMongo);
 
@@ -127,5 +126,85 @@ describe('MongoMapper', () => {
     const response = mapper.getIdFromPotentiallyPopulated(mongo.child_id);
 
     expect(response).toEqual(childId);
+  });
+
+  it('getModelValue - POST with value', async () => {
+    const model = new TestModel();
+    model.label = 'tester';
+    // @ts-expect-error private method
+    const spy = jest.spyOn(mapper, 'getModelDefault');
+
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = mapper.getModelValue(model, 'label');
+
+    expect(response).toEqual('tester');
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('getModelValue - POST with undefined', async () => {
+    const model = new TestModel();
+    // @ts-expect-error private method
+    const spy = jest.spyOn(mapper, 'getModelDefault').mockReturnValue('mocked');
+
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = mapper.getModelValue(model, 'label');
+
+    expect(response).toEqual('mocked');
+    expect(spy).toHaveBeenCalledWith(model, 'label');
+  });
+
+  it('getModelValue - PATCH with value', async () => {
+    const model = new TestModel();
+    model.label = 'tester';
+    // @ts-expect-error private method
+    const spy = jest.spyOn(mapper, 'getModelDefault');
+
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = mapper.getModelValue(model, 'label', true);
+
+    expect(response).toEqual('tester');
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('getModelValue - PATCH with undefined', async () => {
+    const model = new TestModel();
+    // @ts-expect-error private method
+    const spy = jest.spyOn(mapper, 'getModelDefault');
+
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = mapper.getModelValue(model, 'label', true);
+
+    expect(response).toBeUndefined();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('getModelDefault', async () => {
+    const model = new TestModel();
+
+    expect.assertions(1);
+
+    // @ts-expect-error private method
+    const response = mapper.getModelDefault(model, 'label');
+
+    expect(response).toEqual('label');
+  });
+
+  it('getModelDefault - no default value', async () => {
+    const model = new TestModel();
+
+    expect.assertions(1);
+
+    // @ts-expect-error private method
+    const response = mapper.getModelDefault(model, 'child_id');
+
+    expect(response).toBeUndefined();
   });
 });

@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { EmailVerificationStub, EmailVerificationStubMongo } from '../../../test/stubs';
+import { EmailVerificationStub, EmailVerificationStubMongo } from '../../test/stubs';
 import { EmailVerification } from '../models/EmailVerification';
 import { EmailVerificationMongo } from '../mongo/EmailVerificationMongo';
 import { EmailVerificationMapper } from './EmailVerificationMapper';

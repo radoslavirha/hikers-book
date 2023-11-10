@@ -14,4 +14,22 @@ export class TestMongoMapper extends MongoMapper<TestModelMongo, TestModel> {
 
     return model;
   }
+
+  public async modelToMongoCreate(model: TestModel): Promise<TestModelMongo> {
+    const mongo = new TestModelMongo() as Partial<TestModelMongo>;
+
+    mongo.label = this.getModelValue(model, 'label');
+    mongo.child_id = this.getModelValue(model, 'child_id');
+
+    return mongo as TestModelMongo;
+  }
+
+  public async modelToMongoPatch(model: TestModel): Promise<TestModelMongo> {
+    const mongo = new TestModelMongo() as Partial<TestModelMongo>;
+
+    mongo.label = this.getModelValue(model, 'label', true);
+    mongo.child_id = this.getModelValue(model, 'child_id', true);
+
+    return mongo as TestModelMongo;
+  }
 }

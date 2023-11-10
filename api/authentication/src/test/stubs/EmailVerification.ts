@@ -1,6 +1,6 @@
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
-import { EmailVerification } from '../../src/global/models';
-import { EmailVerificationMongo } from '../../src/global/mongo';
+import { EmailVerification } from '../../global/models';
+import { EmailVerificationMongo } from '../../global/mongo';
 
 export const EmailVerificationStubId = '654d2193990714d40d22a554';
 

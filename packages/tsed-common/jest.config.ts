@@ -5,6 +5,7 @@ export default {
   coveragePathIgnorePatterns: [
     'index.ts', // all the barrels files
     'src/models',
+    'src/test',
     'src/server/defaults.ts'
   ]
 };

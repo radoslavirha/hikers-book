@@ -1,7 +1,7 @@
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
-import { AuthProviderEnum } from '../../src/global/enums';
-import { Credentials } from '../../src/global/models';
-import { CredentialsMongo } from '../../src/global/mongo';
+import { AuthProviderEnum } from '../../global/enums';
+import { Credentials } from '../../global/models';
+import { CredentialsMongo } from '../../global/mongo';
 import { UserStub, UserStubId } from './UserStub';
 
 export const CredentialsStubId = '654d2193990714d40d22a554';

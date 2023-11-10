@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { CredentialsStub, CredentialsStubMongo, CredentialsStubPopulated, UserStubMongo } from '../../../test/stubs';
+import { CredentialsStub, CredentialsStubMongo, CredentialsStubPopulated, UserStubMongo } from '../../test/stubs';
 import { Credentials } from '../models/Credentials';
 import { CredentialsMongo } from '../mongo/CredentialsMongo';
 import { UserMongo } from '../mongo/UserMongo';

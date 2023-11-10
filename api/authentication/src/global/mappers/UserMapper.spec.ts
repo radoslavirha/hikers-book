@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { UserStub, UserStubMongo } from '../../../test/stubs';
+import { UserStub, UserStubMongo } from '../../test/stubs';
 import { User } from '../models/User';
 import { UserMongo } from '../mongo/UserMongo';
 import { UserMapper } from './UserMapper';

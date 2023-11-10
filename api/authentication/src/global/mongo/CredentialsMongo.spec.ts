@@ -2,7 +2,7 @@ import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { Types } from 'mongoose';
-import { CredentialsStubMongo } from '../../../test/stubs';
+import { CredentialsStubMongo } from '../../test/stubs';
 import { CredentialsMongo } from './CredentialsMongo';
 
 describe('CredentialsMongo', () => {

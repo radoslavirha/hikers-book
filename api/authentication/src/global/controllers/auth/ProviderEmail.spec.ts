@@ -1,5 +1,5 @@
 import { PlatformTest } from '@tsed/common';
-import { TestAuthenticationApiContext } from '../../../../test/TestAuthenticationApiContext';
+import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
 import { EmailProviderController } from './ProviderEmail';
 
 describe('EmailProviderController', () => {

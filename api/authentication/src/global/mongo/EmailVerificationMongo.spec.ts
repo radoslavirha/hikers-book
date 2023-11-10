@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
-import { EmailVerificationStubMongo } from '../../../test/stubs';
+import { EmailVerificationStubMongo } from '../../test/stubs';
 import { EmailVerificationMongo } from './EmailVerificationMongo';
 
 describe('EmailVerificationMongo', () => {

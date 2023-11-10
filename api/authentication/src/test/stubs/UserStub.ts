@@ -1,6 +1,6 @@
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
-import { User } from '../../src/global/models';
-import { UserMongo } from '../../src/global/mongo';
+import { User } from '../../global/models';
+import { UserMongo } from '../../global/mongo';
 
 export const UserStubId = '654d2193990714d40d22a554';
 

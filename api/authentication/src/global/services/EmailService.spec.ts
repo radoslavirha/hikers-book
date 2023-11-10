@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
 import { PlatformViews } from '@tsed/platform-views';
-import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
+import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { NODEMAILER_TOKEN } from '../connections/InjectionToken';
 import { NODEMAILER } from '../connections/Nodemailer';
 import { NodemailerFailedSendEmail } from '../exceptions';

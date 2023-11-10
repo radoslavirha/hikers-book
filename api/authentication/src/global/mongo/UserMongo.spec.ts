@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
-import { UserStubMongo } from '../../../test/stubs';
+import { UserStubMongo } from '../../test/stubs';
 import { UserMongo } from './UserMongo';
 
 describe('UserMongo', () => {

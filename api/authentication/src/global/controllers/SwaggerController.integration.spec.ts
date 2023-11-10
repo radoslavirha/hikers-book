@@ -2,7 +2,7 @@ import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
-import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
+import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { ConfigService } from '../services/ConfigService';
 import { SwaggerController } from './SwaggerController';
 

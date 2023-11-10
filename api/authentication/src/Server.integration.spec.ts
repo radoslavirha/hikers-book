@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
-import { TestAuthenticationApiContext } from '../test/TestAuthenticationApiContext';
+import { TestAuthenticationApiContext } from './test/TestAuthenticationApiContext';
 
 describe('Server', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
