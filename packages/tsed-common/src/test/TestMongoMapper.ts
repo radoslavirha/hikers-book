@@ -15,7 +15,7 @@ export class TestMongoMapper extends MongoMapper<TestModelMongo, TestModel> {
     return model;
   }
 
-  public async modelToMongoCreate(model: TestModel): Promise<TestModelMongo> {
+  public async modelToMongoCreateObject(model: TestModel): Promise<TestModelMongo> {
     const mongo = new TestModelMongo() as Partial<TestModelMongo>;
 
     mongo.label = this.getModelValue(model, 'label');
@@ -24,7 +24,7 @@ export class TestMongoMapper extends MongoMapper<TestModelMongo, TestModel> {
     return mongo as TestModelMongo;
   }
 
-  public async modelToMongoPatch(model: TestModel): Promise<TestModelMongo> {
+  public async modelToMongoUpdateObject(model: TestModel): Promise<TestModelMongo> {
     const mongo = new TestModelMongo() as Partial<TestModelMongo>;
 
     mongo.label = this.getModelValue(model, 'label', true);

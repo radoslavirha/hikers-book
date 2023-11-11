@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",
-    "@hikers-book/types": "workspace:^",
     "@tsed/ajv": "^7.43.1",
     "@tsed/common": "^7.43.1",
     "@tsed/core": "^7.43.1",

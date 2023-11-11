@@ -3,11 +3,12 @@ import { SpecTypes, getJsonSchema } from '@tsed/schema';
 import _ from 'lodash';
 import { Base } from '../models/Base';
 import { BaseMongo } from '../mongo/BaseMongo';
+import { MongoPlainObjectCreate, MongoPlainObjectUpdate } from '../types';
 
 export abstract class MongoMapper<MONGO extends BaseMongo, MODEL extends Base> {
   public abstract mongoToModel(mongo: MONGO): Promise<MODEL>;
-  public abstract modelToMongoCreate(model: MODEL): Promise<MONGO>;
-  public abstract modelToMongoPatch(model: MODEL): Promise<MONGO>;
+  public abstract modelToMongoCreateObject(model: MODEL): Promise<MongoPlainObjectCreate<MONGO>>;
+  public abstract modelToMongoUpdateObject(model: MODEL): Promise<MongoPlainObjectUpdate<MONGO>>;
 
   protected mongoToModelBase(model: MODEL, mongo: MONGO): MODEL {
     model.id = String(mongo._id);

@@ -9,6 +9,7 @@
     "./models": "./dist/models/index.js",
     "./mongo": "./dist/mongo/index.js",
     "./server": "./dist/server/index.js",
+    "./types": "./dist/types/index.js",
     "./utils": "./dist/utils/index.js",
     "./validators": "./dist/validators/index.js"
   },
@@ -55,7 +56,6 @@
   "devDependencies": {
     "@hikers-book/eslint-config": "workspace:^",
     "@hikers-book/jest": "workspace:*",
-    "@hikers-book/types": "workspace:^",
     "@tsed/testing-mongoose": "^7.43.1",
     "@types/body-parser": "^1.19.4",
     "@types/compression": "^1.7.4",

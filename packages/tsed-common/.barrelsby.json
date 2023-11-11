@@ -6,6 +6,7 @@
     "./src/models",
     "./src/mongo",
     "./src/server",
+    "./src/types",
     "./src/utils",
     "./src/validators"
   ],

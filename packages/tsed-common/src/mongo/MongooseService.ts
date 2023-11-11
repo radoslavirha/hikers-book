@@ -7,7 +7,15 @@ export abstract class MongooseService<MONGO extends BaseMongo, MODEL extends Bas
   protected abstract model: MongooseModel<MONGO>;
   protected abstract mapper: MongoMapper<MONGO, MODEL>;
 
-  protected async mapSingle(mongo: MONGO | null | undefined): Promise<MODEL | null> {
+  protected getCreateObject(model: MODEL) {
+    return this.mapper.modelToMongoCreateObject(model);
+  }
+
+  protected getUpdateObject(model: MODEL) {
+    return this.mapper.modelToMongoUpdateObject(model);
+  }
+
+  protected async mapSingle(mongo: MONGO | null | undefined) {
     if (!mongo) {
       return null;
     }
