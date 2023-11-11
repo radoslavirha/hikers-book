@@ -1,6 +1,13 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { CredentialsStub, CredentialsStubMongo, CredentialsStubPopulated, UserStubMongo } from '../../test/stubs';
+import {
+  CredentialsStub,
+  CredentialsStubMongo,
+  CredentialsStubMongoCreate,
+  CredentialsStubMongoUpdate,
+  CredentialsStubPopulated,
+  UserStubMongo
+} from '../../test/stubs';
 import { Credentials } from '../models/Credentials';
 import { CredentialsMongo } from '../mongo/CredentialsMongo';
 import { UserMongo } from '../mongo/UserMongo';
@@ -36,6 +43,24 @@ describe('CredentialsMapper', () => {
 
       expect(model).toBeInstanceOf(Credentials);
       expect(model).toEqual(CredentialsStubPopulated);
+    });
+  });
+
+  describe('modelToMongoCreateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoCreateObject(CredentialsStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(CredentialsStubMongoCreate);
+    });
+  });
+
+  describe('modelToMongoUpdateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoUpdateObject(CredentialsStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(CredentialsStubMongoUpdate);
     });
   });
 });

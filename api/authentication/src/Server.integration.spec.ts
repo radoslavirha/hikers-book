@@ -1,5 +1,4 @@
 import { PlatformTest } from '@tsed/common';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from './test/TestAuthenticationApiContext';
 
@@ -11,7 +10,7 @@ describe('Server', () => {
     request = SuperTest(PlatformTest.callback());
   });
 
-  afterEach(TestMongooseContext.reset);
+  afterEach(TestAuthenticationApiContext.reset);
 
   it('Should call GET /rest', async () => {
     const response = await request.get('/rest').expect(404);
@@ -42,7 +41,7 @@ describe('Server - production', () => {
     request = SuperTest(PlatformTest.callback());
   });
 
-  afterEach(TestMongooseContext.reset);
+  afterEach(TestAuthenticationApiContext.reset);
 
   it('Should have CSP header', async () => {
     const response = await request.get('/rest');

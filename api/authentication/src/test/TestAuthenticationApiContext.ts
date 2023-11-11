@@ -15,4 +15,12 @@ export class TestAuthenticationApiContext {
       ...options
     });
   }
+
+  static clearDatabase(): Promise<void> {
+    return TestMongooseContext.clearDatabase();
+  }
+
+  static reset(): Promise<void> {
+    return TestMongooseContext.reset();
+  }
 }

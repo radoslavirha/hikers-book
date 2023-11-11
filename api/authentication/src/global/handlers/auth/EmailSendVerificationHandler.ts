@@ -1,11 +1,10 @@
 import { BaseHandler } from '@hikers-book/tsed-common/handlers';
-import { MongoCreate } from '@hikers-book/types';
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Injectable } from '@tsed/di';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import { CredentialsAlreadyExist, VerificationEmailExist } from '../../exceptions';
-import { EmailSendVerificationRequest } from '../../models';
-import { EmailVerificationMongo } from '../../mongo/EmailVerificationMongo';
+import { EmailSendVerificationRequest, EmailVerification } from '../../models';
 import { EmailService } from '../../services/EmailService';
 import { CredentialsMongooseService } from '../../services/mongoose/CredentialsMongooseService';
 import { EmailVerificationMongooseService } from '../../services/mongoose/EmailVerificationMongooseService';
@@ -41,11 +40,11 @@ export class EmailSendVerificationHandler extends BaseHandler<EmailSendVerificat
     const token = v4();
     console.log(token);
 
-    const data: MongoCreate<EmailVerificationMongo> = {
+    const data = CommonUtils.buildModel(EmailVerification, {
       email: body.email,
       token: await CryptographyUtils.argon2CreateHash(token),
       expires_in: moment().add(1, 'days').toDate()
-    };
+    });
 
     await this.emailVerificationService.create(data);
 

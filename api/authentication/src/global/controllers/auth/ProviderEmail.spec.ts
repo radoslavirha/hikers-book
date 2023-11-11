@@ -4,7 +4,7 @@ import { EmailProviderController } from './ProviderEmail';
 
 describe('EmailProviderController', () => {
   beforeEach(TestAuthenticationApiContext.bootstrap());
-  afterEach(PlatformTest.reset);
+  afterEach(TestAuthenticationApiContext.reset);
 
   it('Should be instantiated', async () => {
     const instance: EmailProviderController = await PlatformTest.invoke(EmailProviderController);

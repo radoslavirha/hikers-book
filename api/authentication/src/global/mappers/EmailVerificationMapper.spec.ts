@@ -1,6 +1,11 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { EmailVerificationStub, EmailVerificationStubMongo } from '../../test/stubs';
+import {
+  EmailVerificationStub,
+  EmailVerificationStubMongo,
+  EmailVerificationStubMongoCreate,
+  EmailVerificationStubMongoUpdate
+} from '../../test/stubs';
 import { EmailVerification } from '../models/EmailVerification';
 import { EmailVerificationMongo } from '../mongo/EmailVerificationMongo';
 import { EmailVerificationMapper } from './EmailVerificationMapper';
@@ -23,6 +28,24 @@ describe('EmailVerificationMapper', () => {
 
       expect(model).toBeInstanceOf(EmailVerification);
       expect(model).toEqual(EmailVerificationStub);
+    });
+  });
+
+  describe('modelToMongoCreateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoCreateObject(EmailVerificationStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(EmailVerificationStubMongoCreate);
+    });
+  });
+
+  describe('modelToMongoUpdateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoUpdateObject(EmailVerificationStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(EmailVerificationStubMongoUpdate);
     });
   });
 });

@@ -1,14 +1,14 @@
 import { Base } from '@hikers-book/tsed-common/models';
-import { Email, Property } from '@tsed/schema';
+import { Email, Required } from '@tsed/schema';
 
 export class EmailVerification extends Base {
-  @Property()
+  @Required()
   @Email()
   email!: string;
 
-  @Property()
+  @Required()
   token!: string;
 
-  @Property()
+  @Required()
   expires_in!: Date;
 }

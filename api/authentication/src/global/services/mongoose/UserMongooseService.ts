@@ -1,5 +1,4 @@
 import { MongooseService } from '@hikers-book/tsed-common/mongo';
-import { MongoCreate } from '@hikers-book/types';
 import { Inject, Service } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { UserMapper } from '../../mappers/UserMapper';
@@ -14,9 +13,9 @@ export class UserMongooseService extends MongooseService<UserMongo, User> {
   @Inject(UserMapper)
   protected mapper!: UserMapper;
 
-  async create(user: MongoCreate<UserMongo>): Promise<User> {
-    const mongo = await this.model.create(user);
+  async create(model: User): Promise<User> {
+    const mongo = await this.model.create(await this.getCreateObject(model));
 
-    return this.mapper.mongoToModel(mongo);
+    return this.mapSingle(mongo) as Promise<User>;
   }
 }

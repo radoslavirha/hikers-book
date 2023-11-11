@@ -1,6 +1,5 @@
 import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { PlatformTest } from '@tsed/common';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { ConfigService } from '../services/ConfigService';
@@ -22,7 +21,7 @@ describe('SwaggerController', () => {
     request = SuperTest(PlatformTest.callback());
   });
 
-  afterEach(TestMongooseContext.reset);
+  afterEach(TestAuthenticationApiContext.reset);
 
   it('Should call GET /', async () => {
     const response = await request.get('/').expect(200);

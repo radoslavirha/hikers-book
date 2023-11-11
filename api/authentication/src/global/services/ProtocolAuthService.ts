@@ -1,3 +1,4 @@
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Inject, Service } from '@tsed/di';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
 import { Profile as FacebookProfile } from 'passport-facebook';
@@ -6,7 +7,7 @@ import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { OAuth2ProviderEmailNotProvided } from '../exceptions/OAuth2ProviderEmailNotProvided';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest } from '../models';
+import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../models';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
 import { CredentialsMongooseService } from './mongoose/CredentialsMongooseService';
@@ -73,7 +74,7 @@ export class ProtocolAuthService {
   }
 
   public async emailSignIn(request: EmailSignInRequest): Promise<JWTResponse> {
-    const credentials = await this.credentials.findOne({ email: request.email, provider: AuthProviderEnum.EMAIL });
+    const credentials = await this.credentials.findByEmailAndProvider(request.email, AuthProviderEnum.EMAIL);
 
     if (!credentials) {
       throw new Forbidden('Invalid email.');
@@ -153,28 +154,28 @@ export class ProtocolAuthService {
         throw new UnprocessableEntity('Invalid provider.');
     }
 
-    const user = await this.user.create({ full_name, admin: false });
+    const user = await this.user.create(CommonUtils.buildModel(User, { id: 'asdasdasd', full_name, admin: false }));
 
-    let credentials: Partial<Credentials>;
+    let credentials: Credentials;
 
     switch (provider) {
       case AuthProviderEnum.EMAIL:
-        credentials = {
+        credentials = CommonUtils.buildModel(Credentials, {
           provider: AuthProviderEnum.EMAIL,
           email: profile.email,
           password: profile.password,
           user_id: user.id
-        };
+        });
         break;
       case AuthProviderEnum.FACEBOOK:
       case AuthProviderEnum.GITHUB:
       case AuthProviderEnum.GOOGLE:
-        credentials = {
+        credentials = CommonUtils.buildModel(Credentials, {
           provider,
           email: this.getOAuth2ProviderEmail({ provider, profile } as OAuth2ProviderPair),
           provider_id: profile.id,
           user_id: user.id
-        };
+        });
         break;
       default:
         throw new UnprocessableEntity('Invalid provider.');

@@ -20,7 +20,7 @@ describe('EmailService', () => {
     platformViews = PlatformTest.get<PlatformViews>(PlatformViews);
     nodemailer = PlatformTest.get<NODEMAILER>(NODEMAILER_TOKEN);
   });
-  afterEach(PlatformTest.reset);
+  afterEach(TestAuthenticationApiContext.reset);
 
   describe('sendVerificationEamil', () => {
     it('Should pass', async () => {

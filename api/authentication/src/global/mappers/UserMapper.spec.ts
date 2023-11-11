@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { UserStub, UserStubMongo } from '../../test/stubs';
+import { UserStub, UserStubMongo, UserStubMongoCreate, UserStubMongoUpdate } from '../../test/stubs';
 import { User } from '../models/User';
 import { UserMongo } from '../mongo/UserMongo';
 import { UserMapper } from './UserMapper';
@@ -23,6 +23,24 @@ describe('UserMapper', () => {
 
       expect(model).toBeInstanceOf(User);
       expect(model).toEqual(UserStub);
+    });
+  });
+
+  describe('modelToMongoCreateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoCreateObject(UserStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(UserStubMongoCreate);
+    });
+  });
+
+  describe('modelToMongoUpdateObject', () => {
+    it('Should return model', async () => {
+      const object = await mapper.modelToMongoUpdateObject(UserStub);
+
+      expect(object).toBeInstanceOf(Object);
+      expect(object).toStrictEqual(UserStubMongoUpdate);
     });
   });
 });

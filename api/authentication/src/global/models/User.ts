@@ -1,10 +1,10 @@
 import { Base } from '@hikers-book/tsed-common/models';
-import { Property } from '@tsed/schema';
+import { Required } from '@tsed/schema';
 
 export class User extends Base {
-  @Property()
+  @Required()
   full_name!: string;
 
-  @Property()
+  @Required()
   admin!: boolean;
 }

@@ -1,5 +1,4 @@
 import { MongooseService } from '@hikers-book/tsed-common/mongo';
-import { MongoCreate } from '@hikers-book/types';
 import { Inject, Service } from '@tsed/di';
 import { MongooseModel } from '@tsed/mongoose';
 import { EmailVerificationMapper } from '../../mappers/EmailVerificationMapper';
@@ -20,10 +19,10 @@ export class EmailVerificationMongooseService extends MongooseService<EmailVerif
     return this.mapSingle(mongo);
   }
 
-  async create(verification: MongoCreate<EmailVerificationMongo>): Promise<EmailVerification> {
-    const mongo = await this.model.create(verification);
+  async create(model: EmailVerification): Promise<EmailVerification> {
+    const mongo = await this.model.create(await this.getCreateObject(model));
 
-    return this.mapper.mongoToModel(mongo);
+    return this.mapSingle(mongo) as Promise<EmailVerification>;
   }
 
   async delete(id: string): Promise<EmailVerification | null> {
