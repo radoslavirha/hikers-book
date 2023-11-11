@@ -5,6 +5,3 @@
 export * from './CredentialsAlreadyExist';
 export * from './NodemailerFailedSendEmail';
 export * from './OAuth2ProviderEmailNotProvided';
-export * from './VerificationEmailExist';
-export * from './VerificationEmailExpired';
-export * from './VerificationEmailNotExist';

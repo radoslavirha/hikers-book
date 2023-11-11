@@ -17,7 +17,7 @@ export class EmailService {
     private configService: ConfigService
   ) {}
 
-  async sendVerificationEamil(email: string, token: string): Promise<SentMessageInfo> {
+  async sendVerificationEmail(email: string, token: string): Promise<SentMessageInfo> {
     const html = (await this.platformViews.render('email/verify', {
       URL: `${this.configService.config.frontend.url}/auth/sign-up/email?token=${token}&email=${email}`
     })) as string;

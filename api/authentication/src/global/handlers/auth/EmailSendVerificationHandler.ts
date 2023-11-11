@@ -1,9 +1,10 @@
 import { BaseHandler } from '@hikers-book/tsed-common/handlers';
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Injectable } from '@tsed/di';
+import { Forbidden } from '@tsed/exceptions';
 import moment from 'moment';
 import { v4 } from 'uuid';
-import { CredentialsAlreadyExist, VerificationEmailExist } from '../../exceptions';
+import { CredentialsAlreadyExist } from '../../exceptions';
 import { EmailSendVerificationRequest, EmailVerification } from '../../models';
 import { EmailService } from '../../services/EmailService';
 import { CredentialsMongooseService } from '../../services/mongoose/CredentialsMongooseService';
@@ -31,23 +32,23 @@ export class EmailSendVerificationHandler extends BaseHandler<EmailSendVerificat
 
     if (exist) {
       if (moment().isBefore(exist.expires_in)) {
-        throw new VerificationEmailExist(body.email);
+        throw new Forbidden(`Verification email already sent to ${body.email}!`);
       }
 
       await this.emailVerificationService.delete(exist.id);
     }
 
     const token = v4();
-    console.log(token);
+    // console.log(token);
 
     const data = CommonUtils.buildModel(EmailVerification, {
       email: body.email,
       token: await CryptographyUtils.argon2CreateHash(token),
-      expires_in: moment().add(1, 'days').toDate()
+      expires_in: moment().add(1, 'days').toDate() // put it in config?
     });
 
     await this.emailVerificationService.create(data);
 
-    await this.emailService.sendVerificationEamil(body.email, token);
+    await this.emailService.sendVerificationEmail(body.email, token);
   }
 }

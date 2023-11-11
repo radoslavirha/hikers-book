@@ -18,7 +18,7 @@ const config: Config.InitialOptions = {
   },
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   testEnvironment: 'node',
-  testMatch: ['**/src/**/?(*.)+(spec|test).[tj]s?(x)'],
+  testMatch: ['**/src/**/*.spec.ts'],
   transform: {
     '\\.(ts)$': 'ts-jest'
   }

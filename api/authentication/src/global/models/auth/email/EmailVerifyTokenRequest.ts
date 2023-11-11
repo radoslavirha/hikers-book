@@ -1,4 +1,4 @@
-import { Description, Email, Example, Property, Schema, Title } from '@tsed/schema';
+import { Description, Email, Example, Required, Schema, Title } from '@tsed/schema';
 
 @Schema({ additionalProperties: false })
 export class EmailVerifyTokenRequest {
@@ -6,12 +6,12 @@ export class EmailVerifyTokenRequest {
   @Description('Email used for registration.')
   @Example('user@email.com')
   @Email()
-  @Property()
+  @Required()
   email!: string;
 
   @Title('token')
   @Description('Verification token sent to email.')
   @Example('verification-token')
-  @Property()
+  @Required()
   token!: string;
 }

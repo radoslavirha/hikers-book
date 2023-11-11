@@ -22,7 +22,7 @@ describe('EmailService', () => {
   });
   afterEach(TestAuthenticationApiContext.reset);
 
-  describe('sendVerificationEamil', () => {
+  describe('sendVerificationEmail', () => {
     it('Should pass', async () => {
       // @ts-expect-error private
       const spy = jest.spyOn(service, 'sendMail').mockResolvedValue({});
@@ -30,7 +30,7 @@ describe('EmailService', () => {
 
       expect.assertions(3);
 
-      const result = await service.sendVerificationEamil('email@domain.com', 'token');
+      const result = await service.sendVerificationEmail('email@domain.com', 'token');
 
       expect(result).toEqual({});
       expect(platformViewsSpy).toHaveBeenCalledWith('email/verify', {

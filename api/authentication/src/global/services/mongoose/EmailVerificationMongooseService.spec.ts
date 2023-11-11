@@ -1,6 +1,5 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { EmailVerification } from '../../../global/models';
 import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
 import { EmailVerificationStub, EmailVerificationStubId, EmailVerificationStubMongoCreate } from '../../../test/stubs';
@@ -12,8 +11,8 @@ describe('EmailVerificationMongooseService', () => {
   let model: MongooseModel<EmailVerificationMongo>;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
-  beforeEach(() => {
-    TestMongooseContext.clearDatabase();
+  beforeEach(async () => {
+    await TestAuthenticationApiContext.clearDatabase();
     model = PlatformTest.get<MongooseModel<EmailVerificationMongo>>(EmailVerificationMongo);
     service = PlatformTest.get<EmailVerificationMongooseService>(EmailVerificationMongooseService);
   });

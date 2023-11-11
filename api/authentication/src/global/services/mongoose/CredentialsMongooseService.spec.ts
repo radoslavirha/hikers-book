@@ -1,6 +1,5 @@
 import { PlatformTest } from '@tsed/common';
 import { MongooseModel } from '@tsed/mongoose';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { AuthProviderEnum } from '../../../global/enums';
 import { Credentials } from '../../../global/models';
 import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
@@ -13,8 +12,8 @@ describe('CredentialsMongooseService', () => {
   let model: MongooseModel<CredentialsMongo>;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
-  beforeEach(() => {
-    TestMongooseContext.clearDatabase();
+  beforeEach(async () => {
+    await TestAuthenticationApiContext.clearDatabase();
     model = PlatformTest.get<MongooseModel<CredentialsMongo>>(CredentialsMongo);
     service = PlatformTest.get<CredentialsMongooseService>(CredentialsMongooseService);
   });
