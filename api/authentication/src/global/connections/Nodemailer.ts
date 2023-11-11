@@ -1,11 +1,11 @@
 import { registerProvider } from '@tsed/di';
 import { $log } from '@tsed/logger';
-import { createTransport, Transporter } from 'nodemailer';
+import { createTransport } from 'nodemailer';
+import Mailer from 'nodemailer/lib/mailer';
 import { ConfigService } from '../services/ConfigService';
 import { NODEMAILER_TOKEN } from './InjectionToken';
 
-// TODO: Fix this type and return type SentMessageInfo in EmailService
-export type NODEMAILER = Transporter;
+export type NODEMAILER = Mailer;
 
 registerProvider<NODEMAILER>({
   provide: NODEMAILER_TOKEN,
@@ -13,6 +13,7 @@ registerProvider<NODEMAILER>({
   async useAsyncFactory(config: ConfigService): Promise<NODEMAILER> {
     const transporter = createTransport(config.config.nodemailer);
 
+    // istanbul ignore next
     if (!config.isTest) {
       try {
         $log.info('Verifying Nodemailer configuration');
