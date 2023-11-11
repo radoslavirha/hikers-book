@@ -1,63 +1,108 @@
 import { PlatformTest } from '@tsed/common';
 import { TestModel } from '../test/TestModel';
+import { TestMongoMapper } from '../test/TestMongoMapper';
 import { TestModelMongo } from '../test/TestMongoModel';
 import { TestMongooseService } from '../test/TestMongooseService';
+import { MongoPlainObjectCreate, MongoPlainObjectUpdate } from '../types/mongo';
 
 describe('MongooseService', () => {
+  let service: TestMongooseService;
+  let mapper: TestMongoMapper;
+
   beforeEach(PlatformTest.create);
+  beforeEach(() => {
+    mapper = PlatformTest.get<TestMongoMapper>(TestMongoMapper);
+    service = PlatformTest.get<TestMongooseService>(TestMongooseService);
+  });
   afterEach(PlatformTest.reset);
 
-  it('mapSingle', async () => {
-    const service = PlatformTest.get<TestMongooseService>(TestMongooseService);
+  it('getCreateObject', async () => {
+    const spy = jest
+      .spyOn(mapper, 'modelToMongoCreateObject')
+      .mockResolvedValue(<MongoPlainObjectCreate<TestModelMongo>>{ label: 'label', child_id: 'child_id' });
+    const model = new TestModel();
+    model.label = 'label';
 
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = await service.getCreateObject(model);
+
+    expect(spy).toHaveBeenCalledWith(model);
+    expect(response).toStrictEqual({ label: 'label', child_id: 'child_id' });
+  });
+
+  it('getUpdateObject', async () => {
+    const spy = jest
+      .spyOn(mapper, 'modelToMongoUpdateObject')
+      .mockResolvedValue(<MongoPlainObjectUpdate<TestModelMongo>>{ label: 'label', child_id: 'child_id' });
+    const model = new TestModel();
+    model.label = 'label';
+
+    expect.assertions(2);
+
+    // @ts-expect-error protected method
+    const response = await service.getUpdateObject(model);
+
+    expect(spy).toHaveBeenCalledWith(model);
+    expect(response).toStrictEqual({ label: 'label', child_id: 'child_id' });
+  });
+
+  it('mapSingle', async () => {
+    const spy = jest
+      .spyOn(mapper, 'mongoToModel')
+      .mockResolvedValue(<TestModel>{ label: 'label', child_id: 'child_id' });
     const mongo = new TestModelMongo();
     mongo._id = 'test';
     mongo.label = 'label';
     mongo.createdAt = new Date();
     mongo.updatedAt = new Date();
 
-    expect.assertions(5);
+    expect.assertions(2);
 
     // @ts-expect-error protected method
     const response = await service.mapSingle(mongo);
 
-    expect(response).toBeInstanceOf(TestModel);
-    expect(response!.id).toEqual('test');
-    expect(response!.label).toEqual('label');
-    expect(response!.createdAt).toEqual(expect.any(Date));
-    expect(response!.updatedAt).toEqual(expect.any(Date));
+    expect(response).toStrictEqual({ label: 'label', child_id: 'child_id' });
+    expect(spy).toHaveBeenCalledWith(mongo);
   });
 
   it('mapSingle - null', async () => {
-    const service = PlatformTest.get<TestMongooseService>(TestMongooseService);
+    const spy = jest.spyOn(mapper, 'mongoToModel');
 
-    expect.assertions(1);
+    expect.assertions(2);
 
     // @ts-expect-error protected method
     const response = await service.mapSingle();
 
     expect(response).toBe(null);
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('mapMany', async () => {
-    const service = PlatformTest.get<TestMongooseService>(TestMongooseService);
-
+    const spy = jest
+      .spyOn(mapper, 'mongoToModel')
+      .mockResolvedValue(<TestModel>{ label: 'label', child_id: 'child_id' });
     const mongo = new TestModelMongo();
     mongo._id = 'test';
     mongo.label = 'label';
     mongo.createdAt = new Date();
     mongo.updatedAt = new Date();
 
-    expect.assertions(6);
+    const mongo2 = new TestModelMongo();
+    mongo2._id = 'test2';
+    mongo2.label = 'label2';
+    mongo2.createdAt = new Date();
+    mongo2.updatedAt = new Date();
+
+    expect.assertions(4);
 
     // @ts-expect-error protected method
-    const response = await service.mapMany([mongo]);
+    const response = await service.mapMany([mongo, mongo2]);
 
-    expect(response.length).toBe(1);
-    expect(response[0]).toBeInstanceOf(TestModel);
-    expect(response[0].id).toEqual('test');
-    expect(response[0].label).toEqual('label');
-    expect(response[0].createdAt).toEqual(expect.any(Date));
-    expect(response[0].updatedAt).toEqual(expect.any(Date));
+    expect(response.length).toBe(2);
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenNthCalledWith(1, mongo);
+    expect(spy).toHaveBeenNthCalledWith(2, mongo2);
   });
 });
