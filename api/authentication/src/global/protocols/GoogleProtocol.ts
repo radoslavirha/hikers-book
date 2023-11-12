@@ -1,21 +1,8 @@
 import { Req } from '@tsed/common';
-import { Inject } from '@tsed/di';
 import { Args, BeforeInstall, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { Profile, Strategy, StrategyOptions } from 'passport-google-oauth20';
 import { ConfigService } from '../services/ConfigService';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
-
-// {
-//   id: '101290332297136230786',
-//   displayName: 'Radoslav Irha',
-//   name: { familyName: 'Irha', givenName: 'Radoslav' },
-//   emails: [ { value: 'radoslav.irha@gmail.com', verified: true } ],
-//   photos: [
-//     {
-//       value: 'https://lh3.googleusercontent.com/a/ACg8ocKbjwlfmb1Sj4JWKckIiHIZ1-UqC0O6fCYCcTk929X60kE=s96-c'
-//     }
-//   ]
-// }
 
 @Protocol<StrategyOptions>({
   name: 'google',
@@ -28,11 +15,10 @@ import { ProtocolAuthService } from '../services/ProtocolAuthService';
   }
 })
 export class GoogleProtocol implements OnVerify, OnInstall, BeforeInstall {
-  @Inject()
-  private configService!: ConfigService;
-
-  @Inject()
-  private authService!: ProtocolAuthService;
+  constructor(
+    private authService: ProtocolAuthService,
+    private configService: ConfigService
+  ) {}
 
   async $beforeInstall(settings: StrategyOptions): Promise<StrategyOptions> {
     settings.clientID = this.configService.config.auth.google.clientID;

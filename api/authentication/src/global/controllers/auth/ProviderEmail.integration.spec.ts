@@ -3,8 +3,15 @@ import moment from 'moment';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
 import { CredentialsStub, EmailVerificationStub } from '../../../test/stubs';
-import { EmailSendVerificationRequest, EmailVerifyTokenRequest } from '../../models';
+import { EmailVerifyTokenHandler } from '../../handlers';
+import {
+  EmailSendVerificationRequest,
+  EmailSignInRequest,
+  EmailSignUpRequest,
+  EmailVerifyTokenRequest
+} from '../../models';
 import { EmailService } from '../../services/EmailService';
+import { ProtocolAuthService } from '../../services/ProtocolAuthService';
 import { CredentialsMongooseService } from '../../services/mongoose/CredentialsMongooseService';
 import { EmailVerificationMongooseService } from '../../services/mongoose/EmailVerificationMongooseService';
 import { CryptographyUtils } from '../../utils';
@@ -20,9 +27,12 @@ jest.mock('uuid', () => {
 
 describe('EmailProviderController', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
+
   let credentialsService: CredentialsMongooseService;
   let emailVerificationService: EmailVerificationMongooseService;
   let emailService: EmailService;
+  let verifyTokenHandler: EmailVerifyTokenHandler;
+  let authService: ProtocolAuthService;
 
   beforeAll(
     TestAuthenticationApiContext.bootstrap({
@@ -33,9 +43,12 @@ describe('EmailProviderController', () => {
   );
   beforeAll(() => {
     request = SuperTest(PlatformTest.callback());
+
     credentialsService = PlatformTest.get<CredentialsMongooseService>(CredentialsMongooseService);
     emailVerificationService = PlatformTest.get<EmailVerificationMongooseService>(EmailVerificationMongooseService);
     emailService = PlatformTest.get<EmailService>(EmailService);
+    verifyTokenHandler = PlatformTest.get<EmailVerifyTokenHandler>(EmailVerifyTokenHandler);
+    authService = PlatformTest.get<ProtocolAuthService>(ProtocolAuthService);
   });
   beforeEach(() => {
     TestAuthenticationApiContext.clearDatabase();
@@ -247,6 +260,69 @@ describe('EmailProviderController', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toStrictEqual({});
+    });
+  });
+
+  describe('POST /auth/provider/email/sign-up', () => {
+    const requestStub: EmailSignUpRequest = {
+      email: 'tester@domain.com',
+      token: 'token',
+      password: '8^^3286UhpB$9m',
+      password_confirm: '8^^3286UhpB$9m',
+      full_name: 'John Doe'
+    };
+
+    it('Should call verifyTokenHandler.execute()', async () => {
+      const spy = jest.spyOn(verifyTokenHandler, 'execute').mockImplementation();
+
+      expect.assertions(1);
+
+      await request.post('/auth/provider/email/sign-up').send(requestStub);
+
+      expect(spy).toHaveBeenCalledWith({ email: 'tester@domain.com', token: 'token' });
+    });
+
+    it('Should call authService.emailSignUp()', async () => {
+      jest.spyOn(verifyTokenHandler, 'execute').mockImplementation();
+      const spy = jest.spyOn(authService, 'emailSignUp').mockImplementation();
+
+      expect.assertions(1);
+
+      await request.post('/auth/provider/email/sign-up').send(requestStub);
+
+      expect(spy).toHaveBeenCalledWith(requestStub);
+    });
+
+    it('Should return 400 when passwords does not match', async () => {
+      expect.assertions(2);
+
+      const response = await request.post('/auth/provider/email/sign-up').send(<EmailSignUpRequest>{
+        email: 'tester@domain.com',
+        token: 'token',
+        password: '8^^3286UhpB$9m',
+        password_confirm: '8^^3286UhpB$9m---',
+        full_name: 'John Doe'
+      });
+
+      expect(response.status).toBe(400);
+      expect(response.body.message).toEqual(`Passwords do not match!`);
+    });
+  });
+
+  describe('POST /auth/provider/email/sign-in', () => {
+    const requestStub: EmailSignInRequest = {
+      email: 'tester@domain.com',
+      password: '8^^3286UhpB$9m'
+    };
+
+    it('Should call authService.emailSignUp()', async () => {
+      const spy = jest.spyOn(authService, 'emailSignIn').mockImplementation();
+
+      expect.assertions(1);
+
+      await request.post('/auth/provider/email/sign-in').send(requestStub);
+
+      expect(spy).toHaveBeenCalledWith(requestStub);
     });
   });
 });

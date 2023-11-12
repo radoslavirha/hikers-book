@@ -10,10 +10,12 @@ export class GoogleProviderController {
   @Get('/')
   @Description('Login with Google.')
   @Authenticate('google', { session: false, scope: ['email', 'profile'] })
+  // istanbul ignore next
   async authenticated() {}
 
   @Get('/callback')
   @Description('Login with Google.')
   @Authenticate('google', { session: false, scope: ['email', 'profile'] })
+  // istanbul ignore next
   async callback() {}
 }

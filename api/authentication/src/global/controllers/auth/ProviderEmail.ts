@@ -40,11 +40,13 @@ export class EmailProviderController {
   @Returns(NotFound.STATUS, NotFound)
   @Returns(Forbidden.STATUS, Forbidden)
   @Returns(BadRequest.STATUS, BadRequest)
+  // istanbul ignore next
   async signUp() {}
 
   @Post('/sign-in')
   @Description('Sign in user with email and password.')
   @Authenticate('email-sign-in', { session: false })
   @Returns(200)
+  // istanbul ignore next
   async signIn() {}
 }

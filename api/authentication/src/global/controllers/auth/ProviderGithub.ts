@@ -10,10 +10,12 @@ export class GithubProviderController {
   @Get('/')
   @Description('Login with Github.')
   @Authenticate('github', { session: false, scope: ['user', 'email'] })
+  // istanbul ignore next
   async authenticated() {}
 
   @Get('/callback')
   @Description('Login with Github.')
   @Authenticate('github', { session: false, scope: ['user', 'email'] })
+  // istanbul ignore next
   async callback() {}
 }

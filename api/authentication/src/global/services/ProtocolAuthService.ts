@@ -1,5 +1,5 @@
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
-import { Inject, Service } from '@tsed/di';
+import { Service } from '@tsed/di';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
 import { Profile as FacebookProfile } from 'passport-facebook';
 import { Profile as GithubProfile } from 'passport-github2';
@@ -29,17 +29,13 @@ export type JWTResponse = {
 
 @Service()
 export class ProtocolAuthService {
-  @Inject(CredentialsMongooseService)
-  private credentials!: CredentialsMongooseService;
-
-  @Inject(UserMongooseService)
-  private user!: UserMongooseService;
-
-  @Inject(EmailVerificationMongooseService)
-  private emailVerification!: EmailVerificationMongooseService;
-
-  @Inject(JWTService)
-  private jwtService!: JWTService;
+  // eslint-disable-next-line max-params
+  constructor(
+    private credentials: CredentialsMongooseService,
+    private emailVerification: EmailVerificationMongooseService,
+    private jwtService: JWTService,
+    private user: UserMongooseService
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async facebook(profile: FacebookProfile, accessToken: string, refreshToken: string): Promise<JWTResponse> {

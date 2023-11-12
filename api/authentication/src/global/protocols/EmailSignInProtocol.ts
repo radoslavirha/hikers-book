@@ -1,5 +1,4 @@
 import { BodyParams, Req } from '@tsed/common';
-import { Inject } from '@tsed/di';
 import { OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { IStrategyOptions, Strategy } from 'passport-local';
 import { EmailSignInRequest } from '../models';
@@ -14,10 +13,7 @@ import { ProtocolAuthService } from '../services/ProtocolAuthService';
   }
 })
 export class EmailSignInProtocol implements OnVerify, OnInstall {
-  @Inject()
-  private authService!: ProtocolAuthService;
-
-  constructor() {}
+  constructor(private authService: ProtocolAuthService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   $onInstall(strategy: Strategy): void {

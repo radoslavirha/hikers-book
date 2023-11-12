@@ -10,10 +10,12 @@ export class FacebookProviderController {
   @Get('/')
   @Description('Login with Facebook.')
   @Authenticate('facebook', { session: false, scope: ['email'] })
+  // istanbul ignore next
   async authenticated() {}
 
   @Get('/callback')
   @Description('Login with Facebook.')
   @Authenticate('facebook', { session: false, scope: ['email'] })
+  // istanbul ignore next
   async callback() {}
 }
