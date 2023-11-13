@@ -6,32 +6,21 @@ import { Profile as GithubProfile } from 'passport-github2';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
-import { OAuth2ProviderEmailNotProvided } from '../exceptions/OAuth2ProviderEmailNotProvided';
+import { CredentialsMapper } from '../mappers/CredentialsMapper';
 import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../models';
+import { AuthProviderPair, JWTResponse, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
 import { CredentialsMongooseService } from './mongoose/CredentialsMongooseService';
 import { EmailVerificationMongooseService } from './mongoose/EmailVerificationMongooseService';
 import { UserMongooseService } from './mongoose/UserMongooseService';
 
-type ProviderEmailPair = { provider: AuthProviderEnum.EMAIL; profile: EmailSignUpRequest };
-type ProviderFacebookPair = { provider: AuthProviderEnum.FACEBOOK; profile: FacebookProfile };
-type ProviderGithubPair = { provider: AuthProviderEnum.GITHUB; profile: GithubProfile };
-type ProviderGooglePair = { provider: AuthProviderEnum.GOOGLE; profile: GoogleProfile };
-
-type OAuth2ProviderPair = ProviderFacebookPair | ProviderGithubPair | ProviderGooglePair;
-type AuthProviderPair = ProviderEmailPair | OAuth2ProviderPair;
-
-export type JWTResponse = {
-  jwt: string;
-  refresh: string;
-};
-
 @Service()
 export class ProtocolAuthService {
   // eslint-disable-next-line max-params
   constructor(
     private credentials: CredentialsMongooseService,
+    private credentialsMapper: CredentialsMapper,
     private emailVerification: EmailVerificationMongooseService,
     private jwtService: JWTService,
     private user: UserMongooseService
@@ -53,12 +42,11 @@ export class ProtocolAuthService {
   }
 
   public async emailSignUp(profile: EmailSignUpRequest): Promise<JWTResponse> {
-    const credentials = await this.findCredentialsByEmail(profile.email);
+    const credentials = await this.credentials.findManyByEmail(profile.email);
 
     if (credentials.length === 0) {
       const credentials = await this.createCredentialsAndUser({ provider: AuthProviderEnum.EMAIL, profile });
-      const invitation = await this.emailVerification.findByEmail(profile.email);
-      await this.emailVerification.delete(invitation!.id);
+      await this.emailVerification.deleteByEmail(profile.email);
       return this.createJWT(credentials);
     } else if (credentials.length > 1) {
       this.handleMultipleCredentials();
@@ -73,11 +61,11 @@ export class ProtocolAuthService {
     const credentials = await this.credentials.findByEmailAndProvider(request.email, AuthProviderEnum.EMAIL);
 
     if (!credentials) {
-      throw new Forbidden('Invalid email.');
+      throw new Forbidden('Account does not exist!');
     }
 
     if (!(await CryptographyUtils.argon2VerifyPassword(credentials.password as string, request.password))) {
-      throw new Forbidden('Invalid password.');
+      throw new Forbidden('Invalid password!');
     }
 
     return this.createJWT(credentials);
@@ -86,14 +74,14 @@ export class ProtocolAuthService {
   private async handleOAuth2(data: OAuth2ProviderPair): Promise<JWTResponse> {
     const { provider, profile } = data;
 
-    const email = this.getOAuth2ProviderEmail({ provider, profile } as OAuth2ProviderPair);
+    const email = this.getEmailFromOAuth2Profile(data);
 
     await this.checkVerificationEmail(email);
 
-    const credentials = await this.findCredentialsByEmail(email);
+    const credentials = await this.credentials.findManyByEmail(email);
 
     if (credentials.length === 0) {
-      const credentials = await this.createCredentialsAndUser({ provider, profile } as OAuth2ProviderPair);
+      const credentials = await this.createCredentialsAndUser(data);
       return this.createJWT(credentials);
     } else if (credentials.length > 1) {
       this.handleMultipleCredentials();
@@ -102,6 +90,18 @@ export class ProtocolAuthService {
     } else {
       return this.createJWT(credentials[0]);
     }
+  }
+
+  private async createCredentialsAndUser(data: AuthProviderPair): Promise<Credentials> {
+    const full_name = this.getUserNameFromProfile(data);
+
+    const user = await this.user.create(CommonUtils.buildModel(User, { full_name, admin: false }));
+
+    const credentials = this.credentialsMapper.modelFromAuthProfile(data, user.id, this.getEmailFromAuthProfile(data));
+
+    const created = await this.credentials.create(credentials);
+
+    return (await this.credentials.findById(created.id)) as Credentials;
   }
 
   private async createJWT(credentials: Credentials): Promise<JWTResponse> {
@@ -128,66 +128,43 @@ export class ProtocolAuthService {
     };
   }
 
-  private async findCredentialsByEmail(email: string): Promise<Credentials[]> {
-    return this.credentials.findManyByEmail(email);
-  }
-
-  private async createCredentialsAndUser(data: AuthProviderPair): Promise<Credentials> {
+  private getEmailFromAuthProfile(data: AuthProviderPair): string {
     const { provider, profile } = data;
 
-    let full_name: string;
-
     switch (provider) {
       case AuthProviderEnum.EMAIL:
-        full_name = profile.full_name;
-        break;
+        return profile.email;
       case AuthProviderEnum.FACEBOOK:
       case AuthProviderEnum.GITHUB:
       case AuthProviderEnum.GOOGLE:
-        full_name = profile.displayName;
-        break;
+        return this.getEmailFromOAuth2Profile({ provider, profile } as OAuth2ProviderPair);
       default:
-        throw new UnprocessableEntity('Invalid provider.');
+        throw new UnprocessableEntity(`Cannot get email from ${provider} profile.`);
     }
-
-    const user = await this.user.create(CommonUtils.buildModel(User, { id: 'asdasdasd', full_name, admin: false }));
-
-    let credentials: Credentials;
-
-    switch (provider) {
-      case AuthProviderEnum.EMAIL:
-        credentials = CommonUtils.buildModel(Credentials, {
-          provider: AuthProviderEnum.EMAIL,
-          email: profile.email,
-          password: profile.password,
-          user_id: user.id
-        });
-        break;
-      case AuthProviderEnum.FACEBOOK:
-      case AuthProviderEnum.GITHUB:
-      case AuthProviderEnum.GOOGLE:
-        credentials = CommonUtils.buildModel(Credentials, {
-          provider,
-          email: this.getOAuth2ProviderEmail({ provider, profile } as OAuth2ProviderPair),
-          provider_id: profile.id,
-          user_id: user.id
-        });
-        break;
-      default:
-        throw new UnprocessableEntity('Invalid provider.');
-    }
-
-    const created = await this.credentials.create(credentials);
-    return (await this.credentials.findById(created.id)) as Credentials;
   }
 
-  private getOAuth2ProviderEmail(data: OAuth2ProviderPair): string {
+  private getEmailFromOAuth2Profile(data: OAuth2ProviderPair): string {
     const { provider, profile } = data;
     if (profile.emails && profile.emails[0].value) {
       return profile.emails[0].value;
     }
 
-    throw new OAuth2ProviderEmailNotProvided(provider);
+    throw new UnprocessableEntity(`Cannot get email from ${provider} profile.`);
+  }
+
+  private getUserNameFromProfile(data: AuthProviderPair): string {
+    const { provider, profile } = data;
+
+    switch (provider) {
+      case AuthProviderEnum.EMAIL:
+        return profile.full_name;
+      case AuthProviderEnum.FACEBOOK:
+      case AuthProviderEnum.GITHUB:
+      case AuthProviderEnum.GOOGLE:
+        return profile.displayName;
+      default:
+        throw new UnprocessableEntity(`Cannot get username from ${provider} profile.`);
+    }
   }
 
   private async checkVerificationEmail(email: string): Promise<void> {
@@ -199,7 +176,7 @@ export class ProtocolAuthService {
   }
 
   private handleMultipleCredentials(): never {
-    throw new UnprocessableEntity('Multiple credentials found.');
+    throw new UnprocessableEntity('Multiple credentials found!');
   }
 
   private handleExistingCredentials(email: string, provider: AuthProviderEnum): never {

@@ -61,25 +61,34 @@ describe('EmailProviderController', () => {
       email: 'tester@domain.com'
     };
 
-    it('Should call credentialsService.findByEmail()', async () => {
-      const spy = jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(CredentialsStub);
+    let createSpy: jest.SpyInstance;
+    let deleteSpy: jest.SpyInstance;
+    let findCredentialsSpy: jest.SpyInstance;
+    let findSpy: jest.SpyInstance;
 
+    beforeEach(() => {
+      createSpy = jest.spyOn(emailVerificationService, 'create').mockImplementation();
+      deleteSpy = jest.spyOn(emailVerificationService, 'delete').mockResolvedValue(null);
+      findSpy = jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
+      findCredentialsSpy = jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(CredentialsStub);
+    });
+
+    it('Should call credentialsService.findByEmail()', async () => {
       expect.assertions(1);
 
       await request.post('/auth/provider/email/send-verification').send(requestStub);
 
-      expect(spy).toHaveBeenCalledWith('tester@domain.com');
+      expect(findCredentialsSpy).toHaveBeenCalledWith('tester@domain.com');
     });
 
     it('Should call emailVerificationService.findByEmail()', async () => {
       jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(null);
-      const spy = jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
 
       expect.assertions(1);
 
       await request.post('/auth/provider/email/send-verification').send(requestStub);
 
-      expect(spy).toHaveBeenCalledWith('tester@domain.com');
+      expect(findSpy).toHaveBeenCalledWith('tester@domain.com');
     });
 
     it('Should call emailVerificationService.delete() when old invitation exist', async () => {
@@ -88,25 +97,23 @@ describe('EmailProviderController', () => {
         ...EmailVerificationStub,
         expires_in: moment().subtract(2, 'hours').toDate()
       });
-      const spy = jest.spyOn(emailVerificationService, 'delete').mockResolvedValue(null);
 
       expect.assertions(1);
 
       await request.post('/auth/provider/email/send-verification').send(requestStub);
 
-      expect(spy).toHaveBeenCalledWith(EmailVerificationStub.id);
+      expect(deleteSpy).toHaveBeenCalledWith(EmailVerificationStub.id);
     });
 
     it('Should call emailVerificationService.create()', async () => {
       jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(null);
       jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(null);
-      const spy = jest.spyOn(emailVerificationService, 'create').mockImplementation();
 
       expect.assertions(1);
 
       await request.post('/auth/provider/email/send-verification').send(requestStub);
 
-      expect(spy).toHaveBeenCalledWith(
+      expect(createSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           email: 'tester@domain.com',
           token: expect.any(String),
@@ -140,8 +147,6 @@ describe('EmailProviderController', () => {
     });
 
     it('Should return 403 when credentials for email already exist', async () => {
-      jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(CredentialsStub);
-
       expect.assertions(2);
 
       const response = await request.post('/auth/provider/email/send-verification').send(requestStub);
@@ -170,7 +175,6 @@ describe('EmailProviderController', () => {
     it('Should pass', async () => {
       jest.spyOn(credentialsService, 'findByEmail').mockResolvedValue(null);
       jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(null);
-      jest.spyOn(emailVerificationService, 'create').mockImplementation();
       jest.spyOn(emailService, 'sendVerificationEmail').mockImplementation();
 
       expect.assertions(2);
@@ -188,18 +192,21 @@ describe('EmailProviderController', () => {
       token: 'token'
     };
 
-    it('Should call emailVerificationService.findByEmail()', async () => {
-      const spy = jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
+    let findSpy: jest.SpyInstance;
 
+    beforeEach(() => {
+      findSpy = jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
+    });
+
+    it('Should call emailVerificationService.findByEmail()', async () => {
       expect.assertions(1);
 
       await request.post('/auth/provider/email/verify-token').send(requestStub);
 
-      expect(spy).toHaveBeenCalledWith('tester@domain.com');
+      expect(findSpy).toHaveBeenCalledWith('tester@domain.com');
     });
 
     it('Should call CryptographyUtils.argon2VerifyPassword()', async () => {
-      jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
       const spy = jest.spyOn(CryptographyUtils, 'argon2VerifyPassword').mockResolvedValue(true);
 
       expect.assertions(1);
@@ -221,7 +228,6 @@ describe('EmailProviderController', () => {
     });
 
     it('Should return 403 when invalid token provided', async () => {
-      jest.spyOn(emailVerificationService, 'findByEmail').mockResolvedValue(EmailVerificationStub);
       jest.spyOn(CryptographyUtils, 'argon2VerifyPassword').mockResolvedValue(false);
 
       expect.assertions(2);

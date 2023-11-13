@@ -79,4 +79,16 @@ describe('EmailVerificationMongooseService', () => {
       expect(response).toEqual(null);
     });
   });
+
+  describe('deleteByEmail', () => {
+    it('Should pass', async () => {
+      const spy = jest.spyOn(model, 'deleteOne');
+
+      expect.assertions(1);
+
+      await service.deleteByEmail('tester@domain.com');
+
+      expect(spy).toHaveBeenCalledWith({ email: 'tester@domain.com' });
+    });
+  });
 });

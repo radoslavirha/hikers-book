@@ -1,9 +1,13 @@
 import { MongoMapper } from '@hikers-book/tsed-common/mappers';
 import { MongoPlainObjectCreate, MongoPlainObjectUpdate } from '@hikers-book/tsed-common/types';
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Inject, Service } from '@tsed/di';
+import { UnprocessableEntity } from '@tsed/exceptions';
 import { serialize } from '@tsed/json-mapper';
+import { AuthProviderEnum } from '../enums';
 import { Credentials } from '../models';
 import { CredentialsMongo } from '../mongo';
+import { AuthProviderPair } from '../types';
 import { UserMapper } from './UserMapper';
 
 @Service()
@@ -50,5 +54,30 @@ export class CredentialsMapper extends MongoMapper<CredentialsMongo, Credentials
     mongo.user_id = this.getModelValue(model, 'user_id', true);
 
     return serialize(mongo);
+  }
+
+  public modelFromAuthProfile(data: AuthProviderPair, userId: string, email: string): Credentials {
+    const { provider, profile } = data;
+
+    switch (provider) {
+      case AuthProviderEnum.EMAIL:
+        return CommonUtils.buildModel(Credentials, {
+          provider: AuthProviderEnum.EMAIL,
+          email,
+          password: profile.password,
+          user_id: userId
+        });
+      case AuthProviderEnum.FACEBOOK:
+      case AuthProviderEnum.GITHUB:
+      case AuthProviderEnum.GOOGLE:
+        return CommonUtils.buildModel(Credentials, {
+          provider,
+          email,
+          provider_id: profile.id,
+          user_id: userId
+        });
+      default:
+        throw new UnprocessableEntity('Cannot create credentials model from profile.');
+    }
   }
 }

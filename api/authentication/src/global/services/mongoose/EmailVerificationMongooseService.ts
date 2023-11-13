@@ -30,4 +30,8 @@ export class EmailVerificationMongooseService extends MongooseService<EmailVerif
 
     return this.mapSingle(mongo);
   }
+
+  async deleteByEmail(email: string): Promise<{ deletedCount: number; acknowledged: boolean }> {
+    return this.model.deleteOne({ email });
+  }
 }

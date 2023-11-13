@@ -4,4 +4,3 @@
 
 export * from './CredentialsAlreadyExist';
 export * from './NodemailerFailedSendEmail';
-export * from './OAuth2ProviderEmailNotProvided';
