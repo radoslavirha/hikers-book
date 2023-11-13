@@ -12,14 +12,13 @@ import { join } from 'path';
 import './global/connections/Nodemailer';
 import './global/connections/Redis';
 import * as global from './global/controllers/index';
+import { User } from './global/models';
 import './global/protocols/EmailSignInProtocol';
 import './global/protocols/EmailSignUpProtocol';
 import './global/protocols/FacebookProtocol';
 import './global/protocols/GithubProtocol';
 import './global/protocols/GoogleProtocol';
 import { ConfigService } from './global/services/ConfigService';
-// import * as v1 from './v1/controllers/index';
-import { User } from './v1/models';
 
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
@@ -28,7 +27,6 @@ import { User } from './v1/models';
     disableSession: true
   },
   mount: {
-    // '/v1': [...Object.values(v1)],
     '/': [...Object.values(global)]
   },
   views: {

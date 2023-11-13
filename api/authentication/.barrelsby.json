@@ -8,11 +8,7 @@
     "./src/global/models",
     "./src/global/mongo",
     "./src/global/types",
-    "./src/global/utils",
-    "./src/v1/controllers",
-    "./src/v1/handlers",
-    "./src/v1/models",
-    "./src/v1/types"
+    "./src/global/utils"
   ],
   "exclude": [
     "__mock__",
