@@ -1,6 +1,5 @@
 {
   "directory": [
-    "./src/exceptions",
     "./src/handlers",
     "./src/mappers",
     "./src/models",
