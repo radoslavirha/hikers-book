@@ -11,7 +11,7 @@
     "config:clear": "pnpm --stream --recursive run config:clear",
     "lint": "pnpm --stream --recursive run lint",
     "format": "pnpm --stream --recursive run format",
-    "test": "pnpm --stream --recursive --sequential --filter=!'@hikers-book/authentication-api' run test",
+    "test": "pnpm --stream --recursive --sequential run test",
     "cleanup": "pnpm --stream --recursive run cleanup",
     "cleanup:modules": "pnpm --stream --recursive run cleanup:modules && rm -rf node_modules",
     "cleanup:all": "pnpm run config:clear && pnpm run cleanup && pnpm run cleanup:modules",
