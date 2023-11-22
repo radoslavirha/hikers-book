@@ -3,7 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockModule } from 'ng-mocks';
 import { AppComponent } from './app.component';
-import { TripsModule } from './component/trips/trips.module';
+import { TripsModule } from './modules/trips/trips.module';
 
 describe('AppComponent', () => {
   beforeEach(() => {

@@ -19,6 +19,7 @@ import './global/protocols/FacebookProtocol';
 import './global/protocols/GithubProtocol';
 import './global/protocols/GoogleProtocol';
 import { ConfigService } from './global/services/ConfigService';
+import * as v1 from './v1/controllers/index';
 
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
@@ -27,7 +28,8 @@ import { ConfigService } from './global/services/ConfigService';
     disableSession: true
   },
   mount: {
-    '/': [...Object.values(global)]
+    '/': [...Object.values(global)],
+    '/v1': [...Object.values(v1)]
   },
   views: {
     root: join(process.cwd(), '../views'),

@@ -1,4 +1,5 @@
 import { Req } from '@tsed/common';
+import { Forbidden } from '@tsed/exceptions';
 import { Args, BeforeInstall, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { Profile, Strategy, StrategyOptions } from 'passport-github2';
 import { ConfigService } from '../services/ConfigService';
@@ -30,7 +31,20 @@ export class GithubProtocol implements OnVerify, OnInstall, BeforeInstall {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   $onInstall(strategy: Strategy): void {}
 
-  async $onVerify(@Req() _request: Req, @Args() [accessToken, refreshToken, body]: [string, string, Profile]) {
-    return this.authService.github(body, accessToken, refreshToken);
+  async $onVerify(@Req() request: Req, @Args() [accessToken, refreshToken, body]: [string, string, Profile]) {
+    try {
+      const tokens = await this.authService.github(body, accessToken, refreshToken);
+
+      return request.res?.redirect(
+        `${this.configService.config.frontend.url}/auth/callback?jwt=${tokens.jwt}&refresh=${tokens.refresh}`
+      );
+    } catch (error) {
+      console.log(error);
+      return request.res?.redirect(
+        `${this.configService.config.frontend.url}/auth/error?code=${(error as Forbidden).status}&message=${
+          (error as Forbidden).message
+        }`
+      );
+    }
   }
 }

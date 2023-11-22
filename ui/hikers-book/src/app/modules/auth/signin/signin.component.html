@@ -1,0 +1,17 @@
+<div class="sign-in">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title i18n="Sign in form name|Sign in form name">Sign in</mat-card-title>
+      <mat-card-subtitle *ngIf="authError">{{ authError }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <app-auth-social></app-auth-social>
+    </mat-card-actions>
+
+    <mat-card-actions>
+      <span i18n="Sign up question from sign in form|Sign up question from sign in form">Don't have an account?</span>
+      &nbsp;
+      <a routerLink="/auth/sign-up" i18n="Sign up link from sign in form|Sign up link from sign in form">Sign up</a>
+    </mat-card-actions>
+  </mat-card>
+</div>

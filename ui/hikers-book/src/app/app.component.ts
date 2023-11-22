@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { ConfigService } from './core/services/config.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private titleService: Title) {
-    this.titleService.setTitle($localize`:Tab name|Tab name:Hiker's Book`);
-  }
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+
+  constructor(public config: ConfigService) {}
 }

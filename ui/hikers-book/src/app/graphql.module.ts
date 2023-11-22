@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { ConfigService } from './service/config.service';
+import { ConfigService } from './core/services/config.service';
 
 export function createApollo(httpLink: HttpLink, configService: ConfigService): ApolloClientOptions<unknown> {
   return {
-    link: httpLink.create({ uri: configService.config?.api.graphql }),
+    link: httpLink.create({ uri: configService.config.api.graphql }),
     cache: new InMemoryCache()
   };
 }

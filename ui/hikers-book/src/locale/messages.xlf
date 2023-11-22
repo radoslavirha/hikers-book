@@ -7,8 +7,8 @@
           <x id="INTERPOLATION" equiv-text="&lt;/p&gt; &lt;/mat-card-content&gt;"/>
         </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/trips/trips/trips.component.html</context>
-          <context context-type="linenumber">14,15</context>
+          <context context-type="sourcefile">src/app/modules/trips/trips/trips.component.html</context>
+          <context context-type="linenumber">9,10</context>
         </context-group>
         <note priority="1" from="description">Creation date of trip</note>
         <note priority="1" from="meaning">Trip card on grid</note>
@@ -16,8 +16,8 @@
       <trans-unit id="2543023872886351972" datatype="html">
         <source>Hiker&apos;s Book</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="sourcefile">src/app/shared/header/header.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">App name</note>
         <note priority="1" from="meaning">App name</note>
@@ -25,11 +25,92 @@
       <trans-unit id="5080871131297647038" datatype="html">
         <source>Hiker&apos;s Book</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="sourcefile">src/app/shared/header/header.component.ts</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">Tab name</note>
         <note priority="1" from="meaning">Tab name</note>
+      </trans-unit>
+      <trans-unit id="1718605138511756402" datatype="html">
+        <source>Don&apos;t have an account?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Sign up question from sign in form</note>
+        <note priority="1" from="meaning">Sign up question from sign in form</note>
+      </trans-unit>
+      <trans-unit id="2305252774301625748" datatype="html">
+        <source> Google </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+        <note priority="1" from="description">Used for sign in and sign up</note>
+        <note priority="1" from="meaning">Auth with Google button</note>
+      </trans-unit>
+      <trans-unit id="2361121966720507311" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Sign in link from sign up form</note>
+        <note priority="1" from="meaning">Sign in link from sign up form</note>
+      </trans-unit>
+      <trans-unit id="3188898568785179927" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Sign in form name</note>
+        <note priority="1" from="meaning">Sign in form name</note>
+      </trans-unit>
+      <trans-unit id="3676071672269142043" datatype="html">
+        <source>Sign up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Sign up link from sign in form</note>
+        <note priority="1" from="meaning">Sign up link from sign in form</note>
+      </trans-unit>
+      <trans-unit id="4590591791078261142" datatype="html">
+        <source> Facebook </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+        <note priority="1" from="description">Used for sign in and sign up</note>
+        <note priority="1" from="meaning">Auth with Facebook button</note>
+      </trans-unit>
+      <trans-unit id="4750640802274185473" datatype="html">
+        <source>Already have an account?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Ask user if has account yet</note>
+        <note priority="1" from="meaning">Sign in question from sign up form</note>
+      </trans-unit>
+      <trans-unit id="6227079724578312030" datatype="html">
+        <source> GitHub </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+        <note priority="1" from="description">Used for sign in and sign up</note>
+        <note priority="1" from="meaning">Auth with GitHub button</note>
+      </trans-unit>
+      <trans-unit id="6830037048705001084" datatype="html">
+        <source>Sign up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Sign in form name</note>
+        <note priority="1" from="meaning">Sign in form name</note>
       </trans-unit>
     </body>
   </file>

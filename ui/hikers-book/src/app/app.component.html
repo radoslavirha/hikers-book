@@ -1,6 +1,7 @@
-<div>
-  <mat-toolbar color="primary">
-    <span i18n="App name|App name">Hiker's Book</span>
-  </mat-toolbar>
+<div *ngIf="config.configLoaded" class="container">
   <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="!config.configLoaded" class="spinner">
+  <mat-progress-spinner [color]="color" [mode]="mode"></mat-progress-spinner>
 </div>
