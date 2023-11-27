@@ -10,8 +10,7 @@
     "./src/global/mongo",
     "./src/global/types",
     "./src/global/utils",
-    "./src/v1/controllers",
-    "./src/v1/handlers"
+    "./src/v1/controllers"
   ],
   "exclude": [
     "__mock__",
