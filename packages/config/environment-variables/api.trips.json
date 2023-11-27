@@ -1,4 +1,9 @@
 {
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "HB_APIS_HIKERS_BOOK_AUTHENTICATION_API"
+    }
+  },
   "mongodb": {
     "url": "HB_MONGODB_URL",
     "connectionOptions": {

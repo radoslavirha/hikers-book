@@ -4,6 +4,7 @@ export default {
   ...sharedConfig,
   globalTeardown: './scripts/jest/teardown.js',
   coveragePathIgnorePatterns: [
-    'index.ts' // all the barrels files
+    'index.ts', // all the barrels files
+    'src/test'
   ]
 };

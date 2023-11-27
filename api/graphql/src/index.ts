@@ -11,13 +11,6 @@ async function bootstrap() {
     const configuration: Partial<TsED.Configuration> = {
       ...config.server,
       api: config.api,
-      mongoose: [
-        {
-          id: 'hikers-book',
-          url: config.config.mongodb.url,
-          connectionOptions: config.config.mongodb.connectionOptions
-        }
-      ],
       ioredis: [
         {
           name: 'default',
@@ -27,7 +20,8 @@ async function bootstrap() {
       ],
       cache: {
         ttl: 300
-      }
+      },
+      configFile: config.config
     };
 
     const platform = await PlatformExpress.bootstrap(Server, configuration);

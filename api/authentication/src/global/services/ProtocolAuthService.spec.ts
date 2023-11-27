@@ -20,26 +20,26 @@ import { ProviderGithubPair } from '../types';
 import { CryptographyUtils } from '../utils';
 import { JWTService } from './JWTService';
 import { ProtocolAuthService } from './ProtocolAuthService';
-import { CredentialsMongooseService } from './mongoose/CredentialsMongooseService';
-import { EmailVerificationMongooseService } from './mongoose/EmailVerificationMongooseService';
-import { UserMongooseService } from './mongoose/UserMongooseService';
+import { CredentialsMongoService } from './mongo/CredentialsMongoService';
+import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
+import { UserMongoService } from './mongo/UserMongoService';
 
 describe('ProtocolAuthService', () => {
   let service: ProtocolAuthService;
-  let credentials: CredentialsMongooseService;
+  let credentials: CredentialsMongoService;
   let credentialsMapper: CredentialsMapper;
-  let emailVerification: EmailVerificationMongooseService;
+  let emailVerification: EmailVerificationMongoService;
   let jwtService: JWTService;
-  let user: UserMongooseService;
+  let user: UserMongoService;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
   beforeAll(() => {
     service = PlatformTest.get<ProtocolAuthService>(ProtocolAuthService);
-    credentials = PlatformTest.get<CredentialsMongooseService>(CredentialsMongooseService);
+    credentials = PlatformTest.get<CredentialsMongoService>(CredentialsMongoService);
     credentialsMapper = PlatformTest.get<CredentialsMapper>(CredentialsMapper);
-    emailVerification = PlatformTest.get<EmailVerificationMongooseService>(EmailVerificationMongooseService);
+    emailVerification = PlatformTest.get<EmailVerificationMongoService>(EmailVerificationMongoService);
     jwtService = PlatformTest.get<JWTService>(JWTService);
-    user = PlatformTest.get<UserMongooseService>(UserMongooseService);
+    user = PlatformTest.get<UserMongoService>(UserMongoService);
   });
   beforeEach(() => {
     jest.restoreAllMocks();

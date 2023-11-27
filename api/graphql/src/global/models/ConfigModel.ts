@@ -1,9 +1,25 @@
-import { MongoDBConfigModel, RedisConfigModel, SessionConfigModel } from '@hikers-book/tsed-common/models';
+import { RedisConfigModel, SessionConfigModel } from '@hikers-book/tsed-common/models';
 import { Required } from '@tsed/schema';
+
+class ConfigModelAPIsHikersBook {
+  @Required()
+  authenticationAPI!: string;
+
+  @Required()
+  stagesAPI!: string;
+
+  @Required()
+  tripsAPI!: string;
+}
+
+class ConfigModelAPIs {
+  @Required()
+  hikersBook!: ConfigModelAPIsHikersBook;
+}
 
 export class ConfigModel {
   @Required()
-  mongodb!: MongoDBConfigModel;
+  apis!: ConfigModelAPIs;
 
   @Required()
   redis!: RedisConfigModel;

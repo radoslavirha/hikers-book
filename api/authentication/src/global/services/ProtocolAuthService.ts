@@ -11,19 +11,19 @@ import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../mo
 import { AuthProviderPair, JWTResponse, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
-import { CredentialsMongooseService } from './mongoose/CredentialsMongooseService';
-import { EmailVerificationMongooseService } from './mongoose/EmailVerificationMongooseService';
-import { UserMongooseService } from './mongoose/UserMongooseService';
+import { CredentialsMongoService } from './mongo/CredentialsMongoService';
+import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
+import { UserMongoService } from './mongo/UserMongoService';
 
 @Service()
 export class ProtocolAuthService {
   // eslint-disable-next-line max-params
   constructor(
-    private credentials: CredentialsMongooseService,
+    private credentials: CredentialsMongoService,
     private credentialsMapper: CredentialsMapper,
-    private emailVerification: EmailVerificationMongooseService,
+    private emailVerification: EmailVerificationMongoService,
     private jwtService: JWTService,
-    private user: UserMongooseService
+    private user: UserMongoService
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

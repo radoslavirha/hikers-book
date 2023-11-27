@@ -35,7 +35,6 @@
     "@tsed/json-mapper": "^7.43.1",
     "@tsed/logger": "^6.6.3",
     "@tsed/logger-file": "^6.6.3",
-    "@tsed/mongoose": "^7.43.1",
     "@tsed/platform-cache": "^7.43.1",
     "@tsed/platform-exceptions": "^7.43.1",
     "@tsed/platform-express": "^7.43.1",
@@ -68,7 +67,6 @@
     "helmet": "^7.0.0",
     "ioredis": "^5.3.2",
     "method-override": "^3.0.0",
-    "mongoose": "^8.0.0",
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
@@ -78,9 +76,7 @@
     "@hikers-book/jest": "workspace:*",
     "@tsed/cli-plugin-eslint": "4.6.4",
     "@tsed/cli-plugin-jest": "4.6.4",
-    "@tsed/cli-plugin-mongoose": "4.6.4",
     "@tsed/cli-plugin-typegraphql": "4.6.4",
-    "@tsed/testing-mongoose": "^7.43.1",
     "@types/body-parser": "^1.19.4",
     "@types/compression": "^1.7.4",
     "@types/config": "^3.3.2",

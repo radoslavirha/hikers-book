@@ -1,4 +1,9 @@
 {
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "http://0.0.0.0:5501"
+    }
+  },
   "mongodb": {
     "url": "mongodb://localhost:27019/stages",
     "connectionOptions": {}

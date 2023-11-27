@@ -158,6 +158,9 @@ importers:
       passport-google-oauth20:
         specifier: ^2.0.0
         version: 2.0.0
+      passport-jwt:
+        specifier: ^4.0.1
+        version: 4.0.1
       passport-local:
         specifier: ^1.0.0
         version: 1.0.0
@@ -240,6 +243,9 @@ importers:
       '@types/passport-google-oauth20':
         specifier: ^2.0.13
         version: 2.0.13
+      '@types/passport-jwt':
+        specifier: ^3.0.13
+        version: 3.0.13
       '@types/passport-local':
         specifier: ^1.0.37
         version: 1.0.37
@@ -321,9 +327,6 @@ importers:
       '@tsed/logger-file':
         specifier: ^6.6.3
         version: 6.6.3(@tsed/logger@6.6.3)
-      '@tsed/mongoose':
-        specifier: ^7.43.1
-        version: 7.43.1(@tsed/ajv@7.43.1)(@tsed/core@7.43.1)(@tsed/di@7.43.1)(@tsed/json-mapper@7.43.1)(@tsed/logger@6.6.3)(@tsed/schema@7.43.1)(mongoose@8.0.0)
       '@tsed/platform-cache':
         specifier: ^7.43.1
         version: 7.43.1(@tsed/core@7.43.1)(@tsed/di@7.43.1)(@tsed/json-mapper@7.43.1)(@tsed/schema@7.43.1)
@@ -420,9 +423,6 @@ importers:
       method-override:
         specifier: ^3.0.0
         version: 3.0.0
-      mongoose:
-        specifier: ^8.0.0
-        version: 8.0.0
       type-graphql:
         specifier: ^1.1.1
         version: 1.1.1(class-validator@0.14.0)(graphql@15.8.0)
@@ -445,15 +445,9 @@ importers:
       '@tsed/cli-plugin-jest':
         specifier: 4.6.4
         version: 4.6.4
-      '@tsed/cli-plugin-mongoose':
-        specifier: 4.6.4
-        version: 4.6.4
       '@tsed/cli-plugin-typegraphql':
         specifier: 4.6.4
         version: 4.6.4(@tsed/cli-core@4.6.4)(@tsed/cli@4.6.4)
-      '@tsed/testing-mongoose':
-        specifier: ^7.43.1
-        version: 7.43.1(@tsed/common@7.43.1)(@tsed/core@7.43.1)(@tsed/mongoose@7.43.1)(mongoose@8.0.0)
       '@types/body-parser':
         specifier: ^1.19.4
         version: 1.19.4
@@ -1049,6 +1043,9 @@ importers:
       '@tsed/openspec':
         specifier: ^7.43.1
         version: 7.43.1
+      '@tsed/passport':
+        specifier: ^7.43.1
+        version: 7.43.1(@tsed/common@7.43.1)(passport@0.6.0)
       '@tsed/platform-express':
         specifier: ^7.43.1
         version: 7.43.1(@tsed/common@7.43.1)(@tsed/core@7.43.1)(@tsed/di@7.43.1)(@tsed/json-mapper@7.43.1)(@tsed/logger@6.6.3)(@tsed/openspec@7.43.1)(@tsed/platform-views@7.43.1)(@tsed/schema@7.43.1)(@types/multer@1.4.9)(body-parser@1.20.2)(multer@1.4.5-lts.1)
@@ -1064,6 +1061,9 @@ importers:
       argon2:
         specifier: ^0.31.2
         version: 0.31.2
+      axios:
+        specifier: ^1.6.2
+        version: 1.6.2
       barrelsby:
         specifier: ^2.8.1
         version: 2.8.1
@@ -1100,6 +1100,9 @@ importers:
       mongoose:
         specifier: ^8.0.0
         version: 8.0.0
+      passport-http-bearer:
+        specifier: ^1.0.1
+        version: 1.0.1
       password-validator:
         specifier: ^5.3.0
         version: 5.3.0
@@ -1146,6 +1149,9 @@ importers:
       '@types/node':
         specifier: ^20.8.10
         version: 20.8.10
+      '@types/passport-http-bearer':
+        specifier: ^1.0.41
+        version: 1.0.41
       '@types/supertest':
         specifier: ^2.0.15
         version: 2.0.15
@@ -8588,6 +8594,22 @@ packages:
       '@types/passport-oauth2': 1.4.14
     dev: true
 
+  /@types/passport-http-bearer@1.0.41:
+    resolution: {integrity: sha512-ecW+9e8C+0id5iz3YZ+uIarsk/vaRPkKSajt1i1Am66t0mC9gDfQDKXZz9fnPOW2xKUufbmCSou4005VM94Feg==}
+    dependencies:
+      '@types/express': 4.17.20
+      '@types/koa': 2.13.10
+      '@types/passport': 1.0.14
+    dev: true
+
+  /@types/passport-jwt@3.0.13:
+    resolution: {integrity: sha512-fjHaC6Bv8EpMMqzTnHP32SXlZGaNfBPC/Po5dmRGYi2Ky7ljXPbGnOy+SxZqa6iZvFgVhoJ1915Re3m93zmcfA==}
+    dependencies:
+      '@types/express': 4.17.20
+      '@types/jsonwebtoken': 9.0.4
+      '@types/passport-strategy': 0.2.37
+    dev: true
+
   /@types/passport-local@1.0.37:
     resolution: {integrity: sha512-c57CwMHhMP2BBiOLyQZGRP43F8JtC84H976YVJdiU4EIWvqRCZ3F7QtsEgksOEIgMOk1Kz3EEKGA93OiDPQtRQ==}
     dependencies:
@@ -9985,7 +10007,6 @@ packages:
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
 
   /auto-bind@4.0.0:
     resolution: {integrity: sha512-Hdw8qdNiqdJ8LqT0iK0sVzkFbzg6fhnQqqfWhBDxcHZvU75+B+ayzTy8x+k5Ix0Y92XOhOUlx74ps+bA6BeYMQ==}
@@ -10039,12 +10060,22 @@ packages:
   /axios@1.5.1:
     resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
     dependencies:
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.3(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: true
+
+  /axios@1.6.2:
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
+    dependencies:
+      follow-redirects: 1.15.3(debug@4.3.4)
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
@@ -10832,7 +10863,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
-    dev: true
 
   /commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
@@ -11575,7 +11605,6 @@ packages:
   /delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-    dev: true
 
   /delegates@1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
@@ -12803,16 +12832,6 @@ packages:
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
 
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: true
-
   /follow-redirects@1.15.3(debug@4.3.4):
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
     engines: {node: '>=4.0'}
@@ -12823,7 +12842,6 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
-    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -12854,7 +12872,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-    dev: true
 
   /formidable@2.1.2:
     resolution: {integrity: sha512-CM3GuJ57US06mlpQ47YcunuUZ9jpm8Vx+P2CGt2j7HpgkKZO/DJYQ0Bobim8G6PFQmK5lOqOOdUXboU+h73A4g==}
@@ -13614,7 +13631,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.3(debug@4.3.4)
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -16824,6 +16841,20 @@ packages:
       passport-oauth2: 1.7.0
     dev: false
 
+  /passport-http-bearer@1.0.1:
+    resolution: {integrity: sha512-SELQM+dOTuMigr9yu8Wo4Fm3ciFfkMq5h/ZQ8ffi4ELgZrX1xh9PlglqZdcUZ1upzJD/whVyt+YWF62s3U6Ipw==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-strategy: 1.0.0
+    dev: false
+
+  /passport-jwt@4.0.1:
+    resolution: {integrity: sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==}
+    dependencies:
+      jsonwebtoken: 9.0.2
+      passport-strategy: 1.0.0
+    dev: false
+
   /passport-local@1.0.0:
     resolution: {integrity: sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==}
     engines: {node: '>= 0.4.0'}
@@ -17191,7 +17222,6 @@ packages:
 
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-    dev: true
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}

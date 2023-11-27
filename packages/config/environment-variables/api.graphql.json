@@ -1,9 +1,9 @@
 {
-  "mongodb": {
-    "url": "HB_MONGODB_URL",
-    "connectionOptions": {
-      "__name": "HB_MONGODB_CONNECTION_OPTIONS",
-      "__format": "json"
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "HB_APIS_HIKERS_BOOK_AUTHENTICATION_API",
+      "stagesAPI": "HB_APIS_HIKERS_BOOK_STAGES_API",
+      "tripsAPI": "HB_APIS_HIKERS_BOOK_TRIPS_API"
     }
   },
   "redis": {

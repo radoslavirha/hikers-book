@@ -11,14 +11,17 @@ describe('CredentialsMongo', () => {
 
   it('Should save', async () => {
     const model = PlatformTest.get<MongooseModel<CredentialsMongo>>(CredentialsMongo);
-    const user = new model(CredentialsStubMongo);
+    const creadentials = new model(CredentialsStubMongo);
 
-    await user.save();
+    await creadentials.save();
 
-    expect(user.provider).toEqual(CredentialsStubMongo.provider);
-    expect(user.email).toEqual(CredentialsStubMongo.email);
-    expect(user.provider_id).toEqual(CredentialsStubMongo.provider_id);
-    expect(user.password).not.toEqual(CredentialsStubMongo.password);
-    expect(user.user_id).toEqual(new Types.ObjectId(CredentialsStubMongo.user_id as string));
+    expect(creadentials.id).toBeDefined();
+    expect(creadentials.provider).toEqual(CredentialsStubMongo.provider);
+    expect(creadentials.email).toEqual(CredentialsStubMongo.email);
+    expect(creadentials.provider_id).toEqual(CredentialsStubMongo.provider_id);
+    expect(creadentials.password).not.toEqual(CredentialsStubMongo.password);
+    expect(creadentials.user_id).toEqual(new Types.ObjectId(CredentialsStubMongo.user_id as string));
+    expect(creadentials.createdAt).toBeDefined();
+    expect(creadentials.updatedAt).toBeDefined();
   });
 });

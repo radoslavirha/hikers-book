@@ -1,7 +1,7 @@
 import { $log } from '@tsed/common';
 
 export abstract class BaseHandler<IRequest, IResponse> {
-  public async execute(request: IRequest): Promise<IResponse> {
+  public async execute(request?: IRequest): Promise<IResponse> {
     try {
       const startTime = performance.now();
 
@@ -20,5 +20,5 @@ export abstract class BaseHandler<IRequest, IResponse> {
     }
   }
 
-  protected abstract performOperation(request: IRequest): Promise<IResponse>;
+  protected abstract performOperation(request?: IRequest): Promise<IResponse>;
 }

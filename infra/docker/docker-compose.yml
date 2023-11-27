@@ -14,13 +14,6 @@ services:
     restart: always
     ports:
       - 27017:27017
-  mongo-graphql:
-    image: mongo:latest
-    container_name: mongo-graphql
-    hostname: mongo-graphql
-    restart: always
-    ports:
-      - 27018:27017
   mongo-stages:
     image: mongo:latest
     container_name: mongo-stages
@@ -47,18 +40,6 @@ services:
       ME_CONFIG_MONGODB_URL: 'mongodb://mongo-authentication:27017'
     ports:
       - 8017:8081
-  mongo-express-graphql:
-    image: mongo-express:latest
-    container_name: mongo-express-graphql
-    hostname: mongo-express-graphql
-    restart: always
-    depends_on:
-      - mongo-graphql
-    environment:
-      ME_CONFIG_BASICAUTH_USERNAME: ''
-      ME_CONFIG_MONGODB_URL: 'mongodb://mongo-graphql:27017'
-    ports:
-      - 8018:8081
   mongo-express-stages:
     image: mongo-express:latest
     container_name: mongo-express-stages

@@ -1,7 +1,10 @@
 {
-  "mongodb": {
-    "url": "mongodb://localhost:27018/graphql",
-    "connectionOptions": {}
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "http://0.0.0.0:5501",
+      "stagesAPI": "http://0.0.0.0:5503",
+      "tripsAPI": "http://0.0.0.0:5504"
+    }
   },
   "redis": {
     "default": {

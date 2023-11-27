@@ -10,12 +10,15 @@ describe('EmailVerificationMongo', () => {
 
   it('Should save', async () => {
     const model = PlatformTest.get<MongooseModel<EmailVerificationMongo>>(EmailVerificationMongo);
-    const user = new model(EmailVerificationStubMongo);
+    const email = new model(EmailVerificationStubMongo);
 
-    await user.save();
+    await email.save();
 
-    expect(user.email).toEqual(EmailVerificationStubMongo.email);
-    expect(user.token).toEqual(EmailVerificationStubMongo.token);
-    expect(user.expires_in).toEqual(EmailVerificationStubMongo.expires_in);
+    expect(email.id).toBeDefined();
+    expect(email.email).toEqual(EmailVerificationStubMongo.email);
+    expect(email.token).toEqual(EmailVerificationStubMongo.token);
+    expect(email.expires_in).toEqual(EmailVerificationStubMongo.expires_in);
+    expect(email.createdAt).toBeDefined();
+    expect(email.updatedAt).toBeDefined();
   });
 });

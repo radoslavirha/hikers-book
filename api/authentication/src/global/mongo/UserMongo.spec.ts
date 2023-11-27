@@ -15,7 +15,10 @@ describe('UserMongo', () => {
 
     await user.save();
 
+    expect(user.id).toBeDefined();
     expect(user.full_name).toEqual(UserStubMongo.full_name);
     expect(user.admin).toEqual(UserStubMongo.admin);
+    expect(user.createdAt).toBeDefined();
+    expect(user.updatedAt).toBeDefined();
   });
 });

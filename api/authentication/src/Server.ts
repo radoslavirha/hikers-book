@@ -11,15 +11,16 @@ import helmet from 'helmet';
 import { join } from 'path';
 import './global/connections/Nodemailer';
 import './global/connections/Redis';
-import * as global from './global/controllers/index';
+import * as restGlobal from './global/controllers/index';
 import { User } from './global/models';
 import './global/protocols/EmailSignInProtocol';
 import './global/protocols/EmailSignUpProtocol';
 import './global/protocols/FacebookProtocol';
 import './global/protocols/GithubProtocol';
 import './global/protocols/GoogleProtocol';
+import './global/protocols/JWTProtocol';
 import { ConfigService } from './global/services/ConfigService';
-import * as v1 from './v1/controllers/index';
+import * as restV1 from './v1/controllers/index';
 
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
@@ -28,8 +29,8 @@ import * as v1 from './v1/controllers/index';
     disableSession: true
   },
   mount: {
-    '/': [...Object.values(global)],
-    '/v1': [...Object.values(v1)]
+    '/': [...Object.values(restGlobal)],
+    '/v1': [...Object.values(restV1)]
   },
   views: {
     root: join(process.cwd(), '../views'),

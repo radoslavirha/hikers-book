@@ -1,0 +1,9 @@
+import { JWTAuthenticationResponse } from '../../models';
+
+export const JWT_TOKEN =
+  'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NWU0YzczNmU2YmRmZmM5MWQ5ZDhmMyIsIm5hbWUiOiJ0ZXN0ZXIiLCJpYXQiOjE3MDExMTI1NTgsImV4cCI6MTcwMTExMjYxOCwianRpIjoicjA0RG5FcGw4ZjBvMmsxMWp5bWJaY3BlVmhBY0ZjZk4ifQ.s17q3nYUOeFeu-u5IbpnSZTzfkPvrrIkNbOJFRlcbEdgKvA7qu28FqnfmQgFB0oqWr2z9RRHIt5wQEBkmNQrzIOHc0D5YxNoQH3-G_Qi1sD9Y9DVkgOTODtRRI-T944hw5m2VX8XtS7BMygYigeT7pZa4a4qnY_nKiITV4-0emfaEk3RnvSIWY-MGtQt-x3Dk7Gs3xUGkLSa3KhH9VYD_r2lFuSOdr4EqQ4TUVir12yTS37Q4qNEg7BwJB4bROHzuMUFdisoEYPTybudiyp3pWhtz89fgOnIv4k-KZlX7n_WZLipXh7SwRvQT4hHVsSwoEteFjNBwKBFZJEQ28uiGw';
+export const BEARER_TOKEN = `Bearer ${JWT_TOKEN}`;
+export const JWT_PAYLOAD: JWTAuthenticationResponse = {
+  id: '655e4c736e6bdffc91d9d8f3',
+  name: 'tester'
+};

@@ -1,10 +1,13 @@
 {
   "directory": [
+    "./src/decorators",
     "./src/handlers",
     "./src/mappers",
     "./src/models",
     "./src/mongo",
     "./src/server",
+    "./src/services",
+    "./src/test/stubs",
     "./src/types",
     "./src/utils",
     "./src/validators"

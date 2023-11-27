@@ -3,7 +3,8 @@
  */
 
 export * from './SwaggerController';
-export * from './auth/ProviderEmail';
-export * from './auth/ProviderFacebook';
-export * from './auth/ProviderGithub';
-export * from './auth/ProviderGoogle';
+export * from './auth/AuthenticateController';
+export * from './auth/EmailController';
+export * from './auth/FacebookController';
+export * from './auth/GithubController';
+export * from './auth/GoogleController';

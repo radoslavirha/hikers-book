@@ -1,6 +1,8 @@
 {
   "directory": [
-    "./src/v1/resolvers"
+    "./src/v1/datasources",
+    "./src/v1/resolvers",
+    "./src/v1/types"
   ],
   "exclude": [
     "__mock__",

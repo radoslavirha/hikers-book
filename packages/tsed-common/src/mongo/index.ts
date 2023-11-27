@@ -3,4 +3,4 @@
  */
 
 export * from './BaseMongo';
-export * from './MongooseService';
+export * from './MongoService';

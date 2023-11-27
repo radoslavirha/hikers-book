@@ -1,12 +1,12 @@
-import { Property } from '@tsed/schema';
+import { Format, Property } from '@tsed/schema';
 
 export class Base {
   @Property()
   id!: string;
 
-  @Property()
+  @Format('date-time')
   createdAt!: Date;
 
-  @Property()
+  @Format('date-time')
   updatedAt!: Date;
 }

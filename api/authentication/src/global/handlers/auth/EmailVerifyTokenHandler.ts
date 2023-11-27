@@ -3,12 +3,12 @@ import { Injectable } from '@tsed/di';
 import { Forbidden, NotFound } from '@tsed/exceptions';
 import moment from 'moment';
 import { EmailVerifyTokenRequest } from '../../models';
-import { EmailVerificationMongooseService } from '../../services/mongoose/EmailVerificationMongooseService';
+import { EmailVerificationMongoService } from '../../services/mongo/EmailVerificationMongoService';
 import { CryptographyUtils } from '../../utils';
 
 @Injectable()
 export class EmailVerifyTokenHandler extends BaseHandler<EmailVerifyTokenRequest, void> {
-  constructor(private emailVerificationService: EmailVerificationMongooseService) {
+  constructor(private emailVerificationService: EmailVerificationMongoService) {
     super();
   }
 

@@ -7,15 +7,15 @@ import { v4 } from 'uuid';
 import { CredentialsAlreadyExist } from '../../exceptions';
 import { EmailSendVerificationRequest, EmailVerification } from '../../models';
 import { EmailService } from '../../services/EmailService';
-import { CredentialsMongooseService } from '../../services/mongoose/CredentialsMongooseService';
-import { EmailVerificationMongooseService } from '../../services/mongoose/EmailVerificationMongooseService';
+import { CredentialsMongoService } from '../../services/mongo/CredentialsMongoService';
+import { EmailVerificationMongoService } from '../../services/mongo/EmailVerificationMongoService';
 import { CryptographyUtils } from '../../utils';
 
 @Injectable()
 export class EmailSendVerificationHandler extends BaseHandler<EmailSendVerificationRequest, void> {
   constructor(
-    private credentialsService: CredentialsMongooseService,
-    private emailVerificationService: EmailVerificationMongooseService,
+    private credentialsService: CredentialsMongoService,
+    private emailVerificationService: EmailVerificationMongoService,
     private emailService: EmailService
   ) {
     super();

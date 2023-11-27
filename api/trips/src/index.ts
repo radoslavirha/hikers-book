@@ -28,7 +28,8 @@ async function bootstrap() {
       ],
       cache: {
         ttl: 300
-      }
+      },
+      configFile: config.config
     };
 
     const platform = await PlatformExpress.bootstrap(Server, configuration);

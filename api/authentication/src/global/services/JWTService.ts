@@ -1,3 +1,4 @@
+import { JWTPayload } from '@hikers-book/tsed-common/types';
 import { FSUtils } from '@hikers-book/tsed-common/utils';
 import { Inject, Service } from '@tsed/di';
 import JWT from 'jsonwebtoken';
@@ -5,15 +6,18 @@ import path from 'path';
 import { CryptographyUtils } from '../utils';
 import { ConfigService } from './ConfigService';
 
-export type JWTPayload = {
-  id: string;
-  name: string;
-};
-
 @Service()
 export class JWTService {
   @Inject()
   private configService!: ConfigService;
+
+  public async getPrivateKey(): Promise<string | Buffer> {
+    return FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem'));
+  }
+
+  public async getPublicKey(): Promise<string | Buffer> {
+    return FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
+  }
 
   public async createJWT(payload: JWTPayload, refresh: boolean = false): Promise<string> {
     const opt: JWT.SignOptions = {
@@ -22,14 +26,14 @@ export class JWTService {
       jwtid: CryptographyUtils.generateJWTjti()
     };
 
-    const privateKey = await FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem'));
+    const privateKey = await this.getPrivateKey();
 
     // eslint-disable-next-line import/no-named-as-default-member
     return JWT.sign(payload, privateKey, opt);
   }
 
   public async decodeJWT(jwt: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
-    const publicKey = await FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
+    const publicKey = await this.getPublicKey();
 
     // eslint-disable-next-line import/no-named-as-default-member
     return JWT.verify(jwt, publicKey, {

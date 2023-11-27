@@ -2,6 +2,7 @@
   "directory": [
     "./src/test/stubs",
     "./src/global/controllers",
+    "./src/global/decorators",
     "./src/global/enums",
     "./src/global/exceptions",
     "./src/global/handlers",

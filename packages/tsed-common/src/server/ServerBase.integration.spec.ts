@@ -6,14 +6,7 @@ describe('ServerBase', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
   let server: BaseServer;
 
-  beforeEach(
-    PlatformTest.bootstrap(BaseServer, {
-      api: {
-        service: 'test',
-        version: '0.0.1'
-      }
-    })
-  );
+  beforeEach(PlatformTest.bootstrap(BaseServer));
   beforeEach(() => {
     server = PlatformTest.get<BaseServer>(BaseServer);
     request = SuperTest(PlatformTest.callback());

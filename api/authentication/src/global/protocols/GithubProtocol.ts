@@ -39,7 +39,6 @@ export class GithubProtocol implements OnVerify, OnInstall, BeforeInstall {
         `${this.configService.config.frontend.url}/auth/callback?jwt=${tokens.jwt}&refresh=${tokens.refresh}`
       );
     } catch (error) {
-      console.log(error);
       return request.res?.redirect(
         `${this.configService.config.frontend.url}/auth/error?code=${(error as Forbidden).status}&message=${
           (error as Forbidden).message

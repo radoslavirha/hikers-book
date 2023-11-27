@@ -10,12 +10,12 @@ export abstract class MongoMapper<MONGO extends BaseMongo, MODEL extends Base> {
   public abstract modelToMongoCreateObject(model: MODEL): Promise<MongoPlainObjectCreate<MONGO>>;
   public abstract modelToMongoUpdateObject(model: MODEL): Promise<MongoPlainObjectUpdate<MONGO>>;
 
-  protected mongoToModelBase(model: MODEL, mongo: MONGO): MODEL {
+  protected mongoToModelBase(model: Partial<MODEL>, mongo: MONGO): MODEL {
     model.id = String(mongo._id);
     model.createdAt = mongo.createdAt;
     model.updatedAt = mongo.createdAt;
 
-    return model;
+    return model as MODEL;
   }
 
   protected getIdFromPotentiallyPopulated<T extends BaseMongo>(value: Ref<T>): string {

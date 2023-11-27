@@ -5,6 +5,7 @@ import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import methodOverride from 'method-override';
+import '../protocols/JWTProtocol';
 
 // For tests
 @Configuration({
@@ -12,6 +13,9 @@ import methodOverride from 'method-override';
   api: {
     service: 'test',
     version: '0.0.1'
+  },
+  passport: {
+    disableSession: true
   }
 })
 export class BaseServer {

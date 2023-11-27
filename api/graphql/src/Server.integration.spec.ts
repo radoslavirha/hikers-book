@@ -1,17 +1,16 @@
 import { PlatformTest } from '@tsed/common';
-import { TestMongooseContext } from '@tsed/testing-mongoose';
 import SuperTest from 'supertest';
 import { Server } from './Server';
 
 describe('Server', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
 
-  beforeEach(TestMongooseContext.bootstrap(Server));
+  beforeEach(PlatformTest.bootstrap(Server));
   beforeEach(() => {
     request = SuperTest(PlatformTest.callback());
   });
 
-  afterEach(TestMongooseContext.reset);
+  afterEach(PlatformTest.reset);
 
   it('Should call GET /rest', async () => {
     const response = await request.get('/rest').expect(404);

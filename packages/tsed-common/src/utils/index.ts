@@ -4,3 +4,4 @@
 
 export * from './CommonUtils';
 export * from './FSUtils';
+export * from './TestUtils';
