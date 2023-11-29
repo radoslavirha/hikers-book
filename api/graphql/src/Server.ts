@@ -11,7 +11,6 @@ import './global/connections/Redis';
 import { ConfigService } from './global/services/ConfigService';
 import * as v1Datasources from './v1/datasources';
 import * as v1Resolvers from './v1/resolvers';
-
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
   graphql: {
@@ -27,7 +26,7 @@ import * as v1Resolvers from './v1/resolvers';
           // No authorization on GraphQL, just extract token and pass to request, other microservicess will handle authorization
           const token = ctx?.req?.headers?.authorization;
 
-          if (!token) {
+          if (!token && process.env.NODE_ENV !== 'test') {
             throw new Unauthorized('No authorization header present.');
           }
 

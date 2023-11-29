@@ -6,6 +6,6 @@ import { BaseDataSource } from './BaseDataSource';
 @DataSource(DataSourceName.StagesDataSource)
 export class StagesDataSource extends BaseDataSource {
   constructor(configService: ConfigService) {
-    super(`${configService.config.apis.hikersBook.tripsAPI}/v1/stages`);
+    super(`${configService.config.apis.hikersBook.stagesAPI}/v1/stages`);
   }
 }

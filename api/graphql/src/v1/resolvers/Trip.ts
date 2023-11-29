@@ -9,11 +9,8 @@ import { DataSourceName, Datasources } from '../types/Datasources';
 export class TripResolver {
   @Query(() => [Trip], { description: 'Get all the trips' })
   async Trips(@Ctx('dataSources') dataSources: Datasources) {
-    console.log('ahojjj');
-
     const trips = dataSources[DataSourceName.TripsDataSource];
     const response = await trips.getTrips();
-    console.log(response);
     return response;
   }
 }
