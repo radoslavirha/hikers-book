@@ -110,13 +110,13 @@ export class ProtocolAuthService {
     }
 
     const jwt = await this.jwtService.createJWT({
-      id: credentials.id,
+      id: credentials.user.id,
       name: credentials.user.full_name
     });
 
     const refresh = await this.jwtService.createJWT(
       {
-        id: credentials.id,
+        id: credentials.user.id,
         name: credentials.user.full_name
       },
       true

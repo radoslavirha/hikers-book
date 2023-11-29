@@ -6,7 +6,7 @@ import { Description, Get, Returns } from '@tsed/schema';
 import { JWTAuth } from '../../decorators/JWTAuth';
 import { AuthenticateHandler } from '../../handlers';
 
-@Description('User controllers.')
+@Description('Authentication/Authorization controllers.')
 @Controller('/auth')
 export class AuthenticateController {
   constructor(private authenticateHandler: AuthenticateHandler) {}

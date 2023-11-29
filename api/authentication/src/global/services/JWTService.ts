@@ -1,22 +1,24 @@
 import { JWTPayload } from '@hikers-book/tsed-common/types';
-import { FSUtils } from '@hikers-book/tsed-common/utils';
 import { Inject, Service } from '@tsed/di';
 import JWT from 'jsonwebtoken';
-import path from 'path';
 import { CryptographyUtils } from '../utils';
 import { ConfigService } from './ConfigService';
+import { KeysService } from './KeysService';
 
 @Service()
 export class JWTService {
   @Inject()
   private configService!: ConfigService;
 
+  @Inject()
+  private keysService!: KeysService;
+
   public async getPrivateKey(): Promise<string | Buffer> {
-    return FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem'));
+    return this.keysService.getPrivateKey();
   }
 
   public async getPublicKey(): Promise<string | Buffer> {
-    return FSUtils.readFile(path.resolve(__dirname, '../../../keys/jwt.pem.pub'));
+    return this.keysService.getPublicKey();
   }
 
   public async createJWT(payload: JWTPayload, refresh: boolean = false): Promise<string> {
