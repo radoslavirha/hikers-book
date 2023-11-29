@@ -1,5 +1,5 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SocialComponent } from './social.component';
 
 describe('SocialComponent', () => {
@@ -8,6 +8,7 @@ describe('SocialComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [SocialComponent]
     });
     fixture = TestBed.createComponent(SocialComponent);

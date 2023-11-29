@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockModule } from 'ng-mocks';
+import { SharedModule } from '../../../shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
@@ -8,7 +10,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent]
+      imports: [RouterTestingModule],
+      declarations: [DashboardComponent, MockModule(SharedModule)]
     });
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

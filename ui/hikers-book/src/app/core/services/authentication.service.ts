@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from './config.service';
@@ -20,7 +19,6 @@ export class AuthenticationService {
   }
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private config: ConfigService
   ) {
