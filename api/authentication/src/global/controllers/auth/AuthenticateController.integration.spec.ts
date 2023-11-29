@@ -1,7 +1,8 @@
-import { BEARER_TOKEN, JWT_PAYLOAD } from '@hikers-book/tsed-common/stubs';
+import { JWT_PAYLOAD } from '@hikers-book/tsed-common/stubs';
 import { PlatformTest } from '@tsed/common';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from '../../../test/TestAuthenticationApiContext';
+import { JWTService } from '../../services/JWTService';
 import { AuthenticateController } from './AuthenticateController';
 
 describe('AuthenticateController', () => {
@@ -25,7 +26,10 @@ describe('AuthenticateController', () => {
 
   describe('GET /auth/authenticate', () => {
     it('Should pass', async () => {
-      const response = await request.get('/auth/authenticate').set({ Authorization: BEARER_TOKEN });
+      const service = PlatformTest.get<JWTService>(JWTService);
+      const jwt = await service.createJWT(JWT_PAYLOAD);
+
+      const response = await request.get('/auth/authenticate').set({ Authorization: `Bearer ${jwt}` });
 
       expect(response.status).toEqual(200);
       expect(response.body).toEqual(JWT_PAYLOAD);
