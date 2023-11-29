@@ -7,7 +7,9 @@ describe('ConfigService', () => {
   let service: ConfigService;
   let httpTestingController: HttpTestingController;
 
-  const testConfig: Config = { api: { graphql: 'http://localhost:8080/graphql' } };
+  const testConfig: Config = {
+    api: { authentication: 'http://localhost:8081', graphql: 'http://localhost:8080/graphql' }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,6 +45,7 @@ describe('ConfigService', () => {
     const req = httpTestingController.expectOne('./assets/config/config.json');
     req.flush('error', { status: 404, statusText: 'Not Found' });
 
+    // @ts-expect-error should be undefined
     expect(service.config).toEqual(undefined);
     expect(service.configLoaded).toEqual(false);
     expect(req.request.method).toEqual('GET');
