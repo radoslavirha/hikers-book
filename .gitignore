@@ -3,4 +3,5 @@
 **/node_modules
 */.DS_Store
 api/**/config/*.json
+api/**/views/swagger.ejs
 .env
