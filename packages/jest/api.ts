@@ -1,4 +1,5 @@
 import type { Config } from '@jest/types';
+import { coverage } from './coverage';
 
 const config: Config.InitialOptions = {
   clearMocks: true,
@@ -8,14 +9,7 @@ const config: Config.InitialOptions = {
     'src/**'
   ],
   coveragePathIgnorePatterns: ['/node_modules/'],
-  coverageThreshold: {
-    global: {
-      branches: 95,
-      functions: 95,
-      lines: 95,
-      statements: 95
-    }
-  },
+  coverageThreshold: coverage,
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   testEnvironment: 'node',
   testMatch: ['**/src/**/*.spec.ts'],

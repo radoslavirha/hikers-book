@@ -3,7 +3,8 @@
   "version": "0.7.0",
   "description": "Jest config for Hiker's Book",
   "exports": {
-    "./api": "./api.ts"
+    "./api": "./api.ts",
+    "./coverage": "./coverage.ts"
   },
   "scripts": {
     "cleanup:modules": "rm -rf node_modules"
