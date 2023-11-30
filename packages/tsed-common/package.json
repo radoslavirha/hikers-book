@@ -3,6 +3,7 @@
   "version": "0.7.0",
   "description": "Hiker's Book Ts.ED Common utils",
   "exports": {
+    "./controllers": "./dist/controllers/index.js",
     "./decorators": "./dist/decorators/index.js",
     "./handlers": "./dist/handlers/index.js",
     "./mappers": "./dist/mappers/index.js",
@@ -37,6 +38,8 @@
     "@tsed/openspec": "^7.43.1",
     "@tsed/passport": "^7.43.1",
     "@tsed/platform-express": "^7.43.1",
+    "@tsed/platform-params": "^7.43.1",
+    "@tsed/platform-views": "^7.43.1",
     "@tsed/schema": "^7.43.1",
     "@tsed/swagger": "^7.43.1",
     "ajv": "^8.12.0",

@@ -1,5 +1,6 @@
 import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
 import { SwaggerSettings } from '@tsed/swagger';
+import { SwaggerDocsVersion } from '../types/SwaggerDocsVersion.enum';
 
 export class ConfigSwagger {
   readonly _settings: SwaggerSettings[];
@@ -8,32 +9,40 @@ export class ConfigSwagger {
     return this._settings;
   }
 
-  constructor(title: string, version: string, description?: string) {
-    const info: OpenSpecInfo = {
-      title,
-      version,
-      description
-    };
+  constructor(title: string, version: string, description: string) {
+    this._settings = [
+      this.generateSettings(title, version, description, SwaggerDocsVersion.GLOBAL),
+      this.generateSettings(title, version, description, SwaggerDocsVersion.V1)
+    ];
+  }
 
-    const spec: Partial<OpenSpec3> = {
-      info,
-      components: {
-        securitySchemes: {
-          basic: {
-            type: 'http',
-            scheme: 'basic',
-            bearerFormat: ''
+  // eslint-disable-next-line max-params
+  private generateSettings(
+    title: string,
+    version: string,
+    description: string,
+    docsVersion: SwaggerDocsVersion
+  ): SwaggerSettings {
+    return {
+      path: `/${docsVersion}/docs`,
+      doc: docsVersion,
+      specVersion: '3.0.1',
+      spec: <Partial<OpenSpec3>>{
+        info: <OpenSpecInfo>{
+          title,
+          version,
+          description
+        },
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: 'http',
+              scheme: 'bearer',
+              bearerFormat: 'JWT'
+            }
           }
         }
       }
     };
-
-    this._settings = [
-      {
-        path: '/docs',
-        specVersion: '3.0.1',
-        spec
-      }
-    ];
   }
 }

@@ -1,14 +1,17 @@
+import { SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
 import { Controller } from '@tsed/di';
 import { BadRequest, Forbidden, NotFound } from '@tsed/exceptions';
 import { Authenticate } from '@tsed/passport';
 import { BodyParams } from '@tsed/platform-params';
 import { Description, Post, Returns } from '@tsed/schema';
+import { Docs } from '@tsed/swagger';
 import { CredentialsAlreadyExist } from '../../exceptions';
 import { EmailSendVerificationHandler, EmailVerifyTokenHandler } from '../../handlers';
 import { EmailSendVerificationRequest, EmailVerifyTokenRequest } from '../../models';
 
 @Description('Email provider controllers.')
 @Controller('/auth/provider/email')
+@Docs(SwaggerDocsVersion.GLOBAL)
 export class AuthProviderEmailController {
   constructor(
     private sendVerificationHandler: EmailSendVerificationHandler,

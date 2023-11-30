@@ -1,6 +1,8 @@
+import { SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
 import { BodyParams, Req } from '@tsed/common';
 import { Controller } from '@tsed/di';
 import { Description, Get, Property, Required, Returns } from '@tsed/schema';
+import { Docs } from '@tsed/swagger';
 import { JWTAuth } from '../../global/decorators/JWTAuth';
 
 export class UserRequest {
@@ -10,6 +12,7 @@ export class UserRequest {
 
 @Description('User controllers.')
 @Controller('/user')
+@Docs(SwaggerDocsVersion.V1)
 export class UserController {
   @Get('/')
   @JWTAuth()

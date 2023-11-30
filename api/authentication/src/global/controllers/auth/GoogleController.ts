@@ -1,9 +1,12 @@
+import { SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
 import { Controller } from '@tsed/di';
 import { Authenticate } from '@tsed/passport';
 import { Description, Get } from '@tsed/schema';
+import { Docs } from '@tsed/swagger';
 
 @Description('Google provider controllers.')
 @Controller('/auth/provider/google')
+@Docs(SwaggerDocsVersion.GLOBAL)
 export class AuthProviderGoogleController {
   constructor() {}
 

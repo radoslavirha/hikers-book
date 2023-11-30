@@ -1,6 +1,5 @@
 {
   "directory": [
-    "./src/global/controllers",
     "./src/v1/controllers",
     "./src/v1/models",
     "./src/v1/mongo",

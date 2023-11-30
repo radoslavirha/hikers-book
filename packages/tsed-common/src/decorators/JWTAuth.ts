@@ -10,8 +10,8 @@ import { In, Returns, Security } from '@tsed/schema';
 export function JWTAuth(options: AuthorizeOptions = {}) {
   return useDecorators(
     Authenticate('jwt', { ...options, session: false }),
-    Security('jwt'),
+    Security('bearerAuth'),
     Returns(401, Unauthorized).Description('Unauthorized'),
-    In('header').Name('Authorization').Description('JWT Bearer token').Type(String).Required(false)
+    In('header').Name('Authorization').Description('JWT Bearer token').Type(String).Required(true)
   );
 }

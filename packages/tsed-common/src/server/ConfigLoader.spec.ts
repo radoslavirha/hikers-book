@@ -1,6 +1,7 @@
 import { $log } from '@tsed/common';
 import { Required } from '@tsed/schema';
 import { ConfigLoder } from '.';
+import { SwaggerDocsVersion } from '../types';
 
 // Must match the config file in config/test.json
 class ConfigModel {
@@ -35,7 +36,19 @@ describe('ConfigLoder', () => {
     });
     expect(loader.swagger).toEqual([
       expect.objectContaining({
-        path: '/docs',
+        path: `/${SwaggerDocsVersion.GLOBAL}/docs`,
+        doc: SwaggerDocsVersion.GLOBAL,
+        specVersion: '3.0.1',
+        spec: expect.objectContaining({
+          info: expect.objectContaining({
+            title: 'test',
+            version: expect.any(String)
+          })
+        })
+      }),
+      expect.objectContaining({
+        path: `/${SwaggerDocsVersion.V1}/docs`,
+        doc: SwaggerDocsVersion.V1,
         specVersion: '3.0.1',
         spec: expect.objectContaining({
           info: expect.objectContaining({

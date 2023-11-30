@@ -3,4 +3,5 @@
  */
 
 export * from './JWTPayload';
+export * from './SwaggerDocsVersion.enum';
 export * from './mongo';

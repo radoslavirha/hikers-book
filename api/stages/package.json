@@ -18,9 +18,10 @@
     "config:env": "hikers-book-config-cli -s node_modules/@hikers-book/config/environment-variables/api.stages.json -t config/custom-environment-variables.json -f json || true",
     "config:clear": "find ./config -name '*.json' -type f -delete",
     "config:api": "pnpm run config:env && pnpm run config:localhost",
-    "postinstall": "pnpm run config:api",
+    "postinstall": "pnpm run config:api && pnpm run copy:views",
     "cleanup": "rm -rf coverage dist",
-    "cleanup:modules": "rm -rf node_modules"
+    "cleanup:modules": "rm -rf node_modules",
+    "copy:views": "copyfiles -f node_modules/@hikers-book/tsed-common/src/views/**/*.ejs views"
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",
@@ -53,6 +54,7 @@
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
+    "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",

@@ -71,6 +71,6 @@ export class ConfigLoder<T> {
       envs: this.envs
     };
 
-    this._swagger = new ConfigSwagger(service, this.packageJson.version, this.packageJson.description).settings;
+    this._swagger = new ConfigSwagger(service, this.packageJson.version, this.packageJson.description ?? '').settings;
   }
 }

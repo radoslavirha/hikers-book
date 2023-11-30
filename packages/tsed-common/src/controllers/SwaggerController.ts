@@ -10,6 +10,9 @@ export class SwaggerController {
   @Constant('swagger')
   private swagger!: SwaggerSettings[];
 
+  @Constant('api')
+  private api!: { service: string; version: string };
+
   @Get('/')
   @View('swagger.ejs')
   @Returns(200, String).ContentType('text/html')
@@ -18,6 +21,8 @@ export class SwaggerController {
 
     return {
       BASE_URL: hostUrl,
+      SERVICE: this.api.service,
+      VERSION: this.api.version,
       docs: this.swagger.map((conf) => {
         return {
           url: hostUrl + conf.path,

@@ -1,3 +1,4 @@
+import * as restGlobalCommon from '@hikers-book/tsed-common/controllers';
 import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
@@ -29,7 +30,7 @@ import * as restV1 from './v1/controllers/index';
     disableSession: true
   },
   mount: {
-    '/': [...Object.values(restGlobal)],
+    '/': [...Object.values(restGlobal), ...Object.values(restGlobalCommon)],
     '/v1': [...Object.values(restV1)]
   },
   views: {
