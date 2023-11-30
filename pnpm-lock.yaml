@@ -107,6 +107,9 @@ importers:
       cookie-session:
         specifier: ^2.0.0
         version: 2.0.0
+      copyfiles:
+        specifier: ^2.4.1
+        version: 2.4.1
       cors:
         specifier: ^2.8.5
         version: 2.8.5
