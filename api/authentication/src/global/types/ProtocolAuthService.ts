@@ -11,8 +11,3 @@ export type ProviderGooglePair = { provider: AuthProviderEnum.GOOGLE; profile: G
 
 export type OAuth2ProviderPair = ProviderFacebookPair | ProviderGithubPair | ProviderGooglePair;
 export type AuthProviderPair = ProviderEmailPair | OAuth2ProviderPair;
-
-export type JWTResponse = {
-  jwt: string;
-  refresh: string;
-};

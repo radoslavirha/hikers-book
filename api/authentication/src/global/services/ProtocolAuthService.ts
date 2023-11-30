@@ -8,7 +8,8 @@ import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
 import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../models';
-import { AuthProviderPair, JWTResponse, OAuth2ProviderPair } from '../types';
+import { JWTResponse } from '../models/auth/email/JWTResponse';
+import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
@@ -122,10 +123,10 @@ export class ProtocolAuthService {
       true
     );
 
-    return {
+    return CommonUtils.buildModel(JWTResponse, {
       jwt,
       refresh
-    };
+    });
   }
 
   private getEmailFromAuthProfile(data: AuthProviderPair): string {

@@ -10,6 +10,7 @@ export * from './auth/email/EmailSendVerificationRequest';
 export * from './auth/email/EmailSignInRequest';
 export * from './auth/email/EmailSignUpRequest';
 export * from './auth/email/EmailVerifyTokenRequest';
+export * from './auth/email/JWTResponse';
 export * from './config/AuthModel';
 export * from './config/FrontendConfigModel';
 export * from './config/JWTConfigModel';

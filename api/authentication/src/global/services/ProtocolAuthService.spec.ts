@@ -15,7 +15,7 @@ import {
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../models';
+import { Credentials, EmailSignInRequest, EmailSignUpRequest, JWTResponse, User } from '../models';
 import { ProviderGithubPair } from '../types';
 import { CryptographyUtils } from '../utils';
 import { JWTService } from './JWTService';
@@ -523,12 +523,13 @@ describe('ProtocolAuthService', () => {
     });
 
     it('Should return jwt', async () => {
-      expect.assertions(1);
+      expect.assertions(2);
 
       // @ts-expect-error private
       const jwt = await service.createJWT(CredentialsStubPopulated);
 
-      expect(jwt).toStrictEqual({ jwt: 'jwt', refresh: 'refresh' });
+      expect(jwt).toBeInstanceOf(JWTResponse);
+      expect(jwt).toEqual({ jwt: 'jwt', refresh: 'refresh' });
     });
 
     it('Should throw 422', async () => {

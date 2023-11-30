@@ -1,5 +1,6 @@
 import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
 import { SwaggerSettings } from '@tsed/swagger';
+import { SwaggerSecurityScheme } from '../types';
 import { SwaggerDocsVersion } from '../types/SwaggerDocsVersion.enum';
 
 export class ConfigSwagger {
@@ -26,7 +27,10 @@ export class ConfigSwagger {
     return {
       path: `/${docsVersion}/docs`,
       doc: docsVersion,
-      specVersion: '3.0.1',
+      specVersion: '3.0.3',
+      options: {
+        requestSnippets: true
+      },
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
           title,
@@ -35,10 +39,11 @@ export class ConfigSwagger {
         },
         components: {
           securitySchemes: {
-            bearerAuth: {
+            [SwaggerSecurityScheme.BEARER_JWT]: {
               type: 'http',
               scheme: 'bearer',
-              bearerFormat: 'JWT'
+              bearerFormat: 'JWT',
+              description: 'Bearer JWT token'
             }
           }
         }

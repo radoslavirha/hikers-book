@@ -15,7 +15,7 @@ export class TripsController {
 
   @Get('/')
   @Description('Returns list of trips.')
-  @Returns(200, [Trip])
+  @Returns(200, Array).Of(Trip)
   async get(): Promise<Trip[]> {
     return this.getTripsHandler.execute();
   }

@@ -1,6 +1,6 @@
 import { SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
 import { Controller } from '@tsed/di';
-import { BadRequest, Forbidden, NotFound } from '@tsed/exceptions';
+import { BadRequest, Forbidden, NotFound, UnprocessableEntity } from '@tsed/exceptions';
 import { Authenticate } from '@tsed/passport';
 import { BodyParams } from '@tsed/platform-params';
 import { Description, Post, Returns } from '@tsed/schema';
@@ -8,6 +8,7 @@ import { Docs } from '@tsed/swagger';
 import { CredentialsAlreadyExist } from '../../exceptions';
 import { EmailSendVerificationHandler, EmailVerifyTokenHandler } from '../../handlers';
 import { EmailSendVerificationRequest, EmailVerifyTokenRequest } from '../../models';
+import { JWTResponse } from '../../models/auth/email/JWTResponse';
 
 @Description('Email provider controllers.')
 @Controller('/auth/provider/email')
@@ -39,17 +40,20 @@ export class AuthProviderEmailController {
   @Post('/sign-up')
   @Description('Sign up user with email and password.')
   @Authenticate('email-sign-up', { session: false })
-  @Returns(200)
+  @Returns(200, JWTResponse)
   @Returns(NotFound.STATUS, NotFound)
   @Returns(Forbidden.STATUS, Forbidden)
   @Returns(BadRequest.STATUS, BadRequest)
+  @Returns(UnprocessableEntity.STATUS, UnprocessableEntity)
+  @Returns(CredentialsAlreadyExist.STATUS, CredentialsAlreadyExist)
   // istanbul ignore next
   async signUp() {}
 
   @Post('/sign-in')
   @Description('Sign in user with email and password.')
   @Authenticate('email-sign-in', { session: false })
-  @Returns(200)
+  @Returns(200, JWTResponse)
+  @Returns(Forbidden.STATUS, Forbidden)
   // istanbul ignore next
   async signIn() {}
 }

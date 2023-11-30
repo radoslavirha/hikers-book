@@ -3,3 +3,4 @@
  */
 
 export * from './JWTAuth';
+export * from './OAuth2ReturnStatuses';
