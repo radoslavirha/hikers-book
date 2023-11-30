@@ -28,9 +28,6 @@ export class ConfigSwagger {
       path: `/${docsVersion}/docs`,
       doc: docsVersion,
       specVersion: '3.0.3',
-      options: {
-        requestSnippets: true
-      },
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
           title,

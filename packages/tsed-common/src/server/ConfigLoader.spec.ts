@@ -38,22 +38,42 @@ describe('ConfigLoder', () => {
       expect.objectContaining({
         path: `/${SwaggerDocsVersion.GLOBAL}/docs`,
         doc: SwaggerDocsVersion.GLOBAL,
-        specVersion: '3.0.1',
+        specVersion: '3.0.3',
         spec: expect.objectContaining({
           info: expect.objectContaining({
             title: 'test',
             version: expect.any(String)
+          }),
+          components: expect.objectContaining({
+            securitySchemes: {
+              BEARER_JWT: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                description: 'Bearer JWT token'
+              }
+            }
           })
         })
       }),
       expect.objectContaining({
         path: `/${SwaggerDocsVersion.V1}/docs`,
         doc: SwaggerDocsVersion.V1,
-        specVersion: '3.0.1',
+        specVersion: '3.0.3',
         spec: expect.objectContaining({
           info: expect.objectContaining({
             title: 'test',
             version: expect.any(String)
+          }),
+          components: expect.objectContaining({
+            securitySchemes: {
+              BEARER_JWT: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+                description: 'Bearer JWT token'
+              }
+            }
           })
         })
       })
