@@ -3,7 +3,7 @@ import { BodyParams, Req } from '@tsed/common';
 import { Controller } from '@tsed/di';
 import { Description, Get, Property, Required, Returns } from '@tsed/schema';
 import { Docs } from '@tsed/swagger';
-import { JWTAuth } from '../../global/decorators/JWTAuth';
+import { JWTAuth } from '../../auth/decorators/JWTAuth';
 
 export class UserRequest {
   @Property()

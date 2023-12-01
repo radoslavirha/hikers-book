@@ -1,4 +1,4 @@
-import * as restGlobalCommon from '@hikers-book/tsed-common/controllers';
+import * as restCommon from '@hikers-book/tsed-common/controllers';
 import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
@@ -10,16 +10,16 @@ import '@tsed/swagger';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import { join } from 'path';
+import * as restAuth from './auth/controllers/index';
+import { User } from './auth/models';
+import './auth/protocols/EmailSignInProtocol';
+import './auth/protocols/EmailSignUpProtocol';
+import './auth/protocols/FacebookProtocol';
+import './auth/protocols/GithubProtocol';
+import './auth/protocols/GoogleProtocol';
+import './auth/protocols/JWTProtocol';
 import './global/connections/Nodemailer';
 import './global/connections/Redis';
-import * as restGlobal from './global/controllers/index';
-import { User } from './global/models';
-import './global/protocols/EmailSignInProtocol';
-import './global/protocols/EmailSignUpProtocol';
-import './global/protocols/FacebookProtocol';
-import './global/protocols/GithubProtocol';
-import './global/protocols/GoogleProtocol';
-import './global/protocols/JWTProtocol';
 import { ConfigService } from './global/services/ConfigService';
 import * as restV1 from './v1/controllers/index';
 
@@ -30,7 +30,8 @@ import * as restV1 from './v1/controllers/index';
     disableSession: true
   },
   mount: {
-    '/': [...Object.values(restGlobal), ...Object.values(restGlobalCommon)],
+    '/': [...Object.values(restCommon)],
+    '/auth': [...Object.values(restAuth)],
     '/v1': [...Object.values(restV1)]
   },
   views: {
