@@ -1,7 +1,7 @@
 import { $log } from '@tsed/common';
 import { Required } from '@tsed/schema';
 import { ConfigLoder } from '.';
-import { SwaggerDocsVersion } from '../types';
+import { ConfigLoaderOptions, SwaggerDocsVersion } from '../types';
 
 // Must match the config file in config/test.json
 class ConfigModel {
@@ -14,9 +14,16 @@ class ConfigModelInvalid extends ConfigModel {
   test2!: string;
 }
 
+const options: ConfigLoaderOptions = {
+  service: 'test',
+  port: 4000,
+  configModel: ConfigModel,
+  generateDocs: [SwaggerDocsVersion.GLOBAL, SwaggerDocsVersion.V1]
+};
+
 describe('ConfigLoder', () => {
   it('Should pass', async () => {
-    const loader = new ConfigLoder('test', 4000, ConfigModel);
+    const loader = new ConfigLoder(options);
 
     expect(loader.service).toEqual('test');
     expect(loader.port).toEqual(4000);
@@ -81,14 +88,14 @@ describe('ConfigLoder', () => {
   });
 
   it('Should pass - isProduction', async () => {
-    const loader = new ConfigLoder('test', 4000, ConfigModel);
+    const loader = new ConfigLoder(options);
     loader._envs.NODE_ENV = 'production';
 
     expect(loader.isProduction).toEqual(true);
   });
 
   it('Should pass - isTest', async () => {
-    const loader = new ConfigLoder('test', 4000, ConfigModel);
+    const loader = new ConfigLoder(options);
     loader._envs.NODE_ENV = 'test';
 
     expect(loader.isTest).toEqual(true);
@@ -96,9 +103,14 @@ describe('ConfigLoder', () => {
 
   it('Should fail', async () => {
     const spy = jest.spyOn($log, 'error').mockImplementation();
+    const options: ConfigLoaderOptions = {
+      service: 'test',
+      port: 4000,
+      configModel: ConfigModelInvalid
+    };
 
     try {
-      new ConfigLoder('test', 4000, ConfigModelInvalid);
+      new ConfigLoder(options);
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
       expect((error as Error).message).toEqual('Invalid configuration!');

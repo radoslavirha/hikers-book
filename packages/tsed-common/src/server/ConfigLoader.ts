@@ -1,5 +1,6 @@
 import { Type } from '@tsed/core';
 import { SwaggerSettings } from '@tsed/swagger';
+import { ConfigLoaderOptions } from '../types/ConfigLoaderOptions';
 import { ConfigFileLoader } from './ConfigFileLoader';
 import { ConfigSwagger } from './ConfigSwagger';
 import { ENVS, EnvLoader } from './EnvLoader';
@@ -50,15 +51,15 @@ export class ConfigLoder<T> {
     return this.envs.NODE_ENV === 'test';
   }
 
-  constructor(service: string, port: number, configModel: Type<T>) {
-    this.service = service;
-    this.port = port;
-    this.configModel = configModel;
+  constructor(options: ConfigLoaderOptions<T>) {
+    this.service = options.service;
+    this.port = options.port;
+    this.configModel = options.configModel;
 
     this._packageJson = new PackageJsonLoader().packageJson;
 
     this._api = {
-      service: service,
+      service: options.service,
       version: this.packageJson.version
     };
 
@@ -71,6 +72,12 @@ export class ConfigLoder<T> {
       envs: this.envs
     };
 
-    this._swagger = new ConfigSwagger(service, this.packageJson.version, this.packageJson.description ?? '').settings;
+    // istanbul ignore next
+    this._swagger = new ConfigSwagger({
+      title: options.service,
+      version: this.packageJson.version,
+      description: this.packageJson.description ?? '',
+      generateDocs: options.generateDocs ?? []
+    }).settings;
   }
 }

@@ -6,7 +6,7 @@ import { ConfigService } from './global/services/ConfigService';
 
 async function bootstrap() {
   try {
-    const config = new ConfigLoder(ConfigService.service, ConfigService.port, ConfigService.configModel);
+    const config = new ConfigLoder(ConfigService.options);
 
     const configuration: Partial<TsED.Configuration> = {
       ...config.server,

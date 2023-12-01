@@ -1,6 +1,7 @@
 import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
 import { SwaggerSettings } from '@tsed/swagger';
 import { SwaggerSecurityScheme } from '../types';
+import { ConfigSwaggerOptions } from '../types/ConfigSwaggerOptions';
 import { SwaggerDocsVersion } from '../types/SwaggerDocsVersion.enum';
 
 export class ConfigSwagger {
@@ -10,11 +11,10 @@ export class ConfigSwagger {
     return this._settings;
   }
 
-  constructor(title: string, version: string, description: string) {
-    this._settings = [
-      this.generateSettings(title, version, description, SwaggerDocsVersion.GLOBAL),
-      this.generateSettings(title, version, description, SwaggerDocsVersion.V1)
-    ];
+  constructor(options: ConfigSwaggerOptions) {
+    this._settings = options.generateDocs.map((docsVersion) =>
+      this.generateSettings(options.title, options.version, options.description, docsVersion)
+    );
   }
 
   // eslint-disable-next-line max-params
