@@ -1,26 +1,24 @@
-import { BodyParams, Req } from '@tsed/common';
-import { OnInstall, OnVerify, Protocol } from '@tsed/passport';
-import { IStrategyOptions, Strategy } from 'passport-local';
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
+import { Req } from '@tsed/common';
+import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
+import { BasicStrategy, BasicStrategyOptions } from 'passport-http';
 import { EmailSignInRequest } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 
-@Protocol<IStrategyOptions>({
+@Protocol<BasicStrategyOptions>({
   name: 'email-sign-in',
-  useStrategy: Strategy,
-  settings: {
-    usernameField: 'email',
-    passwordField: 'password'
-  }
+  useStrategy: BasicStrategy,
+  settings: {}
 })
 export class EmailSignInProtocol implements OnVerify, OnInstall {
   constructor(private authService: ProtocolAuthService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  $onInstall(strategy: Strategy): void {
+  $onInstall(strategy: BasicStrategy): void {
     // intercept the strategy instance to adding extra configuration
   }
 
-  async $onVerify(@Req() request: Req, @BodyParams() body: EmailSignInRequest) {
-    return this.authService.emailSignIn(body);
+  async $onVerify(@Req() request: Req, @Args() [email, password]: [string, string]) {
+    return this.authService.emailSignIn(CommonUtils.buildModel(EmailSignInRequest, { email, password }));
   }
 }

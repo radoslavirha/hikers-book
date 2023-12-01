@@ -315,7 +315,7 @@ describe('AuthProviderEmailController', () => {
     });
   });
 
-  describe('POST /auth/provider/email/sign-in', () => {
+  describe('GET /auth/provider/email/sign-in', () => {
     const requestStub: EmailSignInRequest = {
       email: 'tester@domain.com',
       password: '8^^3286UhpB$9m'
@@ -323,10 +323,11 @@ describe('AuthProviderEmailController', () => {
 
     it('Should call authService.emailSignUp()', async () => {
       const spy = jest.spyOn(authService, 'emailSignIn').mockImplementation();
+      const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
 
       expect.assertions(1);
 
-      await request.post('/provider/email/sign-in').send(requestStub);
+      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
 
       expect(spy).toHaveBeenCalledWith(requestStub);
     });

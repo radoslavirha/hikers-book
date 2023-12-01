@@ -58,6 +58,11 @@ describe('ConfigLoder', () => {
                 scheme: 'bearer',
                 bearerFormat: 'JWT',
                 description: 'Bearer JWT token'
+              },
+              BASIC: {
+                type: 'http',
+                scheme: 'basic',
+                description: 'Basic authentication'
               }
             }
           })
@@ -79,6 +84,11 @@ describe('ConfigLoder', () => {
                 scheme: 'bearer',
                 bearerFormat: 'JWT',
                 description: 'Bearer JWT token'
+              },
+              BASIC: {
+                type: 'http',
+                scheme: 'basic',
+                description: 'Basic authentication'
               }
             }
           })

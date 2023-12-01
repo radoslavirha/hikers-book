@@ -1,9 +1,9 @@
-import { SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
+import { SwaggerDocsVersion, SwaggerSecurityScheme } from '@hikers-book/tsed-common/types';
 import { Controller } from '@tsed/di';
 import { BadRequest, Forbidden, NotFound, UnprocessableEntity } from '@tsed/exceptions';
 import { Authenticate } from '@tsed/passport';
 import { BodyParams } from '@tsed/platform-params';
-import { Description, Post, Returns } from '@tsed/schema';
+import { Description, Get, Post, Returns, Security } from '@tsed/schema';
 import { Docs } from '@tsed/swagger';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { EmailSendVerificationHandler, EmailVerifyTokenHandler } from '../handlers';
@@ -49,9 +49,10 @@ export class AuthProviderEmailController {
   // istanbul ignore next
   async signUp() {}
 
-  @Post('/sign-in')
+  @Get('/sign-in')
   @Description('Sign in user with email and password.')
   @Authenticate('email-sign-in', { session: false })
+  @Security(SwaggerSecurityScheme.BASIC)
   @Returns(200, JWTResponse)
   @Returns(Forbidden.STATUS, Forbidden)
   // istanbul ignore next

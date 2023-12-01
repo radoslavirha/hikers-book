@@ -41,6 +41,11 @@ export class ConfigSwagger {
               scheme: 'bearer',
               bearerFormat: 'JWT',
               description: 'Bearer JWT token'
+            },
+            [SwaggerSecurityScheme.BASIC]: {
+              type: 'http',
+              scheme: 'basic',
+              description: 'Basic authentication'
             }
           }
         }
