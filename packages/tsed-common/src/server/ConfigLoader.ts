@@ -77,7 +77,7 @@ export class ConfigLoder<T> {
       title: options.service,
       version: this.packageJson.version,
       description: this.packageJson.description ?? '',
-      generateDocs: options.generateDocs ?? []
+      swagger: options.swagger ?? []
     }).settings;
   }
 }

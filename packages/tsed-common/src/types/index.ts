@@ -4,6 +4,7 @@
 
 export * from './ConfigLoaderOptions';
 export * from './ConfigSwaggerOptions';
+export * from './EnumObject';
 export * from './JWTPayload';
 export * from './SwaggerDocsVersion.enum';
 export * from './SwaggerSecurityScheme.enum';

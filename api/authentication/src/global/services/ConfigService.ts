@@ -1,5 +1,5 @@
 import { ConfigLoder } from '@hikers-book/tsed-common/server';
-import { ConfigLoaderOptions, SwaggerDocsVersion } from '@hikers-book/tsed-common/types';
+import { ConfigLoaderOptions, SwaggerDocsVersion, SwaggerSecurityScheme } from '@hikers-book/tsed-common/types';
 import { Injectable } from '@tsed/di';
 import { ConfigModel } from '../models/ConfigModel';
 
@@ -9,7 +9,16 @@ export class ConfigService extends ConfigLoder<ConfigModel> {
     service: `Hiker's Book Authentication API`,
     port: 5501,
     configModel: ConfigModel,
-    generateDocs: [SwaggerDocsVersion.AUTH, SwaggerDocsVersion.V1]
+    swagger: [
+      {
+        doc: SwaggerDocsVersion.AUTH,
+        security: [SwaggerSecurityScheme.BEARER_JWT, SwaggerSecurityScheme.BASIC]
+      },
+      {
+        doc: SwaggerDocsVersion.V1,
+        security: [SwaggerSecurityScheme.BEARER_JWT]
+      }
+    ]
   };
 
   constructor() {

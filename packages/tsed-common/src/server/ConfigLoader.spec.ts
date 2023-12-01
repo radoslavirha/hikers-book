@@ -1,7 +1,7 @@
 import { $log } from '@tsed/common';
 import { Required } from '@tsed/schema';
 import { ConfigLoder } from '.';
-import { ConfigLoaderOptions, SwaggerDocsVersion } from '../types';
+import { ConfigLoaderOptions, SwaggerDocsVersion, SwaggerSecurityScheme } from '../types';
 
 // Must match the config file in config/test.json
 class ConfigModel {
@@ -18,7 +18,16 @@ const options: ConfigLoaderOptions = {
   service: 'test',
   port: 4000,
   configModel: ConfigModel,
-  generateDocs: [SwaggerDocsVersion.GLOBAL, SwaggerDocsVersion.V1]
+  swagger: [
+    {
+      doc: SwaggerDocsVersion.GLOBAL,
+      security: [SwaggerSecurityScheme.BASIC]
+    },
+    {
+      doc: SwaggerDocsVersion.V1,
+      security: [SwaggerSecurityScheme.BEARER_JWT]
+    }
+  ]
 };
 
 describe('ConfigLoder', () => {
@@ -53,12 +62,6 @@ describe('ConfigLoder', () => {
           }),
           components: expect.objectContaining({
             securitySchemes: {
-              BEARER_JWT: {
-                type: 'http',
-                scheme: 'bearer',
-                bearerFormat: 'JWT',
-                description: 'Bearer JWT token'
-              },
               BASIC: {
                 type: 'http',
                 scheme: 'basic',
@@ -84,11 +87,6 @@ describe('ConfigLoder', () => {
                 scheme: 'bearer',
                 bearerFormat: 'JWT',
                 description: 'Bearer JWT token'
-              },
-              BASIC: {
-                type: 'http',
-                scheme: 'basic',
-                description: 'Basic authentication'
               }
             }
           })

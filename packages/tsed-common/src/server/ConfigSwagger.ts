@@ -1,8 +1,8 @@
-import { OpenSpec3, OpenSpecInfo } from '@tsed/openspec';
+import { OS3Security, OpenSpec3, OpenSpecHash, OpenSpecInfo } from '@tsed/openspec';
 import { SwaggerSettings } from '@tsed/swagger';
+import { SWAGGER_SECURITY_SCHEMES } from '../models/SwaggerSecuritySchemes';
 import { SwaggerSecurityScheme } from '../types';
-import { ConfigSwaggerOptions } from '../types/ConfigSwaggerOptions';
-import { SwaggerDocsVersion } from '../types/SwaggerDocsVersion.enum';
+import { ConfigSwaggerOptions, SwaggerDocConfig } from '../types/ConfigSwaggerOptions';
 
 export class ConfigSwagger {
   readonly _settings: SwaggerSettings[];
@@ -12,7 +12,7 @@ export class ConfigSwagger {
   }
 
   constructor(options: ConfigSwaggerOptions) {
-    this._settings = options.generateDocs.map((docsVersion) =>
+    this._settings = options.swagger.map((docsVersion) =>
       this.generateSettings(options.title, options.version, options.description, docsVersion)
     );
   }
@@ -22,11 +22,11 @@ export class ConfigSwagger {
     title: string,
     version: string,
     description: string,
-    docsVersion: SwaggerDocsVersion
+    settings: SwaggerDocConfig
   ): SwaggerSettings {
     return {
-      path: `/${docsVersion}/docs`,
-      doc: docsVersion,
+      path: `/${settings.doc}/docs`,
+      doc: settings.doc,
       specVersion: '3.0.3',
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
@@ -35,21 +35,19 @@ export class ConfigSwagger {
           description
         },
         components: {
-          securitySchemes: {
-            [SwaggerSecurityScheme.BEARER_JWT]: {
-              type: 'http',
-              scheme: 'bearer',
-              bearerFormat: 'JWT',
-              description: 'Bearer JWT token'
-            },
-            [SwaggerSecurityScheme.BASIC]: {
-              type: 'http',
-              scheme: 'basic',
-              description: 'Basic authentication'
-            }
-          }
+          securitySchemes: this.getSecuritySchemes(settings.security)
         }
       }
     };
+  }
+
+  private getSecuritySchemes(security: SwaggerSecurityScheme[]): OpenSpecHash<OS3Security> {
+    const schemes: OpenSpecHash<OS3Security> = {};
+
+    for (const scheme of security) {
+      schemes[scheme] = SWAGGER_SECURITY_SCHEMES[scheme];
+    }
+
+    return schemes;
   }
 }
