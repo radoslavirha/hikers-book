@@ -14,16 +14,16 @@
     "lint": "eslint --ext .ts src",
     "test": "pnpm run config:test && cross-env NODE_ENV=test jest",
     "test:watch": "pnpm run test --watchAll",
-    "config:localhost": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/api.authentication.json -t config/localhost.json -f json || true",
-    "config:test": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/api.authentication.template.json -t config/test.json -f json || true",
-    "config:env": "hikers-book-config-cli -s node_modules/@hikers-book/config/environment-variables/api.authentication.json -t config/custom-environment-variables.json -f json || true",
+    "config:localhost": "hb-cli config node_modules/@hikers-book/config/config/api.authentication.json config/localhost.json -f json || true",
+    "config:test": "hb-cli config node_modules/@hikers-book/config/config/api.authentication.template.json config/test.json -f json || true",
+    "config:env": "hb-cli config node_modules/@hikers-book/config/environment-variables/api.authentication.json config/custom-environment-variables.json -f json || true",
     "config:clear": "find ./config -name '*.json' -type f -delete",
     "config:api": "pnpm run config:env && pnpm run config:localhost",
     "postinstall": "pnpm run config:api && pnpm run copy:views",
     "cleanup": "rm -rf coverage dist",
     "cleanup:modules": "rm -rf node_modules",
     "keys": "openssl genrsa -out keys/jwt.pem 2048 && openssl rsa -in keys/jwt.pem -outform PEM -pubout -out keys/jwt.pem.pub",
-    "copy:views": "copyfiles -f node_modules/@hikers-book/tsed-common/src/views/**/*.ejs views"
+    "copy:views": "hb-cli copy-views"
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",
@@ -57,7 +57,6 @@
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
-    "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
@@ -80,7 +79,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@hikers-book/cli-tools": "workspace:*",
+    "@hikers-book/cli": "workspace:*",
     "@hikers-book/config": "workspace:*",
     "@hikers-book/eslint-config": "workspace:*",
     "@hikers-book/jest": "workspace:*",

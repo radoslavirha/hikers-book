@@ -13,9 +13,9 @@
     "lint": "eslint --ext .ts src",
     "test": "pnpm run config:test && cross-env NODE_ENV=test jest",
     "test:watch": "pnpm run test --watchAll",
-    "config:localhost": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/api.graphql.json -t config/localhost.json -f json || true",
-    "config:test": "hikers-book-config-cli -s node_modules/@hikers-book/config/config/api.graphql.template.json -t config/test.json -f json || true",
-    "config:env": "hikers-book-config-cli -s node_modules/@hikers-book/config/environment-variables/api.graphql.json -t config/custom-environment-variables.json -f json || true",
+    "config:localhost": "hb-cli config node_modules/@hikers-book/config/config/api.graphql.json config/localhost.json -f json || true",
+    "config:test": "hb-cli config node_modules/@hikers-book/config/config/api.graphql.template.json config/test.json -f json || true",
+    "config:env": "hb-cli config node_modules/@hikers-book/config/environment-variables/api.graphql.json config/custom-environment-variables.json -f json || true",
     "config:clear": "find ./config -name '*.json' -type f -delete",
     "config:api": "pnpm run config:env && pnpm run config:localhost",
     "postinstall": "pnpm run config:api",
@@ -70,7 +70,7 @@
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
-    "@hikers-book/cli-tools": "workspace:*",
+    "@hikers-book/cli": "workspace:*",
     "@hikers-book/config": "workspace:*",
     "@hikers-book/eslint-config": "workspace:*",
     "@hikers-book/jest": "workspace:*",

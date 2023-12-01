@@ -35,7 +35,7 @@
     },
     {
       "type": "json",
-      "path": "packages/cli-tools/package.json",
+      "path": "packages/cli/package.json",
       "jsonpath": "$.version"
     },
     {

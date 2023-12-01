@@ -1,4 +1,4 @@
-# Hiker's Book CLI tools
+# Hiker's Book CLI
 
 ## Config CLI
 

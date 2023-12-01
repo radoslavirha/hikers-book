@@ -7,7 +7,7 @@ PACKAGE: packages/**
 'Stages API': api/stages/**
 'Trips API': api/trips/**
 "Hiker's Book UI": ui/hikers-book/**
-'@hikers-book/cli-tools': packages/cli-tools/**
+'@hikers-book/cli': packages/cli/**
 '@hikers-book/config': packages/config/**
 '@hikers-book/eslint-config': packages/eslint/**
 '@hikers-book/jest': packages/jest/**

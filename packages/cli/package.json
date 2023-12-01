@@ -1,10 +1,10 @@
 {
-  "name": "@hikers-book/cli-tools",
+  "name": "@hikers-book/cli",
   "version": "0.7.0",
-  "description": "Hiker's Book CLI Tools",
+  "description": "Hiker's Book CLI",
   "main": "bin/index.js",
   "bin": {
-    "hikers-book-config-cli": "./bin/config.js"
+    "hb-cli": "./bin/index.js"
   },
   "scripts": {
     "build": "npx tsc",
@@ -17,6 +17,7 @@
   "dependencies": {
     "chalk": "4.1.2",
     "commander": "^11.1.0",
+    "glob": "^10.3.10",
     "json-merger": "^1.1.10",
     "log-symbols": "4.1.0"
   },
