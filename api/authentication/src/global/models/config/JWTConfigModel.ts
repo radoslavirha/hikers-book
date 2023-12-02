@@ -1,25 +1,6 @@
-import { Enum, Required } from '@tsed/schema';
-import { Algorithm } from 'jsonwebtoken';
+import { Required } from '@tsed/schema';
 
 export class JWTConfigModel {
-  @Required()
-  @Enum(
-    'HS256',
-    'HS384',
-    'HS512',
-    'RS256',
-    'RS384',
-    'RS512',
-    'ES256',
-    'ES384',
-    'ES512',
-    'PS256',
-    'PS384',
-    'PS512',
-    'none'
-  )
-  algorithm!: Algorithm;
-
   @Required()
   expiresIn!: string;
 

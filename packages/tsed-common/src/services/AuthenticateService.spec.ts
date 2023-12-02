@@ -32,10 +32,10 @@ describe('AuthenticateService', () => {
   afterEach(PlatformTest.reset);
 
   describe('authenticate', () => {
-    const JWTStub: JWTAuthenticationResponse = { id: '1234', name: 'tester' };
+    const TokensStub: JWTAuthenticationResponse = { id: '1234', name: 'tester' };
 
     it('Should call axios', async () => {
-      const spy = axiosMock.get.mockImplementation(() => Promise.resolve({ data: JWTStub }));
+      const spy = axiosMock.get.mockImplementation(() => Promise.resolve({ data: TokensStub }));
 
       await service.authenticate('token');
 
@@ -47,11 +47,11 @@ describe('AuthenticateService', () => {
     });
 
     it('Should return JWT payload', async () => {
-      axiosMock.get.mockImplementation(() => Promise.resolve({ data: JWTStub }));
+      axiosMock.get.mockImplementation(() => Promise.resolve({ data: TokensStub }));
 
       const response = await service.authenticate('token');
 
-      expect(response).toStrictEqual(JWTStub);
+      expect(response).toStrictEqual(TokensStub);
     });
   });
 });

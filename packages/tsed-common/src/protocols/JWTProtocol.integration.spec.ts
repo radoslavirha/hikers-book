@@ -3,7 +3,7 @@ import SuperTest from 'supertest';
 import { BaseServer } from '../server/ServerBase';
 import { AuthenticateService } from '../services/AuthenticateService';
 import { TestController } from '../test/TestController';
-import { BEARER_TOKEN, JWT_PAYLOAD, JWT_TOKEN } from '../test/stubs/AuthStubs';
+import { ACCESS_TOKEN, BEARER_TOKEN, JWT_PAYLOAD } from '../test/stubs/AuthStubs';
 
 describe('JWTProtocol', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;
@@ -39,7 +39,7 @@ describe('JWTProtocol', () => {
   it('Should call authenticateService.authenticate()', async () => {
     await request.get('/tests').set({ Authorization: BEARER_TOKEN });
 
-    expect(spy).toHaveBeenCalledWith(JWT_TOKEN);
+    expect(spy).toHaveBeenCalledWith(ACCESS_TOKEN);
   });
 
   it('Should return 401 after failed Authentication API request', async () => {

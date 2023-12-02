@@ -20,7 +20,6 @@
     }
   },
   "jwt": {
-    "algorithm": "RS256",
     "expiresIn": "1h",
     "expiresInRefresh": "1w"
   },

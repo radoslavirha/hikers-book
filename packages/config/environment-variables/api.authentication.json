@@ -20,7 +20,6 @@
     }
   },
   "jwt": {
-    "algorithm": "HB_JWT_ALGORITHM",
     "expiresIn": "HB_JWT_EXPIRES_IN",
     "expiresInRefresh": "HB_JWT_EXPIRES_IN_REFRESH"
   },

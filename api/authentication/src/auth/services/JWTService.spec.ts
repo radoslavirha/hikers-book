@@ -14,8 +14,10 @@ describe('JWTService', () => {
   beforeEach(async () => {
     const keysService = PlatformTest.get<KeysService>(KeysService);
 
-    jest.spyOn(keysService, 'getPrivateKey').mockResolvedValue('PrivateKey');
-    jest.spyOn(keysService, 'getPublicKey').mockResolvedValue('PublicKey');
+    jest.spyOn(keysService, 'getATPrivateKey').mockResolvedValue('ATPrivateKey');
+    jest.spyOn(keysService, 'getATPublicKey').mockResolvedValue('ATPublicKey');
+    jest.spyOn(keysService, 'getRTPrivateKey').mockResolvedValue('RTPrivateKey');
+    jest.spyOn(keysService, 'getRTPublicKey').mockResolvedValue('RTPublicKey');
 
     service = await PlatformTest.invoke<JWTService>(JWTService, [
       {
@@ -27,31 +29,33 @@ describe('JWTService', () => {
   });
   afterEach(TestMongooseContext.reset);
 
-  describe('createJWT', () => {
+  describe('createAT', () => {
     it('Should be called', async () => {
       const spyJWT = jest.spyOn(JWT, 'sign').mockResolvedValue(<never>'token');
       const spyCrypto = jest.spyOn(CryptographyUtils, 'generateJWTjti').mockReturnValue('jti');
 
-      const response = await service.createJWT({ id: 'test', name: '' });
+      const response = await service.createAT({ id: 'test', name: '' });
 
       expect(response).toBe('token');
-      expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'PrivateKey', {
-        algorithm: configService.config.jwt.algorithm,
+      expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'ATPrivateKey', {
+        algorithm: 'RS256',
         expiresIn: configService.config.jwt.expiresIn,
         jwtid: 'jti'
       });
       expect(spyCrypto).toBeCalled();
     });
+  });
 
-    it('Should be called for refresh', async () => {
+  describe('createRT', () => {
+    it('Should be called', async () => {
       const spyJWT = jest.spyOn(JWT, 'sign').mockResolvedValue(<never>'token');
       const spyCrypto = jest.spyOn(CryptographyUtils, 'generateJWTjti').mockReturnValue('jti');
 
-      const response = await service.createJWT({ id: 'test', name: '' }, true);
+      const response = await service.createRT({ id: 'test', name: '' });
 
       expect(response).toBe('token');
-      expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'PrivateKey', {
-        algorithm: configService.config.jwt.algorithm,
+      expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'RTPrivateKey', {
+        algorithm: 'RS256',
         expiresIn: configService.config.jwt.expiresInRefresh,
         jwtid: 'jti'
       });
@@ -59,27 +63,53 @@ describe('JWTService', () => {
     });
   });
 
-  describe('decodeJWT', () => {
+  describe('decodeAT', () => {
     it('Should be called', async () => {
       const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
 
-      const response = await service.decodeJWT('token');
+      const response = await service.decodeAT('token');
 
       expect(response).toEqual({ id: 'test', name: '' });
-      expect(spyJWT).toHaveBeenCalledWith('token', 'PublicKey', {
-        algorithms: [configService.config.jwt.algorithm],
+      expect(spyJWT).toHaveBeenCalledWith('token', 'ATPublicKey', {
+        algorithms: ['RS256'],
         ignoreExpiration: false
       });
     });
 
-    it('Should be called for refresh', async () => {
+    it('Should be called - ignore expiration', async () => {
       const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
 
-      const response = await service.decodeJWT('token', true);
+      const response = await service.decodeAT('token', true);
 
       expect(response).toEqual({ id: 'test', name: '' });
-      expect(spyJWT).toHaveBeenCalledWith('token', 'PublicKey', {
-        algorithms: [configService.config.jwt.algorithm],
+      expect(spyJWT).toHaveBeenCalledWith('token', 'ATPublicKey', {
+        algorithms: ['RS256'],
+        ignoreExpiration: true
+      });
+    });
+  });
+
+  describe('decodeRT', () => {
+    it('Should be called', async () => {
+      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
+
+      const response = await service.decodeRT('token');
+
+      expect(response).toEqual({ id: 'test', name: '' });
+      expect(spyJWT).toHaveBeenCalledWith('token', 'RTPublicKey', {
+        algorithms: ['RS256'],
+        ignoreExpiration: false
+      });
+    });
+
+    it('Should be called - ignore expiration', async () => {
+      const spyJWT = jest.spyOn(JWT, 'verify').mockResolvedValue(<never>{ id: 'test', name: '' });
+
+      const response = await service.decodeRT('token', true);
+
+      expect(response).toEqual({ id: 'test', name: '' });
+      expect(spyJWT).toHaveBeenCalledWith('token', 'RTPublicKey', {
+        algorithms: ['RS256'],
         ignoreExpiration: true
       });
     });

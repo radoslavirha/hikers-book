@@ -1,4 +1,4 @@
-import { PRIVATE_KEY, PUBLIC_KEY } from '@hikers-book/tsed-common/stubs';
+import { AT_PRIVATE_KEY, AT_PUBLIC_KEY, RT_PRIVATE_KEY, RT_PUBLIC_KEY } from '@hikers-book/tsed-common/stubs';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { createTransport } from 'nodemailer-mock';
 import { Server } from '../Server';
@@ -17,8 +17,11 @@ export class TestAuthenticationApiContext {
         {
           token: KeysService,
           use: {
-            getPrivateKey: jest.fn().mockResolvedValue(PRIVATE_KEY),
-            getPublicKey: jest.fn().mockResolvedValue(PUBLIC_KEY)
+            algorithm: 'RS256',
+            getATPrivateKey: jest.fn().mockResolvedValue(AT_PRIVATE_KEY),
+            getATPublicKey: jest.fn().mockResolvedValue(AT_PUBLIC_KEY),
+            getRTPrivateKey: jest.fn().mockResolvedValue(RT_PRIVATE_KEY),
+            getRTPublicKey: jest.fn().mockResolvedValue(RT_PUBLIC_KEY)
           }
         }
       ],

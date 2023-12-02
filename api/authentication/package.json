@@ -22,7 +22,9 @@
     "postinstall": "pnpm run config:api && pnpm run copy:views",
     "cleanup": "rm -rf coverage dist",
     "cleanup:modules": "rm -rf node_modules",
-    "keys": "openssl genrsa -out keys/jwt.pem 2048 && openssl rsa -in keys/jwt.pem -outform PEM -pubout -out keys/jwt.pem.pub",
+    "keys": "pnpm run keys:access && pnpm run keys:refresh",
+    "keys:access": "openssl genrsa -out keys/access.pem 2048 && openssl rsa -in keys/access.pem -outform PEM -pubout -out keys/access.pem.pub",
+    "keys:refresh": "openssl genrsa -out keys/refresh.pem 2048 && openssl rsa -in keys/refresh.pem -outform PEM -pubout -out keys/refresh.pem.pub",
     "copy:views": "hb-cli copy-views"
   },
   "dependencies": {

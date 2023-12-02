@@ -8,7 +8,7 @@ import { Docs } from '@tsed/swagger';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { EmailSendVerificationHandler, EmailVerifyTokenHandler } from '../handlers';
 import { EmailSendVerificationRequest, EmailVerifyTokenRequest } from '../models';
-import { JWTResponse } from '../models/auth/email/JWTResponse';
+import { TokensResponse } from '../models/auth/TokensResponse';
 
 @Description('Email provider controllers.')
 @Controller('/provider/email')
@@ -40,7 +40,7 @@ export class AuthProviderEmailController {
   @Post('/sign-up')
   @Description('Sign up user with email and password.')
   @Authenticate('email-sign-up', { session: false })
-  @Returns(200, JWTResponse)
+  @Returns(200, TokensResponse)
   @Returns(NotFound.STATUS, NotFound)
   @Returns(Forbidden.STATUS, Forbidden)
   @Returns(BadRequest.STATUS, BadRequest)
@@ -53,7 +53,7 @@ export class AuthProviderEmailController {
   @Description('Sign in user with email and password.')
   @Authenticate('email-sign-in', { session: false })
   @Security(SwaggerSecurityScheme.BASIC)
-  @Returns(200, JWTResponse)
+  @Returns(200, TokensResponse)
   @Returns(Forbidden.STATUS, Forbidden)
   // istanbul ignore next
   async signIn() {}

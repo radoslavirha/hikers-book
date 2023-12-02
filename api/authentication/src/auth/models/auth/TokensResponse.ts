@@ -1,11 +1,11 @@
 import { Description, Required, Schema, Title } from '@tsed/schema';
 
 @Schema({ additionalProperties: false })
-export class JWTResponse {
-  @Title('jwt')
-  @Description('JWT token.')
+export class TokensResponse {
+  @Title('access')
+  @Description('JWT access token.')
   @Required()
-  jwt!: string;
+  access!: string;
 
   @Title('refresh')
   @Description('JWT refresh token.')

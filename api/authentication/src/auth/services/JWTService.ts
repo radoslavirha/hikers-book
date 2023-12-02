@@ -13,33 +13,64 @@ export class JWTService {
   @Inject()
   private keysService!: KeysService;
 
-  public async getPrivateKey(): Promise<string | Buffer> {
-    return this.keysService.getPrivateKey();
+  public get algorithm() {
+    return this.keysService.algorithm;
   }
 
-  public async getPublicKey(): Promise<string | Buffer> {
-    return this.keysService.getPublicKey();
+  public async getATPrivateKey(): Promise<string | Buffer> {
+    return this.keysService.getATPrivateKey();
   }
 
-  public async createJWT(payload: JWTPayload, refresh: boolean = false): Promise<string> {
+  public async getATPublicKey(): Promise<string | Buffer> {
+    return this.keysService.getATPublicKey();
+  }
+
+  public async getRTPrivateKey(): Promise<string | Buffer> {
+    return this.keysService.getRTPrivateKey();
+  }
+
+  public async getRTPublicKey(): Promise<string | Buffer> {
+    return this.keysService.getRTPublicKey();
+  }
+
+  public async createAT(payload: JWTPayload): Promise<string> {
     const opt: JWT.SignOptions = {
-      algorithm: this.configService.config.jwt.algorithm,
-      expiresIn: refresh ? this.configService.config.jwt.expiresInRefresh : this.configService.config.jwt.expiresIn,
+      algorithm: this.algorithm,
+      expiresIn: this.configService.config.jwt.expiresIn,
       jwtid: CryptographyUtils.generateJWTjti()
     };
 
-    const privateKey = await this.getPrivateKey();
-
     // eslint-disable-next-line import/no-named-as-default-member
-    return JWT.sign(payload, privateKey, opt);
+    return JWT.sign(payload, await this.getATPrivateKey(), opt);
   }
 
-  public async decodeJWT(jwt: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
-    const publicKey = await this.getPublicKey();
+  public async createRT(payload: JWTPayload): Promise<string> {
+    const opt: JWT.SignOptions = {
+      algorithm: this.algorithm,
+      expiresIn: this.configService.config.jwt.expiresInRefresh,
+      jwtid: CryptographyUtils.generateJWTjti()
+    };
 
     // eslint-disable-next-line import/no-named-as-default-member
-    return JWT.verify(jwt, publicKey, {
-      algorithms: [this.configService.config.jwt.algorithm],
+    return JWT.sign(payload, await this.getRTPrivateKey(), opt);
+  }
+
+  public async decodeAT(access: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
+    const publicKey = await this.getATPublicKey();
+
+    // eslint-disable-next-line import/no-named-as-default-member
+    return JWT.verify(access, publicKey, {
+      algorithms: [this.algorithm],
+      ignoreExpiration: ignoreExpiration
+    }) as JWTPayload;
+  }
+
+  public async decodeRT(refresh: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
+    const publicKey = await this.getRTPublicKey();
+
+    // eslint-disable-next-line import/no-named-as-default-member
+    return JWT.verify(refresh, publicKey, {
+      algorithms: [this.algorithm],
       ignoreExpiration: ignoreExpiration
     }) as JWTPayload;
   }

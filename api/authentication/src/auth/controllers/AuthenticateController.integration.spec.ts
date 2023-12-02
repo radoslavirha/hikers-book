@@ -27,9 +27,9 @@ describe('AuthenticateController', () => {
   describe('GET /auth/authenticate', () => {
     it('Should pass', async () => {
       const service = PlatformTest.get<JWTService>(JWTService);
-      const jwt = await service.createJWT(JWT_PAYLOAD);
+      const access = await service.createAT(JWT_PAYLOAD);
 
-      const response = await request.get('/authenticate').set({ Authorization: `Bearer ${jwt}` });
+      const response = await request.get('/authenticate').set({ Authorization: `Bearer ${access}` });
 
       expect(response.status).toEqual(200);
       expect(response.body).toEqual(JWT_PAYLOAD);

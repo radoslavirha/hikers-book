@@ -2,7 +2,7 @@ import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Profile as FacebookProfile } from 'passport-facebook';
 import { Profile as GithubProfile } from 'passport-github2';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
-import { EmailSignUpRequest, JWTResponse } from '../../models';
+import { EmailSignUpRequest, TokensResponse } from '../../models';
 
 export const ProfileFacebookStub: FacebookProfile = {
   id: 'id',
@@ -40,7 +40,7 @@ export const ProfileEmailStub: EmailSignUpRequest = {
   full_name: 'Tester'
 };
 
-export const JWTStub = CommonUtils.buildModel(JWTResponse, {
-  jwt: 'jwt',
+export const TokensStub = CommonUtils.buildModel(TokensResponse, {
+  access: 'access',
   refresh: 'refresh'
 });

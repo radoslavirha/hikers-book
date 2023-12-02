@@ -2,7 +2,6 @@ import { JWTPayload } from '@hikers-book/tsed-common/types';
 import { Req } from '@tsed/common';
 import { Arg, BeforeInstall, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt';
-import { ConfigService } from '../../global/services/ConfigService';
 import { JWTService } from '../services/JWTService';
 
 @Protocol<StrategyOptions>({
@@ -16,15 +15,12 @@ import { JWTService } from '../services/JWTService';
   }
 })
 export class JWTProtocol implements OnVerify, OnInstall, BeforeInstall {
-  constructor(
-    private configService: ConfigService,
-    private jwtService: JWTService
-  ) {}
+  constructor(private jwtService: JWTService) {}
 
   async $beforeInstall(settings: StrategyOptions): Promise<StrategyOptions> {
-    const publicKey = await this.jwtService.getPublicKey();
+    const publicKey = await this.jwtService.getATPublicKey();
     settings.secretOrKey = publicKey;
-    settings.algorithms = [this.configService.config.jwt.algorithm];
+    settings.algorithms = [this.jwtService.algorithm];
     return settings;
   }
 

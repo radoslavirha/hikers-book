@@ -41,35 +41,35 @@ export class AuthenticationService {
     window.open(`${this.config.config.api.authentication}/auth/provider/facebook`, '_self', 'height=600,width=450');
   }
 
-  public authenticate(jwt: string, refresh: string): void {
+  public authenticate(access: string, refresh: string): void {
     this.#isLoggedIn = true;
     this.#authErrorCode = undefined;
-    localStorage.setItem('jwt', jwt);
-    localStorage.setItem('refresh', refresh);
+    sessionStorage.setItem('access', access);
+    sessionStorage.setItem('refresh', refresh);
     this.router.navigate(['/']);
   }
 
   public logout(): void {
     this.#isLoggedIn = false;
     this.#authErrorCode = undefined;
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('refresh');
+    sessionStorage.removeItem('access');
+    sessionStorage.removeItem('refresh');
     this.router.navigate(['/auth/sign-in']);
   }
 
   public getToken() {
-    return localStorage.getItem('jwt');
+    return sessionStorage.getItem('access');
   }
 
   public getRefreshToken() {
-    return localStorage.getItem('refresh');
+    return sessionStorage.getItem('refresh');
   }
 
   private getTokens(): void {
-    const jwt = this.getToken();
+    const access = this.getToken();
     const refresh = this.getRefreshToken();
 
-    this.#isLoggedIn = !!jwt && !!refresh;
+    this.#isLoggedIn = !!access && !!refresh;
     this.#authErrorCode = undefined;
   }
 }

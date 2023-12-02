@@ -1,19 +1,20 @@
 import { PlatformTest } from '@tsed/common';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
+import { ConfigService } from '../../global/services/ConfigService';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest, JWTResponse, User } from '../models';
+import { Credentials, EmailSignInRequest, EmailSignUpRequest, TokensResponse, User } from '../models';
 import {
   CredentialsStub,
   CredentialsStubPopulated,
   EmailVerificationStub,
-  JWTStub,
   ProfileEmailStub,
   ProfileFacebookStub,
   ProfileGithubStub,
   ProfileGoogleStub,
+  TokensStub,
   UserStub
 } from '../test/stubs';
 import { ProviderGithubPair } from '../types';
@@ -31,6 +32,7 @@ describe('ProtocolAuthService', () => {
   let emailVerification: EmailVerificationMongoService;
   let jwtService: JWTService;
   let user: UserMongoService;
+  let configService: ConfigService;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
   beforeAll(() => {
@@ -40,6 +42,7 @@ describe('ProtocolAuthService', () => {
     emailVerification = PlatformTest.get<EmailVerificationMongoService>(EmailVerificationMongoService);
     jwtService = PlatformTest.get<JWTService>(JWTService);
     user = PlatformTest.get<UserMongoService>(UserMongoService);
+    configService = PlatformTest.get<ConfigService>(ConfigService);
   });
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -111,7 +114,7 @@ describe('ProtocolAuthService', () => {
       // @ts-expect-error private
       handleExistingCredentialsSpy = jest.spyOn(service, 'handleExistingCredentials').mockImplementation();
       // @ts-expect-error private
-      createJWTSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(JWTStub);
+      createJWTSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(TokensStub);
     });
 
     it('Should call credentials.findManyByEmail()', async () => {
@@ -135,9 +138,9 @@ describe('ProtocolAuthService', () => {
     it('Should create credentials - return JWT', async () => {
       expect.assertions(1);
 
-      const jwt = await service.emailSignUp(data);
+      const tokens = await service.emailSignUp(data);
 
-      expect(jwt).toStrictEqual(JWTStub);
+      expect(tokens).toStrictEqual(TokensStub);
     });
 
     it('Should call handleMultipleCredentials()', async () => {
@@ -193,9 +196,9 @@ describe('ProtocolAuthService', () => {
 
       expect.assertions(1);
 
-      const jwt = await service.emailSignUp(data);
+      const tokens = await service.emailSignUp(data);
 
-      expect(jwt).toStrictEqual(JWTStub);
+      expect(tokens).toStrictEqual(TokensStub);
     });
   });
 
@@ -215,7 +218,7 @@ describe('ProtocolAuthService', () => {
         .mockResolvedValue(CredentialsStubPopulated);
       cryptoSpy = jest.spyOn(CryptographyUtils, 'argon2VerifyPassword').mockResolvedValue(true);
       // @ts-expect-error private
-      jwtSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(JWTStub);
+      jwtSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(TokensStub);
     });
 
     it('Should call credentials.findByEmailAndProvider()', async () => {
@@ -270,12 +273,40 @@ describe('ProtocolAuthService', () => {
       }
     });
 
-    it('Should return jwt and refresh', async () => {
+    it('Should return access and refresh tokens', async () => {
       expect.assertions(1);
 
       const response = await service.emailSignIn(request);
 
-      expect(response).toEqual(JWTStub);
+      expect(response).toEqual(TokensStub);
+    });
+  });
+
+  describe('redirectOAuth2Success', () => {
+    it('Should call res.redirect()', async () => {
+      const spy = jest.fn();
+
+      expect.assertions(1);
+
+      // @ts-expect-error types
+      await service.redirectOAuth2Success({ res: { redirect: spy } }, TokensStub);
+
+      expect(spy).toHaveBeenCalledWith(
+        `${configService.config.frontend.url}/auth/callback?access=${TokensStub.access}&refresh=${TokensStub.refresh}`
+      );
+    });
+  });
+
+  describe('redirectOAuth2Failure', () => {
+    it('Should call res.redirect()', async () => {
+      const spy = jest.fn();
+
+      expect.assertions(1);
+
+      // @ts-expect-error types
+      await service.redirectOAuth2Failure({ res: { redirect: spy } }, new Forbidden('Forbidden'));
+
+      expect(spy).toHaveBeenCalledWith(`${configService.config.frontend.url}/auth/error?code=403&message=Forbidden`);
     });
   });
 
@@ -299,7 +330,7 @@ describe('ProtocolAuthService', () => {
         // @ts-expect-error private
         .mockResolvedValue(CredentialsStubPopulated);
       // @ts-expect-error private
-      createJWTSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(JWTStub);
+      createJWTSpy = jest.spyOn(service, 'createJWT').mockResolvedValue(TokensStub);
       credentialsFindManyByEmailSpy = jest.spyOn(credentials, 'findManyByEmail').mockResolvedValue([]);
       // @ts-expect-error private
       getEmailSpy = jest.spyOn(service, 'getEmailFromOAuth2Profile').mockReturnValue('tester@domain.com');
@@ -350,9 +381,9 @@ describe('ProtocolAuthService', () => {
       expect.assertions(1);
 
       // @ts-expect-error private
-      const jwt = await service.handleOAuth2(data);
+      const tokens = await service.handleOAuth2(data);
 
-      expect(jwt).toStrictEqual(JWTStub);
+      expect(tokens).toStrictEqual(TokensStub);
     });
 
     it('Should call handleMultipleCredentials()', async () => {
@@ -415,9 +446,9 @@ describe('ProtocolAuthService', () => {
       expect.assertions(1);
 
       // @ts-expect-error private
-      const jwt = await service.handleOAuth2(data);
+      const tokens = await service.handleOAuth2(data);
 
-      expect(jwt).toStrictEqual(JWTStub);
+      expect(tokens).toStrictEqual(TokensStub);
     });
   });
 
@@ -495,41 +526,40 @@ describe('ProtocolAuthService', () => {
   });
 
   describe('createJWT', () => {
-    let spy: jest.SpyInstance;
+    let spyAT: jest.SpyInstance;
+    let spyRT: jest.SpyInstance;
 
     beforeEach(() => {
-      spy = jest.spyOn(jwtService, 'createJWT').mockResolvedValueOnce('jwt').mockResolvedValueOnce('refresh');
+      spyAT = jest.spyOn(jwtService, 'createAT').mockResolvedValueOnce('access');
+      spyRT = jest.spyOn(jwtService, 'createRT').mockResolvedValueOnce('refresh');
     });
 
     it('Should call jwtService.createJWT()', async () => {
-      expect.assertions(3);
+      expect.assertions(4);
 
       // @ts-expect-error private
       await service.createJWT(CredentialsStubPopulated);
 
-      expect(spy).toHaveBeenCalledTimes(2);
-      expect(spy).toHaveBeenNthCalledWith(1, {
+      expect(spyAT).toHaveBeenCalledTimes(1);
+      expect(spyRT).toHaveBeenCalledTimes(1);
+      expect(spyAT).toHaveBeenCalledWith({
         id: CredentialsStubPopulated.user_id,
         name: CredentialsStubPopulated.user!.full_name
       });
-      expect(spy).toHaveBeenNthCalledWith(
-        2,
-        {
-          id: CredentialsStubPopulated.user_id,
-          name: CredentialsStubPopulated.user!.full_name
-        },
-        true
-      );
+      expect(spyRT).toHaveBeenCalledWith({
+        id: CredentialsStubPopulated.user_id,
+        name: CredentialsStubPopulated.user!.full_name
+      });
     });
 
-    it('Should return jwt', async () => {
+    it('Should return access', async () => {
       expect.assertions(2);
 
       // @ts-expect-error private
-      const jwt = await service.createJWT(CredentialsStubPopulated);
+      const tokens = await service.createJWT(CredentialsStubPopulated);
 
-      expect(jwt).toBeInstanceOf(JWTResponse);
-      expect(jwt).toEqual({ jwt: 'jwt', refresh: 'refresh' });
+      expect(tokens).toBeInstanceOf(TokensResponse);
+      expect(tokens).toEqual({ access: 'access', refresh: 'refresh' });
     });
 
     it('Should throw 422', async () => {

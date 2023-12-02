@@ -1,2 +1,2 @@
-keys/jwt.pem
-keys/jwt.pem.pub
+keys/*.pem
+keys/*.pem.pub

@@ -1,5 +1,5 @@
 import { Req } from '@tsed/common';
-import { Forbidden } from '@tsed/exceptions';
+import { ClientException } from '@tsed/exceptions';
 import { Args, BeforeInstall, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { Profile, Strategy, StrategyOptions } from 'passport-github2';
 import { ConfigService } from '../../global/services/ConfigService';
@@ -35,15 +35,9 @@ export class GithubProtocol implements OnVerify, OnInstall, BeforeInstall {
     try {
       const tokens = await this.authService.github(body, accessToken, refreshToken);
 
-      return request.res?.redirect(
-        `${this.configService.config.frontend.url}/auth/callback?jwt=${tokens.jwt}&refresh=${tokens.refresh}`
-      );
+      return this.authService.redirectOAuth2Success(request, tokens);
     } catch (error) {
-      return request.res?.redirect(
-        `${this.configService.config.frontend.url}/auth/error?code=${(error as Forbidden).status}&message=${
-          (error as Forbidden).message
-        }`
-      );
+      return this.authService.redirectOAuth2Failure(request, error as ClientException);
     }
   }
 }

@@ -1,14 +1,16 @@
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
+import { Req } from '@tsed/common';
 import { Service } from '@tsed/di';
-import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
+import { ClientException, Forbidden, UnprocessableEntity } from '@tsed/exceptions';
 import { Profile as FacebookProfile } from 'passport-facebook';
 import { Profile as GithubProfile } from 'passport-github2';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
+import { ConfigService } from '../../global/services/ConfigService';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
 import { Credentials, EmailSignInRequest, EmailSignUpRequest, User } from '../models';
-import { JWTResponse } from '../models/auth/email/JWTResponse';
+import { TokensResponse } from '../models/auth/TokensResponse';
 import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
@@ -20,6 +22,7 @@ import { UserMongoService } from './mongo/UserMongoService';
 export class ProtocolAuthService {
   // eslint-disable-next-line max-params
   constructor(
+    private configService: ConfigService,
     private credentials: CredentialsMongoService,
     private credentialsMapper: CredentialsMapper,
     private emailVerification: EmailVerificationMongoService,
@@ -28,21 +31,21 @@ export class ProtocolAuthService {
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async facebook(profile: FacebookProfile, accessToken: string, refreshToken: string): Promise<JWTResponse> {
+  public async facebook(profile: FacebookProfile, accessToken: string, refreshToken: string): Promise<TokensResponse> {
     return this.handleOAuth2({ provider: AuthProviderEnum.FACEBOOK, profile });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async github(profile: GithubProfile, accessToken: string, refreshToken: string): Promise<JWTResponse> {
+  public async github(profile: GithubProfile, accessToken: string, refreshToken: string): Promise<TokensResponse> {
     return this.handleOAuth2({ provider: AuthProviderEnum.GITHUB, profile });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async google(profile: GoogleProfile, accessToken: string, refreshToken: string): Promise<JWTResponse> {
+  public async google(profile: GoogleProfile, accessToken: string, refreshToken: string): Promise<TokensResponse> {
     return this.handleOAuth2({ provider: AuthProviderEnum.GOOGLE, profile });
   }
 
-  public async emailSignUp(profile: EmailSignUpRequest): Promise<JWTResponse> {
+  public async emailSignUp(profile: EmailSignUpRequest): Promise<TokensResponse> {
     const credentials = await this.credentials.findManyByEmail(profile.email);
 
     if (credentials.length === 0) {
@@ -58,7 +61,7 @@ export class ProtocolAuthService {
     }
   }
 
-  public async emailSignIn(request: EmailSignInRequest): Promise<JWTResponse> {
+  public async emailSignIn(request: EmailSignInRequest): Promise<TokensResponse> {
     const credentials = await this.credentials.findByEmailAndProvider(request.email, AuthProviderEnum.EMAIL);
 
     if (!credentials) {
@@ -72,7 +75,21 @@ export class ProtocolAuthService {
     return this.createJWT(credentials);
   }
 
-  private async handleOAuth2(data: OAuth2ProviderPair): Promise<JWTResponse> {
+  public redirectOAuth2Success(request: Req, tokens: TokensResponse): void {
+    return request.res?.redirect(
+      `${this.configService.config.frontend.url}/auth/callback?access=${tokens.access}&refresh=${tokens.refresh}`
+    );
+  }
+
+  public redirectOAuth2Failure(request: Req, error: ClientException): void {
+    return request.res?.redirect(
+      `${this.configService.config.frontend.url}/auth/error?code=${(error as Forbidden).status}&message=${
+        (error as Forbidden).message
+      }`
+    );
+  }
+
+  private async handleOAuth2(data: OAuth2ProviderPair): Promise<TokensResponse> {
     const { provider, profile } = data;
 
     const email = this.getEmailFromOAuth2Profile(data);
@@ -105,26 +122,23 @@ export class ProtocolAuthService {
     return (await this.credentials.findById(created.id)) as Credentials;
   }
 
-  private async createJWT(credentials: Credentials): Promise<JWTResponse> {
+  private async createJWT(credentials: Credentials): Promise<TokensResponse> {
     if (!credentials.user) {
       throw new UnprocessableEntity('Cannot generate JWT.');
     }
 
-    const jwt = await this.jwtService.createJWT({
+    const access = await this.jwtService.createAT({
       id: credentials.user.id,
       name: credentials.user.full_name
     });
 
-    const refresh = await this.jwtService.createJWT(
-      {
-        id: credentials.user.id,
-        name: credentials.user.full_name
-      },
-      true
-    );
+    const refresh = await this.jwtService.createRT({
+      id: credentials.user.id,
+      name: credentials.user.full_name
+    });
 
-    return CommonUtils.buildModel(JWTResponse, {
-      jwt,
+    return CommonUtils.buildModel(TokensResponse, {
+      access,
       refresh
     });
   }
