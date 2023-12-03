@@ -13,7 +13,7 @@ import { EmailService } from '../services/EmailService';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 import { CredentialsMongoService } from '../services/mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from '../services/mongo/EmailVerificationMongoService';
-import { CredentialsStub, EmailVerificationStub } from '../test/stubs';
+import { CredentialsStub, EmailVerificationStub, TokensStub } from '../test/stubs';
 import { CryptographyUtils } from '../utils';
 import { AuthProviderEmailController } from './EmailController';
 
@@ -313,6 +313,18 @@ describe('AuthProviderEmailController', () => {
       expect(response.status).toBe(400);
       expect(response.body.message).toEqual(`Passwords do not match!`);
     });
+
+    it('Should call authService.setRefreshCookie()', async () => {
+      jest.spyOn(verifyTokenHandler, 'execute').mockImplementation();
+      jest.spyOn(authService, 'emailSignUp').mockResolvedValue(TokensStub);
+      const spy = jest.spyOn(authService, 'setRefreshCookie').mockImplementation();
+
+      expect.assertions(1);
+
+      await request.post('/provider/email/sign-up').send(requestStub);
+
+      expect(spy).toHaveBeenCalledWith(expect.anything(), TokensStub.refresh);
+    });
   });
 
   describe('GET /auth/provider/email/sign-in', () => {
@@ -321,7 +333,7 @@ describe('AuthProviderEmailController', () => {
       password: '8^^3286UhpB$9m'
     };
 
-    it('Should call authService.emailSignUp()', async () => {
+    it('Should call authService.emailSignIn()', async () => {
       const spy = jest.spyOn(authService, 'emailSignIn').mockImplementation();
       const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
 
@@ -330,6 +342,18 @@ describe('AuthProviderEmailController', () => {
       await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
 
       expect(spy).toHaveBeenCalledWith(requestStub);
+    });
+
+    it('Should call authService.setRefreshCookie()', async () => {
+      jest.spyOn(authService, 'emailSignIn').mockResolvedValue(TokensStub);
+      const spy = jest.spyOn(authService, 'setRefreshCookie').mockImplementation();
+      const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
+
+      expect.assertions(1);
+
+      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
+
+      expect(spy).toHaveBeenCalledWith(expect.anything(), TokensStub.refresh);
     });
   });
 });

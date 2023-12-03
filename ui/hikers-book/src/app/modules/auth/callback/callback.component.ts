@@ -15,8 +15,8 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      const tokens: { access: string; refresh: string } = params as { access: string; refresh: string };
-      this.authenticationService.authenticate(tokens.access, tokens.refresh);
+      const tokens: { access: string } = params as { access: string };
+      this.authenticationService.authenticate(tokens.access);
     });
   }
 }

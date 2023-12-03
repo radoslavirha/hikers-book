@@ -41,11 +41,11 @@ export class AuthenticationService {
     window.open(`${this.config.config.api.authentication}/auth/provider/facebook`, '_self', 'height=600,width=450');
   }
 
-  public authenticate(access: string, refresh: string): void {
+  public authenticate(access: string): void {
     this.#isLoggedIn = true;
     this.#authErrorCode = undefined;
     sessionStorage.setItem('access', access);
-    sessionStorage.setItem('refresh', refresh);
+    // sessionStorage.setItem('refresh', refresh);
     this.router.navigate(['/']);
   }
 
@@ -53,7 +53,7 @@ export class AuthenticationService {
     this.#isLoggedIn = false;
     this.#authErrorCode = undefined;
     sessionStorage.removeItem('access');
-    sessionStorage.removeItem('refresh');
+    // sessionStorage.removeItem('refresh');
     this.router.navigate(['/auth/sign-in']);
   }
 
@@ -61,15 +61,15 @@ export class AuthenticationService {
     return sessionStorage.getItem('access');
   }
 
-  public getRefreshToken() {
-    return sessionStorage.getItem('refresh');
-  }
+  // public getRefreshToken() {
+  //   return sessionStorage.getItem('refresh');
+  // }
 
   private getTokens(): void {
     const access = this.getToken();
-    const refresh = this.getRefreshToken();
+    // const refresh = this.getRefreshToken();
 
-    this.#isLoggedIn = !!access && !!refresh;
+    this.#isLoggedIn = !!access;
     this.#authErrorCode = undefined;
   }
 }

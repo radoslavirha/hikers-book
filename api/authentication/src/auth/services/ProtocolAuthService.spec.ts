@@ -1,11 +1,12 @@
 import { PlatformTest } from '@tsed/common';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
+import ms from 'ms';
 import { ConfigService } from '../../global/services/ConfigService';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest, TokensResponse, User } from '../models';
+import { Cookies, Credentials, EmailSignInRequest, EmailSignUpRequest, Tokens, User } from '../models';
 import {
   CredentialsStub,
   CredentialsStubPopulated,
@@ -284,16 +285,37 @@ describe('ProtocolAuthService', () => {
 
   describe('redirectOAuth2Success', () => {
     it('Should call res.redirect()', async () => {
-      const spy = jest.fn();
+      const redirect = jest.fn();
+      const cookie = jest.spyOn(service, 'setRefreshCookie').mockImplementation();
+      const request = { res: { redirect } };
+
+      expect.assertions(2);
+
+      // @ts-expect-error types
+      await service.redirectOAuth2Success(request, TokensStub);
+
+      expect(cookie).toHaveBeenCalledWith(request, TokensStub.refresh);
+      expect(redirect).toHaveBeenCalledWith(
+        `${configService.config.frontend.url}/auth/callback?access=${TokensStub.access}`
+      );
+    });
+  });
+
+  describe('setRefreshCookie', () => {
+    it('Should call res.cookie()', async () => {
+      const cookie = jest.fn();
 
       expect.assertions(1);
 
       // @ts-expect-error types
-      await service.redirectOAuth2Success({ res: { redirect: spy } }, TokensStub);
+      await service.setRefreshCookie({ res: { cookie } }, TokensStub.refresh);
 
-      expect(spy).toHaveBeenCalledWith(
-        `${configService.config.frontend.url}/auth/callback?access=${TokensStub.access}&refresh=${TokensStub.refresh}`
-      );
+      expect(cookie).toHaveBeenCalledWith(Cookies.Refresh, TokensStub.refresh, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: ms(configService.config.jwt.expiresInRefresh)
+      });
     });
   });
 
@@ -558,7 +580,7 @@ describe('ProtocolAuthService', () => {
       // @ts-expect-error private
       const tokens = await service.createJWT(CredentialsStubPopulated);
 
-      expect(tokens).toBeInstanceOf(TokensResponse);
+      expect(tokens).toBeInstanceOf(Tokens);
       expect(tokens).toEqual({ access: 'access', refresh: 'refresh' });
     });
 

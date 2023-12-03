@@ -1,9 +1,10 @@
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { BodyParams, Req } from '@tsed/common';
 import { BadRequest } from '@tsed/exceptions';
 import { OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { IStrategyOptions, Strategy } from 'passport-local';
 import { EmailVerifyTokenHandler } from '../handlers';
-import { EmailSignUpRequest } from '../models';
+import { EmailSignUpRequest, TokensResponse } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 
 @Protocol<IStrategyOptions>({
@@ -25,13 +26,15 @@ export class EmailSignUpProtocol implements OnVerify, OnInstall {
     // intercept the strategy instance to adding extra configuration
   }
 
-  async $onVerify(@Req() request: Req, @BodyParams() body: EmailSignUpRequest) {
+  async $onVerify(@Req() request: Req, @BodyParams() body: EmailSignUpRequest): Promise<TokensResponse> {
     if (body.password !== body.password_confirm) {
       throw new BadRequest('Passwords do not match!');
     }
 
     await this.verifyTokenHandler.execute({ email: body.email, token: body.token });
 
-    return this.authService.emailSignUp(body);
+    const tokens = await this.authService.emailSignUp(body);
+    this.authService.setRefreshCookie(request, tokens.refresh);
+    return CommonUtils.buildModel(TokensResponse, tokens);
   }
 }
