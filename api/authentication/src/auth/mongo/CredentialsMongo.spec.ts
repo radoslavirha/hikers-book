@@ -11,17 +11,17 @@ describe('CredentialsMongo', () => {
 
   it('Should save', async () => {
     const model = PlatformTest.get<MongooseModel<CredentialsMongo>>(CredentialsMongo);
-    const creadentials = new model(CredentialsStubMongo);
+    const credentials = new model(CredentialsStubMongo);
 
-    await creadentials.save();
+    await credentials.save();
 
-    expect(creadentials.id).toBeDefined();
-    expect(creadentials.provider).toEqual(CredentialsStubMongo.provider);
-    expect(creadentials.email).toEqual(CredentialsStubMongo.email);
-    expect(creadentials.provider_id).toEqual(CredentialsStubMongo.provider_id);
-    expect(creadentials.password).not.toEqual(CredentialsStubMongo.password);
-    expect(creadentials.user_id).toEqual(new Types.ObjectId(CredentialsStubMongo.user_id as string));
-    expect(creadentials.createdAt).toBeDefined();
-    expect(creadentials.updatedAt).toBeDefined();
+    expect(credentials.id).toBeDefined();
+    expect(credentials.provider).toEqual(CredentialsStubMongo.provider);
+    expect(credentials.email).toEqual(CredentialsStubMongo.email);
+    expect(credentials.provider_id).toEqual(CredentialsStubMongo.provider_id);
+    expect(credentials.password).not.toEqual(CredentialsStubMongo.password);
+    expect(credentials.user_id).toEqual(new Types.ObjectId(CredentialsStubMongo.user_id as string));
+    expect(credentials.createdAt).toBeDefined();
+    expect(credentials.updatedAt).toBeDefined();
   });
 });

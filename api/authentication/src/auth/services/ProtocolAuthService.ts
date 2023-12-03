@@ -10,12 +10,13 @@ import { ConfigService } from '../../global/services/ConfigService';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Cookies, Credentials, EmailSignInRequest, EmailSignUpRequest, Tokens, User } from '../models';
+import { CookieName, Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, Tokens, User } from '../models';
 import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
+import { RefreshTokenMongoService } from './mongo/RefreshTokenMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
 
 @Service()
@@ -27,7 +28,8 @@ export class ProtocolAuthService {
     private credentialsMapper: CredentialsMapper,
     private emailVerification: EmailVerificationMongoService,
     private jwtService: JWTService,
-    private user: UserMongoService
+    private user: UserMongoService,
+    private refreshToken: RefreshTokenMongoService
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -81,7 +83,7 @@ export class ProtocolAuthService {
   }
 
   public setRefreshCookie(request: Req, refresh: string): void {
-    request.res?.cookie(Cookies.Refresh, refresh, {
+    request.res?.cookie(CookieName.Refresh, refresh, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
@@ -144,6 +146,10 @@ export class ProtocolAuthService {
       id: credentials.user.id,
       name: credentials.user.full_name
     });
+
+    await this.refreshToken.create(
+      CommonUtils.buildModel(RefreshToken, { token: refresh, user_id: credentials.user.id })
+    );
 
     return CommonUtils.buildModel(Tokens, {
       access,

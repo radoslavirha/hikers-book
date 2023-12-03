@@ -4,4 +4,6 @@
 
 export * from './CredentialsMongo';
 export * from './EmailVerificationMongo';
+export * from './RefreshTokenInvalidatedMongo';
+export * from './RefreshTokenMongo';
 export * from './UserMongo';

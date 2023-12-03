@@ -1,3 +1,4 @@
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { PlatformTest } from '@tsed/common';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
 import ms from 'ms';
@@ -6,7 +7,7 @@ import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiCo
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Cookies, Credentials, EmailSignInRequest, EmailSignUpRequest, Tokens, User } from '../models';
+import { CookieName, Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, Tokens, User } from '../models';
 import {
   CredentialsStub,
   CredentialsStubPopulated,
@@ -24,6 +25,7 @@ import { JWTService } from './JWTService';
 import { ProtocolAuthService } from './ProtocolAuthService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
+import { RefreshTokenMongoService } from './mongo/RefreshTokenMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
 
 describe('ProtocolAuthService', () => {
@@ -34,6 +36,7 @@ describe('ProtocolAuthService', () => {
   let jwtService: JWTService;
   let user: UserMongoService;
   let configService: ConfigService;
+  let refreshTokenService: RefreshTokenMongoService;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
   beforeAll(() => {
@@ -44,6 +47,7 @@ describe('ProtocolAuthService', () => {
     jwtService = PlatformTest.get<JWTService>(JWTService);
     user = PlatformTest.get<UserMongoService>(UserMongoService);
     configService = PlatformTest.get<ConfigService>(ConfigService);
+    refreshTokenService = PlatformTest.get<RefreshTokenMongoService>(RefreshTokenMongoService);
   });
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -310,7 +314,7 @@ describe('ProtocolAuthService', () => {
       // @ts-expect-error types
       await service.setRefreshCookie({ res: { cookie } }, TokensStub.refresh);
 
-      expect(cookie).toHaveBeenCalledWith(Cookies.Refresh, TokensStub.refresh, {
+      expect(cookie).toHaveBeenCalledWith(CookieName.Refresh, TokensStub.refresh, {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
@@ -550,10 +554,12 @@ describe('ProtocolAuthService', () => {
   describe('createJWT', () => {
     let spyAT: jest.SpyInstance;
     let spyRT: jest.SpyInstance;
+    let spyRefreshCreate: jest.SpyInstance;
 
     beforeEach(() => {
       spyAT = jest.spyOn(jwtService, 'createAT').mockResolvedValueOnce('access');
       spyRT = jest.spyOn(jwtService, 'createRT').mockResolvedValueOnce('refresh');
+      spyRefreshCreate = jest.spyOn(refreshTokenService, 'create').mockImplementation();
     });
 
     it('Should call jwtService.createJWT()', async () => {
@@ -572,6 +578,17 @@ describe('ProtocolAuthService', () => {
         id: CredentialsStubPopulated.user_id,
         name: CredentialsStubPopulated.user!.full_name
       });
+    });
+
+    it('Should call refreshToken.create()', async () => {
+      expect.assertions(1);
+
+      // @ts-expect-error private
+      await service.createJWT(CredentialsStubPopulated);
+
+      expect(spyRefreshCreate).toHaveBeenCalledWith(
+        CommonUtils.buildModel(RefreshToken, { token: 'refresh', user_id: CredentialsStubPopulated.user_id })
+      );
     });
 
     it('Should return access', async () => {
