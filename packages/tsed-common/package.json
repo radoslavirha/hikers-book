@@ -73,6 +73,7 @@
     "@types/cors": "^2.8.15",
     "@types/html-minifier": "^4.0.5",
     "@types/jest": "^29.5.7",
+    "@types/jsonwebtoken": "^9.0.4",
     "@types/lodash": "^4.14.201",
     "@types/method-override": "^0.0.34",
     "@types/node": "^20.8.10",

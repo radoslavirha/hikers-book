@@ -38,6 +38,12 @@ export class CredentialsMongoService extends MongoService<CredentialsMongo, Cred
     return this.mapMany(mongo);
   }
 
+  async findByUserId(id: string): Promise<Credentials | null> {
+    const mongo = await this.model.findOne(<CredentialsMongo>{ user_id: id }).populate('user_id');
+
+    return this.mapSingle(mongo);
+  }
+
   async create(model: Credentials): Promise<Credentials> {
     const mongo = await this.model.create(await this.getCreateObject(model));
 

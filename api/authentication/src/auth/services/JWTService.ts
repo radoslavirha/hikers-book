@@ -1,7 +1,10 @@
-import { JWTPayload } from '@hikers-book/tsed-common/types';
+import { JWTPayload, JWTPayloadDecoded } from '@hikers-book/tsed-common/types';
+import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Inject, Service } from '@tsed/di';
+import { UnprocessableEntity } from '@tsed/exceptions';
 import JWT from 'jsonwebtoken';
 import { ConfigService } from '../../global/services/ConfigService';
+import { Credentials, TokensPair } from '../models';
 import { CryptographyUtils } from '../utils';
 import { KeysService } from './KeysService';
 
@@ -44,6 +47,27 @@ export class JWTService {
     return JWT.sign(payload, await this.getATPrivateKey(), opt);
   }
 
+  public async createTokenPair(credentials: Credentials): Promise<TokensPair> {
+    if (!credentials.user) {
+      throw new UnprocessableEntity('Cannot generate JWT.');
+    }
+
+    const access = await this.createAT({
+      id: credentials.user.id,
+      name: credentials.user.full_name
+    });
+
+    const refresh = await this.createRT({
+      id: credentials.user.id,
+      name: credentials.user.full_name
+    });
+
+    return CommonUtils.buildModel(TokensPair, {
+      access,
+      refresh
+    });
+  }
+
   public async createRT(payload: JWTPayload): Promise<string> {
     const opt: JWT.SignOptions = {
       algorithm: this.algorithm,
@@ -55,7 +79,7 @@ export class JWTService {
     return JWT.sign(payload, await this.getRTPrivateKey(), opt);
   }
 
-  public async decodeAT(access: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
+  public async decodeAT(access: string, ignoreExpiration: boolean = false): Promise<JWTPayloadDecoded> {
     const publicKey = await this.getATPublicKey();
 
     // eslint-disable-next-line import/no-named-as-default-member
@@ -65,7 +89,7 @@ export class JWTService {
     }) as JWTPayload;
   }
 
-  public async decodeRT(refresh: string, ignoreExpiration: boolean = false): Promise<JWTPayload> {
+  public async decodeRT(refresh: string, ignoreExpiration: boolean = false): Promise<JWTPayloadDecoded> {
     const publicKey = await this.getRTPublicKey();
 
     // eslint-disable-next-line import/no-named-as-default-member

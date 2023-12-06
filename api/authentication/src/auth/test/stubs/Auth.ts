@@ -2,7 +2,8 @@ import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Profile as FacebookProfile } from 'passport-facebook';
 import { Profile as GithubProfile } from 'passport-github2';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
-import { EmailSignUpRequest, Tokens } from '../../models';
+import { EmailSignUpRequest, RefreshToken, TokensPair } from '../../models';
+import { UserStubId } from './UserStub';
 
 export const ProfileFacebookStub: FacebookProfile = {
   id: 'id',
@@ -40,7 +41,17 @@ export const ProfileEmailStub: EmailSignUpRequest = {
   full_name: 'Tester'
 };
 
-export const TokensStub: Tokens = CommonUtils.buildModel(Tokens, {
+export const TokensStub: TokensPair = CommonUtils.buildModel(TokensPair, {
   access: 'access',
   refresh: 'refresh'
+});
+
+export const RefreshTokenStub: RefreshToken = CommonUtils.buildModel(RefreshToken, {
+  id: '654d2193990714d40d22a554',
+  token_jti: 'jti',
+  user_id: UserStubId,
+  user: undefined,
+  issuedAt: new Date(),
+  createdAt: new Date(),
+  updatedAt: new Date()
 });

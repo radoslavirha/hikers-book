@@ -9,7 +9,7 @@ import { RefreshTokenMongo } from './RefreshTokenMongo';
 describe('RefreshTokenMongo', () => {
   const stub: MongoPlainObject<RefreshTokenMongo> = {
     _id: '654d2193990714d40d22a554',
-    token: 'token',
+    token_jti: 'jti',
     user_id: UserStubId,
     issuedAt: new Date(),
     createdAt: new Date(),
@@ -26,7 +26,7 @@ describe('RefreshTokenMongo', () => {
     await refresh.save();
 
     expect(refresh.id).toBeDefined();
-    expect(refresh.token).toEqual(stub.token);
+    expect(refresh.token_jti).toEqual(stub.token_jti);
     expect(refresh.user_id).toEqual(new Types.ObjectId(stub.user_id as string));
     expect(refresh.issuedAt).toBeDefined();
     expect(refresh.createdAt).toBeDefined();

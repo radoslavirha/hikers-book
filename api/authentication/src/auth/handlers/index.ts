@@ -5,3 +5,5 @@
 export * from './AuthenticateHandler';
 export * from './EmailSendVerificationHandler';
 export * from './EmailVerifyTokenHandler';
+export * from './LogoutHandler';
+export * from './RefreshTokenHandler';

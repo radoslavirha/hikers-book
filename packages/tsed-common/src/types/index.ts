@@ -6,6 +6,7 @@ export * from './ConfigLoaderOptions';
 export * from './ConfigSwaggerOptions';
 export * from './EnumObject';
 export * from './JWTPayload';
+export * from './JWTPayloadDecoded';
 export * from './SwaggerDocsVersion.enum';
 export * from './SwaggerSecurityScheme.enum';
 export * from './mongo';

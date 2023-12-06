@@ -4,7 +4,7 @@ import { User } from './User';
 
 export class RefreshToken extends Base {
   @Property()
-  token?: string;
+  token_jti!: string;
 
   @Format('date-time')
   issuedAt!: Date;

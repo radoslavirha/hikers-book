@@ -2,7 +2,6 @@ import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Req } from '@tsed/common';
 import { Service } from '@tsed/di';
 import { ClientException, Forbidden, UnprocessableEntity } from '@tsed/exceptions';
-import ms from 'ms';
 import { Profile as FacebookProfile } from 'passport-facebook';
 import { Profile as GithubProfile } from 'passport-github2';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
@@ -10,13 +9,13 @@ import { ConfigService } from '../../global/services/ConfigService';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { CookieName, Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, Tokens, User } from '../models';
+import { Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
 import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
+import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
-import { RefreshTokenMongoService } from './mongo/RefreshTokenMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
 
 @Service()
@@ -29,25 +28,25 @@ export class ProtocolAuthService {
     private emailVerification: EmailVerificationMongoService,
     private jwtService: JWTService,
     private user: UserMongoService,
-    private refreshToken: RefreshTokenMongoService
+    private refreshTokenService: RefreshTokenService
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async facebook(profile: FacebookProfile, accessToken: string, refreshToken: string): Promise<Tokens> {
+  public async facebook(profile: FacebookProfile, accessToken: string, refreshToken: string): Promise<TokensPair> {
     return this.handleOAuth2({ provider: AuthProviderEnum.FACEBOOK, profile });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async github(profile: GithubProfile, accessToken: string, refreshToken: string): Promise<Tokens> {
+  public async github(profile: GithubProfile, accessToken: string, refreshToken: string): Promise<TokensPair> {
     return this.handleOAuth2({ provider: AuthProviderEnum.GITHUB, profile });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async google(profile: GoogleProfile, accessToken: string, refreshToken: string): Promise<Tokens> {
+  public async google(profile: GoogleProfile, accessToken: string, refreshToken: string): Promise<TokensPair> {
     return this.handleOAuth2({ provider: AuthProviderEnum.GOOGLE, profile });
   }
 
-  public async emailSignUp(profile: EmailSignUpRequest): Promise<Tokens> {
+  public async emailSignUp(profile: EmailSignUpRequest): Promise<TokensPair> {
     const credentials = await this.credentials.findManyByEmail(profile.email);
 
     if (credentials.length === 0) {
@@ -63,7 +62,7 @@ export class ProtocolAuthService {
     }
   }
 
-  public async emailSignIn(request: EmailSignInRequest): Promise<Tokens> {
+  public async emailSignIn(request: EmailSignInRequest): Promise<TokensPair> {
     const credentials = await this.credentials.findByEmailAndProvider(request.email, AuthProviderEnum.EMAIL);
 
     if (!credentials) {
@@ -77,18 +76,9 @@ export class ProtocolAuthService {
     return this.createJWT(credentials);
   }
 
-  public redirectOAuth2Success(request: Req, tokens: Tokens): void {
-    this.setRefreshCookie(request, tokens.refresh);
+  public redirectOAuth2Success(request: Req, tokens: TokensPair): void {
+    this.refreshTokenService.setRefreshCookie(request, tokens.refresh);
     return request.res?.redirect(`${this.configService.config.frontend.url}/auth/callback?access=${tokens.access}`);
-  }
-
-  public setRefreshCookie(request: Req, refresh: string): void {
-    request.res?.cookie(CookieName.Refresh, refresh, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge: ms(this.configService.config.jwt.expiresInRefresh)
-    });
   }
 
   public redirectOAuth2Failure(request: Req, error: ClientException): void {
@@ -99,7 +89,7 @@ export class ProtocolAuthService {
     );
   }
 
-  private async handleOAuth2(data: OAuth2ProviderPair): Promise<Tokens> {
+  private async handleOAuth2(data: OAuth2ProviderPair): Promise<TokensPair> {
     const { provider, profile } = data;
 
     const email = this.getEmailFromOAuth2Profile(data);
@@ -132,29 +122,16 @@ export class ProtocolAuthService {
     return (await this.credentials.findById(created.id)) as Credentials;
   }
 
-  private async createJWT(credentials: Credentials): Promise<Tokens> {
-    if (!credentials.user) {
-      throw new UnprocessableEntity('Cannot generate JWT.');
-    }
+  private async createJWT(credentials: Credentials): Promise<TokensPair> {
+    const tokens = await this.jwtService.createTokenPair(credentials);
 
-    const access = await this.jwtService.createAT({
-      id: credentials.user.id,
-      name: credentials.user.full_name
-    });
+    const decoded = await this.jwtService.decodeRT(tokens.refresh);
 
-    const refresh = await this.jwtService.createRT({
-      id: credentials.user.id,
-      name: credentials.user.full_name
-    });
-
-    await this.refreshToken.create(
-      CommonUtils.buildModel(RefreshToken, { token: refresh, user_id: credentials.user.id })
+    await this.refreshTokenService.createRefreshToken(
+      CommonUtils.buildModel(RefreshToken, { token_jti: decoded.jti, user_id: credentials!.user!.id })
     );
 
-    return CommonUtils.buildModel(Tokens, {
-      access,
-      refresh
-    });
+    return tokens;
   }
 
   private getEmailFromAuthProfile(data: AuthProviderPair): string {

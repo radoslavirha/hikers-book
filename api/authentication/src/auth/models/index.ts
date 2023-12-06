@@ -8,7 +8,7 @@ export * from './EmailVerification';
 export * from './RefreshToken';
 export * from './RefreshTokenInvalidated';
 export * from './User';
-export * from './auth/Tokens';
+export * from './auth/TokensPair';
 export * from './auth/TokensResponse';
 export * from './auth/email/EmailSendVerificationRequest';
 export * from './auth/email/EmailSignInRequest';

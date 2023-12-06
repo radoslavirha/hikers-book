@@ -1,13 +1,13 @@
+import { JWT_PAYLOAD } from '@hikers-book/tsed-common/stubs';
 import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { PlatformTest } from '@tsed/common';
 import { Forbidden, UnprocessableEntity } from '@tsed/exceptions';
-import ms from 'ms';
 import { ConfigService } from '../../global/services/ConfigService';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { CookieName, Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, Tokens, User } from '../models';
+import { Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
 import {
   CredentialsStub,
   CredentialsStubPopulated,
@@ -23,9 +23,9 @@ import { ProviderGithubPair } from '../types';
 import { CryptographyUtils } from '../utils';
 import { JWTService } from './JWTService';
 import { ProtocolAuthService } from './ProtocolAuthService';
+import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
-import { RefreshTokenMongoService } from './mongo/RefreshTokenMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
 
 describe('ProtocolAuthService', () => {
@@ -36,7 +36,6 @@ describe('ProtocolAuthService', () => {
   let jwtService: JWTService;
   let user: UserMongoService;
   let configService: ConfigService;
-  let refreshTokenService: RefreshTokenMongoService;
 
   beforeAll(TestAuthenticationApiContext.bootstrap());
   beforeAll(() => {
@@ -47,7 +46,6 @@ describe('ProtocolAuthService', () => {
     jwtService = PlatformTest.get<JWTService>(JWTService);
     user = PlatformTest.get<UserMongoService>(UserMongoService);
     configService = PlatformTest.get<ConfigService>(ConfigService);
-    refreshTokenService = PlatformTest.get<RefreshTokenMongoService>(RefreshTokenMongoService);
   });
   beforeEach(() => {
     jest.restoreAllMocks();
@@ -289,8 +287,9 @@ describe('ProtocolAuthService', () => {
 
   describe('redirectOAuth2Success', () => {
     it('Should call res.redirect()', async () => {
+      const refreshTokenService = PlatformTest.get<RefreshTokenService>(RefreshTokenService);
       const redirect = jest.fn();
-      const cookie = jest.spyOn(service, 'setRefreshCookie').mockImplementation();
+      const cookie = jest.spyOn(refreshTokenService, 'setRefreshCookie').mockImplementation();
       const request = { res: { redirect } };
 
       expect.assertions(2);
@@ -302,24 +301,6 @@ describe('ProtocolAuthService', () => {
       expect(redirect).toHaveBeenCalledWith(
         `${configService.config.frontend.url}/auth/callback?access=${TokensStub.access}`
       );
-    });
-  });
-
-  describe('setRefreshCookie', () => {
-    it('Should call res.cookie()', async () => {
-      const cookie = jest.fn();
-
-      expect.assertions(1);
-
-      // @ts-expect-error types
-      await service.setRefreshCookie({ res: { cookie } }, TokensStub.refresh);
-
-      expect(cookie).toHaveBeenCalledWith(CookieName.Refresh, TokensStub.refresh, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        maxAge: ms(configService.config.jwt.expiresInRefresh)
-      });
     });
   });
 
@@ -552,32 +533,33 @@ describe('ProtocolAuthService', () => {
   });
 
   describe('createJWT', () => {
-    let spyAT: jest.SpyInstance;
-    let spyRT: jest.SpyInstance;
+    let spy: jest.SpyInstance;
+    let spyDecode: jest.SpyInstance;
     let spyRefreshCreate: jest.SpyInstance;
 
     beforeEach(() => {
-      spyAT = jest.spyOn(jwtService, 'createAT').mockResolvedValueOnce('access');
-      spyRT = jest.spyOn(jwtService, 'createRT').mockResolvedValueOnce('refresh');
-      spyRefreshCreate = jest.spyOn(refreshTokenService, 'create').mockImplementation();
+      const refreshTokenService = PlatformTest.get<RefreshTokenService>(RefreshTokenService);
+      spy = jest.spyOn(jwtService, 'createTokenPair').mockResolvedValueOnce(TokensStub);
+      spyDecode = jest.spyOn(jwtService, 'decodeRT').mockResolvedValueOnce({ ...JWT_PAYLOAD, jti: 'refreshJTI' });
+      spyRefreshCreate = jest.spyOn(refreshTokenService, 'createRefreshToken').mockImplementation();
     });
 
-    it('Should call jwtService.createJWT()', async () => {
-      expect.assertions(4);
+    it('Should call jwtService.createTokenPair()', async () => {
+      expect.assertions(1);
 
       // @ts-expect-error private
       await service.createJWT(CredentialsStubPopulated);
 
-      expect(spyAT).toHaveBeenCalledTimes(1);
-      expect(spyRT).toHaveBeenCalledTimes(1);
-      expect(spyAT).toHaveBeenCalledWith({
-        id: CredentialsStubPopulated.user_id,
-        name: CredentialsStubPopulated.user!.full_name
-      });
-      expect(spyRT).toHaveBeenCalledWith({
-        id: CredentialsStubPopulated.user_id,
-        name: CredentialsStubPopulated.user!.full_name
-      });
+      expect(spy).toHaveBeenCalledWith(CredentialsStubPopulated);
+    });
+
+    it('Should call jwtService.decodeRT()', async () => {
+      expect.assertions(1);
+
+      // @ts-expect-error private
+      await service.createJWT(CredentialsStubPopulated);
+
+      expect(spyDecode).toHaveBeenCalledWith(TokensStub.refresh);
     });
 
     it('Should call refreshToken.create()', async () => {
@@ -587,7 +569,7 @@ describe('ProtocolAuthService', () => {
       await service.createJWT(CredentialsStubPopulated);
 
       expect(spyRefreshCreate).toHaveBeenCalledWith(
-        CommonUtils.buildModel(RefreshToken, { token: 'refresh', user_id: CredentialsStubPopulated.user_id })
+        CommonUtils.buildModel(RefreshToken, { token_jti: 'refreshJTI', user_id: CredentialsStubPopulated.user_id })
       );
     });
 
@@ -597,21 +579,8 @@ describe('ProtocolAuthService', () => {
       // @ts-expect-error private
       const tokens = await service.createJWT(CredentialsStubPopulated);
 
-      expect(tokens).toBeInstanceOf(Tokens);
-      expect(tokens).toEqual({ access: 'access', refresh: 'refresh' });
-    });
-
-    it('Should throw 422', async () => {
-      expect.assertions(3);
-
-      try {
-        // @ts-expect-error private
-        await service.createJWT(CredentialsStub);
-      } catch (error) {
-        expect(error).toBeInstanceOf(UnprocessableEntity);
-        expect((error as UnprocessableEntity).status).toBe(422);
-        expect((error as UnprocessableEntity).message).toEqual('Cannot generate JWT.');
-      }
+      expect(tokens).toBeInstanceOf(TokensPair);
+      expect(tokens).toEqual(TokensStub);
     });
   });
 

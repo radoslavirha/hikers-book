@@ -4,6 +4,7 @@ import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { BasicStrategy, BasicStrategyOptions } from 'passport-http';
 import { EmailSignInRequest, TokensResponse } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
+import { RefreshTokenService } from '../services/RefreshTokenService';
 
 @Protocol<BasicStrategyOptions>({
   name: 'email-sign-in',
@@ -11,7 +12,10 @@ import { ProtocolAuthService } from '../services/ProtocolAuthService';
   settings: {}
 })
 export class EmailSignInProtocol implements OnVerify, OnInstall {
-  constructor(private authService: ProtocolAuthService) {}
+  constructor(
+    private authService: ProtocolAuthService,
+    private refreshTokenService: RefreshTokenService
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   $onInstall(strategy: BasicStrategy): void {
@@ -20,7 +24,7 @@ export class EmailSignInProtocol implements OnVerify, OnInstall {
 
   async $onVerify(@Req() request: Req, @Args() [email, password]: [string, string]): Promise<TokensResponse> {
     const tokens = await this.authService.emailSignIn(CommonUtils.buildModel(EmailSignInRequest, { email, password }));
-    this.authService.setRefreshCookie(request, tokens.refresh);
+    this.refreshTokenService.setRefreshCookie(request, tokens.refresh);
     return CommonUtils.buildModel(TokensResponse, tokens);
   }
 }

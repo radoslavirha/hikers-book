@@ -6,6 +6,7 @@ import { IStrategyOptions, Strategy } from 'passport-local';
 import { EmailVerifyTokenHandler } from '../handlers';
 import { EmailSignUpRequest, TokensResponse } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
+import { RefreshTokenService } from '../services/RefreshTokenService';
 
 @Protocol<IStrategyOptions>({
   name: 'email-sign-up',
@@ -18,6 +19,7 @@ import { ProtocolAuthService } from '../services/ProtocolAuthService';
 export class EmailSignUpProtocol implements OnVerify, OnInstall {
   constructor(
     private authService: ProtocolAuthService,
+    private refreshTokenService: RefreshTokenService,
     private verifyTokenHandler: EmailVerifyTokenHandler
   ) {}
 
@@ -34,7 +36,7 @@ export class EmailSignUpProtocol implements OnVerify, OnInstall {
     await this.verifyTokenHandler.execute({ email: body.email, token: body.token });
 
     const tokens = await this.authService.emailSignUp(body);
-    this.authService.setRefreshCookie(request, tokens.refresh);
+    this.refreshTokenService.setRefreshCookie(request, tokens.refresh);
     return CommonUtils.buildModel(TokensResponse, tokens);
   }
 }

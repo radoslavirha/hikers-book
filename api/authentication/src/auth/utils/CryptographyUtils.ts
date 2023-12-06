@@ -1,6 +1,6 @@
 import { argon2id, hash, Options, verify } from 'argon2';
 import { randomBytes } from 'crypto';
-
+import { v4 } from 'uuid';
 export class CryptographyUtils {
   public static async argon2CreateHash(password: string): Promise<string> {
     const hashingConfig: Partial<Options & { raw?: false }> = {
@@ -29,9 +29,6 @@ export class CryptographyUtils {
   }
 
   public static generateJWTjti(): string {
-    return randomBytes(Math.ceil((32 * 3) / 4))
-      .toString('base64')
-      .slice(0, 32)
-      .replace(/[+/]/g, '0');
+    return v4();
   }
 }

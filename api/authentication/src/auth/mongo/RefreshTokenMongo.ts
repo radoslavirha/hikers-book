@@ -10,8 +10,8 @@ import { UserMongo } from './UserMongo';
 export class RefreshTokenMongo extends BaseMongo {
   @Unique()
   @Required()
-  @Description('Refresh token.')
-  token!: string;
+  @Description('Refresh token JTI. No need to store hashed token in database.')
+  token_jti!: string;
 
   @Ref(() => UserMongo)
   @Required()

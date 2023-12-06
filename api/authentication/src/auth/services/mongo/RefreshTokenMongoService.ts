@@ -13,11 +13,22 @@ export class RefreshTokenMongoService extends MongoService<RefreshTokenMongo, Re
   @Inject(RefreshTokenMapper)
   protected mapper!: RefreshTokenMapper;
 
-  // async find(token: string, user_id: string): Promise<RefreshToken | null> {
-  //   const mongo = await this.model.findOne(<RefreshTokenMongo>{ token, user_id }).populate('user_id');
+  async delete(id: string): Promise<RefreshToken | null> {
+    const mongo = await this.model.findByIdAndDelete(id);
 
-  //   return this.mapSingle(mongo);
-  // }
+    return this.mapSingle(mongo);
+  }
+
+  async deleteByJTI(token_jti: string): Promise<void> {
+    await this.model.deleteOne({ token_jti });
+    return;
+  }
+
+  async find(token_jti: string, user_id: string): Promise<RefreshToken | null> {
+    const mongo = await this.model.findOne(<RefreshTokenMongo>{ token_jti, user_id }).populate('user_id');
+
+    return this.mapSingle(mongo);
+  }
 
   async create(model: RefreshToken): Promise<RefreshToken> {
     const mongo = await this.model.create(await this.getCreateObject(model));

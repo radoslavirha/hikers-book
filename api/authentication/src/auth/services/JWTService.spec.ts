@@ -1,7 +1,10 @@
 import { PlatformTest } from '@tsed/common';
+import { UnprocessableEntity } from '@tsed/exceptions';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import JWT from 'jsonwebtoken';
 import { ConfigService } from '../../global/services/ConfigService';
+import { TokensPair } from '../models';
+import { CredentialsStub, CredentialsStubPopulated } from '../test/stubs';
 import { CryptographyUtils } from '../utils';
 import { JWTService } from './JWTService';
 import { KeysService } from './KeysService';
@@ -36,7 +39,7 @@ describe('JWTService', () => {
 
       const response = await service.createAT({ id: 'test', name: '' });
 
-      expect(response).toBe('token');
+      expect(response).toEqual('token');
       expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'ATPrivateKey', {
         algorithm: 'RS256',
         expiresIn: configService.config.jwt.expiresIn,
@@ -53,7 +56,7 @@ describe('JWTService', () => {
 
       const response = await service.createRT({ id: 'test', name: '' });
 
-      expect(response).toBe('token');
+      expect(response).toEqual('token');
       expect(spyJWT).toHaveBeenCalledWith({ id: 'test', name: '' }, 'RTPrivateKey', {
         algorithm: 'RS256',
         expiresIn: configService.config.jwt.expiresInRefresh,
@@ -111,6 +114,57 @@ describe('JWTService', () => {
       expect(spyJWT).toHaveBeenCalledWith('token', 'RTPublicKey', {
         algorithms: ['RS256'],
         ignoreExpiration: true
+      });
+    });
+  });
+
+  describe('createTokenPair', () => {
+    let spyAT: jest.SpyInstance;
+    let spyRT: jest.SpyInstance;
+
+    beforeEach(() => {
+      spyAT = jest.spyOn(service, 'createAT').mockResolvedValueOnce('access');
+      spyRT = jest.spyOn(service, 'createRT').mockResolvedValueOnce('refresh');
+    });
+
+    it('Should throw 422', async () => {
+      expect.assertions(3);
+
+      try {
+        await service.createTokenPair(CredentialsStub);
+      } catch (error) {
+        expect(error).toBeInstanceOf(UnprocessableEntity);
+        expect((error as UnprocessableEntity).status).toBe(422);
+        expect((error as UnprocessableEntity).message).toEqual('Cannot generate JWT.');
+      }
+    });
+
+    it('Should call createAT() and createRT()', async () => {
+      expect.assertions(4);
+
+      await service.createTokenPair(CredentialsStubPopulated);
+
+      expect(spyAT).toHaveBeenCalledTimes(1);
+      expect(spyRT).toHaveBeenCalledTimes(1);
+      expect(spyAT).toHaveBeenCalledWith({
+        id: CredentialsStubPopulated.user_id,
+        name: CredentialsStubPopulated.user!.full_name
+      });
+      expect(spyRT).toHaveBeenCalledWith({
+        id: CredentialsStubPopulated.user_id,
+        name: CredentialsStubPopulated.user!.full_name
+      });
+    });
+
+    it('Should return access', async () => {
+      expect.assertions(2);
+
+      const tokens = await service.createTokenPair(CredentialsStubPopulated);
+
+      expect(tokens).toBeInstanceOf(TokensPair);
+      expect(tokens).toEqual({
+        access: 'access',
+        refresh: 'refresh'
       });
     });
   });

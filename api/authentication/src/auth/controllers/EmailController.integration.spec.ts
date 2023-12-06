@@ -11,6 +11,7 @@ import {
 } from '../models';
 import { EmailService } from '../services/EmailService';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
+import { RefreshTokenService } from '../services/RefreshTokenService';
 import { CredentialsMongoService } from '../services/mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from '../services/mongo/EmailVerificationMongoService';
 import { CredentialsStub, EmailVerificationStub, TokensStub } from '../test/stubs';
@@ -33,6 +34,7 @@ describe('AuthProviderEmailController', () => {
   let emailService: EmailService;
   let verifyTokenHandler: EmailVerifyTokenHandler;
   let authService: ProtocolAuthService;
+  let refreshTokenService: RefreshTokenService;
 
   beforeAll(
     TestAuthenticationApiContext.bootstrap({
@@ -49,6 +51,7 @@ describe('AuthProviderEmailController', () => {
     emailService = PlatformTest.get<EmailService>(EmailService);
     verifyTokenHandler = PlatformTest.get<EmailVerifyTokenHandler>(EmailVerifyTokenHandler);
     authService = PlatformTest.get<ProtocolAuthService>(ProtocolAuthService);
+    refreshTokenService = PlatformTest.get<RefreshTokenService>(RefreshTokenService);
   });
   beforeEach(() => {
     TestAuthenticationApiContext.clearDatabase();
@@ -314,10 +317,10 @@ describe('AuthProviderEmailController', () => {
       expect(response.body.message).toEqual(`Passwords do not match!`);
     });
 
-    it('Should call authService.setRefreshCookie()', async () => {
+    it('Should call refreshTokenService.setRefreshCookie()', async () => {
       jest.spyOn(verifyTokenHandler, 'execute').mockImplementation();
       jest.spyOn(authService, 'emailSignUp').mockResolvedValue(TokensStub);
-      const spy = jest.spyOn(authService, 'setRefreshCookie').mockImplementation();
+      const spy = jest.spyOn(refreshTokenService, 'setRefreshCookie').mockImplementation();
 
       expect.assertions(1);
 
@@ -346,7 +349,7 @@ describe('AuthProviderEmailController', () => {
 
     it('Should call authService.setRefreshCookie()', async () => {
       jest.spyOn(authService, 'emailSignIn').mockResolvedValue(TokensStub);
-      const spy = jest.spyOn(authService, 'setRefreshCookie').mockImplementation();
+      const spy = jest.spyOn(refreshTokenService, 'setRefreshCookie').mockImplementation();
       const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
 
       expect.assertions(1);

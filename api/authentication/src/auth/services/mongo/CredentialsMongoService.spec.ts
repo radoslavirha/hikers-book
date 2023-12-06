@@ -108,6 +108,28 @@ describe('CredentialsMongoService', () => {
     });
   });
 
+  describe('findByUserId', () => {
+    it('Should pass - data exist', async () => {
+      const r = await service.create(CredentialsStub);
+      const spy = jest.spyOn(model, 'findOne');
+
+      expect.assertions(2);
+
+      const response = await service.findByUserId(r.user_id);
+
+      expect(response).toBeInstanceOf(Credentials);
+      expect(spy).toHaveBeenCalledWith({ user_id: r.user_id });
+    });
+
+    it('Should pass - data does not exist', async () => {
+      expect.assertions(1);
+
+      const response = await service.findByUserId(CredentialsStubId);
+
+      expect(response).toEqual(null);
+    });
+  });
+
   describe('create', () => {
     it('Should pass', async () => {
       // @ts-expect-error protected

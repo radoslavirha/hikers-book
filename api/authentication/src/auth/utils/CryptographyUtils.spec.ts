@@ -50,7 +50,7 @@ describe('CryptographyUtils', () => {
       const jti = await CryptographyUtils.generateJWTjti();
 
       expect(jti).toStrictEqual(expect.any(String));
-      expect(jti.length).toBe(32);
+      expect(jti.length).toBe(36);
     });
   });
 });

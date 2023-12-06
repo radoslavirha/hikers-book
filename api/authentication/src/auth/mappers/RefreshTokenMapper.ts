@@ -14,7 +14,7 @@ export class RefreshTokenMapper extends MongoMapper<RefreshTokenMongo, RefreshTo
   public async mongoToModel(mongo: RefreshTokenMongo): Promise<RefreshToken> {
     const model = new RefreshToken();
 
-    model.token = mongo.token;
+    model.token_jti = mongo.token_jti;
     model.issuedAt = mongo.issuedAt!;
     model.user_id = this.getIdFromPotentiallyPopulated(mongo.user_id);
     model.user = this.canBePopulated(mongo.user_id)
@@ -29,7 +29,7 @@ export class RefreshTokenMapper extends MongoMapper<RefreshTokenMongo, RefreshTo
   public async modelToMongoCreateObject(model: RefreshToken): Promise<MongoPlainObjectCreate<RefreshTokenMongo>> {
     const mongo = new RefreshTokenMongo() as MongoPlainObjectCreate<RefreshTokenMongo>;
 
-    mongo.token = this.getModelValue(model, 'token');
+    mongo.token_jti = this.getModelValue(model, 'token_jti');
     mongo.issuedAt = this.getModelValue(model, 'issuedAt');
     mongo.user_id = this.getModelValue(model, 'user_id');
 
@@ -39,7 +39,7 @@ export class RefreshTokenMapper extends MongoMapper<RefreshTokenMongo, RefreshTo
   public async modelToMongoUpdateObject(model: RefreshToken): Promise<MongoPlainObjectUpdate<RefreshTokenMongo>> {
     const mongo = new RefreshTokenMongo() as MongoPlainObjectUpdate<RefreshTokenMongo>;
 
-    mongo.token = this.getModelValue(model, 'token', true);
+    mongo.token_jti = this.getModelValue(model, 'token_jti', true);
     mongo.issuedAt = this.getModelValue(model, 'issuedAt');
     mongo.user_id = this.getModelValue(model, 'user_id', true);
 
