@@ -2,7 +2,7 @@ import { PlatformTest } from '@tsed/common';
 import { RequestOptions } from 'apollo-datasource-rest';
 // @ts-expect-error asdsad
 // eslint-disable-next-line import/no-unresolved
-import { Headers, URLSearchParams } from 'apollo-server-env';
+import { Headers, Request, URLSearchParams } from 'apollo-server-env';
 import { BaseDataSource } from './BaseDataSource';
 
 describe('BaseDataSource', () => {
@@ -13,6 +13,19 @@ describe('BaseDataSource', () => {
     datasource = await PlatformTest.invoke<BaseDataSource>(BaseDataSource);
   });
   afterAll(PlatformTest.reset);
+
+  it('Should set cache key from URL and Authorization header', () => {
+    const headers = new Headers();
+    headers.set('Authorization', 'token');
+    const request: Request = {
+      url: 'url',
+      headers
+    };
+
+    const response = datasource.cacheKeyFor(request);
+
+    expect(response).toEqual('url::token');
+  });
 
   it('Should set Authorization header', () => {
     const options: RequestOptions = {
