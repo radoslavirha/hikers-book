@@ -1,4 +1,4 @@
-import { MongoDBConfigModel, RedisConfigModel, SessionConfigModel } from '@hikers-book/tsed-common/models';
+import { MongoDBConfigModel, RedisConfigModel } from '@hikers-book/tsed-common/models';
 import { Required } from '@tsed/schema';
 import { AuthConfigModel } from './config/AuthModel';
 import { FrontendConfigModel } from './config/FrontendConfigModel';
@@ -23,7 +23,4 @@ export class ConfigModel {
 
   @Required()
   redis!: RedisConfigModel;
-
-  @Required()
-  session!: SessionConfigModel;
 }

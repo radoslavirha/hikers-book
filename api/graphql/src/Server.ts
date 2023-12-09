@@ -11,6 +11,7 @@ import './global/connections/Redis';
 import { ConfigService } from './global/services/ConfigService';
 import * as v1Datasources from './v1/datasources';
 import * as v1Resolvers from './v1/resolvers';
+
 @Configuration({
   ...getServerDefaultConfig(), // must be here because of tests
   graphql: {
@@ -48,8 +49,7 @@ export class Server extends BaseServer {
     this.app.use(
       cookieSession({
         signed: false,
-        secure: !this.configService.isTest,
-        ...this.configService.config.session
+        secure: !this.configService.isTest
       })
     );
     this.app.use(helmet());

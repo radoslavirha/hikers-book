@@ -42,8 +42,5 @@
       "username": "",
       "password": ""
     }
-  },
-  "session": {
-    "secret": "a806777e-2feb-47bd-82dc-a74371fd2638"
   }
 }

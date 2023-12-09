@@ -52,8 +52,7 @@ export class Server extends BaseServer {
     this.app.use(
       cookieSession({
         signed: false,
-        secure: !this.configService.isTest,
-        ...this.configService.config.session
+        secure: !this.configService.isTest
       })
     );
     this.app.use(

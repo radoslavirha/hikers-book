@@ -13,8 +13,5 @@
       "username": "HB_REDIS_DEFAULT_USERNAME",
       "password": "HB_REDIS_DEFAULT_PASSWORD"
     }
-  },
-  "session": {
-    "secret": "HB_SESSION_SECRET"
   }
 }

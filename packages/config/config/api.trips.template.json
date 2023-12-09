@@ -15,8 +15,5 @@
       "username": "",
       "password": ""
     }
-  },
-  "session": {
-    "secret": "5ab436c1-f89a-4e87-bc3f-37a2a4527d84"
   }
 }

@@ -33,7 +33,12 @@ export class BaseServer {
     $log.info('Registering common middlewares...');
 
     this.app
-      .use(cors())
+      .use(
+        cors({
+          origin: true,
+          credentials: true
+        })
+      )
       .use(cookieParser())
       .use(compress({}))
       .use(methodOverride())
