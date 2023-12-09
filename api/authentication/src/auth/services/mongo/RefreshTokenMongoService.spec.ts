@@ -12,9 +12,9 @@ describe('RefreshTokenMongoService', () => {
   let service: RefreshTokenMongoService;
   let model: MongooseModel<RefreshTokenMongo>;
 
-  const issuedAt = new Date();
-  const createdAt = new Date();
-  const updatedAt = new Date();
+  const issuedAt = new Date('2023-12-09T21:08:36.576Z');
+  const createdAt = new Date('2023-12-09T21:08:36.576Z');
+  const updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
   const stub = CommonUtils.buildModel(RefreshToken, {
     id: '654d2193990714d40d22a554',

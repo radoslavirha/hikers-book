@@ -51,7 +51,7 @@ export const RefreshTokenStub: RefreshToken = CommonUtils.buildModel(RefreshToke
   token_jti: 'jti',
   user_id: UserStubId,
   user: undefined,
-  issuedAt: new Date(),
-  createdAt: new Date(),
-  updatedAt: new Date()
+  issuedAt: new Date('2023-12-09T21:08:36.576Z'),
+  createdAt: new Date('2023-12-09T21:08:36.576Z'),
+  updatedAt: new Date('2023-12-09T21:08:36.576Z')
 });

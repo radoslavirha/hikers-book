@@ -18,8 +18,8 @@ describe('MongoMapper', () => {
   it('mongoToModelBase', async () => {
     const mongo = new TestModelMongo();
     mongo._id = 'test';
-    mongo.createdAt = new Date();
-    mongo.updatedAt = new Date();
+    mongo.createdAt = new Date('2023-12-09T21:08:36.576Z');
+    mongo.updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
     const model = new TestModel();
 
@@ -37,8 +37,8 @@ describe('MongoMapper', () => {
     const Model = PlatformTest.get<MongooseModel<TestModelMongo>>(TestModelMongo);
 
     const mongo = new Model({
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z'),
       child_id: new Types.ObjectId()
     });
 
@@ -55,8 +55,8 @@ describe('MongoMapper', () => {
     const ModelChild = PlatformTest.get<MongooseModel<TestModelChildMongo>>(TestModelChildMongo);
 
     const mongo = new Model({
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z'),
       child_id: new ModelChild()
     });
 
@@ -73,8 +73,8 @@ describe('MongoMapper', () => {
     const ModelChild = PlatformTest.get<MongooseModel<TestModelChildMongo>>(TestModelChildMongo);
 
     const mongo = new Model({
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z'),
       child_id: new ModelChild()
     });
 
@@ -92,8 +92,8 @@ describe('MongoMapper', () => {
 
     const mongo = new Model({
       _id: 'test',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z'),
       child_id: new Types.ObjectId(childId)
     });
 
@@ -115,8 +115,8 @@ describe('MongoMapper', () => {
 
     const mongo = new Model({
       _id: 'test',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z'),
       child_id: mongoChild
     });
 

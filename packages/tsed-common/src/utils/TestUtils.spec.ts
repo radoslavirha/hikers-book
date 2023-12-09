@@ -7,8 +7,8 @@ describe('TestUtils', () => {
 
   it('stringifyStubTimestamps', async () => {
     const modelWithDate = {
-      createdAt: new Date(),
-      updatedAt: new Date()
+      createdAt: new Date('2023-12-09T21:08:36.576Z'),
+      updatedAt: new Date('2023-12-09T21:08:36.576Z')
     };
 
     const model = TestUtils.stringifyStubTimestamps(modelWithDate);

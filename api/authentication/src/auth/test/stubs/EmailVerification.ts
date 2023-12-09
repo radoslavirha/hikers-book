@@ -5,9 +5,9 @@ import { EmailVerificationMongo } from '../../mongo';
 
 export const EmailVerificationStubId = '654d2193990714d40d22a554';
 
-const createdAt = new Date();
-const updatedAt = new Date();
-const expiresIn = new Date();
+const createdAt = new Date('2023-12-09T21:08:36.576Z');
+const updatedAt = new Date('2023-12-09T21:08:36.576Z');
+const expiresIn = new Date('2023-12-09T21:08:36.576Z');
 
 export const EmailVerificationStubMongo: MongoPlainObject<EmailVerificationMongo> = {
   _id: EmailVerificationStubId,

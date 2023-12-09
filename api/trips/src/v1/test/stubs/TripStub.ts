@@ -5,8 +5,8 @@ import { TripMongo } from '../../mongo';
 
 export const TripStubId = '654d2193990714d40d22a554';
 
-const createdAt = new Date();
-const updatedAt = new Date();
+const createdAt = new Date('2023-12-09T21:08:36.576Z');
+const updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
 export const TripStubMongo: MongoPlainObject<TripMongo> = {
   _id: TripStubId,

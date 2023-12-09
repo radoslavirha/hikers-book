@@ -55,8 +55,8 @@ describe('MongoService', () => {
     const mongo = new TestModelMongo();
     mongo._id = 'test';
     mongo.label = 'label';
-    mongo.createdAt = new Date();
-    mongo.updatedAt = new Date();
+    mongo.createdAt = new Date('2023-12-09T21:08:36.576Z');
+    mongo.updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
     expect.assertions(2);
 
@@ -86,14 +86,14 @@ describe('MongoService', () => {
     const mongo = new TestModelMongo();
     mongo._id = 'test';
     mongo.label = 'label';
-    mongo.createdAt = new Date();
-    mongo.updatedAt = new Date();
+    mongo.createdAt = new Date('2023-12-09T21:08:36.576Z');
+    mongo.updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
     const mongo2 = new TestModelMongo();
     mongo2._id = 'test2';
     mongo2.label = 'label2';
-    mongo2.createdAt = new Date();
-    mongo2.updatedAt = new Date();
+    mongo2.createdAt = new Date('2023-12-09T21:08:36.576Z');
+    mongo2.updatedAt = new Date('2023-12-09T21:08:36.576Z');
 
     expect.assertions(4);
 

@@ -11,9 +11,9 @@ describe('RefreshTokenMongo', () => {
     _id: '654d2193990714d40d22a554',
     token_jti: 'jti',
     user_id: UserStubId,
-    issuedAt: new Date(),
-    createdAt: new Date(),
-    updatedAt: new Date()
+    issuedAt: new Date('2023-12-09T21:08:36.576Z'),
+    createdAt: new Date('2023-12-09T21:08:36.576Z'),
+    updatedAt: new Date('2023-12-09T21:08:36.576Z')
   };
 
   beforeEach(TestMongooseContext.create);
