@@ -1,6 +1,21 @@
 {
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "http://api-authentication:4000",
+      "stagesAPI": "http://api-stages:4000",
+      "tripsAPI": "http://api-trips:4000"
+    }
+  },
   "mongodb": {
     "url": "mongodb://mongo-authentication:27017/graphql",
     "connectionOptions": {}
+  },
+  "redis": {
+    "default": {
+      "host": "redis",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
   }
 }

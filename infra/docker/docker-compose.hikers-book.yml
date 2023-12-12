@@ -20,6 +20,7 @@ services:
       - 5501:4000
     volumes:
       - ./config/api.authentication.json:/app/api/authentication/config/production.json:ro
+      - ./keys:/app/api/authentication/keys:ro
   api-graphql:
     image: radoslavirha/hikers-book-api-graphql:latest
     container_name: hikers-book-api-graphql

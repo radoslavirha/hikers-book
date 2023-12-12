@@ -20,5 +20,7 @@ dist
 */.eslintrc.js
 */jest.config.json
 
+api/authentication/keys
+
 packages/config/config/*.json
 !packages/config/config/*.template.json
