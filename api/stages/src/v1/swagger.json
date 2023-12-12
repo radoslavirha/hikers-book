@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.7.0",
+    "title": "Hiker's Book Stages API - v1",
+    "description": "Hiker's Book Stages API"
+  },
+  "components": {
+    "securitySchemes": {
+      "BEARER_JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Bearer JWT token"
+      }
+    }
+  },
+  "paths": {
+    "/v1/hello-world": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "parameters": [],
+        "tags": [
+          "HelloWorldController"
+        ],
+        "operationId": "helloWorldControllerGet"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "HelloWorldController"
+    }
+  ]
+}

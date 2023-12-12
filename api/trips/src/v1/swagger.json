@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.7.0",
+    "title": "Hiker's Book Trips API - v1",
+    "description": "Hiker's Book Trips API"
+  },
+  "components": {
+    "securitySchemes": {
+      "BEARER_JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Bearer JWT token"
+      }
+    },
+    "schemas": {
+      "Trip": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label"
+        ]
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "UNAUTHORIZED",
+            "default": "UNAUTHORIZED"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 401,
+            "default": 401
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "GenericError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "message"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/v1/trips": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trip"
+                  }
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Returns list of trips.",
+        "security": [
+          {
+            "BEARER_JWT": []
+          }
+        ],
+        "parameters": [],
+        "tags": [
+          "TripsController"
+        ],
+        "operationId": "tripsControllerGet"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "TripsController",
+      "description": "Trips controllers."
+    }
+  ]
+}

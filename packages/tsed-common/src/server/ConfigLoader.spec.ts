@@ -25,7 +25,8 @@ const options: ConfigLoaderOptions = {
     },
     {
       doc: SwaggerDocsVersion.V1,
-      security: [SwaggerSecurityScheme.BEARER_JWT]
+      security: [SwaggerSecurityScheme.BEARER_JWT],
+      outFile: 'swagger.json'
     }
   ]
 };
@@ -55,9 +56,10 @@ describe('ConfigLoder', () => {
         path: `/${SwaggerDocsVersion.GLOBAL}/docs`,
         doc: SwaggerDocsVersion.GLOBAL,
         specVersion: '3.0.3',
+        outFile: undefined,
         spec: expect.objectContaining({
           info: expect.objectContaining({
-            title: 'test',
+            title: `test - ${SwaggerDocsVersion.GLOBAL}`,
             version: expect.any(String)
           }),
           components: expect.objectContaining({
@@ -75,9 +77,10 @@ describe('ConfigLoder', () => {
         path: `/${SwaggerDocsVersion.V1}/docs`,
         doc: SwaggerDocsVersion.V1,
         specVersion: '3.0.3',
+        outFile: 'swagger.json',
         spec: expect.objectContaining({
           info: expect.objectContaining({
-            title: 'test',
+            title: `test - ${SwaggerDocsVersion.V1}`,
             version: expect.any(String)
           }),
           components: expect.objectContaining({

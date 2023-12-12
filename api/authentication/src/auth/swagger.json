@@ -1,0 +1,926 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.7.0",
+    "title": "Hiker's Book Authentication API - auth",
+    "description": "Hiker's Book Authentication API"
+  },
+  "components": {
+    "securitySchemes": {
+      "BEARER_JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Bearer JWT token"
+      },
+      "BASIC": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "Basic authentication"
+      }
+    },
+    "schemas": {
+      "JWTAuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User ID.",
+            "title": "id",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "User name.",
+            "title": "name",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "UNAUTHORIZED",
+            "default": "UNAUTHORIZED"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 401,
+            "default": 401
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "GenericError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "message"
+        ]
+      },
+      "TokensResponse": {
+        "type": "object",
+        "properties": {
+          "access": {
+            "type": "string",
+            "description": "JWT access token.",
+            "title": "access",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "access"
+        ]
+      },
+      "CredentialsAlreadyExist": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "FORBIDDEN",
+            "default": "FORBIDDEN"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 403,
+            "default": 403
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "EmailSendVerificationRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@email.com",
+            "description": "Email used for registration.",
+            "title": "email",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "email"
+        ]
+      },
+      "Forbidden": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "FORBIDDEN",
+            "default": "FORBIDDEN"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 403,
+            "default": 403
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "NotFound": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "NOT_FOUND",
+            "default": "NOT_FOUND"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 404,
+            "default": 404
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "EmailVerifyTokenRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@email.com",
+            "description": "Email used for registration.",
+            "title": "email",
+            "minLength": 1
+          },
+          "token": {
+            "type": "string",
+            "example": "verification-token",
+            "description": "Verification token sent to email.",
+            "title": "token",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "token"
+        ]
+      },
+      "UnprocessableEntity": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "UNPROCESSABLE_ENTITY",
+            "default": "UNPROCESSABLE_ENTITY"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 422,
+            "default": 422
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "BAD_REQUEST",
+            "default": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 400,
+            "default": 400
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/auth/authenticate": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JWTAuthenticationResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Returns User model based on JWT token.",
+        "security": [
+          {
+            "BEARER_JWT": []
+          }
+        ],
+        "parameters": [],
+        "tags": [
+          "AuthenticateController"
+        ],
+        "operationId": "authenticateControllerAuthenticate"
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "description": "Refresh token controller.",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "refresh",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "tags": [
+          "AuthenticateController"
+        ],
+        "operationId": "authenticateControllerRefresh"
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "description": "Logout controller.",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "refresh",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "tags": [
+          "AuthenticateController"
+        ],
+        "operationId": "authenticateControllerLogout"
+      }
+    },
+    "/auth/provider/email/send-verification": {
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "description": "Sends verification email to the user. Then user can sign up.",
+        "parameters": [],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailSendVerificationRequest"
+              }
+            }
+          }
+        },
+        "tags": [
+          "AuthProviderEmailController"
+        ],
+        "operationId": "authProviderEmailControllerSendVerification"
+      }
+    },
+    "/auth/provider/email/verify-token": {
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "description": "Verify registration token sent to email.",
+        "parameters": [],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailVerifyTokenRequest"
+              }
+            }
+          }
+        },
+        "tags": [
+          "AuthProviderEmailController"
+        ],
+        "operationId": "authProviderEmailControllerVerifyToken"
+      }
+    },
+    "/auth/provider/email/sign-up": {
+      "post": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Sign up user with email and password.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderEmailController"
+        ],
+        "operationId": "authProviderEmailControllerSignUp"
+      }
+    },
+    "/auth/provider/email/sign-in": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensResponse"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Forbidden"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "BASIC": []
+          }
+        ],
+        "description": "Sign in user with email and password.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderEmailController"
+        ],
+        "operationId": "authProviderEmailControllerSignIn"
+      }
+    },
+    "/auth/provider/facebook": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Facebook.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderFacebookController"
+        ],
+        "operationId": "authProviderFacebookControllerAuthenticated"
+      }
+    },
+    "/auth/provider/facebook/callback": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Facebook.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderFacebookController"
+        ],
+        "operationId": "authProviderFacebookControllerCallback"
+      }
+    },
+    "/auth/provider/github": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Github.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderGithubController"
+        ],
+        "operationId": "authProviderGithubControllerAuthenticated"
+      }
+    },
+    "/auth/provider/github/callback": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Github.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderGithubController"
+        ],
+        "operationId": "authProviderGithubControllerCallback"
+      }
+    },
+    "/auth/provider/google": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Google.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderGoogleController"
+        ],
+        "operationId": "authProviderGoogleControllerAuthenticated"
+      }
+    },
+    "/auth/provider/google/callback": {
+      "get": {
+        "responses": {
+          "301": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Moved Permanently"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialsAlreadyExist"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "description": "Login with Google.",
+        "parameters": [],
+        "tags": [
+          "AuthProviderGoogleController"
+        ],
+        "operationId": "authProviderGoogleControllerCallback"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "AuthenticateController",
+      "description": "Authentication/Authorization controllers."
+    },
+    {
+      "name": "AuthProviderEmailController",
+      "description": "Email provider controllers."
+    },
+    {
+      "name": "AuthProviderFacebookController",
+      "description": "Facebook provider controllers."
+    },
+    {
+      "name": "AuthProviderGithubController",
+      "description": "Github provider controllers."
+    },
+    {
+      "name": "AuthProviderGoogleController",
+      "description": "Google provider controllers."
+    }
+  ]
+}

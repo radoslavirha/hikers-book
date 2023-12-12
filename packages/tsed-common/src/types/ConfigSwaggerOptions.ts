@@ -4,6 +4,7 @@ import { SwaggerSecurityScheme } from './SwaggerSecurityScheme.enum';
 export type SwaggerDocConfig = {
   doc: SwaggerDocsVersion;
   security: SwaggerSecurityScheme[];
+  outFile?: string;
 };
 
 export type ConfigSwaggerOptions = {

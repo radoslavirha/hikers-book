@@ -28,9 +28,10 @@ export class ConfigSwagger {
       path: `/${settings.doc}/docs`,
       doc: settings.doc,
       specVersion: '3.0.3',
+      outFile: settings.outFile,
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
-          title,
+          title: `${title} - ${settings.doc}`,
           version,
           description
         },

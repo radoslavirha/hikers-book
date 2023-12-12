@@ -1,0 +1,142 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "0.7.0",
+    "title": "Hiker's Book Authentication API - v1",
+    "description": "Hiker's Book Authentication API"
+  },
+  "components": {
+    "securitySchemes": {
+      "BEARER_JWT": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Bearer JWT token"
+      }
+    },
+    "schemas": {
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1,
+            "example": "UNAUTHORIZED",
+            "default": "UNAUTHORIZED"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 401,
+            "default": 401
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "string",
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "GenericError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "message"
+        ]
+      },
+      "UserRequest": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/v1/user": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "description": "Returns User model.",
+        "security": [
+          {
+            "BEARER_JWT": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          }
+        },
+        "tags": [
+          "UserController"
+        ],
+        "operationId": "userControllerGetUser"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "UserController",
+      "description": "User controllers."
+    }
+  ]
+}
