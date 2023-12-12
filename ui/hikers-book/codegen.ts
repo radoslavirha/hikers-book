@@ -1,9 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import Config from './src/assets/config.json';
+import path from 'path';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: Config.api.graphql,
+  schema: path.join(__dirname, '../../api/graphql/src/v1/resources/schema.gql'),
   documents: 'src/**/*.graphql',
   generates: {
     'src/graphql/generated.ts': {
