@@ -42,7 +42,7 @@ data:
   config.json: |
     {
       "api": {
-        "authentication": "http://api.hikers-book.dev.info/auth/v1",
+        "authentication": "http://api.hikers-book.dev.info/auth",
         "graphql": "http://api.hikers-book.dev.info/graphql/v1/graphql",
         "stages": "http://api.hikers-book.dev.info/stages/v1",
         "trips": "http://api.hikers-book.dev.info/trips/v1"

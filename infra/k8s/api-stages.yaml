@@ -31,9 +31,22 @@ metadata:
 data:
   production.json: |
     {
+      "apis": {
+        "hikersBook": {
+          "authenticationAPI": "http://authentication-srv:4000"
+        }
+      },
       "mongodb": {
         "url": "mongodb://mongodb-stages-srv:27017/stages",
         "connectionOptions": {}
+      },
+      "redis": {
+        "default": {
+          "host": "redis-srv",
+          "port": 6379,
+          "username": "",
+          "password": ""
+        }
       }
     }
 ---

@@ -21,10 +21,11 @@ kind: Service
 metadata:
   name: mongodb-authentication-srv
 spec:
+  type: ClusterIP
   selector:
     app: mongodb-authentication
   ports:
-    - name: db
+    - name: client
       protocol: TCP
       port: 27017
       targetPort: 27017

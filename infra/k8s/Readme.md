@@ -25,7 +25,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 Just append to `/etc/hosts`
 
-```
+```sh
 127.0.0.1 hikers-book.dev.info
 127.0.0.1 api.hikers-book.dev.info
 ```
@@ -65,8 +65,7 @@ Set permissions on folder!
    skaffold dev
    ```
 
-3. [Visit hikers-book.dev](hikers-book.dev)
-
+3. [Visit hikers-book.dev.info](hikers-book.dev.info)
 
 ## TODO
 

@@ -16,6 +16,9 @@ spec:
         - name: api-authentication-configmap-volume
           configMap:
             name: api-authentication-configmap
+        - name: api-authentication-configmap-keys-volume
+          configMap:
+            name: api-authentication-configmap-keys
       containers:
         - name: api-authentication
           image: radoslavirha/hikers-book-api-authentication
@@ -23,6 +26,8 @@ spec:
           volumeMounts:
             - mountPath: /app/api/authentication/config
               name: api-authentication-configmap-volume
+            - mountPath: /app/api/authentication/keys
+              name: api-authentication-configmap-keys-volume
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -31,11 +36,136 @@ metadata:
 data:
   production.json: |
     {
+      "frontend": {
+        "url": "http://hikers-book.dev.info"
+      },
+      "auth": {
+        "facebook": {
+          "clientID": "your-app-id",
+          "clientSecret": "your-client-secret",
+          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/facebook/callback"
+        },
+        "github": {
+          "clientID": "your-app-id",
+          "clientSecret": "your-client-secret",
+          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/github/callback"
+        },
+        "google": {
+          "clientID": "your-app-id",
+          "clientSecret": "your-client-secret",
+          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/google/callback"
+        }
+      },
+      "jwt": {
+        "expiresIn": "1m",
+        "expiresInRefresh": "1w"
+      },
       "mongodb": {
         "url": "mongodb://mongodb-authentication-srv:27017/auth",
         "connectionOptions": {}
+      },
+      "nodemailer": {
+        "service": "iCloud",
+        "from": "email@icloud.com",
+        "auth": {
+          "user": "email@icloud.com",
+          "pass": "pass"
+        }
+      },
+      "redis": {
+        "default": {
+          "host": "redis-srv",
+          "port": 6379,
+          "username": "",
+          "password": ""
+        }
       }
     }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-authentication-configmap-keys
+data:
+  access.pem: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCpfzYwM1E9dOBo
+    id0PUsqSpI7cUpEnAoFUgGV+zbtC85PySNrlarLJRc09Pb0++NFhspDwJLLm3Akn
+    QQzrpwIL92R1EkdpIpuAqj7Y5lCdKWtysVp3OPvTaKhab8IYqVDyvG/MRc+/eQ7+
+    5KpDEmM5GCxTe1S+RV1oc6ZiQ74yOOQZXQOPo0v9CJtbdP/+DBOEk+3CZF7fYnOE
+    V0us5MVPbCG11X22c/j7xvfBgTbZ5d2LgebYPz840/p+6fjMtg/ZZLT95Ympogkd
+    7r4Xkd80MIb8K76AAA3e5tE4+HE04AQ5U6mI1yvbIhgosuthPJcQDGdt3XyrqL95
+    qW0TmgtdAgMBAAECggEADQvJ66CCN/JqChcqblvXVGguyCM2zEOIxCyfI0kfM8Jf
+    IylGZ/LJe20lpKQUOpJDk3sqEBcoX1U/rcd3q3UPAZrIyate1xHJ2aJrn0hC8Nss
+    9lv+SZTs6n3GD4fwmZ4BVAhQVpm8/tDePZzzb0wtWkn+XMKZEuLF6MdAtD7glymN
+    FNyjmNZSNn93kQPmhmdqmB097bDCzNrkkeLY1AexgCSXd44PV+Cns+EFVzP/BWsc
+    MD8/N5unTGjukRvJKSc5oy6ZKB3iJ9yw8S4iWxpEFfcX237ArM0utXSt11SAAJoB
+    vfXOCL7xJrB7bEXbV66ApJ5PhFWnNSOfXHwr/CTKwQKBgQDZIPNrz/CftCc5e9xF
+    z6QHFB9s83VN2QIj4taaMpkIgqvX4Q11Q6nHa7f+OdsxfHKczBWqWqMIZTJE5ZFF
+    cp7UprusaPgZZxXYcZLhjU1Nizv+COqSps+1nTB+GTf3R3AJa12WSYovKOjjMTSS
+    JlK5+pV61EJxNFwEMNTiA+4b8QKBgQDH10lx2SUPnJVbA72hAr9bCoGyLLOqAUQb
+    N6JJkJlxU2/eknD30o4ge85tLYQtHXb18OYdQMAmYWYLoplTVgLbdnNJ+qmOFH3F
+    KE2szmBr0pP7zS2SuXGIWivDGFM2J3YNYXa6DTHbpI52ExZdR5vg0PimvDm2a2Ym
+    G5oSfztCLQKBgQCRV1I6H9YlQTVkcDmxbV2R83FZv9oMwy+AkA4w55+yp62Z8ybM
+    EP/r4nomLdpA1NnvhVkXUFaDfyHYJodIooIZPIax0Q4KCwv/d37nhmtxdbsxwAwt
+    IIY3PsJAFmd1Ghev5nOd7xoVmV/S/JQBJLAJl+hJcR4MowzZLUrDA/h2MQKBgGBF
+    oqgqB+ShdoJGJxBuFmlxglGnn1YDDiBeiNwPwRwLKhV7TtjUooubmTKXftmNHEYX
+    K4RkMS1MNrDcQCkZgn7fbWLyUsSTspNMez8InQLUi13+1jmdBMi/R93Q1iV8lS6V
+    CXFP8fjyKX9QarG9UabYhTEt9E+hJbCuE2ddy9pxAoGAJ7YsGb8GaWU8HfcamQ2B
+    qQpQWlW7rtWlLd00E9Uhyn4FygkfYaKR0lgGe5DEUKeu+VT3WwkOdZd/a29eCfXS
+    vVyN+TwehpK5nhG53KJkBpnejEBW6pOHuhmdzW891417LLC27vcjwvc/1M4CaI5z
+    yhQl232BYmd0EDdrkqKPACU=
+    -----END PRIVATE KEY-----
+  access.pem.pub: |
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqX82MDNRPXTgaIndD1LK
+    kqSO3FKRJwKBVIBlfs27QvOT8kja5WqyyUXNPT29PvjRYbKQ8CSy5twJJ0EM66cC
+    C/dkdRJHaSKbgKo+2OZQnSlrcrFadzj702ioWm/CGKlQ8rxvzEXPv3kO/uSqQxJj
+    ORgsU3tUvkVdaHOmYkO+MjjkGV0Dj6NL/QibW3T//gwThJPtwmRe32JzhFdLrOTF
+    T2whtdV9tnP4+8b3wYE22eXdi4Hm2D8/ONP6fun4zLYP2WS0/eWJqaIJHe6+F5Hf
+    NDCG/Cu+gAAN3ubROPhxNOAEOVOpiNcr2yIYKLLrYTyXEAxnbd18q6i/ealtE5oL
+    XQIDAQAB
+    -----END PUBLIC KEY-----
+  refresh.pem: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxh6klJ0yAnyru
+    sYIrl6nSj+ajLuCVXs/sD0rKm5NQP8rOz76dPkX8RQmFVjIuZI8mWmTpRotzLb6T
+    5o1ipfSibcuP+bjgVeO6DJHXuBGQEINKyjQ8IJSuV60vIsrLrB+6PTCcjxJkY2GG
+    WXWnRW36FZGen2OGL/iRm52+OTdabaOrQTv+LNxbSoUss/Fsk37uKjI2mX84qL5Z
+    X3XaWzRZx5DEcXMfoivOxxBmXiuyWTw/ITduOk6yBrnZWXCDUF/xDyEmcAe8xRLp
+    vDzbxtaNI/pN9v2OO42zNRm39M+4aqEGPvdwxSKXLnEGqOLd8/V0TzS73CkwthXp
+    xMEwTYMHAgMBAAECggEABIPwHbiz3brVEDbyme8LGKBxXANhHsHhGJHdzWzXxxBA
+    Tv9PGIr3cIgSMTjoINbzVYt+117keByY2GrIrzjyXnLb3RpO0fuAeQB0PmAS2xVL
+    ozDYBqyuq227Qwb0nbaPvgbSM2ea+6bgpnA+QyL+15mjcQnm/m6k7CstmXBO6jbz
+    bs9cz22M/V5y+ge6p9/I1Kr5cntshvYaMGGV68zYvC0KDC8S1QInLlmyTYDuFESG
+    0DKq47ZkuUhbqv1REjDnxTOOWuyZ+6Nwkc37vEL5L0IOQi/Hs9rEy1LlSRj1EAul
+    WgZbiW6M4512jRoyZngXvhyu5yTiqa6IJZJigQBXbQKBgQDcF9xZRP1j6tfj7mhi
+    6XSw8vgTYp25cRtJ9kuNrFDAoZMMZ2NQDzIyg1rxXpHB4pIHsdbeXFVvyF8keP/S
+    c1T5LrGGjbhJ85obmJCdOJsObk3cUOF8c6IVFMGkX+ly/TNMR2ge31o70lXt9s39
+    PF5A9BbXJ0ndWp4YM7hKrd7fjQKBgQDOfiemmU77aHC73JZtqUdFlIMtRWfYJlYw
+    eiYutIzCCob0UZRkkXYC1NEu3UhuPCxHOSm+wd3sZowliH9zKrFl2iKypmST1l9C
+    IjqLlqcsyU1mJg2FF3SexNzP0W0e/gltRsUo3EoAb+yXAHGaaeX2oYrxQdsbU24R
+    Qtg4IMet4wKBgF0vrRgO4cpAUJAtDP10IvgYp3httKIjhY5XPb4KS1aEEqKZ066+
+    AF7qxsKTa9tPdszTO0qChZoCmGX05TvRoRSv9HIn5vNItOMiQXiP0vbVNRonFJGA
+    1Atg8mwKP+lz0xhk02ze3HGfqMpMSQMDYFTYBCOsetXB3FYa79iOrWKxAoGAQLX0
+    QxdkUxFF0vmsAq278ig6e6N2iZxqAkMlWBmoyt51sHcoY+PZ8cUz0NXz7ufYkHFv
+    jaI/o+f3H4QJPNQyR9L2cLoIZvQVYipL4pbRyQ1EvjBKqFzTZTYYZOAirEW8Ooyl
+    GMsAPebVY/T1pQhu0r2JR1X2Djg1FB+4ls5fBTUCgYEAntz9Lg9p8+IxI3RF8YqR
+    6TauwAR26XbtuvJSBPRV6aF6+qQzmTrQpb1s+gBsKms7RoPznG+NzPm4xxwEAa+u
+    AVtrQ150dRBJJDRL5jvEwR2IRTANcsq5fEOmaA/MNHJNd4I9JZtMIF54AYQR7MvT
+    cMuh4eCzkvAlk/QYIZYvqi4=
+    -----END PRIVATE KEY-----
+  refresh.pem.pub: |
+    -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsYepJSdMgJ8q7rGCK5ep
+    0o/moy7glV7P7A9KypuTUD/Kzs++nT5F/EUJhVYyLmSPJlpk6UaLcy2+k+aNYqX0
+    om3Lj/m44FXjugyR17gRkBCDSso0PCCUrletLyLKy6wfuj0wnI8SZGNhhll1p0Vt
+    +hWRnp9jhi/4kZudvjk3Wm2jq0E7/izcW0qFLLPxbJN+7ioyNpl/OKi+WV912ls0
+    WceQxHFzH6IrzscQZl4rslk8PyE3bjpOsga52Vlwg1Bf8Q8hJnAHvMUS6bw828bW
+    jSP6Tfb9jjuNszUZt/TPuGqhBj73cMUily5xBqji3fP1dE80u9wpMLYV6cTBME2D
+    BwIDAQAB
+    -----END PUBLIC KEY-----
+
 ---
 apiVersion: v1
 kind: Service

@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-graphql-deployment
+  name: redis-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb-graphql
+      app: redis
   template:
     metadata:
       labels:
-        app: mongodb-graphql
+        app: redis
     spec:
       containers:
-        - name: mongodb-graphql
-          image: mongo
+        - name: redis
+          image: redis
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb-graphql-srv
+  name: redis-srv
 spec:
   selector:
-    app: mongodb-graphql
+    app: redis
   ports:
     - name: db
       protocol: TCP
-      port: 27017
-      targetPort: 27017
+      port: 6379
+      targetPort: 6379
