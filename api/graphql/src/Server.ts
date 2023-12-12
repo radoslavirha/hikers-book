@@ -1,7 +1,6 @@
 import { BaseServer, getServerDefaultConfig } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
-import { Unauthorized } from '@tsed/exceptions';
 import '@tsed/ioredis';
 import '@tsed/platform-express'; // /!\ keep this import
 import cookieSession from 'cookie-session';
@@ -26,10 +25,6 @@ import * as v1Resolvers from './v1/resolvers';
         async context(ctx) {
           // No authorization on GraphQL, just extract token and pass to request, other microservicess will handle authorization
           const token = ctx?.req?.headers?.authorization;
-
-          if (!token && process.env.NODE_ENV !== 'test') {
-            throw new Unauthorized('No authorization header present.');
-          }
 
           // will be accessible in datasource as this.context.token
           return Promise.resolve({ token });

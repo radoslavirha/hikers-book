@@ -381,6 +381,9 @@ importers:
       apollo-server-core:
         specifier: ^3.12.1
         version: 3.12.1(graphql@15.8.0)
+      apollo-server-env:
+        specifier: ^4.2.1
+        version: 4.2.1
       apollo-server-express:
         specifier: 3.12.1
         version: 3.12.1(express@4.18.2)(graphql@15.8.0)
@@ -1112,6 +1115,9 @@ importers:
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -8425,7 +8431,7 @@ packages:
     resolution: {integrity: sha512-TEbt+vaPFQ+xpxFLFssxUDXj5cWCxZJjIcB7Yg0k0GMHGtgtQgpvx/MUQUeAkNbA9AAGrwkAsoeItdTgS7FMyg==}
     dependencies:
       '@types/body-parser': 1.19.4
-      '@types/express-serve-static-core': 4.17.31
+      '@types/express-serve-static-core': 4.17.40
       '@types/qs': 6.9.9
       '@types/serve-static': 1.15.4
     dev: false
