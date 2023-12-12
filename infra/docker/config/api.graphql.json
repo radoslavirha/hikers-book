@@ -6,10 +6,6 @@
       "tripsAPI": "http://api-trips:4000"
     }
   },
-  "mongodb": {
-    "url": "mongodb://mongo-authentication:27017/graphql",
-    "connectionOptions": {}
-  },
   "redis": {
     "default": {
       "host": "redis",

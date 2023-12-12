@@ -5,7 +5,7 @@
     }
   },
   "mongodb": {
-    "url": "mongodb://mongo-authentication:27017/trips",
+    "url": "mongodb://mongo-trips:27017/trips",
     "connectionOptions": {}
   },
   "redis": {

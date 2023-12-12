@@ -38,10 +38,6 @@ data:
           "tripsAPI": "http://trips-srv:4000"
         }
       },
-      "mongodb": {
-        "url": "mongodb://mongodb-graphql-srv:27017/graphql",
-        "connectionOptions": {}
-      },
       "redis": {
         "default": {
           "host": "redis-srv",
