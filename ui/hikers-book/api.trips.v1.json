@@ -1,0 +1,10 @@
+{
+  "input": "../../api/trips/src/v1/swagger.json",
+  "output": "src/app/api/trips/v1",
+  "ignoreUnusedModels": false,
+  "servicePrefix": "APITripsV1",
+  "modelPrefix": "APITripsV1",
+  "configuration": "APITripsV1Configuration",
+  "baseService": "APITripsV1BaseService",
+  "module": "APITripsV1Module"
+}

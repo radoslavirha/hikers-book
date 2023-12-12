@@ -1,0 +1,10 @@
+{
+  "input": "../../api/authentication/src/v1/swagger.json",
+  "output": "src/app/api/authentication/v1",
+  "ignoreUnusedModels": false,
+  "servicePrefix": "APIAuthenticationV1",
+  "modelPrefix": "APIAuthenticationV1",
+  "configuration": "APIAuthenticationV1Configuration",
+  "baseService": "APIAuthenticationV1BaseService",
+  "module": "APIAuthenticationV1Module"
+}

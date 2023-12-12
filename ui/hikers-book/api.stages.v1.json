@@ -1,0 +1,10 @@
+{
+  "input": "../../api/stages/src/v1/swagger.json",
+  "output": "src/app/api/stages/v1",
+  "ignoreUnusedModels": false,
+  "servicePrefix": "APIStagesV1",
+  "modelPrefix": "APIStagesV1",
+  "configuration": "APIStagesV1Configuration",
+  "baseService": "APIStagesV1BaseService",
+  "module": "APIStagesV1Module"
+}
