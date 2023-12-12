@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -19,8 +21,9 @@ export class AuthenticationService {
   }
 
   constructor(
-    private router: Router,
-    private config: ConfigService
+    private config: ConfigService,
+    private http: HttpClient,
+    private router: Router
   ) {
     this.getTokens();
   }
@@ -41,6 +44,17 @@ export class AuthenticationService {
     window.open(`${this.config.config.api.authentication}/auth/provider/facebook`, '_self', 'height=600,width=450');
   }
 
+  public refreshToken() {
+    return this.http.get(`${this.config.config.api.authentication}/auth/refresh`).pipe(
+      map((data) => {
+        // @ts-expect-error learn how to type it
+        this.authenticate(data.access);
+        // @ts-expect-error learn how to type it
+        return data.access;
+      })
+    );
+  }
+
   public authenticate(access: string): void {
     this.#isLoggedIn = true;
     this.#authErrorCode = undefined;
@@ -49,12 +63,21 @@ export class AuthenticationService {
     this.router.navigate(['/']);
   }
 
-  public logout(): void {
-    this.#isLoggedIn = false;
-    this.#authErrorCode = undefined;
-    sessionStorage.removeItem('access');
-    // sessionStorage.removeItem('refresh');
-    this.router.navigate(['/auth/sign-in']);
+  public async logout(): Promise<void> {
+    this.http.get(`${this.config.config.api.authentication}/auth/logout`).subscribe({
+      next: () => {
+        this.#isLoggedIn = false;
+        this.#authErrorCode = undefined;
+        sessionStorage.removeItem('access');
+        this.router.navigate(['/auth/sign-in']);
+      },
+      error: () => {
+        this.#isLoggedIn = false;
+        this.#authErrorCode = undefined;
+        sessionStorage.removeItem('access');
+        this.router.navigate(['/auth/sign-in']);
+      }
+    });
   }
 
   public getToken() {
