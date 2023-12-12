@@ -15,12 +15,12 @@
     "cleanup": "rm -rf coverage dist",
     "cleanup:modules": "rm -rf node_modules",
     "generate": "pnpm run generate:graphql && pnpm run generate:api",
-    "generate:graphql": "graphql-codegen",
-    "generate:api": "pnpm run generate:api:authentication:auth && pnpm run generate:api:authentication:v1 && pnpm run generate:api:stages:v1 && pnpm run generate:api:trips:v1 && pnpm run format",
-    "generate:api:authentication:auth": "ng-openapi-gen -c api.authentication.auth.json",
-    "generate:api:authentication:v1": "ng-openapi-gen -c api.authentication.v1.json",
-    "generate:api:stages:v1": "ng-openapi-gen -c api.stages.v1.json",
-    "generate:api:trips:v1": "ng-openapi-gen -c api.trips.v1.json"
+    "generate:graphql": "graphql-codegen && pnpm run format",
+    "generate:api": "pnpm run generate:api:authentication:auth && pnpm run generate:api:authentication:v1 && pnpm run generate:api:stages:v1 && pnpm run generate:api:trips:v1",
+    "generate:api:authentication:auth": "ng-openapi-gen -c api.authentication.auth.json && pnpm run format",
+    "generate:api:authentication:v1": "ng-openapi-gen -c api.authentication.v1.json && pnpm run format",
+    "generate:api:stages:v1": "ng-openapi-gen -c api.stages.v1.json && pnpm run format",
+    "generate:api:trips:v1": "ng-openapi-gen -c api.trips.v1.json && pnpm run format"
   },
   "private": true,
   "dependencies": {
