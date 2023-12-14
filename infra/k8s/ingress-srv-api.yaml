@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-srv-api
   annotations:
+    cert-manager.io/cluster-issuer: selfsigned-issuer
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -39,3 +40,7 @@ spec:
                 name: trips-srv
                 port:
                   number: 4000
+  tls:
+    - hosts:
+        - api.hikers-book.dev.info
+      secretName: magda-local-cert-tls

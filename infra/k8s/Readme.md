@@ -9,6 +9,14 @@
 - modified `/etc/hosts`
 - label your node with `size=large`
 
+## Install Cert Manager
+
+```sh
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.3/cert-manager.crds.yaml
+
+kubectl apply -f https://gist.githubusercontent.com/t83714/51440e2ed212991655959f45d8d037cc/raw/7b16949f95e2dd61e522e247749d77bc697fd63c/selfsigned-issuer.yaml
+```
+
 ## Install ingress-nginx
 
 [Visit web](https://kubernetes.github.io/ingress-nginx/deploy/)
@@ -65,7 +73,7 @@ Set permissions on folder!
    skaffold dev
    ```
 
-3. [Visit hikers-book.dev.info](hikers-book.dev.info)
+3. [Visit hikers-book.dev.info](https://hikers-book.dev.info)
 
 ## TODO
 

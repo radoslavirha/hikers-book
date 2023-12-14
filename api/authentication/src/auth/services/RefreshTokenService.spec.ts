@@ -369,6 +369,7 @@ describe('RefreshTokenService', () => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
+        domain: new URL(configService.config.frontend.url).hostname,
         maxAge: ms(configService.config.jwt.expiresInRefresh)
       });
     });

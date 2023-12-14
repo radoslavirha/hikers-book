@@ -37,23 +37,23 @@ data:
   production.json: |
     {
       "frontend": {
-        "url": "http://hikers-book.dev.info"
+        "url": "https://hikers-book.dev.info"
       },
       "auth": {
         "facebook": {
           "clientID": "your-app-id",
           "clientSecret": "your-client-secret",
-          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/facebook/callback"
+          "callbackURL": "https://api.hikers-book.dev.info/auth/auth/provider/facebook/callback"
         },
         "github": {
           "clientID": "your-app-id",
           "clientSecret": "your-client-secret",
-          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/github/callback"
+          "callbackURL": "https://api.hikers-book.dev.info/auth/auth/provider/github/callback"
         },
         "google": {
           "clientID": "your-app-id",
           "clientSecret": "your-client-secret",
-          "callbackURL": "http://api.hikers-book.dev.info/auth/auth/provider/google/callback"
+          "callbackURL": "https://api.hikers-book.dev.info/auth/auth/provider/google/callback"
         }
       },
       "jwt": {

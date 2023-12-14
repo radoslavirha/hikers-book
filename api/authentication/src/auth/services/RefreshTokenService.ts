@@ -72,6 +72,7 @@ export class RefreshTokenService {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      domain: new URL(this.configService.config.frontend.url).hostname,
       maxAge: ms(this.configService.config.jwt.expiresInRefresh)
     });
   }
