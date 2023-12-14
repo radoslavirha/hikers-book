@@ -16,6 +16,11 @@ spec:
         - name: api-trips-configmap-volume
           configMap:
             name: api-trips-configmap
+      initContainers:
+        - name: wait-for-redis
+          image: goodsmileduck/redis-cli
+          imagePullPolicy: IfNotPresent
+          args: [ 'sh', '-c', 'until redis-cli  -h redis-srv -p 6379  get hello; do echo "Sleeping a bit"; sleep 1; done; echo "ready!"; ' ]
       containers:
         - name: api-trips
           image: radoslavirha/hikers-book-api-trips

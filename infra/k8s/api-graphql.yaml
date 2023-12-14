@@ -16,6 +16,11 @@ spec:
         - name: api-graphql-configmap-volume
           configMap:
             name: api-graphql-configmap
+      initContainers:
+        - name: wait-for-redis
+          image: goodsmileduck/redis-cli
+          imagePullPolicy: IfNotPresent
+          args: [ 'sh', '-c', 'until redis-cli  -h redis-srv -p 6379  get hello; do echo "Sleeping a bit"; sleep 1; done; echo "ready!"; ' ]
       containers:
         - name: api-graphql
           image: radoslavirha/hikers-book-api-graphql
