@@ -1,0 +1,47 @@
+apps:
+  authentication-api:
+    replicas: 1
+    configMap:
+      authentication-api-configmap-keys:
+        data:
+          access.pem: environments/local/keys/access.pem
+          access.pem.pub: environments/local/keys/access.pem.pub
+          refresh.pem: environments/local/keys/refresh.pem
+          refresh.pem.pub: environments/local/keys/refresh.pem.pub
+    jinja2:
+      templates:
+        config:
+          template: environments/local/config/api.authentication.json
+
+  graphql-api:
+    replicas: 1
+    jinja2:
+      templates:
+        config:
+          template: environments/local/config/api.graphql.json
+
+  stages-api:
+    replicas: 1
+    jinja2:
+      templates:
+        config:
+          template: environments/local/config/api.stages.json
+
+  trips-api:
+    replicas: 1
+    jinja2:
+      templates:
+        config:
+          template: environments/local/config/api.trips.json
+
+  hikers-book-ui:
+    replicas: 1
+    jinja2:
+      templates:
+        cs:
+          template: environments/local/config/ui.hikers-book.json
+        en-us:
+          template: environments/local/config/ui.hikers-book.json
+        sk:
+          template: environments/local/config/ui.hikers-book.json
+      

@@ -4,17 +4,17 @@ apps:
     image: radoslavirha/hikers-book-api-authentication
     service:
       targetPort: 4000
-    configMap:
-      authentication-api-configmap-keys:
-        data:
-          access.pem: keys/access.pem
-          access.pem.pub: keys/access.pem.pub
-          refresh.pem: keys/refresh.pem
-          refresh.pem.pub: keys/refresh.pem.pub
+    # configMap:
+    #   authentication-api-configmap-keys:
+    #     data:
+    #       access.pem: environments/ENV/keys/access.pem
+    #       access.pem.pub: environments/ENV/keys/access.pem.pub
+    #       refresh.pem: environments/ENV/keys/refresh.pem
+    #       refresh.pem.pub: environments/ENV/keys/refresh.pem.pub
     jinja2:
       templates:
         config:
-          template: config/api.authentication.json
+          # template: environments/ENV/config/api.authentication.json
           path: /app/api/authentication/config
           file: production.json
     volumes:
@@ -35,7 +35,7 @@ apps:
     jinja2:
       templates:
         config:
-          template: config/api.graphql.json
+          # template: environments/ENV/config/api.graphql.json
           path: /app/api/graphql/config
           file: production.json
     initContainers:
@@ -49,7 +49,7 @@ apps:
     jinja2:
       templates:
         config:
-          template: config/api.stages.json
+          # template: environments/ENV/config/api.stages.json
           path: /app/api/stages/config
           file: production.json
     initContainers:
@@ -63,7 +63,7 @@ apps:
     jinja2:
       templates:
         config:
-          template: config/api.trips.json
+          # template: environments/ENV/config/api.trips.json
           path: /app/api/trips/config
           file: production.json
     initContainers:
@@ -77,15 +77,15 @@ apps:
     jinja2:
       templates:
         cs:
-          template: config/ui.hikers-book.json
+          # template: environments/ENV/config/ui.hikers-book.json
           path: /usr/share/nginx/html/cs/assets/config
           file: config.json
         en-us:
-          template: config/ui.hikers-book.json
+          # template: environments/ENV/config/ui.hikers-book.json
           path: /usr/share/nginx/html/en-US/assets/config
           file: config.json
         sk:
-          template: config/ui.hikers-book.json
+          # template: environments/ENV/config/ui.hikers-book.json
           path: /usr/share/nginx/html/sk/assets/config
           file: config.json
 

@@ -54,6 +54,20 @@ kubectl label nodes docker-desktop size=large
 
 ## Run cluster
 
+### Environment prerequisites
+
+Create keys for each environment
+
+```sh
+cd hikers-book/environments
+cd {{ environment }}
+mkdir keys
+openssl genrsa -out keys/access.pem 2048 && openssl rsa -in keys/access.pem -outform PEM -pubout -out keys/access.pem.pub
+openssl genrsa -out keys/refresh.pem 2048 && openssl rsa -in keys/refresh.pem -outform PEM -pubout -out keys/refresh.pem.pub
+```
+
+### Start
+
 1. Build containers
 
    ```sh
@@ -65,13 +79,8 @@ kubectl label nodes docker-desktop size=large
 
    ```sh
    cd infra/helm
-   cp -r environments/local/config charts/hikers-book/
-   cd charts/hikers-book/
-   mkdir keys
-   openssl genrsa -out keys/access.pem 2048 && openssl rsa -in keys/access.pem -outform PEM -pubout -out keys/access.pem.pub
-   openssl genrsa -out keys/refresh.pem 2048 && openssl rsa -in keys/refresh.pem -outform PEM -pubout -out keys/refresh.pem.pub
-   cd ../..
-   helm install hikers-book charts/hikers-book -f environments/local/values.yaml -f environments/local/variables.yaml -f environments/local/secrets.yaml
+   # LOCAL environment
+   ./helm.sh local
    ```
 
 3. [Visit hikers-book.dev.info](https://hikers-book.dev.info)
