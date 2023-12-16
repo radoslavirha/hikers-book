@@ -1,8 +1,0 @@
-{
-  "api": {
-    "authentication": "http://localhost:5501",
-    "graphql": "http://localhost:5502/v1/graphql",
-    "stages": "http://localhost:5503/v1",
-    "trips": "http://localhost:5504/v1"
-  }
-}

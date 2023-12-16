@@ -1,8 +1,12 @@
 # Hiker's Book docker utils
 
-## Dev environment
+## Dev environment services
 
-`docker compose up -d`
+Required for local development (redis, mongo)
+
+```sh
+docker compose up -d
+```
 
 ## Build Hiker's Book containers
 
@@ -10,8 +14,6 @@
 pnpm run docker:build
 ```
 
-## Run Hiker's Book containers
+## Run Hiker's Book
 
-```sh
-pnpm run docker:up
-```
+Go to [K8s docs](../helm/Readme.md)
