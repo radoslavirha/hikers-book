@@ -1,0 +1,95 @@
+{{- range $appName, $app := .Values.apps -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}-deployment
+spec:
+  replicas: {{ $app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      {{- if or $app.initContainers (($app.jinja2).templates) }}
+      initContainers:
+        {{- if (($app.jinja2).templates) }}
+        {{- /* Loop all the Jinja2 templates, container can process only one template */}}
+        {{- range $templateName, $template := $app.jinja2.templates }}
+          - name: jinja-init-{{ $templateName }}
+            image: objectiflibre/jinja-init
+            env:
+              - name: VERBOSE
+                value: "1"
+              - name: JINJA_SRC_FILE
+                value: /config_src/{{ $template.file }}
+              - name: JINJA_DEST_FILE
+                value: /config/{{ $template.file }}
+              {{- /* Prepare VARS for substitution */}}
+              {{- range $key, $value := $.Values }}
+              {{- if or (hasPrefix "HB_VAR_" $key) (hasPrefix "HB_SECRET_" $key) }}
+              - name: JINJA_VAR_{{ $key }}
+                value: "{{ $value }}"
+              {{- end }}
+              {{- end }}
+            volumeMounts:
+              {{- /* Volume with config template */}}
+              - name: jinja2-input-{{ $appName }}-{{ $templateName }}-volume
+                mountPath: /config_src
+              {{- /* Volume with substituted config file */}}
+              - name: jinja2-output-{{ $appName }}-{{ $templateName }}-volume
+                mountPath: /config
+        {{- end }}
+        {{- end }}
+        {{- if $app.initContainers }}
+        {{- range $container := $app.initContainers -}}
+          {{- if eq $container "redis" }}
+          {{- /* Add temporary redis-cli container to block starting APIs till redis is up */}}
+          - name: wait-for-redis
+            image: goodsmileduck/redis-cli
+            imagePullPolicy: IfNotPresent
+            args: [ 'sh', '-c', 'until redis-cli  -h {{ $.Values.redis.service }}-service -p {{ $.Values.redis.port }}  get hello; do echo "Sleeping a bit"; sleep 1; done; echo "ready!"; ' ]
+          {{- end }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: {{ $appName }}
+          image: {{ $app.image }}
+          imagePullPolicy: IfNotPresent
+          {{- if or $app.volumeMounts (($app.jinja2).templates) }}
+          volumeMounts:
+            {{- /* Add volumes with substituted config files from Jinja2 container */}}
+            {{- if (($app.jinja2).templates) }}
+            {{- range $templateName, $template := $app.jinja2.templates }}
+            - name: jinja2-output-{{ $appName }}-{{ $templateName }}-volume
+              mountPath: {{ $template.path }}
+            {{- end }}
+            {{- /* Add other volumes like keys for JWT */}}
+            {{- end }}
+            {{- if $app.volumeMounts }}
+            {{- toYaml $app.volumeMounts| nindent 12 }}
+            {{- end }}
+          {{- end }}
+      {{- if or $app.volumes (($app.jinja2).templates) }}
+      volumes:
+        {{- /* Add other volumes like keys for JWT */}}
+        {{- if $app.volumes }}
+        {{- toYaml $app.volumes | nindent 10 }}
+        {{- end }}
+        {{- if (($app.jinja2).templates) }}
+        {{- range $templateName, $template := $app.jinja2.templates }}
+          {{- /* connect configmap with loaded jinja2 template */}}
+          - name: jinja2-input-{{ $appName }}-{{ $templateName }}-volume
+            configMap:
+              name: jinja2-{{ $appName }}-{{ $templateName }}-configmap
+          {{- /* prepare volume for jinja2 output */}}
+          - name: jinja2-output-{{ $appName }}-{{ $templateName }}-volume
+            emptyDir:
+        {{- end }}
+        {{- end }}
+      {{- end }}
+{{ end }}

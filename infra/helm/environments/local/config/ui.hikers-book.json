@@ -1,0 +1,8 @@
+{
+  "api": {
+    "authentication": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/auth",
+    "graphql": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/graphql/v1/graphql",
+    "stages": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/stages/v1",
+    "trips": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/trips/v1"
+  }
+}

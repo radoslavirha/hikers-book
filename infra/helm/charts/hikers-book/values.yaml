@@ -1,0 +1,105 @@
+apps:
+  authentication-api:
+    replicas: 1
+    image: radoslavirha/hikers-book-api-authentication
+    service:
+      targetPort: 4000
+    configMap:
+      authentication-api-configmap-keys:
+        data:
+          access.pem: keys/access.pem
+          access.pem.pub: keys/access.pem.pub
+          refresh.pem: keys/refresh.pem
+          refresh.pem.pub: keys/refresh.pem.pub
+    jinja2:
+      templates:
+        config:
+          template: config/api.authentication.json
+          path: /app/api/authentication/config
+          file: production.json
+    volumes:
+      - name: authentication-api-volume-keys
+        configMap:
+          name: authentication-api-configmap-keys
+    volumeMounts:
+      - mountPath: /app/api/authentication/keys
+        name: authentication-api-volume-keys
+    initContainers:
+      - redis
+
+  graphql-api:
+    replicas: 1
+    image: radoslavirha/hikers-book-api-graphql
+    service:
+      targetPort: 4000
+    jinja2:
+      templates:
+        config:
+          template: config/api.graphql.json
+          path: /app/api/graphql/config
+          file: production.json
+    initContainers:
+      - redis
+
+  stages-api:
+    replicas: 1
+    image: radoslavirha/hikers-book-api-stages
+    service:
+      targetPort: 4000
+    jinja2:
+      templates:
+        config:
+          template: config/api.stages.json
+          path: /app/api/stages/config
+          file: production.json
+    initContainers:
+      - redis
+
+  trips-api:
+    replicas: 1
+    image: radoslavirha/hikers-book-api-trips
+    service:
+      targetPort: 4000
+    jinja2:
+      templates:
+        config:
+          template: config/api.trips.json
+          path: /app/api/trips/config
+          file: production.json
+    initContainers:
+      - redis
+
+  hikers-book-ui:
+    replicas: 1
+    image: radoslavirha/hikers-book-ui-hikers-book:latest
+    service:
+      targetPort: 80
+    jinja2:
+      templates:
+        cs:
+          template: config/ui.hikers-book.json
+          path: /usr/share/nginx/html/cs/assets/config
+          file: config.json
+        en-us:
+          template: config/ui.hikers-book.json
+          path: /usr/share/nginx/html/en-US/assets/config
+          file: config.json
+        sk:
+          template: config/ui.hikers-book.json
+          path: /usr/share/nginx/html/sk/assets/config
+          file: config.json
+
+mongodb:
+  authentication-api:
+    service: mongodb-authentication-api
+    image: mongo
+  stages-api:
+    service: mongodb-stages-api
+    image: mongo
+  trips-api:
+    service: mongodb-trips-api
+    image: mongo
+
+redis:
+  service: redis
+  port: 6379

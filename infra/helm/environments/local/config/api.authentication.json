@@ -1,0 +1,46 @@
+{
+  "frontend": {
+    "url": "https://{{ HB_VAR_URL_UI_HIKERS_BOOK }}"
+  },
+  "auth": {
+    "facebook": {
+      "clientID": "{{ HB_SECRET_FACEBOOK_CLIENT_ID }}",
+      "clientSecret": "{{ HB_SECRET_FACEBOOK_CLIENT_SECRET }}",
+      "callbackURL": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/auth/auth/provider/facebook/callback"
+    },
+    "github": {
+      "clientID": "{{ HB_SECRET_GITHUB_CLIENT_ID }}",
+      "clientSecret": "{{ HB_SECRET_GITHUB_CLIENT_SECRET }}",
+      "callbackURL": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/auth/auth/provider/github/callback"
+    },
+    "google": {
+      "clientID": "{{ HB_SECRET_GOOGLE_CLIENT_ID }}",
+      "clientSecret": "{{ HB_SECRET_GOOGLE_CLIENT_SECRET }}",
+      "callbackURL": "https://{{ HB_VAR_URL_API_HIKERS_BOOK }}/auth/auth/provider/google/callback"
+    }
+  },
+  "jwt": {
+    "expiresIn": "1h",
+    "expiresInRefresh": "1w"
+  },
+  "mongodb": {
+    "url": "mongodb://{{ HB_VAR_SERVICE_MONGO_AUTHENTICATION }}:27017/auth",
+    "connectionOptions": {}
+  },
+  "nodemailer": {
+    "service": "iCloud",
+    "from": "{{ HB_SECRET_EMAIL_USER }}",
+    "auth": {
+      "user": "{{ HB_SECRET_EMAIL_USER }}",
+      "pass": "{{ HB_SECRET_EMAIL_PASS }}"
+    }
+  },
+  "redis": {
+    "default": {
+      "host": "{{ HB_VAR_SERVICE_REDIS }}",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
+  }
+}

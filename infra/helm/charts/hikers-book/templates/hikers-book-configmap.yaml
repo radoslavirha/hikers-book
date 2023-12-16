@@ -1,0 +1,37 @@
+{{- range $appName, $app := .Values.apps -}}
+
+{{- if $app.configMap }}
+{{- /* Regular configMaps like for keys for JWT */}}
+{{- range $configMapKey, $configMap := $app.configMap -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $configMapKey }}
+{{- if $configMap.data }}
+data:
+  {{ range $filename, $file := $configMap.data }}
+  {{ $filename }}: |-
+    {{- $.Files.Get $file | nindent 6 -}}
+  {{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{- if (($app.jinja2).templates) }}
+{{- /*
+ConfigMaps which will be processed by Jinja2 init container
+E.g. templated config files which needs variable substitution
+*/}}
+{{- range $templateName, $template := $app.jinja2.templates -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jinja2-{{ $appName }}-{{ $templateName }}-configmap
+data:
+  {{ $template.file }}: |-
+    {{- $.Files.Get $template.template | nindent 6 }}
+{{ end }}
+{{ end }}
+{{ end }}

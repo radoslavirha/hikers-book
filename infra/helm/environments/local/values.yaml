@@ -1,0 +1,16 @@
+apps:
+  authentication-api:
+    replicas: 1
+
+  graphql-api:
+    replicas: 1
+
+  stages-api:
+    replicas: 1
+
+  trips-api:
+    replicas: 1
+
+  hikers-book-ui:
+    replicas: 1
+      

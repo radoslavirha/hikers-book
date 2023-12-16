@@ -1,0 +1,17 @@
+{
+  "apis": {
+    "hikersBook": {
+      "authenticationAPI": "http://{{ HB_VAR_SERVICE_API_AUTHENTICATION }}:4000",
+      "stagesAPI": "http://{{ HB_VAR_SERVICE_API_STAGES }}:4000",
+      "tripsAPI": "http://{{ HB_VAR_SERVICE_API_TRIPS }}:4000"
+    }
+  },
+  "redis": {
+    "default": {
+      "host": "{{ HB_VAR_SERVICE_REDIS }}",
+      "port": 6379,
+      "username": "",
+      "password": ""
+    }
+  }
+}

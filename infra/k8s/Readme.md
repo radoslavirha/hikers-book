@@ -4,8 +4,8 @@
 
 - Docker
 - Kubernetes
+- Helm
 - Ingress-Nginx
-- Skaffold
 - modified `/etc/hosts`
 - label your node with `size=large`
 
@@ -25,9 +25,9 @@ kubectl apply -f https://gist.githubusercontent.com/t83714/51440e2ed212991655959
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
-## Install Skaffold
+## Install Helm
 
-[Visit web](https://skaffold.dev)
+[Visit web](https://helm.sh/docs/intro/install/)
 
 ## Modify /etc/hosts
 
@@ -52,12 +52,6 @@ Then apply label
 kubectl label nodes docker-desktop size=large
 ```
 
-## Create folder for PersistentVolume
-
-e.g. `/Users/radoslavirha/dev/irha/tmp/mongodb` or change `PersistentVolume.local.path` in `mongodb.yaml`
-
-Set permissions on folder!
-
 ## Run cluster
 
 1. Build containers
@@ -67,15 +61,30 @@ Set permissions on folder!
    pnpm run docker:build
    ```
 
-2. Start cluster (from root of this repo)
+2. Start
 
    ```sh
-   skaffold dev
+   cd infra/helm
+   cp -r environments/local/config charts/hikers-book/
+   cd charts/hikers-book/
+   mkdir keys
+   openssl genrsa -out keys/access.pem 2048 && openssl rsa -in keys/access.pem -outform PEM -pubout -out keys/access.pem.pub
+   openssl genrsa -out keys/refresh.pem 2048 && openssl rsa -in keys/refresh.pem -outform PEM -pubout -out keys/refresh.pem.pub
+   cd ../..
+   helm install hikers-book charts/hikers-book -f environments/local/values.yaml -f environments/local/variables.yaml -f environments/local/secrets.yaml
    ```
 
 3. [Visit hikers-book.dev.info](https://hikers-book.dev.info)
 
+4. Stop
+
+```sh
+helm uninstall hikers-book
+```
+
 ## TODO
 
 - MongoDB runs without auth.
-- create config templates and substitute from something like variables.yaml & secret values
+- solve copying environment configs and keys to helm chart directory
+- Make ingress templates dynamic (now we have hardcoded services, url,...)
+- JWT expire to Variables

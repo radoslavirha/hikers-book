@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-srv-api
+  name: ingress-api-service
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-issuer
     kubernetes.io/ingress.class: nginx
@@ -16,28 +16,28 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: authentication-srv
+                name: authentication-api-service
                 port:
                   number: 4000
           - path: /graphql(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: graphql-srv
+                name: graphql-api-service
                 port:
                   number: 4000
           - path: /stages(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: stages-srv
+                name: stages-api-service
                 port:
                   number: 4000
           - path: /trips(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: trips-srv
+                name: trips-api-service
                 port:
                   number: 4000
   tls:

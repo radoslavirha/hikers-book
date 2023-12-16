@@ -1,0 +1,9 @@
+HB_VAR_URL_UI_HIKERS_BOOK: hikers-book.dev.info
+HB_VAR_URL_API_HIKERS_BOOK: api.hikers-book.dev.info
+HB_VAR_SERVICE_API_AUTHENTICATION: authentication-api-service
+HB_VAR_SERVICE_API_STAGES: stages-api-service
+HB_VAR_SERVICE_API_TRIPS: trips-api-service
+HB_VAR_SERVICE_MONGO_AUTHENTICATION: mongodb-authentication-api-service
+HB_VAR_SERVICE_MONGO_STAGES: mongodb-stages-api-service
+HB_VAR_SERVICE_MONGO_TRIPS: mongodb-trips-api-service
+HB_VAR_SERVICE_REDIS: redis-service

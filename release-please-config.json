@@ -9,6 +9,11 @@
   },
   "extra-files": [
     {
+      "type": "yaml",
+      "path": "infra/helm/charts/hikers-book/Chart.yaml",
+      "jsonpath": "$.appVersion"
+    },
+    {
       "type": "json",
       "path": "api/authentication/package.json",
       "jsonpath": "$.version"
