@@ -10,7 +10,7 @@ const ajv = new Ajv({ allErrors: true });
 export class ConfigFileLoader<T> {
   readonly _config: T;
 
-  public get config() {
+  public get config(): T {
     return Object.assign({}, this._config);
   }
 

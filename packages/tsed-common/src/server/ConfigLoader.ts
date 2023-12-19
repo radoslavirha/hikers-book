@@ -1,5 +1,7 @@
 import { Type } from '@tsed/core';
 import { SwaggerSettings } from '@tsed/swagger';
+import { SwaggerUIOptionsConfigModel } from '../models';
+import { SwaggerDocConfig } from '../types';
 import { ConfigLoaderOptions } from '../types/ConfigLoaderOptions';
 import { ConfigFileLoader } from './ConfigFileLoader';
 import { ConfigSwagger } from './ConfigSwagger';
@@ -12,18 +14,18 @@ export class ConfigLoder<T> {
   readonly port: number;
   readonly configModel: Type<T>;
 
-  readonly _api: { service: string; version: string };
+  readonly _api: { service: string; version: string; description?: string };
   readonly _config: T;
   readonly _envs: ENVS;
   readonly _packageJson: PackageJson;
   readonly _server: Partial<TsED.Configuration>;
-  readonly _swagger: SwaggerSettings[];
+  #swagger?: SwaggerSettings[];
 
   public get api() {
     return Object.assign({}, this._api);
   }
 
-  public get config() {
+  public get config(): T {
     return Object.assign({}, this._config);
   }
 
@@ -40,7 +42,7 @@ export class ConfigLoder<T> {
   }
 
   public get swagger() {
-    return this._swagger;
+    return this.#swagger;
   }
 
   public get isProduction() {
@@ -60,7 +62,8 @@ export class ConfigLoder<T> {
 
     this._api = {
       service: options.service,
-      version: this.packageJson.version
+      version: this.packageJson.version,
+      description: this.packageJson.description
     };
 
     this._config = new ConfigFileLoader(this.configModel).config;
@@ -71,13 +74,20 @@ export class ConfigLoder<T> {
       httpPort: parseInt(this.envs.PORT || String(this.port)),
       envs: this.envs
     };
+  }
 
-    // istanbul ignore next
-    this._swagger = new ConfigSwagger({
-      title: options.service,
-      version: this.packageJson.version,
-      description: this.packageJson.description ?? '',
-      swagger: options.swagger ?? []
+  /**
+   * Called only from index.ts building server, result won't be in configservice
+   */
+  public buildSwagger(documents: SwaggerDocConfig[], swaggerUIOptions: SwaggerUIOptionsConfigModel): SwaggerSettings[] {
+    this.#swagger = new ConfigSwagger({
+      title: this._api.service,
+      version: this._api.version,
+      description: this.packageJson.description,
+      documents,
+      swaggerUIOptions
     }).settings;
+
+    return this.#swagger;
   }
 }

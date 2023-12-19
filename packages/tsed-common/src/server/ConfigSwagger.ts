@@ -12,18 +12,10 @@ export class ConfigSwagger {
   }
 
   constructor(options: ConfigSwaggerOptions) {
-    this._settings = options.swagger.map((docsVersion) =>
-      this.generateSettings(options.title, options.version, options.description, docsVersion)
-    );
+    this._settings = options.documents.map((docsVersion) => this.generateSettings(options, docsVersion));
   }
 
-  // eslint-disable-next-line max-params
-  private generateSettings(
-    title: string,
-    version: string,
-    description: string,
-    settings: SwaggerDocConfig
-  ): SwaggerSettings {
+  private generateSettings(options: ConfigSwaggerOptions, settings: SwaggerDocConfig): SwaggerSettings {
     return {
       path: `/${settings.doc}/docs`,
       doc: settings.doc,
@@ -31,14 +23,15 @@ export class ConfigSwagger {
       outFile: settings.outFile,
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
-          title: `${title} - ${settings.doc}`,
-          version,
-          description
+          title: `${options.title} - ${settings.doc}`,
+          version: options.version,
+          description: options.description
         },
         components: {
           securitySchemes: this.getSecuritySchemes(settings.security)
         }
-      }
+      },
+      options: options.swaggerUIOptions
     };
   }
 

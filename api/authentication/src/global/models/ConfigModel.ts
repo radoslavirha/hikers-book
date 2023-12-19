@@ -1,5 +1,5 @@
-import { MongoDBConfigModel, RedisConfigModel } from '@hikers-book/tsed-common/models';
-import { Required } from '@tsed/schema';
+import { MongoDBConfigModel, RedisConfigModel, SwaggerConfigModel } from '@hikers-book/tsed-common/models';
+import { Property, Required } from '@tsed/schema';
 import { AuthConfigModel } from './config/AuthModel';
 import { FrontendConfigModel } from './config/FrontendConfigModel';
 import { JWTConfigModel } from './config/JWTConfigModel';
@@ -23,4 +23,7 @@ export class ConfigModel {
 
   @Required()
   redis!: RedisConfigModel;
+
+  @Property(SwaggerConfigModel)
+  swagger?: SwaggerConfigModel;
 }

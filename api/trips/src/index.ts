@@ -1,6 +1,7 @@
 import { ConfigLoder } from '@hikers-book/tsed-common/server';
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
+import { SwaggerSettings } from '@tsed/swagger';
 import { Server } from './Server';
 import { ConfigService } from './global/services/ConfigService';
 
@@ -8,10 +9,16 @@ async function bootstrap() {
   try {
     const config = new ConfigLoder(ConfigService.options);
 
+    let swagger: SwaggerSettings[] = [];
+
+    if (config.config.swagger?.enabled) {
+      swagger = config.buildSwagger(ConfigService.swagger, config.config.swagger.swaggerUIOptions);
+    }
+
     const configuration: Partial<TsED.Configuration> = {
       ...config.server,
       api: config.api,
-      swagger: config.swagger,
+      swagger,
       mongoose: [
         {
           id: 'trips',

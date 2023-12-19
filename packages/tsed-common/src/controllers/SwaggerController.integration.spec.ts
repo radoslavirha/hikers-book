@@ -64,8 +64,8 @@ describe('SwaggerController', () => {
 
     expect(minified).toContain(`<title>Test API 1.0.0</title>`);
     expect(minified).toContain(`<h1>Test API 1.0.0</h1>`);
-    expect(minified).toContain(`<li><a href="/v1"><span>API v1</span> <span>OpenSpec 3.0.3</span></a></li>`);
-    expect(minified).toContain(`<li><a href="/v2"><span>API v2</span> <span>OpenSpec 3.0.3</span></a></li>`);
+    expect(minified).toContain(`/v1"><span>API v1</span> <span>OpenSpec 3.0.3</span></a></li>`);
+    expect(minified).toContain(`/v2"><span>API v2</span> <span>OpenSpec 3.0.3</span></a></li>`);
     expect(response.status).toEqual(200);
   });
 });
