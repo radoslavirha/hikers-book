@@ -6,14 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { APIAuthenticationAuthEmailSignUpRequest } from '../../models/api-authentication-auth-email-sign-up-request';
 import { APIAuthenticationAuthTokensResponse } from '../../models/api-authentication-auth-tokens-response';
 
 export interface AuthProviderEmailControllerSignUp$Params {
+      body: APIAuthenticationAuthEmailSignUpRequest
 }
 
-export function authProviderEmailControllerSignUp(http: HttpClient, rootUrl: string, params?: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
+export function authProviderEmailControllerSignUp(http: HttpClient, rootUrl: string, params: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
   const rb = new RequestBuilder(rootUrl, authProviderEmailControllerSignUp.PATH, 'post');
   if (params) {
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(

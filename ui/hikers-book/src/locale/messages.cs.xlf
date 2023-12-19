@@ -51,7 +51,7 @@
         <target state="new">Don&apos;t have an account?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <note priority="1" from="description">Sign up question from sign in form</note>
         <note priority="1" from="meaning">Sign up question from sign in form</note>
@@ -61,7 +61,7 @@
         <target state="new">Sign up</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <note priority="1" from="description">Sign up link from sign in form</note>
         <note priority="1" from="meaning">Sign up link from sign in form</note>
@@ -101,7 +101,7 @@
         <target state="new"> GitHub </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
-          <context context-type="linenumber">1,3</context>
+          <context context-type="linenumber">7,9</context>
         </context-group>
         <note priority="1" from="description">Used for sign in and sign up</note>
         <note priority="1" from="meaning">Auth with GitHub button</note>
@@ -111,7 +111,7 @@
         <target state="new"> Google </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
-          <context context-type="linenumber">4,6</context>
+          <context context-type="linenumber">16,18</context>
         </context-group>
         <note priority="1" from="description">Used for sign in and sign up</note>
         <note priority="1" from="meaning">Auth with Google button</note>
@@ -121,10 +121,40 @@
         <target state="new"> Facebook </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/social/social.component.html</context>
-          <context context-type="linenumber">12,14</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
         <note priority="1" from="description">Used for sign in and sign up</note>
         <note priority="1" from="meaning">Auth with Facebook button</note>
+      </trans-unit>
+      <trans-unit id="5082877259540964185" datatype="html">
+        <source>Email</source>
+        <target state="new">Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Sign in form email</note>
+        <note priority="1" from="meaning">Email</note>
+      </trans-unit>
+      <trans-unit id="4294250814078631288" datatype="html">
+        <source>Password</source>
+        <target state="new">Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">Sign in form password</note>
+        <note priority="1" from="meaning">Password</note>
+      </trans-unit>
+      <trans-unit id="88457925499181174" datatype="html">
+        <source> Sign in </source>
+        <target state="new"> Sign in </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+        <note priority="1" from="description">Sign in button</note>
+        <note priority="1" from="meaning">Sign in</note>
       </trans-unit>
     </body>
   </file>

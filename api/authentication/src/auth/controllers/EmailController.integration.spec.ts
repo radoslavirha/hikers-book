@@ -3,12 +3,7 @@ import moment from 'moment';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { EmailVerifyTokenHandler } from '../handlers';
-import {
-  EmailSendVerificationRequest,
-  EmailSignInRequest,
-  EmailSignUpRequest,
-  EmailVerifyTokenRequest
-} from '../models';
+import { EmailSendVerificationRequest, EmailSignUpRequest, EmailVerifyTokenRequest } from '../models';
 import { EmailService } from '../services/EmailService';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 import { RefreshTokenService } from '../services/RefreshTokenService';
@@ -331,26 +326,24 @@ describe('AuthProviderEmailController', () => {
   });
 
   describe('GET /auth/provider/email/sign-in', () => {
-    const requestStub: EmailSignInRequest = {
-      email: 'tester@domain.com',
-      password: '8^^3286UhpB$9m'
-    };
+    const email = 'tester@domain.com',
+      password = '8^^3286UhpB$9m';
 
     it('Should call authService.emailSignIn()', async () => {
       const spy = jest.spyOn(authService, 'emailSignIn').mockImplementation();
-      const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
+      const base64 = Buffer.from(`${email}:${password}`).toString('base64');
 
       expect.assertions(1);
 
       await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
 
-      expect(spy).toHaveBeenCalledWith(requestStub);
+      expect(spy).toHaveBeenCalledWith(email, password);
     });
 
     it('Should call authService.setRefreshCookie()', async () => {
       jest.spyOn(authService, 'emailSignIn').mockResolvedValue(TokensStub);
       const spy = jest.spyOn(refreshTokenService, 'setRefreshCookie').mockImplementation();
-      const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
+      const base64 = Buffer.from(`${email}:${password}`).toString('base64');
 
       expect.assertions(1);
 

@@ -40,7 +40,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerSendVerification$Response(params?: AuthProviderEmailControllerSendVerification$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  authProviderEmailControllerSendVerification$Response(params: AuthProviderEmailControllerSendVerification$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
     return authProviderEmailControllerSendVerification(this.http, this.rootUrl, params, context);
   }
@@ -53,7 +53,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerSendVerification(params?: AuthProviderEmailControllerSendVerification$Params, context?: HttpContext): Observable<{
+  authProviderEmailControllerSendVerification(params: AuthProviderEmailControllerSendVerification$Params, context?: HttpContext): Observable<{
 }> {
     return this.authProviderEmailControllerSendVerification$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -73,7 +73,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerVerifyToken$Response(params?: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  authProviderEmailControllerVerifyToken$Response(params: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
     return authProviderEmailControllerVerifyToken(this.http, this.rootUrl, params, context);
   }
@@ -86,7 +86,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerVerifyToken(params?: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<{
+  authProviderEmailControllerVerifyToken(params: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<{
 }> {
     return this.authProviderEmailControllerVerifyToken$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -104,9 +104,9 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `authProviderEmailControllerSignUp()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerSignUp$Response(params?: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
+  authProviderEmailControllerSignUp$Response(params: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
     return authProviderEmailControllerSignUp(this.http, this.rootUrl, params, context);
   }
 
@@ -116,9 +116,9 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `authProviderEmailControllerSignUp$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  authProviderEmailControllerSignUp(params?: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<APIAuthenticationAuthTokensResponse> {
+  authProviderEmailControllerSignUp(params: AuthProviderEmailControllerSignUp$Params, context?: HttpContext): Observable<APIAuthenticationAuthTokensResponse> {
     return this.authProviderEmailControllerSignUp$Response(params, context).pipe(
       map((r: StrictHttpResponse<APIAuthenticationAuthTokensResponse>): APIAuthenticationAuthTokensResponse => r.body)
     );
@@ -135,7 +135,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method doesn't expect any request body.
    */
-  authProviderEmailControllerSignIn$Response(params?: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
+  authProviderEmailControllerSignIn$Response(params: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
     return authProviderEmailControllerSignIn(this.http, this.rootUrl, params, context);
   }
 
@@ -147,7 +147,7 @@ export class APIAuthenticationAuthAuthProviderEmailControllerService extends API
    *
    * This method doesn't expect any request body.
    */
-  authProviderEmailControllerSignIn(params?: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<APIAuthenticationAuthTokensResponse> {
+  authProviderEmailControllerSignIn(params: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<APIAuthenticationAuthTokensResponse> {
     return this.authProviderEmailControllerSignIn$Response(params, context).pipe(
       map((r: StrictHttpResponse<APIAuthenticationAuthTokensResponse>): APIAuthenticationAuthTokensResponse => r.body)
     );

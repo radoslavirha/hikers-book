@@ -2,12 +2,12 @@ import { SwaggerDocsVersion, SwaggerSecurityScheme } from '@hikers-book/tsed-com
 import { Controller } from '@tsed/di';
 import { BadRequest, Forbidden, NotFound, UnprocessableEntity } from '@tsed/exceptions';
 import { Authenticate } from '@tsed/passport';
-import { BodyParams } from '@tsed/platform-params';
-import { Description, Get, Post, Returns, Security } from '@tsed/schema';
+import { BodyParams, HeaderParams } from '@tsed/platform-params';
+import { Description, Example, Get, Post, Required, Returns, Security } from '@tsed/schema';
 import { Docs } from '@tsed/swagger';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { EmailSendVerificationHandler, EmailVerifyTokenHandler } from '../handlers';
-import { EmailSendVerificationRequest, EmailVerifyTokenRequest } from '../models';
+import { EmailSendVerificationRequest, EmailSignUpRequest, EmailVerifyTokenRequest } from '../models';
 import { TokensResponse } from '../models/auth/TokensResponse';
 
 @Description('Email provider controllers.')
@@ -24,7 +24,7 @@ export class AuthProviderEmailController {
   @Returns(200)
   @Returns(CredentialsAlreadyExist.STATUS, CredentialsAlreadyExist)
   @Returns(Forbidden.STATUS, Forbidden)
-  async sendVerification(@BodyParams() body: EmailSendVerificationRequest): Promise<void> {
+  async sendVerification(@Required() @BodyParams() body: EmailSendVerificationRequest): Promise<void> {
     return this.sendVerificationHandler.execute(body);
   }
 
@@ -33,7 +33,7 @@ export class AuthProviderEmailController {
   @Returns(200)
   @Returns(NotFound.STATUS, NotFound)
   @Returns(Forbidden.STATUS, Forbidden)
-  async verifyToken(@BodyParams() body: EmailVerifyTokenRequest): Promise<void> {
+  async verifyToken(@Required() @BodyParams() body: EmailVerifyTokenRequest): Promise<void> {
     return this.verifyTokenHandler.execute(body);
   }
 
@@ -47,7 +47,8 @@ export class AuthProviderEmailController {
   @Returns(UnprocessableEntity.STATUS, UnprocessableEntity)
   @Returns(CredentialsAlreadyExist.STATUS, CredentialsAlreadyExist)
   // istanbul ignore next
-  async signUp() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async signUp(@Required() @BodyParams() body: EmailSignUpRequest) {}
 
   @Get('/sign-in')
   @Description('Sign in user with email and password.')
@@ -56,5 +57,6 @@ export class AuthProviderEmailController {
   @Returns(200, TokensResponse)
   @Returns(Forbidden.STATUS, Forbidden)
   // istanbul ignore next
-  async signIn() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async signIn(@Required() @Example('Basic base64') @HeaderParams('Authorization') authorization: string) {}
 }

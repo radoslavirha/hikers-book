@@ -9,11 +9,13 @@ import { RequestBuilder } from '../../request-builder';
 import { APIAuthenticationAuthTokensResponse } from '../../models/api-authentication-auth-tokens-response';
 
 export interface AuthProviderEmailControllerSignIn$Params {
+  Authorization: string;
 }
 
-export function authProviderEmailControllerSignIn(http: HttpClient, rootUrl: string, params?: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
+export function authProviderEmailControllerSignIn(http: HttpClient, rootUrl: string, params: AuthProviderEmailControllerSignIn$Params, context?: HttpContext): Observable<StrictHttpResponse<APIAuthenticationAuthTokensResponse>> {
   const rb = new RequestBuilder(rootUrl, authProviderEmailControllerSignIn.PATH, 'get');
   if (params) {
+    rb.header('Authorization', params.Authorization, {});
   }
 
   return http.request(

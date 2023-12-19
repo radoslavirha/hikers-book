@@ -9,10 +9,10 @@ import { RequestBuilder } from '../../request-builder';
 import { APIAuthenticationAuthEmailVerifyTokenRequest } from '../../models/api-authentication-auth-email-verify-token-request';
 
 export interface AuthProviderEmailControllerVerifyToken$Params {
-      body?: APIAuthenticationAuthEmailVerifyTokenRequest
+      body: APIAuthenticationAuthEmailVerifyTokenRequest
 }
 
-export function authProviderEmailControllerVerifyToken(http: HttpClient, rootUrl: string, params?: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function authProviderEmailControllerVerifyToken(http: HttpClient, rootUrl: string, params: AuthProviderEmailControllerVerifyToken$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
   const rb = new RequestBuilder(rootUrl, authProviderEmailControllerVerifyToken.PATH, 'post');
   if (params) {

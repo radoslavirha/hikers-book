@@ -2,7 +2,7 @@ import { CommonUtils } from '@hikers-book/tsed-common/utils';
 import { Req } from '@tsed/common';
 import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
 import { BasicStrategy, BasicStrategyOptions } from 'passport-http';
-import { EmailSignInRequest, TokensResponse } from '../models';
+import { TokensResponse } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 import { RefreshTokenService } from '../services/RefreshTokenService';
 
@@ -23,7 +23,7 @@ export class EmailSignInProtocol implements OnVerify, OnInstall {
   }
 
   async $onVerify(@Req() request: Req, @Args() [email, password]: [string, string]): Promise<TokensResponse> {
-    const tokens = await this.authService.emailSignIn(CommonUtils.buildModel(EmailSignInRequest, { email, password }));
+    const tokens = await this.authService.emailSignIn(email, password);
     this.refreshTokenService.setRefreshCookie(request, tokens.refresh);
     return CommonUtils.buildModel(TokensResponse, tokens);
   }

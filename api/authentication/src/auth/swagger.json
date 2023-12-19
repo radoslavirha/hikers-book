@@ -352,6 +352,55 @@
           "message",
           "status"
         ]
+      },
+      "EmailSignUpRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@email.com",
+            "description": "Email used for registration.",
+            "title": "email",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "example": "8^^3286UhpB$9m",
+            "description": "User's password.",
+            "title": "password",
+            "minLength": 1
+          },
+          "password_confirm": {
+            "type": "string",
+            "example": "8^^3286UhpB$9m",
+            "description": "Confirm password.",
+            "title": "password_confirm",
+            "minLength": 1
+          },
+          "token": {
+            "type": "string",
+            "example": "verification-token",
+            "description": "Verification token sent to email.",
+            "title": "token",
+            "minLength": 1
+          },
+          "full_name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "User's full name.",
+            "title": "full_name",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "email",
+          "password",
+          "password_confirm",
+          "token",
+          "full_name"
+        ]
       }
     }
   },
@@ -482,7 +531,7 @@
         "description": "Sends verification email to the user. Then user can sign up.",
         "parameters": [],
         "requestBody": {
-          "required": false,
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -534,7 +583,7 @@
         "description": "Verify registration token sent to email.",
         "parameters": [],
         "requestBody": {
-          "required": false,
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -605,6 +654,16 @@
         },
         "description": "Sign up user with email and password.",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailSignUpRequest"
+              }
+            }
+          }
+        },
         "tags": [
           "AuthProviderEmailController"
         ],
@@ -641,7 +700,17 @@
           }
         ],
         "description": "Sign in user with email and password.",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Basic base64"
+            }
+          }
+        ],
         "tags": [
           "AuthProviderEmailController"
         ],

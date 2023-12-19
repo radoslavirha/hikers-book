@@ -9,7 +9,7 @@ import { ConfigService } from '../../global/services/ConfigService';
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
+import { Credentials, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
 import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
@@ -62,14 +62,14 @@ export class ProtocolAuthService {
     }
   }
 
-  public async emailSignIn(request: EmailSignInRequest): Promise<TokensPair> {
-    const credentials = await this.credentials.findByEmailAndProvider(request.email, AuthProviderEnum.EMAIL);
+  public async emailSignIn(email: string, password: string): Promise<TokensPair> {
+    const credentials = await this.credentials.findByEmailAndProvider(email, AuthProviderEnum.EMAIL);
 
     if (!credentials) {
       throw new Forbidden('Account does not exist!');
     }
 
-    if (!(await CryptographyUtils.argon2VerifyPassword(credentials.password as string, request.password))) {
+    if (!(await CryptographyUtils.argon2VerifyPassword(credentials.password as string, password))) {
       throw new Forbidden('Invalid password!');
     }
 

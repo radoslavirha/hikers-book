@@ -2,7 +2,7 @@ import { PlatformTest } from '@tsed/common';
 import SuperTest from 'supertest';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { EmailVerifyTokenHandler } from '../handlers';
-import { CookieName, EmailSignInRequest, EmailSignUpRequest } from '../models';
+import { CookieName, EmailSignUpRequest } from '../models';
 import { ProtocolAuthService } from '../services/ProtocolAuthService';
 import { TokensStub } from '../test/stubs';
 import { AuthProviderEmailController } from './EmailController';
@@ -60,7 +60,7 @@ describe('AuthProviderEmailController - production', () => {
   });
 
   describe('GET /auth/provider/email/sign-in', () => {
-    const requestStub: EmailSignInRequest = {
+    const requestStub = {
       email: 'tester@domain.com',
       password: '8^^3286UhpB$9m'
     };

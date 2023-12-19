@@ -7,7 +7,7 @@ import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiCo
 import { AuthProviderEnum } from '../enums';
 import { CredentialsAlreadyExist } from '../exceptions';
 import { CredentialsMapper } from '../mappers/CredentialsMapper';
-import { Credentials, EmailSignInRequest, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
+import { Credentials, EmailSignUpRequest, RefreshToken, TokensPair, User } from '../models';
 import {
   CredentialsStub,
   CredentialsStubPopulated,
@@ -206,10 +206,8 @@ describe('ProtocolAuthService', () => {
   });
 
   describe('emailSignIn', () => {
-    const request: EmailSignInRequest = {
-      email: 'tester@domain.com',
-      password: '8^^3286UhpB$9m'
-    };
+    const email = 'tester@domain.com',
+      password = '8^^3286UhpB$9m';
 
     let credentialsFindByEmailAndProviderSpy: jest.SpyInstance;
     let cryptoSpy: jest.SpyInstance;
@@ -227,23 +225,23 @@ describe('ProtocolAuthService', () => {
     it('Should call credentials.findByEmailAndProvider()', async () => {
       expect.assertions(1);
 
-      await service.emailSignIn(request);
+      await service.emailSignIn(email, password);
 
-      expect(credentialsFindByEmailAndProviderSpy).toHaveBeenCalledWith(request.email, AuthProviderEnum.EMAIL);
+      expect(credentialsFindByEmailAndProviderSpy).toHaveBeenCalledWith(email, AuthProviderEnum.EMAIL);
     });
 
     it('Should call CryptographyUtils.argon2VerifyPassword()', async () => {
       expect.assertions(1);
 
-      await service.emailSignIn(request);
+      await service.emailSignIn(email, password);
 
-      expect(cryptoSpy).toHaveBeenCalledWith(CredentialsStubPopulated.password, request.password);
+      expect(cryptoSpy).toHaveBeenCalledWith(CredentialsStubPopulated.password, password);
     });
 
     it('Should call createJWT()', async () => {
       expect.assertions(1);
 
-      await service.emailSignIn(request);
+      await service.emailSignIn(email, password);
 
       expect(jwtSpy).toHaveBeenCalledWith(CredentialsStubPopulated);
     });
@@ -254,7 +252,7 @@ describe('ProtocolAuthService', () => {
       expect.assertions(3);
 
       try {
-        await service.emailSignIn(request);
+        await service.emailSignIn(email, password);
       } catch (error) {
         expect(error).toBeInstanceOf(Forbidden);
         expect((error as Forbidden).status).toBe(403);
@@ -268,7 +266,7 @@ describe('ProtocolAuthService', () => {
       expect.assertions(3);
 
       try {
-        await service.emailSignIn(request);
+        await service.emailSignIn(email, password);
       } catch (error) {
         expect(error).toBeInstanceOf(Forbidden);
         expect((error as Forbidden).status).toBe(403);
@@ -279,7 +277,7 @@ describe('ProtocolAuthService', () => {
     it('Should return access and refresh tokens', async () => {
       expect.assertions(1);
 
-      const response = await service.emailSignIn(request);
+      const response = await service.emailSignIn(email, password);
 
       expect(response).toEqual(TokensStub);
     });
