@@ -66,22 +66,22 @@
         <note priority="1" from="description">Sign up link from sign in form</note>
         <note priority="1" from="meaning">Sign up link from sign in form</note>
       </trans-unit>
-      <trans-unit id="6830037048705001084" datatype="html">
+      <trans-unit id="2876824094601257842" datatype="html">
         <source>Sign up</source>
         <target state="new">Sign up</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
-        <note priority="1" from="description">Sign in form name</note>
-        <note priority="1" from="meaning">Sign in form name</note>
+        <note priority="1" from="description">Invitation form name</note>
+        <note priority="1" from="meaning">Invitation form name</note>
       </trans-unit>
       <trans-unit id="4750640802274185473" datatype="html">
         <source>Already have an account?</source>
         <target state="new">Already have an account?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">Ask user if has account yet</note>
         <note priority="1" from="meaning">Sign in question from sign up form</note>
@@ -91,7 +91,7 @@
         <target state="new">Sign in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <note priority="1" from="description">Sign in link from sign up form</note>
         <note priority="1" from="meaning">Sign in link from sign up form</note>
@@ -130,20 +130,32 @@
         <source>Email</source>
         <target state="new">Email</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
-        <note priority="1" from="description">Sign in form email</note>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Invitation form email</note>
         <note priority="1" from="meaning">Email</note>
       </trans-unit>
       <trans-unit id="4294250814078631288" datatype="html">
         <source>Password</source>
         <target state="new">Password</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
-        <note priority="1" from="description">Sign in form password</note>
+        <note priority="1" from="description">Invitation form password</note>
         <note priority="1" from="meaning">Password</note>
       </trans-unit>
       <trans-unit id="88457925499181174" datatype="html">
@@ -155,6 +167,50 @@
         </context-group>
         <note priority="1" from="description">Sign in button</note>
         <note priority="1" from="meaning">Sign in</note>
+      </trans-unit>
+      <trans-unit id="2988101152664015231" datatype="html">
+        <source> Sign up </source>
+        <target state="new"> Sign up </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
+          <context context-type="linenumber">37,39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">22,24</context>
+        </context-group>
+        <note priority="1" from="description">Sign up button</note>
+        <note priority="1" from="meaning">Sign up</note>
+      </trans-unit>
+      <trans-unit id="656563356921065035" datatype="html">
+        <source>Sign up</source>
+        <target state="new">Sign up</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">Sign up form name</note>
+        <note priority="1" from="meaning">Sign up form name</note>
+      </trans-unit>
+      <trans-unit id="6457861066531554555" datatype="html">
+        <source>Full name</source>
+        <target state="new">Full name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <note priority="1" from="description">Invitation form full name</note>
+        <note priority="1" from="meaning">Full name</note>
+      </trans-unit>
+      <trans-unit id="6456073730784541280" datatype="html">
+        <source>Password confirm</source>
+        <target state="new">Password confirm</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">Invitation form password confirm</note>
+        <note priority="1" from="meaning">Password confirm</note>
       </trans-unit>
     </body>
   </file>

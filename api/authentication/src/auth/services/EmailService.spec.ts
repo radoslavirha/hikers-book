@@ -34,7 +34,7 @@ describe('EmailService', () => {
 
       expect(result).toEqual({});
       expect(platformViewsSpy).toHaveBeenCalledWith('email/verify', {
-        URL: `${config.config.frontend.url}/auth/sign-up/email?token=token&email=email@domain.com`
+        URL: `${config.config.frontend.url}/auth/invitation?token=token&email=email@domain.com`
       });
       expect(spy).toHaveBeenCalledWith({
         to: 'email@domain.com',

@@ -13,12 +13,20 @@ import { ConfigService } from '../../core/services/config.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { CallbackComponent } from './callback/callback.component';
 import { ErrorComponent } from './error/error.component';
+import { InvitationComponent } from './invitation/invitation.component';
 import { SignInComponent } from './signin/signin.component';
 import { SignUpComponent } from './signup/signup.component';
 import { SocialComponent } from './social/social.component';
 
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent, CallbackComponent, ErrorComponent, SocialComponent],
+  declarations: [
+    SignInComponent,
+    SignUpComponent,
+    InvitationComponent,
+    CallbackComponent,
+    ErrorComponent,
+    SocialComponent
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,
