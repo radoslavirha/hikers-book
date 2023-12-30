@@ -131,7 +131,7 @@ describe('MongoMapper', () => {
   it('getModelValue - POST with value', async () => {
     const model = new TestModel();
     model.label = 'tester';
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const spy = jest.spyOn(mapper, 'getModelDefault');
 
     expect.assertions(2);
@@ -145,7 +145,7 @@ describe('MongoMapper', () => {
 
   it('getModelValue - POST with undefined', async () => {
     const model = new TestModel();
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const spy = jest.spyOn(mapper, 'getModelDefault').mockReturnValue('mocked');
 
     expect.assertions(2);
@@ -160,7 +160,7 @@ describe('MongoMapper', () => {
   it('getModelValue - PATCH with value', async () => {
     const model = new TestModel();
     model.label = 'tester';
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const spy = jest.spyOn(mapper, 'getModelDefault');
 
     expect.assertions(2);
@@ -174,7 +174,7 @@ describe('MongoMapper', () => {
 
   it('getModelValue - PATCH with undefined', async () => {
     const model = new TestModel();
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const spy = jest.spyOn(mapper, 'getModelDefault');
 
     expect.assertions(2);
@@ -191,7 +191,7 @@ describe('MongoMapper', () => {
 
     expect.assertions(1);
 
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const response = mapper.getModelDefault(model, 'label');
 
     expect(response).toEqual('label');
@@ -202,7 +202,7 @@ describe('MongoMapper', () => {
 
     expect.assertions(1);
 
-    // @ts-expect-error private method
+    // @ts-expect-error protected method
     const response = mapper.getModelDefault(model, 'child_id');
 
     expect(response).toBeUndefined();

@@ -41,7 +41,7 @@ export class RefreshTokenService {
 
     const tokens = await this.jwtService.createTokenPair(credentials!);
 
-    const decoded = await this.jwtService.decodeRT(tokens.refresh);
+    const decoded = await this.decode(tokens.refresh);
 
     await this.createRefreshToken(
       CommonUtils.buildModel(RefreshToken, { token_jti: decoded.jti, user_id: credentials!.user!.id })

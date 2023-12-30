@@ -7,7 +7,7 @@ import ms from 'ms';
 import { ConfigService } from '../../global/services/ConfigService';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { CookieName, RefreshToken } from '../models';
-import { CredentialsStub, CredentialsStubPopulated, RefreshTokenStub, TokensStub, UserStubId } from '../test/stubs';
+import { CredentialsStubPopulated, RefreshTokenStub, TokensStub } from '../test/stubs';
 import { JWTService } from './JWTService';
 import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
@@ -20,64 +20,28 @@ describe('RefreshTokenService', () => {
   let refreshTokenMongoService: RefreshTokenMongoService;
   let credentialsService: CredentialsMongoService;
 
+  let deleteSpy: jest.SpyInstance;
+
   beforeAll(TestAuthenticationApiContext.bootstrap());
-  beforeAll(() => {
+  beforeEach(async () => {
     service = PlatformTest.get<RefreshTokenService>(RefreshTokenService);
     jwtService = PlatformTest.get<JWTService>(JWTService);
     configService = PlatformTest.get<ConfigService>(ConfigService);
     refreshTokenMongoService = PlatformTest.get<RefreshTokenMongoService>(RefreshTokenMongoService);
     credentialsService = PlatformTest.get<CredentialsMongoService>(CredentialsMongoService);
+
+    jest.spyOn(jwtService, 'decodeRT').mockResolvedValue({ ...JWT_PAYLOAD, jti: 'jti' });
   });
-  beforeEach(() => {
+  afterEach(() => {
     jest.restoreAllMocks();
   });
   afterAll(TestAuthenticationApiContext.reset);
 
   describe('verifyRefreshAndRemove', () => {
     beforeEach(() => {
-      // @ts-expect-error private method
-      jest.spyOn(service, 'decode').mockResolvedValue({ ...JWT_PAYLOAD, jti: 'jti' });
-      // @ts-expect-error private method
-      jest.spyOn(service, 'findRefreshToken').mockResolvedValue(RefreshTokenStub);
-      // @ts-expect-error private method
-      jest.spyOn(service, 'deleteRefreshToken').mockImplementation();
       jest.spyOn(service, 'unsetRefreshCookie').mockImplementation();
-    });
-
-    it('Should call checkIfRTExist()', async () => {
-      // @ts-expect-error private method
-      const spy = jest.spyOn(service, 'checkIfRTExist');
-
-      await service.verifyRefreshAndRemove(REFRESH_TOKEN);
-
-      expect(spy).toHaveBeenCalledWith(REFRESH_TOKEN);
-    });
-
-    it('Should call decode()', async () => {
-      // @ts-expect-error private method
-      const spy = jest.spyOn(service, 'decode');
-
-      await service.verifyRefreshAndRemove(REFRESH_TOKEN);
-
-      expect(spy).toHaveBeenCalledWith(REFRESH_TOKEN);
-    });
-
-    it('Should call findRefreshToken()', async () => {
-      // @ts-expect-error private method
-      const spy = jest.spyOn(service, 'findRefreshToken');
-
-      await service.verifyRefreshAndRemove(REFRESH_TOKEN);
-
-      expect(spy).toHaveBeenCalledWith('jti', JWT_PAYLOAD.id);
-    });
-
-    it('Should call deleteRefreshToken()', async () => {
-      // @ts-expect-error private method
-      const spy = jest.spyOn(service, 'deleteRefreshToken');
-
-      await service.verifyRefreshAndRemove(REFRESH_TOKEN);
-
-      expect(spy).toHaveBeenCalledWith(RefreshTokenStub);
+      jest.spyOn(refreshTokenMongoService, 'find').mockResolvedValue(RefreshTokenStub);
+      deleteSpy = jest.spyOn(refreshTokenMongoService, 'deleteByJTI').mockImplementation();
     });
 
     it('Should return token', async () => {
@@ -85,16 +49,57 @@ describe('RefreshTokenService', () => {
 
       expect(response).toEqual(RefreshTokenStub);
     });
+
+    it('Should delete token', async () => {
+      await service.verifyRefreshAndRemove(REFRESH_TOKEN);
+
+      expect(deleteSpy).toHaveBeenCalledWith(RefreshTokenStub.token_jti);
+    });
+
+    it('Should handle missing token', async () => {
+      expect.assertions(2);
+
+      try {
+        await service.verifyRefreshAndRemove();
+      } catch (error) {
+        expect(error).toBeInstanceOf(Unauthorized);
+        expect((error as Unauthorized).message).toEqual('Refresh token is missing.');
+      }
+    });
+
+    it('Should return 401 - refresh token not found', async () => {
+      jest.spyOn(refreshTokenMongoService, 'find').mockResolvedValue(null);
+
+      expect.assertions(2);
+
+      try {
+        await service.verifyRefreshAndRemove(REFRESH_TOKEN);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Unauthorized);
+        expect((error as Unauthorized).message).toEqual('Refresh token does not exist.');
+      }
+    });
   });
 
   describe('createRefreshTokenAndSave', () => {
     beforeEach(() => {
       jest.spyOn(credentialsService, 'findByUserId').mockResolvedValue(CredentialsStubPopulated);
-      // @ts-expect-error private method
-      jest.spyOn(service, 'checkIfCredentialsExist').mockImplementation();
       jest.spyOn(jwtService, 'createTokenPair').mockResolvedValue(TokensStub);
       jest.spyOn(jwtService, 'decodeRT').mockResolvedValue({ ...JWT_PAYLOAD, jti: 'jti' });
       jest.spyOn(service, 'createRefreshToken').mockImplementation();
+    });
+
+    it('Should throw 401 when no credentials', async () => {
+      jest.spyOn(credentialsService, 'findByUserId').mockResolvedValue(null);
+
+      expect.assertions(2);
+
+      try {
+        await service.createRefreshTokenAndSave(RefreshTokenStub);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Unauthorized);
+        expect((error as Unauthorized).message).toEqual('Invalid credentials.');
+      }
     });
 
     it('Should call credentialsService.findByUserId()', async () => {
@@ -105,29 +110,12 @@ describe('RefreshTokenService', () => {
       expect(spy).toHaveBeenCalledWith(RefreshTokenStub.user_id);
     });
 
-    it('Should call checkIfCredentialsExist()', async () => {
-      // @ts-expect-error private method
-      const spy = jest.spyOn(service, 'checkIfCredentialsExist');
-
-      await service.createRefreshTokenAndSave(RefreshTokenStub);
-
-      expect(spy).toHaveBeenCalledWith(CredentialsStubPopulated);
-    });
-
     it('Should call jwtService.createTokenPair()', async () => {
       const spy = jest.spyOn(jwtService, 'createTokenPair');
 
       await service.createRefreshTokenAndSave(RefreshTokenStub);
 
       expect(spy).toHaveBeenCalledWith(CredentialsStubPopulated);
-    });
-
-    it('Should call jwtService.decodeRT()', async () => {
-      const spy = jest.spyOn(jwtService, 'decodeRT');
-
-      await service.createRefreshTokenAndSave(RefreshTokenStub);
-
-      expect(spy).toHaveBeenCalledWith(TokensStub.refresh);
     });
 
     it('Should call createRefreshToken()', async () => {
@@ -144,111 +132,6 @@ describe('RefreshTokenService', () => {
       const response = await service.createRefreshTokenAndSave(RefreshTokenStub);
 
       expect(response).toEqual(TokensStub);
-    });
-  });
-
-  describe('checkIfRTExist', () => {
-    it('Should return error', async () => {
-      expect.assertions(2);
-
-      try {
-        // @ts-expect-error private method
-        service.checkIfRTExist();
-      } catch (error) {
-        expect(error).toBeInstanceOf(Unauthorized);
-        expect((error as Unauthorized).message).toEqual('Refresh token is missing.');
-      }
-    });
-
-    it('Should pass', async () => {
-      expect.assertions(0);
-
-      try {
-        // @ts-expect-error private method
-        service.checkIfRTExist(TokensStub.refresh);
-      } catch (error) {
-        expect(error).not.toBeDefined();
-      }
-    });
-  });
-
-  describe('checkIfCredentialsExist', () => {
-    it('Should return error', async () => {
-      expect.assertions(2);
-
-      try {
-        // @ts-expect-error private method
-        service.checkIfCredentialsExist(null);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Unauthorized);
-        expect((error as Unauthorized).message).toEqual('Invalid credentials.');
-      }
-    });
-
-    it('Should pass', async () => {
-      expect.assertions(0);
-
-      try {
-        // @ts-expect-error private method
-        service.checkIfCredentialsExist(CredentialsStub);
-      } catch (error) {
-        expect(error).not.toBeDefined();
-      }
-    });
-  });
-
-  describe('decode', () => {
-    it('Should call jwtService.decodeRT()', async () => {
-      const spy = jest.spyOn(jwtService, 'decodeRT').mockImplementation();
-      expect.assertions(1);
-
-      try {
-        // @ts-expect-error private method
-        await service.decode(TokensStub.refresh);
-      } catch (error) {
-        expect(error).not.toBeDefined();
-      }
-
-      expect(spy).toHaveBeenCalledWith(TokensStub.refresh);
-    });
-
-    it('Should handle TokenExpiredError', async () => {
-      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(new TokenExpiredError('expired', new Date()));
-      expect.assertions(2);
-
-      try {
-        // @ts-expect-error private method
-        await service.decode(TokensStub.refresh);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Unauthorized);
-        expect((error as Unauthorized).message).toEqual('Refresh token expired.');
-      }
-    });
-
-    it('Should handle JsonWebTokenError', async () => {
-      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(new JsonWebTokenError('error'));
-      expect.assertions(2);
-
-      try {
-        // @ts-expect-error private method
-        await service.decode(TokensStub.refresh);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Unauthorized);
-        expect((error as Unauthorized).message).toEqual('Refresh token is invalid.');
-      }
-    });
-
-    it('Should throw error', async () => {
-      const error = new Error('error');
-      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(error);
-      expect.assertions(1);
-
-      try {
-        // @ts-expect-error private method
-        await service.decode(TokensStub.refresh);
-      } catch (error) {
-        expect(error).toEqual(error);
-      }
     });
   });
 
@@ -270,55 +153,6 @@ describe('RefreshTokenService', () => {
       const response = await service.createRefreshToken(RefreshTokenStub);
 
       expect(response).toEqual(RefreshTokenStub);
-    });
-  });
-
-  describe('findRefreshToken', () => {
-    it('Should call refreshTokenMongoService.create()', async () => {
-      const spy = jest.spyOn(refreshTokenMongoService, 'find').mockResolvedValue(RefreshTokenStub);
-      expect.assertions(1);
-
-      // @ts-expect-error private method
-      await service.findRefreshToken('jti', UserStubId);
-
-      expect(spy).toHaveBeenCalledWith('jti', UserStubId);
-    });
-
-    it('Should return 401', async () => {
-      jest.spyOn(refreshTokenMongoService, 'find').mockResolvedValue(null);
-
-      expect.assertions(2);
-
-      try {
-        // @ts-expect-error private method
-        await service.findRefreshToken('jti', UserStubId);
-      } catch (error) {
-        expect(error).toBeInstanceOf(Unauthorized);
-        expect((error as Unauthorized).message).toEqual('Refresh token does not exist.');
-      }
-    });
-
-    it('Should pass', async () => {
-      jest.spyOn(refreshTokenMongoService, 'find').mockResolvedValue(RefreshTokenStub);
-
-      expect.assertions(1);
-
-      // @ts-expect-error private method
-      const response = await service.findRefreshToken('jti', UserStubId);
-
-      expect(response).toStrictEqual(RefreshTokenStub);
-    });
-  });
-
-  describe('deleteRefreshToken', () => {
-    it('Should call refreshTokenMongoService.delete()', async () => {
-      const spy = jest.spyOn(refreshTokenMongoService, 'deleteByJTI').mockImplementation();
-      expect.assertions(1);
-
-      // @ts-expect-error private method
-      await service.deleteRefreshToken(RefreshTokenStub);
-
-      expect(spy).toHaveBeenCalledWith(RefreshTokenStub.token_jti);
     });
   });
 
@@ -385,6 +219,61 @@ describe('RefreshTokenService', () => {
       await service.unsetRefreshCookie({ res: { clearCookie } });
 
       expect(clearCookie).toHaveBeenCalledWith(CookieName.Refresh);
+    });
+  });
+
+  describe('decode', () => {
+    it('Should call jwtService.decodeRT()', async () => {
+      const spy = jest.spyOn(jwtService, 'decodeRT').mockImplementation();
+      expect.assertions(1);
+
+      try {
+        // @ts-expect-error private method
+        await service.decode(TokensStub.refresh);
+      } catch (error) {
+        expect(error).not.toBeDefined();
+      }
+
+      expect(spy).toHaveBeenCalledWith(TokensStub.refresh);
+    });
+
+    it('Should handle TokenExpiredError', async () => {
+      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(new TokenExpiredError('expired', new Date()));
+      expect.assertions(2);
+
+      try {
+        // @ts-expect-error private method
+        await service.decode(TokensStub.refresh);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Unauthorized);
+        expect((error as Unauthorized).message).toEqual('Refresh token expired.');
+      }
+    });
+
+    it('Should handle JsonWebTokenError', async () => {
+      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(new JsonWebTokenError('error'));
+      expect.assertions(2);
+
+      try {
+        // @ts-expect-error private method
+        await service.decode(TokensStub.refresh);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Unauthorized);
+        expect((error as Unauthorized).message).toEqual('Refresh token is invalid.');
+      }
+    });
+
+    it('Should throw error', async () => {
+      const error = new Error('error');
+      jest.spyOn(jwtService, 'decodeRT').mockRejectedValue(error);
+      expect.assertions(1);
+
+      try {
+        // @ts-expect-error private method
+        await service.decode(TokensStub.refresh);
+      } catch (error) {
+        expect(error).toEqual(error);
+      }
     });
   });
 });

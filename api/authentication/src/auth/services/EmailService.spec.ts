@@ -1,7 +1,7 @@
 import { PlatformTest } from '@tsed/common';
 import { PlatformViews } from '@tsed/platform-views';
+import { NodemailerMockTransporter } from 'nodemailer-mock';
 import { NODEMAILER_TOKEN } from '../../global/connections/InjectionToken';
-import { NODEMAILER } from '../../global/connections/Nodemailer';
 import { ConfigService } from '../../global/services/ConfigService';
 import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiContext';
 import { NodemailerFailedSendEmail } from '../exceptions';
@@ -11,73 +11,55 @@ describe('EmailService', () => {
   let service: EmailService;
   let config: ConfigService;
   let platformViews: PlatformViews;
-  let nodemailer: NODEMAILER;
+  let nodemailer: NodemailerMockTransporter;
+
+  let platformViewsSpy: jest.SpyInstance;
 
   beforeEach(TestAuthenticationApiContext.bootstrap());
   beforeEach(() => {
     service = PlatformTest.get<EmailService>(EmailService);
     config = PlatformTest.get<ConfigService>(ConfigService);
     platformViews = PlatformTest.get<PlatformViews>(PlatformViews);
-    nodemailer = PlatformTest.get<NODEMAILER>(NODEMAILER_TOKEN);
+    nodemailer = PlatformTest.get<NodemailerMockTransporter>(NODEMAILER_TOKEN);
+
+    platformViewsSpy = jest.spyOn(platformViews, 'render').mockResolvedValue('some html');
   });
   afterEach(TestAuthenticationApiContext.reset);
+  afterEach(() => {
+    nodemailer.nodemailermock?.mock?.reset();
+  });
 
   describe('sendVerificationEmail', () => {
     it('Should pass', async () => {
-      // @ts-expect-error private
-      const spy = jest.spyOn(service, 'sendMail').mockResolvedValue({});
-      const platformViewsSpy = jest.spyOn(platformViews, 'render').mockResolvedValue('some html');
-
       expect.assertions(3);
 
-      const result = await service.sendVerificationEmail('email@domain.com', 'token');
+      await service.sendVerificationEmail('email@domain.com', 'token');
 
-      expect(result).toEqual({});
+      const sentMail = nodemailer.nodemailermock.mock.getSentMail();
+
       expect(platformViewsSpy).toHaveBeenCalledWith('email/verify', {
         URL: `${config.config.frontend.url}/auth/invitation?token=token&email=email@domain.com`
       });
-      expect(spy).toHaveBeenCalledWith({
+      expect(sentMail.length).toEqual(1);
+      expect(sentMail[0]).toStrictEqual({
+        from: 'email@icloud.com',
         to: 'email@domain.com',
-        subject: 'Hello ✔',
-        text: 'Hello world?',
-        html: 'some html'
-      });
-    });
-  });
-
-  describe('sendMail', () => {
-    it('Should pass', async () => {
-      const spy = jest.spyOn(nodemailer, 'sendMail').mockResolvedValue({});
-      const options = {
-        to: 'email@domain.com'
-      };
-
-      expect.assertions(2);
-
-      // @ts-expect-error private
-      const result = await service.sendMail(options);
-
-      expect(result).toEqual({});
-      expect(spy).toHaveBeenCalledWith({
-        from: config.config.nodemailer.from,
-        ...options
+        subject: `Welcome to Hiker's Book`,
+        text: `Welcome to Hiker's Book`,
+        html: 'some html',
+        headers: {}
       });
     });
 
-    it('Should throw error', async () => {
-      jest.spyOn(nodemailer, 'sendMail').mockRejectedValue(new Error());
-      const options = {
-        to: 'email@domain.com'
-      };
-
+    it('Should return NodemailerFailedSendEmail', async () => {
+      nodemailer.nodemailermock.mock.setShouldFail(true);
       expect.assertions(2);
 
       try {
-        // @ts-expect-error private
-        await service.sendMail(options);
+        await service.sendVerificationEmail('email@domain.com', 'token');
       } catch (error) {
         expect(error).toBeInstanceOf(NodemailerFailedSendEmail);
-        expect((error as NodemailerFailedSendEmail).message).toEqual(`Failed to send email to: ${options.to}!`);
+        expect((error as NodemailerFailedSendEmail).message).toEqual(`Failed to send email to: email@domain.com!`);
       }
     });
   });

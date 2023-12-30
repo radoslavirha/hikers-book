@@ -24,8 +24,8 @@ export class EmailService {
 
     return this.sendMail({
       to: email,
-      subject: 'Hello ✔',
-      text: 'Hello world?',
+      subject: `Welcome to Hiker's Book`,
+      text: `Welcome to Hiker's Book`,
       html
     });
   }
