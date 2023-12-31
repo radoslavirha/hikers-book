@@ -1,20 +1,15 @@
 import { config } from 'dotenv';
+import { BaseConfig } from './BaseConfig';
 
 export interface ENVS<TValue = string | undefined> {
   [key: string]: TValue;
 }
 
-export class EnvLoader {
-  readonly _envs: ENVS;
-
-  public get envs() {
-    return Object.assign({}, this._envs);
-  }
-
+export class EnvironmentVariables extends BaseConfig<ENVS> {
   constructor() {
-    this._envs = {
+    super({
       ...process.env,
       ...config().parsed
-    };
+    });
   }
 }

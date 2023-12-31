@@ -1,9 +1,10 @@
 import { $log } from '@tsed/common';
 import { Required } from '@tsed/schema';
-import { ConfigLoder } from '.';
 import { SwaggerUIOptionsConfigModel } from '../models';
-import { ConfigLoaderOptions, SwaggerDocsVersion, SwaggerSecurityScheme } from '../types';
+import { SwaggerDocsVersion } from '../types/SwaggerDocsVersion.enum';
+import { SwaggerSecurityScheme } from '../types/SwaggerSecurityScheme.enum';
 import { CommonUtils } from '../utils';
+import { ConfigLoaderOptions, ConfigLoder } from './ConfigLoader';
 
 // Must match the config file in config/test.json
 class ConfigModel {
@@ -18,7 +19,7 @@ class ConfigModelInvalid extends ConfigModel {
 
 const options: ConfigLoaderOptions = {
   service: 'test',
-  port: 4000,
+  fallbackPort: 4000,
   configModel: ConfigModel
 };
 
@@ -27,7 +28,7 @@ describe('ConfigLoder', () => {
     const loader = new ConfigLoder(options);
 
     expect(loader.service).toEqual('test');
-    expect(loader.port).toEqual(4000);
+    expect(loader.fallbackPort).toEqual(4000);
     expect(loader.api).toEqual({ service: 'test', version: expect.any(String), description: expect.any(String) });
     expect(loader.isProduction).toEqual(false);
     expect(loader.config).toEqual({ test: 'value' });
@@ -132,7 +133,7 @@ describe('ConfigLoder', () => {
     const spy = jest.spyOn($log, 'error').mockImplementation();
     const options: ConfigLoaderOptions = {
       service: 'test',
-      port: 4000,
+      fallbackPort: 4000,
       configModel: ConfigModelInvalid
     };
 

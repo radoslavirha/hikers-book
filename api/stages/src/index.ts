@@ -1,4 +1,4 @@
-import { ConfigLoder } from '@hikers-book/tsed-common/server';
+import { ConfigLoder } from '@hikers-book/tsed-common/config';
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { SwaggerSettings } from '@tsed/swagger';

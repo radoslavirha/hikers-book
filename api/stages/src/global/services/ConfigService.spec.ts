@@ -6,7 +6,7 @@ describe('ConfigService', () => {
       const config = new ConfigService();
 
       expect(config.service).toEqual(`Hiker's Book Stages API`);
-      expect(config.port).toEqual(5503);
+      expect(config.fallbackPort).toEqual(5503);
     } catch (error) {
       expect(error).not.toBeDefined();
     }

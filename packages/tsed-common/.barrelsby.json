@@ -1,5 +1,6 @@
 {
   "directory": [
+    "./src/config",
     "./src/controllers",
     "./src/decorators",
     "./src/handlers",

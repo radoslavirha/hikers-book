@@ -10,7 +10,7 @@ describe('ConfigService', () => {
       const service = PlatformTest.get<ConfigService>(ConfigService);
 
       expect(service.service).toEqual(`Hiker's Book Authentication API`);
-      expect(service.port).toEqual(5501);
+      expect(service.fallbackPort).toEqual(5501);
     } catch (error) {
       expect(error).not.toBeDefined();
     }

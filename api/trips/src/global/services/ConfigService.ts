@@ -1,10 +1,5 @@
-import { ConfigLoder } from '@hikers-book/tsed-common/server';
-import {
-  ConfigLoaderOptions,
-  SwaggerDocConfig,
-  SwaggerDocsVersion,
-  SwaggerSecurityScheme
-} from '@hikers-book/tsed-common/types';
+import { ConfigLoaderOptions, ConfigLoder, SwaggerDocConfig } from '@hikers-book/tsed-common/config';
+import { SwaggerDocsVersion, SwaggerSecurityScheme } from '@hikers-book/tsed-common/types';
 import { Injectable } from '@tsed/di';
 import { resolve } from 'path';
 import { ConfigModel } from '../models/ConfigModel';
@@ -13,7 +8,7 @@ import { ConfigModel } from '../models/ConfigModel';
 export class ConfigService extends ConfigLoder<ConfigModel> {
   public static readonly options: ConfigLoaderOptions<ConfigModel> = {
     service: `Hiker's Book Trips API`,
-    port: 5504,
+    fallbackPort: 5504,
     configModel: ConfigModel
   };
 

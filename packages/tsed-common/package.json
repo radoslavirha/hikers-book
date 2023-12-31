@@ -3,6 +3,7 @@
   "version": "0.7.0",
   "description": "Hiker's Book Ts.ED Common utils",
   "exports": {
+    "./config": "./dist/config/index.js",
     "./controllers": "./dist/controllers/index.js",
     "./decorators": "./dist/decorators/index.js",
     "./handlers": "./dist/handlers/index.js",

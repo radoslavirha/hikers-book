@@ -1,44 +1,52 @@
 import { Type } from '@tsed/core';
 import { SwaggerSettings } from '@tsed/swagger';
 import { SwaggerUIOptionsConfigModel } from '../models';
-import { SwaggerDocConfig } from '../types';
-import { ConfigLoaderOptions } from '../types/ConfigLoaderOptions';
-import { ConfigFileLoader } from './ConfigFileLoader';
-import { ConfigSwagger } from './ConfigSwagger';
-import { ENVS, EnvLoader } from './EnvLoader';
-import { PackageJson, PackageJsonLoader } from './PackageJsonLoader';
-import { getServerDefaultConfig } from './defaults';
+import { getServerDefaultConfig } from '../server/defaults';
+import { CommonUtils } from '../utils/CommonUtils';
+import { ConfigFile } from './ConfigFile';
+import { ConfigSwagger, SwaggerDocConfig } from './ConfigSwagger';
+import { ENVS, EnvironmentVariables } from './EnvironmentVariables';
+import { PackageJson, PkgJson } from './PackageJson';
+
+export type ConfigLoaderOptions<T = object> = {
+  service: string;
+  /**
+   * Used when PORT env is not set
+   */
+  fallbackPort: number;
+  configModel: Type<T>;
+};
 
 export class ConfigLoder<T> {
   readonly service: string;
-  readonly port: number;
+  readonly fallbackPort: number;
   readonly configModel: Type<T>;
 
   readonly _api: { service: string; version: string; description?: string };
   readonly _config: T;
   readonly _envs: ENVS;
-  readonly _packageJson: PackageJson;
+  readonly _packageJson: PkgJson;
   readonly _server: Partial<TsED.Configuration>;
   #swagger?: SwaggerSettings[];
 
   public get api() {
-    return Object.assign({}, this._api);
+    return CommonUtils.cloneDeep(this._api);
   }
 
   public get config(): T {
-    return Object.assign({}, this._config);
+    return CommonUtils.cloneDeep(this._config);
   }
 
   public get envs() {
-    return Object.assign({}, this._envs);
+    return CommonUtils.cloneDeep(this._envs);
   }
 
   public get packageJson() {
-    return Object.assign({}, this._packageJson);
+    return CommonUtils.cloneDeep(this._packageJson);
   }
 
   public get server() {
-    return Object.assign({}, this._server);
+    return CommonUtils.cloneDeep(this._server);
   }
 
   public get swagger() {
@@ -55,10 +63,10 @@ export class ConfigLoder<T> {
 
   constructor(options: ConfigLoaderOptions<T>) {
     this.service = options.service;
-    this.port = options.port;
+    this.fallbackPort = options.fallbackPort;
     this.configModel = options.configModel;
 
-    this._packageJson = new PackageJsonLoader().packageJson;
+    this._packageJson = new PackageJson().config;
 
     this._api = {
       service: options.service,
@@ -66,12 +74,12 @@ export class ConfigLoder<T> {
       description: this.packageJson.description
     };
 
-    this._config = new ConfigFileLoader(this.configModel).config;
-    this._envs = new EnvLoader().envs;
+    this._config = new ConfigFile(this.configModel).config;
+    this._envs = new EnvironmentVariables().config;
 
     this._server = {
       ...getServerDefaultConfig(),
-      httpPort: parseInt(this.envs.PORT || String(this.port)),
+      httpPort: parseInt(this.envs.PORT || String(this.fallbackPort)),
       envs: this.envs
     };
   }
@@ -86,7 +94,7 @@ export class ConfigLoder<T> {
       description: this.packageJson.description,
       documents,
       swaggerUIOptions
-    }).settings;
+    }).config;
 
     return this.#swagger;
   }
