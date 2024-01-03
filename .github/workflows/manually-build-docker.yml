@@ -1,6 +1,12 @@
 name: Build & Publish to Docker Hub from Tag
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag from which build images'
+        type: string
+        required: true
   workflow_call:
     inputs:
       tag:
