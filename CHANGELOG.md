@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.8.0](https://github.com/radoslavirha/hikers-book/compare/0.7.0...0.8.0) (2024-01-03)
+
+
+### Features
+
+* :sparkles: sign in form ([a568367](https://github.com/radoslavirha/hikers-book/commit/a568367e5e0943edec31da965686d05e9ace36d6))
+* Basic authentication ([9a8ae45](https://github.com/radoslavirha/hikers-book/commit/9a8ae45037d82eff7e07a355b2f11d81fca666a1))
+* refresh token ([4cf4f3f](https://github.com/radoslavirha/hikers-book/commit/4cf4f3f31fb33cd8043547910a80c09b24750a97))
+* sign up forms ([e208c6c](https://github.com/radoslavirha/hikers-book/commit/e208c6c52f406ea1d5553054a4853c5ae74acd00))
+
+
+### Bug Fixes
+
+* **api:** set hemlet CSP based on isProduction ([af0ac9b](https://github.com/radoslavirha/hikers-book/commit/af0ac9b23f6ee71d9a26252c2e9a29b5f2b08e3a))
+
 ## [0.7.0](https://github.com/radoslavirha/hikers-book/compare/0.6.0...0.7.0) (2023-10-11)
 
 
