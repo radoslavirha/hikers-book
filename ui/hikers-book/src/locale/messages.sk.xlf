@@ -4,14 +4,14 @@
     <body>
       <trans-unit id="trip_created_at" datatype="html">
         <source>
-          <x id="INTERPOLATION" equiv-text="&lt;/p&gt; &lt;/mat-card-content&gt;"/>
+          <x id="INTERPOLATION" equiv-text="{{ trip.createdAt | date }}"/>
         </source>
-        <target>
-          <x id="INTERPOLATION" equiv-text="&lt;/p&gt; &lt;/mat-card-content&gt;"/>
+        <target state="new">
+          <x id="INTERPOLATION" equiv-text="{{ trip.createdAt | date }}"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/trips/trips/trips.component.html</context>
-          <context context-type="linenumber">9,10</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
         <note priority="1" from="description">Creation date of trip</note>
         <note priority="1" from="meaning">Trip card on grid</note>
@@ -41,7 +41,7 @@
         <target state="new">Sign in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">Sign in form name</note>
         <note priority="1" from="meaning">Sign in form name</note>
@@ -51,7 +51,7 @@
         <target state="new">Don&apos;t have an account?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <note priority="1" from="description">Sign up question from sign in form</note>
         <note priority="1" from="meaning">Sign up question from sign in form</note>
@@ -61,7 +61,7 @@
         <target state="new">Sign up</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Sign up link from sign in form</note>
         <note priority="1" from="meaning">Sign up link from sign in form</note>
@@ -71,7 +71,7 @@
         <target state="new">Sign up</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">Invitation form name</note>
         <note priority="1" from="meaning">Invitation form name</note>
@@ -81,7 +81,7 @@
         <target state="new">Already have an account?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <note priority="1" from="description">Ask user if has account yet</note>
         <note priority="1" from="meaning">Sign in question from sign up form</note>
@@ -91,7 +91,7 @@
         <target state="new">Sign in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <note priority="1" from="description">Sign in link from sign up form</note>
         <note priority="1" from="meaning">Sign in link from sign up form</note>
@@ -131,15 +131,15 @@
         <target state="new">Email</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <note priority="1" from="description">Invitation form email</note>
         <note priority="1" from="meaning">Email</note>
@@ -149,11 +149,11 @@
         <target state="new">Password</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <note priority="1" from="description">Invitation form password</note>
         <note priority="1" from="meaning">Password</note>
@@ -163,7 +163,7 @@
         <target state="new"> Sign in </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signin/signin.component.html</context>
-          <context context-type="linenumber">33,35</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
         <note priority="1" from="description">Sign in button</note>
         <note priority="1" from="meaning">Sign in</note>
@@ -173,11 +173,11 @@
         <target state="new"> Sign up </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">74,76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
         <note priority="1" from="description">Sign up button</note>
         <note priority="1" from="meaning">Sign up</note>
@@ -187,7 +187,7 @@
         <target state="new">Sign up</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/signup/signup.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">Sign up form name</note>
         <note priority="1" from="meaning">Sign up form name</note>
@@ -197,7 +197,7 @@
         <target state="new">Full name</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">Invitation form full name</note>
         <note priority="1" from="meaning">Full name</note>
@@ -207,7 +207,7 @@
         <target state="new">Password confirm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/modules/auth/invitation/invitation.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <note priority="1" from="description">Invitation form password confirm</note>
         <note priority="1" from="meaning">Password confirm</note>
