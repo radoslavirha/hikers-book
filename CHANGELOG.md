@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0](https://github.com/radoslavirha/hikers-book/compare/0.8.0...0.9.0) (2024-01-03)
+
+
+### Features
+
+* test new release ([4e7d8ea](https://github.com/radoslavirha/hikers-book/commit/4e7d8ea9d38ae73cae2d0d016166cbc4bd5021bd))
+* try to fix hb-cli ([2c72797](https://github.com/radoslavirha/hikers-book/commit/2c727971441078617c1c2b94d836a0a4a80e342d))
+
 ## [0.8.0](https://github.com/radoslavirha/hikers-book/compare/0.7.0...0.8.0) (2024-01-03)
 
 
