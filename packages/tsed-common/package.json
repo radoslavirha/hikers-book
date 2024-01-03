@@ -1,6 +1,6 @@
 {
   "name": "@hikers-book/tsed-common",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Hiker's Book Ts.ED Common utils",
   "exports": {
     "./config": "./dist/config/index.js",
