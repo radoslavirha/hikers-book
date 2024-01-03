@@ -29,53 +29,29 @@ export class ConfigLoder<T> {
   readonly _server: Partial<TsED.Configuration>;
   #swagger?: SwaggerSettings[];
 
-  public get api() {
-    return CommonUtils.cloneDeep(this._api);
-  }
-
-  public get config(): T {
-    return CommonUtils.cloneDeep(this._config);
-  }
-
-  public get envs() {
-    return CommonUtils.cloneDeep(this._envs);
-  }
-
-  public get packageJson() {
-    return CommonUtils.cloneDeep(this._packageJson);
-  }
-
-  public get server() {
-    return CommonUtils.cloneDeep(this._server);
-  }
-
-  public get swagger() {
-    return this.#swagger;
-  }
-
-  public get isProduction() {
-    return this.envs.NODE_ENV === 'production';
-  }
-
-  public get isTest() {
-    return this.envs.NODE_ENV === 'test';
-  }
+  public get api() { return CommonUtils.cloneDeep(this._api); }
+  public get config(): T { return CommonUtils.cloneDeep(this._config); }
+  public get envs() { return CommonUtils.cloneDeep(this._envs); }
+  public get packageJson() { return CommonUtils.cloneDeep(this._packageJson); }
+  public get server() { return CommonUtils.cloneDeep(this._server); }
+  public get swagger() { return CommonUtils.cloneDeep(this.#swagger); }
+  public get isProduction() { return this.envs.NODE_ENV === 'production'; }
+  public get isTest() { return this.envs.NODE_ENV === 'test'; }
 
   constructor(options: ConfigLoaderOptions<T>) {
     this.service = options.service;
     this.fallbackPort = options.fallbackPort;
     this.configModel = options.configModel;
 
+    this._envs = new EnvironmentVariables().config;
     this._packageJson = new PackageJson().config;
+    this._config = new ConfigFile(this.configModel).config;
 
     this._api = {
       service: options.service,
       version: this.packageJson.version,
       description: this.packageJson.description
     };
-
-    this._config = new ConfigFile(this.configModel).config;
-    this._envs = new EnvironmentVariables().config;
 
     this._server = {
       ...getServerDefaultConfig(),
@@ -96,6 +72,6 @@ export class ConfigLoder<T> {
       swaggerUIOptions
     }).config;
 
-    return this.#swagger;
+    return this.swagger as SwaggerSettings[];
   }
 }

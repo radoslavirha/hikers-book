@@ -1,12 +1,18 @@
-<mat-grid-list [cols]="cols" rowHeight="400px" gutterSize="5px">
+<mat-grid-list rowHeight="400px" gutterSize="5px" [cols]="cols">
   <mat-grid-tile *ngFor="let trip of trips | async" class="trip-card">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{ trip.label }}</mat-card-title>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" />
+      <img
+        mat-card-image
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        alt="Photo of a Shiba Inu"
+      />
       <mat-card-content>
-        <p i18n="Trip card on grid|Creation date of trip@@trip_created_at">{{ trip.createdAt | date }}</p>
+        <p i18n="Trip card on grid|Creation date of trip@@trip_created_at">
+          {{ trip.createdAt | date }}
+        </p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>

@@ -9,7 +9,7 @@ const commander_1 = require("commander");
 const log_symbols_1 = __importDefault(require("log-symbols"));
 const config_1 = require("./config");
 const copy_1 = require("./copy");
-console.info(log_symbols_1.default.info, chalk_1.default.green("Using Hiker's Book CLI"));
+console.info(log_symbols_1.default.info, chalk_1.default.green(`Using Hiker's Book CLI`));
 const program = new commander_1.Command();
 program
     .command('config')

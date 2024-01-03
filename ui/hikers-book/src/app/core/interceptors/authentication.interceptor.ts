@@ -17,8 +17,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       withCredentials: !req.url.includes('/graphql'),
       setHeaders: !req.url.includes(authProviderEmailControllerSignIn.PATH)
         ? {
-            Authorization: 'Bearer ' + authToken
-          }
+          Authorization: 'Bearer ' + authToken
+        }
         : {}
     });
 

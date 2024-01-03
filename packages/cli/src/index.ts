@@ -6,7 +6,7 @@ import { config } from './config';
 import { copy } from './copy';
 import { CLIConfigOptions } from './types';
 
-console.info(logSymbols.info, chalk.green("Using Hiker's Book CLI"));
+console.info(logSymbols.info, chalk.green(`Using Hiker's Book CLI`));
 
 const program = new Command();
 

@@ -1,10 +1,8 @@
-const prettier = require('@hikers-book/eslint-config/prettier');
-
 module.exports = {
   root: true,
   ignorePatterns: [
     '**/*generated.ts',
-    'src/index.html' // something is wrong with prettier + eslint
+    'src/index.html'
   ],
   overrides: [
     {
@@ -15,22 +13,10 @@ module.exports = {
         '@hikers-book/eslint-config', // extend the base config
       ],
       rules: {
-        '@angular-eslint/directive-selector': [
-          'error',
-          {
-            type: 'attribute',
-            prefix: 'app',
-            style: 'camelCase'
-          }
-        ],
-        '@angular-eslint/component-selector': [
-          'error',
-          {
-            type: 'element',
-            prefix: 'app',
-            style: 'kebab-case'
-          }
-        ]
+        '@angular-eslint/component-class-suffix': [ "error" ],
+        '@angular-eslint/component-selector': [ 'error',  { type: 'element', prefix: 'app', style: 'kebab-case' } ],
+        '@angular-eslint/directive-class-suffix': [ "error" ],
+        '@angular-eslint/directive-selector': [ 'error', { type: 'attribute', prefix: 'app', style: 'camelCase' } ],
       }
     },
     {
@@ -43,8 +29,13 @@ module.exports = {
       ],
       plugins: ['@angular-eslint/template'],
       rules: {
-        ...prettier
+        "@angular-eslint/template/attributes-order": [ "error" ]
       }
+    },
+    {
+      files: ['*.scss'],
+      parser: '@angular-eslint/template-parser',
+      extends: [ 'plugin:prettier/recommended' ]
     }
   ]
 };

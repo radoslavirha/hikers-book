@@ -44,8 +44,8 @@ export class Server extends BaseServer {
       helmet({
         contentSecurityPolicy: this.configService.isProduction
           ? {
-              directives: getSwaggerHelmetDirectives()
-            }
+            directives: getSwaggerHelmetDirectives()
+          }
           : false
       })
     );

@@ -75,6 +75,8 @@
     "@typescript-eslint/parser": "5.62.0",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -84,6 +86,7 @@
     "ng-extract-i18n-merge": "2.7.1",
     "ng-mocks": "^14.11.0",
     "postcss": "^8.4.29",
+    "prettier": "^3.1.1",
     "typescript": "~5.1.6"
   },
   "engines": {
