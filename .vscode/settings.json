@@ -14,5 +14,11 @@
     "**/dist": true,
     "pnpm-lock.yaml": true,
     "ui/hikers-book/.angular": true
-  }
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "html",
+    "scss"
+  ]
 }
