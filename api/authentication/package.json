@@ -25,7 +25,7 @@
     "keys": "pnpm run keys:access && pnpm run keys:refresh",
     "keys:access": "openssl genrsa -out keys/access.pem 2048 && openssl rsa -in keys/access.pem -outform PEM -pubout -out keys/access.pem.pub",
     "keys:refresh": "openssl genrsa -out keys/refresh.pem 2048 && openssl rsa -in keys/refresh.pem -outform PEM -pubout -out keys/refresh.pem.pub",
-    "copy:views": "hb-cli copy-views"
+    "copy:views": "hb-cli copy-views || true"
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",

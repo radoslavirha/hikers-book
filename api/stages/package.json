@@ -21,7 +21,7 @@
     "postinstall": "pnpm run config:api && pnpm run copy:views",
     "cleanup": "rm -rf coverage dist",
     "cleanup:modules": "rm -rf node_modules",
-    "copy:views": "hb-cli copy-views"
+    "copy:views": "hb-cli copy-views || true"
   },
   "dependencies": {
     "@hikers-book/tsed-common": "workspace:*",
