@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "docker:build": "docker compose -f docker-compose.hikers-book.build.yml build"
+    "docker:build": "docker compose -f docker-compose.hikers-book.build.yml build",
+    "docker:build:plain": "docker compose -f docker-compose.hikers-book.build.yml build --progress=plain"
   }
 }
