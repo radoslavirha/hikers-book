@@ -31,14 +31,12 @@ jobs:
           - { name: Trips API, target: api-trips, image: radoslavirha/hikers-book-api-trips }
     runs-on: ubuntu-latest
     steps:
-      - name: Show github.event.inputs.tag
-        run: echo ${{ github.event.inputs.tag }}
-      - name: Show inputs.tag
+      - name: Show tag
         run: echo ${{ inputs.tag }}
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag }}
+          ref: ${{ inputs.tag }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -55,5 +53,5 @@ jobs:
           file: ./infra/docker/Dockerfile
           # platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ matrix.docker.image }}:${{ github.event.inputs.tag }},${{ matrix.docker.image }}:latest
+          tags: ${{ matrix.docker.image }}:${{ inputs.tag }},${{ matrix.docker.image }}:latest
           target: ${{ matrix.docker.target }}
