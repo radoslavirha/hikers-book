@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/radoslavirha/hikers-book/compare/0.14.0...0.15.0) (2024-01-04)
+
+
+### Features
+
+* use inputs.tag in reusable workflow ([7e1fa5c](https://github.com/radoslavirha/hikers-book/commit/7e1fa5c6904b1534dc777425314f1643030db32b))
+
 ## [0.14.0](https://github.com/radoslavirha/hikers-book/compare/0.13.0...0.14.0) (2024-01-04)
 
 
