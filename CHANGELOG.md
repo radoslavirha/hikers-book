@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/radoslavirha/hikers-book/compare/0.15.0...0.16.0) (2024-01-04)
+
+
+### Features
+
+* :green_heart: finalize CI build and publish ([57c66ec](https://github.com/radoslavirha/hikers-book/commit/57c66ecee953beb47c7e30a0a1d1cb536bb0a976))
+
 ## [0.15.0](https://github.com/radoslavirha/hikers-book/compare/0.14.0...0.15.0) (2024-01-04)
 
 
