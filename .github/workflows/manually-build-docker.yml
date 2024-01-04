@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  build-docker:
+  docker-build-push:
     name: Build & Publish ${{ matrix.docker.name }} to Docker Hub
     strategy:
       matrix:

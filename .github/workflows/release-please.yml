@@ -25,13 +25,10 @@ jobs:
         with:
           command: manifest
 
-  trigger-docker:
-    name: Build & Publish ${{ matrix.docker.name }} to Docker Hub
-    runs-on: ubuntu-latest
+  trigger-docker-build-push:
+    name: Trigger Build & Publish to Docker Hub
     needs: release-please
     if: needs.release-please.outputs.release
-    steps:
-      - name: Call Build & Publish to Docker Hub from Tag
-        uses: ./workflows/manually-build-docker.yml
-        with:
-          tag: ${{ needs.release-please.outputs.version }}
+    uses: ./.github/workflows/manually-build-docker.yml
+    with:
+      tag: ${{ needs.release-please.outputs.version }}
