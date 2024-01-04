@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/radoslavirha/hikers-book/compare/0.12.0...0.13.0) (2024-01-04)
+
+
+### Features
+
+* try to fix releasing ([b6b0a31](https://github.com/radoslavirha/hikers-book/commit/b6b0a31fd4caf354cce3a32f8df064156561a002))
+
 ## [0.12.0](https://github.com/radoslavirha/hikers-book/compare/0.11.0...0.12.0) (2024-01-04)
 
 
