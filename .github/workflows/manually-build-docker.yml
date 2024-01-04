@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   docker-build-push:
-    name: Build & Publish ${{ matrix.docker.name }} to Docker Hub
+    name: ${{ matrix.docker.name }} Build & Publish to Docker Hub
     strategy:
       matrix:
         docker:
@@ -46,7 +46,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push Docker image
+      - name: Build & Publish
         uses: docker/build-push-action@v5
         with:
           context: .
