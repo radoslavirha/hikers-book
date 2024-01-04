@@ -31,6 +31,8 @@ jobs:
           - { name: Trips API, target: api-trips, image: radoslavirha/hikers-book-api-trips }
     runs-on: ubuntu-latest
     steps:
+      - name: Show tag
+        run: echo ${{ github.event.inputs.tag }}
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
