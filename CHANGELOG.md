@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/radoslavirha/hikers-book/compare/0.10.0...0.11.0) (2024-01-04)
+
+
+### Features
+
+* trigger build ([88e7bfd](https://github.com/radoslavirha/hikers-book/commit/88e7bfd8d04c6babd060cf084e9c2c010e26a903))
+
 ## [0.10.0](https://github.com/radoslavirha/hikers-book/compare/0.9.0...0.10.0) (2024-01-03)
 
 
