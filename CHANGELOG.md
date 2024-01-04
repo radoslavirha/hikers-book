@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/radoslavirha/hikers-book/compare/0.13.0...0.14.0) (2024-01-04)
+
+
+### Features
+
+* another attempt ([a923cdc](https://github.com/radoslavirha/hikers-book/commit/a923cdc463b3b8a3bea64f91789ad3e92c2bc5c5))
+
 ## [0.13.0](https://github.com/radoslavirha/hikers-book/compare/0.12.0...0.13.0) (2024-01-04)
 
 
