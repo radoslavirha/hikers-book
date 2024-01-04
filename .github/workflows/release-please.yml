@@ -32,3 +32,4 @@ jobs:
     uses: ./.github/workflows/manually-build-docker.yml
     with:
       tag: ${{ needs.release-please.outputs.version }}
+    secrets: inherit
