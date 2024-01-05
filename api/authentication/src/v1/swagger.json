@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.7.0",
+    "version": "0.16.0",
     "title": "Hiker's Book Authentication API - v1",
     "description": "Hiker's Book Authentication API"
   },

@@ -20,6 +20,16 @@
     },
     {
       "type": "json",
+      "path": "api/authentication/src/auth/swagger.json",
+      "jsonpath": "$.info.version"
+    },
+    {
+      "type": "json",
+      "path": "api/authentication/src/v1/swagger.json",
+      "jsonpath": "$.info.version"
+    },
+    {
+      "type": "json",
       "path": "api/graphql/package.json",
       "jsonpath": "$.version"
     },
@@ -30,8 +40,18 @@
     },
     {
       "type": "json",
+      "path": "api/stages/src/v1/swagger.json",
+      "jsonpath": "$.info.version"
+    },
+    {
+      "type": "json",
       "path": "api/trips/package.json",
       "jsonpath": "$.version"
+    },
+    {
+      "type": "json",
+      "path": "api/trips/src/v1/swagger.json",
+      "jsonpath": "$.info.version"
     },
     {
       "type": "json",
