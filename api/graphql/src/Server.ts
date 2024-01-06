@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { BaseServer, getServerDefaultConfig } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
 import { Configuration, Inject } from '@tsed/di';
@@ -5,7 +6,6 @@ import '@tsed/ioredis';
 import '@tsed/platform-express'; // /!\ keep this import
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
-import { resolve } from 'path';
 import './global/connections/Redis';
 import { ConfigService } from './global/services/ConfigService';
 import * as v1Datasources from './v1/datasources';

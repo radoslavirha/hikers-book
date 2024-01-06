@@ -1,7 +1,7 @@
+import path from 'path';
 import { FSUtils } from '@hikers-book/tsed-common/utils';
 import { PlatformTest } from '@tsed/common';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
-import path from 'path';
 import { KeysService } from './KeysService';
 
 describe('KeysService', () => {

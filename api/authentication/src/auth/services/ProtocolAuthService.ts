@@ -13,10 +13,10 @@ import { Credentials, EmailSignUpRequest, RefreshToken, TokensPair, User } from 
 import { AuthProviderPair, OAuth2ProviderPair } from '../types';
 import { CryptographyUtils } from '../utils/CryptographyUtils';
 import { JWTService } from './JWTService';
-import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
+import { RefreshTokenService } from './RefreshTokenService';
 
 @Service()
 export class ProtocolAuthService {

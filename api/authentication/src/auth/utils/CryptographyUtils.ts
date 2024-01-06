@@ -1,6 +1,7 @@
-import { argon2id, hash, Options, verify } from 'argon2';
 import { randomBytes } from 'crypto';
+import { argon2id, hash, Options, verify } from 'argon2';
 import { v4 } from 'uuid';
+
 export class CryptographyUtils {
   public static async argon2CreateHash(password: string): Promise<string> {
     const hashingConfig: Partial<Options & { raw?: false }> = {

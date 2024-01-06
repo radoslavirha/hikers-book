@@ -1,3 +1,4 @@
+import { join } from 'path';
 import * as global from '@hikers-book/tsed-common/controllers';
 import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
@@ -8,7 +9,6 @@ import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/swagger';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
-import { join } from 'path';
 import './global/connections/Redis';
 import { ConfigService } from './global/services/ConfigService';
 import * as rest from './v1/controllers/index';

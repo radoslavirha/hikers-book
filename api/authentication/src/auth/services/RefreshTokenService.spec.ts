@@ -9,9 +9,9 @@ import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiCo
 import { CookieName, RefreshToken } from '../models';
 import { CredentialsStubPopulated, RefreshTokenStub, TokensStub } from '../test/stubs';
 import { JWTService } from './JWTService';
-import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { RefreshTokenMongoService } from './mongo/RefreshTokenMongoService';
+import { RefreshTokenService } from './RefreshTokenService';
 
 describe('RefreshTokenService', () => {
   let service: RefreshTokenService;

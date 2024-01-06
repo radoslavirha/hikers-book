@@ -1,6 +1,6 @@
 import JWT from 'jsonwebtoken';
-import { TestModel } from '../test/TestModel';
 import { ACCESS_TOKEN, JWT_PAYLOAD } from '../test/stubs';
+import { TestModel } from '../test/TestModel';
 import { CommonUtils } from './CommonUtils';
 
 describe('CommonUtils', () => {

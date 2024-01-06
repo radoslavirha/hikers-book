@@ -3,6 +3,8 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:import/recommended',
     'plugin:import/typescript'
   ],
   plugins: [ '@stylistic' ],
@@ -11,8 +13,12 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'max-params': ['error', 3],
     'import/no-named-as-default': 'off',
+    'max-params': ['error', 3],
+    'import/first': 'error',
+    'import/newline-after-import': 'error',
+    'import/no-duplicates': 'error',
+    'import/order': ['error', { alphabetize: { order: 'asc', caseInsensitive: true } }],
     '@stylistic/comma-dangle': ['error', 'never'],
     '@stylistic/eol-last': ['error', 'always'],
     '@stylistic/function-call-spacing': ['error', 'never'],

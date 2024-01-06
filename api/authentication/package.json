@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "pnpm run config:api && pnpm run keys",
     "build": "pnpm run barrels && tsc --project tsconfig.compile.json",
-    "barrels": "barrelsby --config .barrelsby.json",
+    "barrels": "barrelsby --config .barrelsby.json && eslint --fix src/**/index.ts",
     "start": "pnpm run copy:views && pnpm run barrels && NODE_ENV=localhost tsnd --inspect --exit-child --cls --ignore-watch node_modules --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "start:prod": "pnpm run copy:views && cross-env NODE_ENV=production node dist/index.js",
     "format": "eslint --ext .ts --fix src",

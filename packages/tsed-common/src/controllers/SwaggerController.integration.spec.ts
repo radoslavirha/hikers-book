@@ -1,6 +1,6 @@
+import { join } from 'path';
 import { PlatformTest } from '@tsed/common';
 import { minify } from 'html-minifier';
-import { join } from 'path';
 import SuperTest from 'supertest';
 import { BaseServer } from '../server/ServerBase';
 import { SwaggerController } from './SwaggerController';

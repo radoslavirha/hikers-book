@@ -1,3 +1,4 @@
+import { join } from 'path';
 import * as restCommon from '@hikers-book/tsed-common/controllers';
 import { BaseServer, getServerDefaultConfig, getSwaggerHelmetDirectives } from '@hikers-book/tsed-common/server';
 import '@tsed/ajv';
@@ -9,7 +10,6 @@ import '@tsed/platform-express'; // /!\ keep this import
 import '@tsed/swagger';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
-import { join } from 'path';
 import * as restAuth from './auth/controllers/index';
 import { User } from './auth/models';
 import './auth/protocols/EmailSignInProtocol';

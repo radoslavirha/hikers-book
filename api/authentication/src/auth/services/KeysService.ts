@@ -1,7 +1,7 @@
+import path from 'path';
 import { FSUtils } from '@hikers-book/tsed-common/utils';
 import { Service } from '@tsed/di';
 import { Algorithm } from 'jsonwebtoken';
-import path from 'path';
 
 @Service()
 export class KeysService {

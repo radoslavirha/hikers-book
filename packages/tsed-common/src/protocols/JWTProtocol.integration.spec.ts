@@ -2,8 +2,8 @@ import { PlatformTest } from '@tsed/common';
 import SuperTest from 'supertest';
 import { BaseServer } from '../server/ServerBase';
 import { AuthenticateService } from '../services/AuthenticateService';
-import { TestController } from '../test/TestController';
 import { ACCESS_TOKEN, BEARER_TOKEN, JWT_PAYLOAD } from '../test/stubs/AuthStubs';
+import { TestController } from '../test/TestController';
 
 describe('JWTProtocol', () => {
   let request: SuperTest.SuperTest<SuperTest.Test>;

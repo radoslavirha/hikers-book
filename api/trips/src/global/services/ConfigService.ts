@@ -1,7 +1,7 @@
+import { resolve } from 'path';
 import { ConfigLoaderOptions, ConfigLoder, SwaggerDocConfig } from '@hikers-book/tsed-common/config';
 import { SwaggerDocsVersion, SwaggerSecurityScheme } from '@hikers-book/tsed-common/types';
 import { Injectable } from '@tsed/di';
-import { resolve } from 'path';
 import { ConfigModel } from '../models/ConfigModel';
 
 @Injectable()

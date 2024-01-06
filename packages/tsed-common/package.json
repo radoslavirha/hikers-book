@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "pnpm run barrels && npx tsc",
-    "barrels": "barrelsby --config .barrelsby.json",
+    "barrels": "barrelsby --config .barrelsby.json && eslint --fix src/**/index.ts",
     "format": "eslint --ext .ts --fix src",
     "lint": "eslint --ext .ts src",
     "test": "cross-env NODE_ENV=test jest",

@@ -22,11 +22,11 @@ import {
 import { ProviderGithubPair } from '../types';
 import { CryptographyUtils } from '../utils';
 import { JWTService } from './JWTService';
-import { ProtocolAuthService } from './ProtocolAuthService';
-import { RefreshTokenService } from './RefreshTokenService';
 import { CredentialsMongoService } from './mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from './mongo/EmailVerificationMongoService';
 import { UserMongoService } from './mongo/UserMongoService';
+import { ProtocolAuthService } from './ProtocolAuthService';
+import { RefreshTokenService } from './RefreshTokenService';
 
 describe('ProtocolAuthService', () => {
   let service: ProtocolAuthService;

@@ -1,9 +1,9 @@
 import { AT_PRIVATE_KEY, AT_PUBLIC_KEY, RT_PRIVATE_KEY, RT_PUBLIC_KEY } from '@hikers-book/tsed-common/stubs';
 import { TestMongooseContext } from '@tsed/testing-mongoose';
 import { createTransport } from 'nodemailer-mock';
-import { Server } from '../Server';
 import { KeysService } from '../auth/services/KeysService';
 import { NODEMAILER_TOKEN } from '../global/connections/InjectionToken';
+import { Server } from '../Server';
 
 // istanbul ignore next
 export class TestAuthenticationApiContext {

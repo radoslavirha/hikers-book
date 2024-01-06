@@ -1,6 +1,6 @@
 import Fs from 'fs';
-import { globSync } from 'glob';
 import path from 'path';
+import { globSync } from 'glob';
 
 export const copy = (): void => {
   const viewsSource = path.join(__dirname, '../../tsed-common/src/views/');

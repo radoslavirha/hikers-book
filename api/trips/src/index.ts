@@ -2,8 +2,8 @@ import { ConfigLoder } from '@hikers-book/tsed-common/config';
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { SwaggerSettings } from '@tsed/swagger';
-import { Server } from './Server';
 import { ConfigService } from './global/services/ConfigService';
+import { Server } from './Server';
 
 async function bootstrap() {
   try {

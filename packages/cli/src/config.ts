@@ -1,5 +1,5 @@
-import chalk from 'chalk';
 import Fs from 'fs';
+import chalk from 'chalk';
 import { mergeObjects } from 'json-merger';
 import logSymbols from 'log-symbols';
 import { CLIConfigOptions } from './types';

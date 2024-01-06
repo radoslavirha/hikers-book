@@ -5,10 +5,10 @@ import { TestAuthenticationApiContext } from '../../test/TestAuthenticationApiCo
 import { EmailVerifyTokenHandler } from '../handlers';
 import { EmailSendVerificationRequest, EmailSignUpRequest, EmailVerifyTokenRequest } from '../models';
 import { EmailService } from '../services/EmailService';
-import { ProtocolAuthService } from '../services/ProtocolAuthService';
-import { RefreshTokenService } from '../services/RefreshTokenService';
 import { CredentialsMongoService } from '../services/mongo/CredentialsMongoService';
 import { EmailVerificationMongoService } from '../services/mongo/EmailVerificationMongoService';
+import { ProtocolAuthService } from '../services/ProtocolAuthService';
+import { RefreshTokenService } from '../services/RefreshTokenService';
 import { CredentialsStub, EmailVerificationStub, TokensStub } from '../test/stubs';
 import { CryptographyUtils } from '../utils';
 import { AuthProviderEmailController } from './EmailController';
