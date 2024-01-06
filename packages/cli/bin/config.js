@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
-const chalk_1 = __importDefault(require("chalk"));
 const fs_1 = __importDefault(require("fs"));
+const chalk_1 = __importDefault(require("chalk"));
 const json_merger_1 = require("json-merger");
 const log_symbols_1 = __importDefault(require("log-symbols"));
 const config = (sourceFile, targetFile, options) => {

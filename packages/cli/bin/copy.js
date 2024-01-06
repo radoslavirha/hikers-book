@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.copy = void 0;
 const fs_1 = __importDefault(require("fs"));
-const glob_1 = require("glob");
 const path_1 = __importDefault(require("path"));
+const glob_1 = require("glob");
 const copy = () => {
     const viewsSource = path_1.default.join(__dirname, '../../tsed-common/src/views/');
     const viewsTarget = path_1.default.join(process.cwd(), 'views');
