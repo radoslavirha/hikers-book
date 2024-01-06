@@ -16,7 +16,7 @@ export class ConfigFile<T> extends BaseConfig<T> {
     } catch (errors) {
       if (Array.isArray(errors)) {
         for (const error of errors) {
-          $log.error(`Config file: ${error.keyword} ${error.message}`);
+          $log.error(`Config file: ${ error.keyword } ${ error.message }`);
         }
       }
       throw new Error('Invalid configuration!');

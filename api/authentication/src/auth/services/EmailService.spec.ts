@@ -38,7 +38,7 @@ describe('EmailService', () => {
       const sentMail = nodemailer.nodemailermock.mock.getSentMail();
 
       expect(platformViewsSpy).toHaveBeenCalledWith('email/verify', {
-        URL: `${config.config.frontend.url}/auth/invitation?token=token&email=email@domain.com`
+        URL: `${ config.config.frontend.url }/auth/invitation?token=token&email=email@domain.com`
       });
       expect(sentMail.length).toEqual(1);
       expect(sentMail[0]).toStrictEqual({

@@ -53,7 +53,7 @@ describe('BaseHandler', () => {
       await handler.execute({ test: 'test' });
     } catch (error) {
       expect(error).toEqual(new Error('test'));
-      expect(spy).toHaveBeenCalledWith(`Handler.execute() threw the following error! ${new Error('test')}`);
+      expect(spy).toHaveBeenCalledWith(`Handler.execute() threw the following error! ${ new Error('test') }`);
     }
   });
 });

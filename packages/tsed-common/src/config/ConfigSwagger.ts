@@ -28,13 +28,13 @@ export class ConfigSwagger extends BaseConfig<SwaggerSettings[]> {
 
   static generateSettings(options: ConfigSwaggerOptions, settings: SwaggerDocConfig): SwaggerSettings {
     return {
-      path: `/${settings.doc}/docs`,
+      path: `/${ settings.doc }/docs`,
       doc: settings.doc,
       specVersion: '3.0.3',
       outFile: settings.outFile,
       spec: <Partial<OpenSpec3>>{
         info: <OpenSpecInfo>{
-          title: `${options.title} - ${settings.doc}`,
+          title: `${ options.title } - ${ settings.doc }`,
           version: options.version,
           description: options.description
         },

@@ -23,12 +23,12 @@ export class CredentialsMongo extends BaseMongo {
 
   @Property()
   @Optional()
-  @Description(`User ID from auth provider. Not used by ${AuthProviderEnum.EMAIL} provider.`)
+  @Description(`User ID from auth provider. Not used by ${ AuthProviderEnum.EMAIL } provider.`)
   provider_id?: string;
 
   @Property()
   @Optional()
-  @Description(`Used only for ${AuthProviderEnum.EMAIL} provider.`)
+  @Description(`Used only for ${ AuthProviderEnum.EMAIL } provider.`)
   password?: string;
 
   @Ref(() => UserMongo)

@@ -1022,6 +1022,9 @@ importers:
 
   packages/jest:
     devDependencies:
+      '@hikers-book/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint
       '@jest/types':
         specifier: ^29.6.3
         version: 29.6.3

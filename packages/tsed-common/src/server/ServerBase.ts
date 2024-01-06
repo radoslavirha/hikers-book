@@ -26,7 +26,7 @@ export class BaseServer {
   protected settings!: Configuration;
 
   $onReady(): void {
-    $log.info(`${this.settings?.api?.service} ${this.settings?.api?.version} is ready!`);
+    $log.info(`${ this.settings?.api?.service } ${ this.settings?.api?.version } is ready!`);
   }
 
   protected registerMiddlewares(): void {

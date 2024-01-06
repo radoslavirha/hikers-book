@@ -34,14 +34,14 @@ describe('AuthenticateController - production', () => {
       jest.spyOn(refreshTokenService, 'verifyRefreshAndRemove').mockResolvedValue(RefreshTokenStub);
       jest.spyOn(refreshTokenService, 'createRefreshTokenAndSave').mockResolvedValue(TokensStub);
 
-      const response = await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
       expect(response.status).toEqual(200);
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=refresh;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=refresh;`));
     });
 
     it('Should clear cookies on error', async () => {
@@ -49,14 +49,14 @@ describe('AuthenticateController - production', () => {
         .spyOn(refreshTokenService, 'verifyRefreshAndRemove')
         .mockRejectedValue(new Unauthorized('Refresh token expired.'));
 
-      const response = await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
       expect(response.status).toEqual(401);
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=;`));
     });
   });
 
@@ -64,14 +64,14 @@ describe('AuthenticateController - production', () => {
     it('Should pass - clear cookies', async () => {
       jest.spyOn(refreshTokenService, 'verifyRefreshAndRemove').mockImplementation();
 
-      const response = await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
       expect(response.status).toEqual(200);
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=;`));
     });
 
     it('Should clear cookies on error', async () => {
@@ -79,14 +79,14 @@ describe('AuthenticateController - production', () => {
         .spyOn(refreshTokenService, 'verifyRefreshAndRemove')
         .mockRejectedValue(new Unauthorized('Refresh token expired.'));
 
-      const response = await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
       expect(response.status).toEqual(401);
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=;`));
     });
   });
 });

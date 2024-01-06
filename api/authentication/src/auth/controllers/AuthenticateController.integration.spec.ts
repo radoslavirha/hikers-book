@@ -30,7 +30,7 @@ describe('AuthenticateController', () => {
       const service = PlatformTest.get<JWTService>(JWTService);
       const access = await service.createAT(JWT_PAYLOAD);
 
-      const response = await request.get('/authenticate').set({ Authorization: `Bearer ${access}` });
+      const response = await request.get('/authenticate').set({ Authorization: `Bearer ${ access }` });
 
       expect(response.status).toEqual(200);
       expect(response.body).toEqual(JWT_PAYLOAD);
@@ -49,7 +49,7 @@ describe('AuthenticateController', () => {
     });
 
     it('Should pass and return 200', async () => {
-      const response = await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
@@ -60,7 +60,7 @@ describe('AuthenticateController', () => {
     it('Should call refreshTokenService.verifyRefreshAndRemove()', async () => {
       const spy = jest.spyOn(refreshTokenService, 'verifyRefreshAndRemove');
 
-      await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(REFRESH_TOKEN);
@@ -69,7 +69,7 @@ describe('AuthenticateController', () => {
     it('Should call refreshTokenService.createRefreshTokenAndSave()', async () => {
       const spy = jest.spyOn(refreshTokenService, 'createRefreshTokenAndSave');
 
-      await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       expect(spy).toHaveBeenCalledWith(RefreshTokenStub);
     });
@@ -77,7 +77,7 @@ describe('AuthenticateController', () => {
     it('Should call refreshTokenService.setRefreshCookie()', async () => {
       const spy = jest.spyOn(refreshTokenService, 'setRefreshCookie');
 
-      await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(expect.anything(), TokensStub.refresh);
@@ -89,7 +89,7 @@ describe('AuthenticateController', () => {
       });
       const spy = jest.spyOn(refreshTokenService, 'handleError');
 
-      await request.get('/refresh').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/refresh').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(expect.anything(), REFRESH_TOKEN);
@@ -106,7 +106,7 @@ describe('AuthenticateController', () => {
     });
 
     it('Should pass and return 200', async () => {
-      const response = await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      const response = await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       expect(response.statusCode).toBe(200);
     });
@@ -114,7 +114,7 @@ describe('AuthenticateController', () => {
     it('Should call refreshTokenService.unsetRefreshCookie()', async () => {
       const spy = jest.spyOn(refreshTokenService, 'unsetRefreshCookie');
 
-      await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(expect.anything());
@@ -123,7 +123,7 @@ describe('AuthenticateController', () => {
     it('Should call refreshTokenService.verifyRefreshAndRemove()', async () => {
       const spy = jest.spyOn(refreshTokenService, 'verifyRefreshAndRemove');
 
-      await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(REFRESH_TOKEN);
@@ -135,7 +135,7 @@ describe('AuthenticateController', () => {
       });
       const spy = jest.spyOn(refreshTokenService, 'handleError');
 
-      await request.get('/logout').set('Cookie', [`${CookieName.Refresh}=${REFRESH_TOKEN}`]);
+      await request.get('/logout').set('Cookie', [`${ CookieName.Refresh }=${ REFRESH_TOKEN }`]);
 
       // How to test this? Cannot have request instance
       expect(spy).toHaveBeenCalledWith(expect.anything(), REFRESH_TOKEN);

@@ -27,7 +27,7 @@ export class SignInComponent {
   signIn() {
     this.apiService
       .authProviderEmailControllerSignIn({
-        Authorization: `Basic ${btoa(`${this.signInForm.value.email}:${this.signInForm.value.password}`)}`
+        Authorization: `Basic ${ btoa(`${ this.signInForm.value.email }:${ this.signInForm.value.password }`) }`
       })
       .subscribe({
         next: (response) => {

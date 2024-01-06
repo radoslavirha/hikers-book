@@ -78,12 +78,12 @@ export class ProtocolAuthService {
 
   public redirectOAuth2Success(request: Req, tokens: TokensPair): void {
     this.refreshTokenService.setRefreshCookie(request, tokens.refresh);
-    return request.res?.redirect(`${this.configService.config.frontend.url}/auth/callback?access=${tokens.access}`);
+    return request.res?.redirect(`${ this.configService.config.frontend.url }/auth/callback?access=${ tokens.access }`);
   }
 
   public redirectOAuth2Failure(request: Req, error: ClientException): void {
     return request.res?.redirect(
-      `${this.configService.config.frontend.url}/auth/error?code=${(error as Forbidden).status}&message=${
+      `${ this.configService.config.frontend.url }/auth/error?code=${ (error as Forbidden).status }&message=${
         (error as Forbidden).message
       }`
     );
@@ -145,7 +145,7 @@ export class ProtocolAuthService {
       case AuthProviderEnum.GOOGLE:
         return this.getEmailFromOAuth2Profile({ provider, profile } as OAuth2ProviderPair);
       default:
-        throw new UnprocessableEntity(`Cannot get email from ${provider} profile.`);
+        throw new UnprocessableEntity(`Cannot get email from ${ provider } profile.`);
     }
   }
 
@@ -155,7 +155,7 @@ export class ProtocolAuthService {
       return profile.emails[0].value;
     }
 
-    throw new UnprocessableEntity(`Cannot get email from ${provider} profile.`);
+    throw new UnprocessableEntity(`Cannot get email from ${ provider } profile.`);
   }
 
   private getUserNameFromProfile(data: AuthProviderPair): string {
@@ -169,7 +169,7 @@ export class ProtocolAuthService {
       case AuthProviderEnum.GOOGLE:
         return profile.displayName;
       default:
-        throw new UnprocessableEntity(`Cannot get username from ${provider} profile.`);
+        throw new UnprocessableEntity(`Cannot get username from ${ provider } profile.`);
     }
   }
 
@@ -177,7 +177,7 @@ export class ProtocolAuthService {
     const invitation = await this.emailVerification.findByEmail(email);
 
     if (invitation) {
-      throw new Forbidden(`Email verification pending for ${email}!`);
+      throw new Forbidden(`Email verification pending for ${ email }!`);
     }
   }
 

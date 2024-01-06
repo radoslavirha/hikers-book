@@ -52,10 +52,10 @@ describe('AuthProviderEmailController - production', () => {
       const response = await request.post('/provider/email/sign-up').send(requestStub);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=refresh;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=refresh;`));
     });
   });
 
@@ -67,17 +67,17 @@ describe('AuthProviderEmailController - production', () => {
 
     it('Should return refresh cookie', async () => {
       jest.spyOn(authService, 'emailSignIn').mockResolvedValue(TokensStub);
-      const base64 = Buffer.from(`${requestStub.email}:${requestStub.password}`).toString('base64');
+      const base64 = Buffer.from(`${ requestStub.email }:${ requestStub.password }`).toString('base64');
 
       expect.assertions(1);
 
-      const response = await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
+      const response = await request.get('/provider/email/sign-in').set('Authorization', `Basic ${ base64 }`);
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=refresh;`));
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=refresh;`));
     });
   });
 });

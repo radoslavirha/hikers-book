@@ -151,7 +151,7 @@ describe('AuthProviderEmailController', () => {
 
       expect(response.status).toBe(403);
       expect(response.body.message).toEqual(
-        `User with email tester@domain.com is already registered with ${CredentialsStub.provider}!`
+        `User with email tester@domain.com is already registered with ${ CredentialsStub.provider }!`
       );
     });
 
@@ -331,11 +331,11 @@ describe('AuthProviderEmailController', () => {
 
     it('Should call authService.emailSignIn()', async () => {
       const spy = jest.spyOn(authService, 'emailSignIn').mockImplementation();
-      const base64 = Buffer.from(`${email}:${password}`).toString('base64');
+      const base64 = Buffer.from(`${ email }:${ password }`).toString('base64');
 
       expect.assertions(1);
 
-      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
+      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${ base64 }`);
 
       expect(spy).toHaveBeenCalledWith(email, password);
     });
@@ -343,11 +343,11 @@ describe('AuthProviderEmailController', () => {
     it('Should call authService.setRefreshCookie()', async () => {
       jest.spyOn(authService, 'emailSignIn').mockResolvedValue(TokensStub);
       const spy = jest.spyOn(refreshTokenService, 'setRefreshCookie').mockImplementation();
-      const base64 = Buffer.from(`${email}:${password}`).toString('base64');
+      const base64 = Buffer.from(`${ email }:${ password }`).toString('base64');
 
       expect.assertions(1);
 
-      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${base64}`);
+      await request.get('/provider/email/sign-in').set('Authorization', `Basic ${ base64 }`);
 
       expect(spy).toHaveBeenCalledWith(expect.anything(), TokensStub.refresh);
     });

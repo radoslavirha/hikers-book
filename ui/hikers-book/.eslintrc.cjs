@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   ignorePatterns: [
     '**/*generated.ts',
+    'src/app/api',
     'src/index.html'
   ],
   overrides: [

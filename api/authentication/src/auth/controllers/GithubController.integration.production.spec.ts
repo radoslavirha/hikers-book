@@ -58,12 +58,12 @@ describe('AuthProviderGithubController - production', () => {
       const response = await request.get('/provider/github/callback').query({ code: 'code' });
 
       const cookie = response.headers['set-cookie'].find((cookie: string) =>
-        cookie.startsWith(`${CookieName.Refresh}=`)
+        cookie.startsWith(`${ CookieName.Refresh }=`)
       );
 
       expect(response.status).toBe(302);
-      expect(response.header.location).toEqual(`${configService.config.frontend.url}/auth/callback?access=access`);
-      expect(cookie).toEqual(expect.stringContaining(`${CookieName.Refresh}=refresh;`));
+      expect(response.header.location).toEqual(`${ configService.config.frontend.url }/auth/callback?access=access`);
+      expect(cookie).toEqual(expect.stringContaining(`${ CookieName.Refresh }=refresh;`));
     });
   });
 });

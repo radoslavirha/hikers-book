@@ -51,7 +51,7 @@ export function createApollo(
       }
     }
     if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
+      console.log(`[Network error]: ${ networkError }`);
     }
   });
 

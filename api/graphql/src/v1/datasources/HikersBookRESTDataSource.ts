@@ -11,7 +11,7 @@ export class HikersBookRESTDataSource extends RESTDataSource {
   }
 
   cacheKeyFor(request: Request) {
-    return `${request.url}::${request.headers.get('Authorization')}`;
+    return `${ request.url }::${ request.headers.get('Authorization') }`;
   }
 
   async willSendRequest(request: RequestOptions) {
@@ -33,7 +33,7 @@ export class HikersBookRESTDataSource extends RESTDataSource {
   }
 
   private generateError(exception: ClientException): ApolloError {
-    const error = new ApolloError(`${exception.status}: ${exception.message}`, exception.name);
+    const error = new ApolloError(`${ exception.status }: ${ exception.message }`, exception.name);
 
     Object.assign(error.extensions, {
       response: {

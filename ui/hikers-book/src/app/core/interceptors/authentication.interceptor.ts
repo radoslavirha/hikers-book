@@ -1,7 +1,9 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
-import { authProviderEmailControllerSignIn } from '../../api/authentication/auth/fn/auth-provider-email-controller/auth-provider-email-controller-sign-in';
+import {
+  authProviderEmailControllerSignIn
+} from '../../api/authentication/auth/fn/auth-provider-email-controller/auth-provider-email-controller-sign-in';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()

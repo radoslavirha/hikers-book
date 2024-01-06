@@ -32,7 +32,7 @@ export class EmailSendVerificationHandler extends BaseHandler<EmailSendVerificat
 
     if (exist) {
       if (moment().isBefore(exist.expires_in)) {
-        throw new Forbidden(`Verification email already sent to ${body.email}!`);
+        throw new Forbidden(`Verification email already sent to ${ body.email }!`);
       }
 
       await this.emailVerificationService.delete(exist.id);

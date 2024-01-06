@@ -74,7 +74,7 @@ describe('CredentialsMapper', () => {
     const userId = '654d2193990714d40d22a554';
     const email = 'tester@domain.com';
 
-    it(`Should return credentials model from ${AuthProviderEnum.FACEBOOK} profile`, async () => {
+    it(`Should return credentials model from ${ AuthProviderEnum.FACEBOOK } profile`, async () => {
       expect.assertions(2);
 
       const credentials = mapper.modelFromAuthProfile(
@@ -97,7 +97,7 @@ describe('CredentialsMapper', () => {
       );
     });
 
-    it(`Should return credentials model from ${AuthProviderEnum.GITHUB} profile`, async () => {
+    it(`Should return credentials model from ${ AuthProviderEnum.GITHUB } profile`, async () => {
       expect.assertions(2);
 
       const credentials = mapper.modelFromAuthProfile(
@@ -120,7 +120,7 @@ describe('CredentialsMapper', () => {
       );
     });
 
-    it(`Should return credentials model from ${AuthProviderEnum.GOOGLE} profile`, async () => {
+    it(`Should return credentials model from ${ AuthProviderEnum.GOOGLE } profile`, async () => {
       expect.assertions(2);
 
       const credentials = mapper.modelFromAuthProfile(
@@ -143,7 +143,7 @@ describe('CredentialsMapper', () => {
       );
     });
 
-    it(`Should return credentials model from ${AuthProviderEnum.EMAIL} profile`, async () => {
+    it(`Should return credentials model from ${ AuthProviderEnum.EMAIL } profile`, async () => {
       expect.assertions(2);
 
       const credentials = mapper.modelFromAuthProfile(

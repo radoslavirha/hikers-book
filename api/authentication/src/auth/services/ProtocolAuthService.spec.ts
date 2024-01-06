@@ -128,6 +128,7 @@ describe('ProtocolAuthService', () => {
       expect(credentialsFindManyByEmailSpy).toHaveBeenCalledWith('tester@domain.com');
     });
 
+    // eslint-disable-next-line @stylistic/max-len
     it('Should create credentials - call createCredentialsAndUser() and emailVerification.deleteByEmail() and createJWT()', async () => {
       expect.assertions(3);
 
@@ -297,7 +298,7 @@ describe('ProtocolAuthService', () => {
 
       expect(cookie).toHaveBeenCalledWith(request, TokensStub.refresh);
       expect(redirect).toHaveBeenCalledWith(
-        `${configService.config.frontend.url}/auth/callback?access=${TokensStub.access}`
+        `${ configService.config.frontend.url }/auth/callback?access=${ TokensStub.access }`
       );
     });
   });
@@ -311,7 +312,7 @@ describe('ProtocolAuthService', () => {
       // @ts-expect-error types
       await service.redirectOAuth2Failure({ res: { redirect: spy } }, new Forbidden('Forbidden'));
 
-      expect(spy).toHaveBeenCalledWith(`${configService.config.frontend.url}/auth/error?code=403&message=Forbidden`);
+      expect(spy).toHaveBeenCalledWith(`${ configService.config.frontend.url }/auth/error?code=403&message=Forbidden`);
     });
   });
 
@@ -583,7 +584,7 @@ describe('ProtocolAuthService', () => {
   });
 
   describe('getEmailFromAuthProfile', () => {
-    it(`Should return email from ${AuthProviderEnum.FACEBOOK} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.FACEBOOK } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -595,7 +596,7 @@ describe('ProtocolAuthService', () => {
       expect(email).toEqual('tester@domain.com');
     });
 
-    it(`Should return email from ${AuthProviderEnum.GITHUB} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.GITHUB } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -607,7 +608,7 @@ describe('ProtocolAuthService', () => {
       expect(email).toEqual('tester@domain.com');
     });
 
-    it(`Should return email from ${AuthProviderEnum.GOOGLE} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.GOOGLE } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -619,7 +620,7 @@ describe('ProtocolAuthService', () => {
       expect(email).toEqual('tester@domain.com');
     });
 
-    it(`Should return email from ${AuthProviderEnum.EMAIL} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.EMAIL } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -645,7 +646,7 @@ describe('ProtocolAuthService', () => {
   });
 
   describe('getEmailFromOAuth2Profile', () => {
-    it(`Should return email from ${AuthProviderEnum.FACEBOOK} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.FACEBOOK } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -657,7 +658,7 @@ describe('ProtocolAuthService', () => {
       expect(email).toEqual('tester@domain.com');
     });
 
-    it(`Should return email from ${AuthProviderEnum.GITHUB} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.GITHUB } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -669,7 +670,7 @@ describe('ProtocolAuthService', () => {
       expect(email).toEqual('tester@domain.com');
     });
 
-    it(`Should return email from ${AuthProviderEnum.GOOGLE} profile`, async () => {
+    it(`Should return email from ${ AuthProviderEnum.GOOGLE } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -690,14 +691,14 @@ describe('ProtocolAuthService', () => {
       } catch (error) {
         expect((error as UnprocessableEntity).status).toBe(422);
         expect((error as UnprocessableEntity).message).toEqual(
-          `Cannot get email from ${AuthProviderEnum.GITHUB} profile.`
+          `Cannot get email from ${ AuthProviderEnum.GITHUB } profile.`
         );
       }
     });
   });
 
   describe('getUserNameFromProfile', () => {
-    it(`Should return username from ${AuthProviderEnum.FACEBOOK} profile`, async () => {
+    it(`Should return username from ${ AuthProviderEnum.FACEBOOK } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -709,7 +710,7 @@ describe('ProtocolAuthService', () => {
       expect(username).toEqual('Tester');
     });
 
-    it(`Should return username from ${AuthProviderEnum.GITHUB} profile`, async () => {
+    it(`Should return username from ${ AuthProviderEnum.GITHUB } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -721,7 +722,7 @@ describe('ProtocolAuthService', () => {
       expect(username).toEqual('Tester');
     });
 
-    it(`Should return username from ${AuthProviderEnum.GOOGLE} profile`, async () => {
+    it(`Should return username from ${ AuthProviderEnum.GOOGLE } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -733,7 +734,7 @@ describe('ProtocolAuthService', () => {
       expect(username).toEqual('Tester');
     });
 
-    it(`Should return username from ${AuthProviderEnum.EMAIL} profile`, async () => {
+    it(`Should return username from ${ AuthProviderEnum.EMAIL } profile`, async () => {
       expect.assertions(1);
 
       // @ts-expect-error private
@@ -829,7 +830,7 @@ describe('ProtocolAuthService', () => {
         expect(error).toBeInstanceOf(CredentialsAlreadyExist);
         expect((error as CredentialsAlreadyExist).status).toBe(403);
         expect((error as CredentialsAlreadyExist).message).toEqual(
-          `User with email tester@domain.com is already registered with ${AuthProviderEnum.EMAIL}!`
+          `User with email tester@domain.com is already registered with ${ AuthProviderEnum.EMAIL }!`
         );
       }
     });

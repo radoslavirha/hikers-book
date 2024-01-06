@@ -4,7 +4,9 @@
   "description": "ESLint/Prettier config for Hiker's Book",
   "main": "index.js",
   "scripts": {
-    "cleanup:modules": "rm -rf node_modules"
+    "cleanup:modules": "rm -rf node_modules",
+    "format": "eslint --ext .js --fix .",
+    "lint": "eslint --ext .js ."
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^6.10.0",

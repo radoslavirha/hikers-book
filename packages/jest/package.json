@@ -7,7 +7,9 @@
     "./coverage": "./coverage.ts"
   },
   "scripts": {
-    "cleanup:modules": "rm -rf node_modules"
+    "cleanup:modules": "rm -rf node_modules",
+    "format": "eslint --ext .ts --fix .",
+    "lint": "eslint --ext .ts ."
   },
   "engines": {
     "node": ">= 18.0.0",
@@ -18,6 +20,7 @@
     "linux"
   ],
   "devDependencies": {
+    "@hikers-book/eslint-config": "workspace:*",
     "@jest/types": "^29.6.3"
   }
 }

@@ -1,7 +1,7 @@
 import { BaseHandler } from '@hikers-book/tsed-common/handlers';
 import { Req } from '@tsed/common';
-import { Injectable } from '@tsed/di';
 import { RefreshTokenService } from '../services/RefreshTokenService';
+import { Injectable } from '@tsed/di';
 
 @Injectable()
 export class LogoutHandler extends BaseHandler<{ request: Req; refreshToken: string }, void> {

@@ -33,19 +33,19 @@ export class AuthenticationService {
   }
 
   public githubAuth(): void {
-    window.open(`${this.config.config.api.authentication}/auth/provider/github`, '_self', 'height=600,width=450');
+    window.open(`${ this.config.config.api.authentication }/auth/provider/github`, '_self', 'height=600,width=450');
   }
 
   public googleAuth(): void {
-    window.open(`${this.config.config.api.authentication}/auth/provider/google`, '_self', 'height=600,width=450');
+    window.open(`${ this.config.config.api.authentication }/auth/provider/google`, '_self', 'height=600,width=450');
   }
 
   public facebookAuth(): void {
-    window.open(`${this.config.config.api.authentication}/auth/provider/facebook`, '_self', 'height=600,width=450');
+    window.open(`${ this.config.config.api.authentication }/auth/provider/facebook`, '_self', 'height=600,width=450');
   }
 
   public refreshToken() {
-    return this.http.get(`${this.config.config.api.authentication}/auth/refresh`).pipe(
+    return this.http.get(`${ this.config.config.api.authentication }/auth/refresh`).pipe(
       map((data) => {
         // @ts-expect-error learn how to type it
         this.authenticate(data.access);
@@ -64,7 +64,7 @@ export class AuthenticationService {
   }
 
   public async logout(): Promise<void> {
-    this.http.get(`${this.config.config.api.authentication}/auth/logout`).subscribe({
+    this.http.get(`${ this.config.config.api.authentication }/auth/logout`).subscribe({
       next: () => {
         this.#isLoggedIn = false;
         this.#authErrorCode = undefined;

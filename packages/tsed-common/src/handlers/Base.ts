@@ -11,11 +11,11 @@ export abstract class BaseHandler<IRequest, IResponse> {
 
       const useCaseExecutionTime = endTime - startTime;
 
-      $log.info(`${this.constructor.name}.execute() took +${useCaseExecutionTime} ms to execute!`);
+      $log.info(`${ this.constructor.name }.execute() took +${ useCaseExecutionTime } ms to execute!`);
 
       return response;
     } catch (error) {
-      $log.error(`${this.constructor.name}.execute() threw the following error! ${error}`);
+      $log.error(`${ this.constructor.name }.execute() threw the following error! ${ error }`);
       throw error;
     }
   }

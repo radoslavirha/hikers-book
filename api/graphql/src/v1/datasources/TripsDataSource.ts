@@ -7,7 +7,7 @@ import { HikersBookRESTDataSource } from './HikersBookRESTDataSource';
 @DataSource(DataSourceName.TripsDataSource)
 export class TripsDataSource extends HikersBookRESTDataSource {
   constructor(configService: ConfigService) {
-    super(`${configService.config.apis.hikersBook.tripsAPI}/v1/trips`);
+    super(`${ configService.config.apis.hikersBook.tripsAPI }/v1/trips`);
   }
 
   async getTrips(): Promise<Trip[]> {

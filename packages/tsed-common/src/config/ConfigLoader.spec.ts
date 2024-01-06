@@ -80,13 +80,13 @@ describe('ConfigLoder', () => {
 
     expect(swaggerConfig).toEqual([
       {
-        path: `/${SwaggerDocsVersion.GLOBAL}/docs`,
+        path: `/${ SwaggerDocsVersion.GLOBAL }/docs`,
         doc: SwaggerDocsVersion.GLOBAL,
         specVersion: '3.0.3',
         outFile: undefined,
         spec: {
           info: {
-            title: `test - ${SwaggerDocsVersion.GLOBAL}`,
+            title: `test - ${ SwaggerDocsVersion.GLOBAL }`,
             version: expect.any(String),
             description: expect.any(String)
           },
@@ -103,13 +103,13 @@ describe('ConfigLoder', () => {
         options: {}
       },
       {
-        path: `/${SwaggerDocsVersion.V1}/docs`,
+        path: `/${ SwaggerDocsVersion.V1 }/docs`,
         doc: SwaggerDocsVersion.V1,
         specVersion: '3.0.3',
         outFile: 'swagger.json',
         spec: {
           info: {
-            title: `test - ${SwaggerDocsVersion.V1}`,
+            title: `test - ${ SwaggerDocsVersion.V1 }`,
             version: expect.any(String),
             description: expect.any(String)
           },

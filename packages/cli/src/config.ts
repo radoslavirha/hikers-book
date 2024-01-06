@@ -29,13 +29,13 @@ export const config = (sourceFile: string, targetFile: string, options: CLIConfi
       } else if (options.format === 'dotenv') {
         console.info(
           logSymbols.warning,
-          chalk.red(`Cannot merge missing entries for type ${options.format} in`),
+          chalk.red(`Cannot merge missing entries for type ${ options.format } in`),
           chalk.bgBlue(targetFile)
         );
       } else {
         console.info(
           logSymbols.warning,
-          chalk.red(`Cannot merge unsupported type ${options.format} in`),
+          chalk.red(`Cannot merge unsupported type ${ options.format } in`),
           chalk.bgBlue(targetFile)
         );
       }
@@ -43,7 +43,7 @@ export const config = (sourceFile: string, targetFile: string, options: CLIConfi
       console.error(logSymbols.error, chalk.red(error), chalk.bgBlue(targetFile));
     }
   } else {
-    console.info(logSymbols.info, chalk.cyan(`Creating ${options.format}`), chalk.bgBlue(targetFile));
+    console.info(logSymbols.info, chalk.cyan(`Creating ${ options.format }`), chalk.bgBlue(targetFile));
     try {
       Fs.writeFileSync(targetFile, Fs.readFileSync(sourceFile, 'utf8'), 'utf8');
 

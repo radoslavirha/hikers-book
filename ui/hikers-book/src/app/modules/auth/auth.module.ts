@@ -7,7 +7,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { APIAuthenticationAuthConfiguration } from '../../api/authentication/auth/api-authentication-auth-configuration';
+import {
+  APIAuthenticationAuthConfiguration
+} from '../../api/authentication/auth/api-authentication-auth-configuration';
 import { APIAuthenticationAuthModule } from '../../api/authentication/auth/api-authentication-auth.module';
 import { ConfigService } from '../../core/services/config.service';
 import { AuthRoutingModule } from './auth-routing.module';

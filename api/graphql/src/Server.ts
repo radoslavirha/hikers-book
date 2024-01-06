@@ -23,7 +23,8 @@ import * as v1Resolvers from './v1/resolvers';
       },
       serverConfig: {
         async context(ctx) {
-          // No authorization on GraphQL, just extract token and pass to request, other microservicess will handle authorization
+          // No authorization on GraphQL, just extract token and pass to request,
+          // other microservicess will handle authorization
           const token = ctx?.req?.headers?.authorization;
 
           // will be accessible in datasource as this.context.token

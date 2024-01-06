@@ -9,10 +9,10 @@ export class AuthenticateService {
 
   public async authenticate(token: string): Promise<JWTAuthenticationResponse> {
     const response = await axios.get<JWTAuthenticationResponse>(
-      `${this.settings?.configFile?.apis?.hikersBook?.authenticationAPI}/auth/authenticate`,
+      `${ this.settings?.configFile?.apis?.hikersBook?.authenticationAPI }/auth/authenticate`,
       {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${ token }`
         }
       }
     );
